@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Стенд приёмки анимаций, FX и баланса — Битва титанов &amp; Titan Idols</title>
+  <link rel="icon" type="image/webp" href="assets/ui/kitsune-port.webp">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- 1. ВЕРХНЯЯ ПАНЕЛЬ: ПЕРЕКЛЮЧАТЕЛЬ БОГОВ И МЕТРИКИ -->
+    <header class="top-bar">
+      <div class="top-row-1">
+        <div class="brand-wrap">
+          <span class="brand-title">Стенд 3 арен: Битва титанов &amp; Titan Idols</span>
+          <div class="stage-tabs" role="tablist" aria-label="Разделы богов">
+            <button class="stage-tab active" id="tabExisting" type="button">Существующие боги (Пилот: 1)</button>
+            <button class="stage-tab locked" id="tabNew10" type="button" title="Откроется на Этапе 4Б после приёмки первых пятёрок">10 новых богов «под ключ» (Этап 4Б)</button>
+          </div>
+        </div>
+        <div class="god-roster" id="godRoster"></div>
+      </div>
+
+      <div class="top-row-2">
+        <div class="metrics-line" id="metricsLine"></div>
+        <div class="toggles-wrap">
+          <div class="seg-group" role="group" aria-label="Качество спрайта">
+            <span class="seg-label">Листы:</span>
+            <button class="seg-btn active" data-tier="mob" type="button">mob (204 px)</button>
+            <button class="seg-btn" data-tier="lite" type="button">lite (×0.7)</button>
+          </div>
+          <div class="seg-group" role="group" aria-label="Тест разрешения генерации на супере">
+            <span class="seg-label">Тест sup:</span>
+            <button class="seg-btn active" data-res="720p" type="button">720p (эталон)</button>
+            <button class="seg-btn" data-res="360p" type="button">360p (−67% токенов)</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2. ЦЕНТР ЭКРАНА: 3 МИНИ-АРЕНЫ СТРОГО В ОДИН РЯД -->
+    <main class="arenas-grid" id="arenasGrid">
+      <!-- Заполняется скриптом app.js для 3 арен: live_bt, new_bt, new_ti -->
+    </main>
+
+    <!-- 3. ЧЕТЫРЕ СИНХРОННЫЕ КНОПКИ УМЕНИЙ -->
+    <nav class="controls-bar" aria-label="Управление умениями">
+      <button class="skill-btn active" data-slot="idle" type="button">
+        <span class="key-tag">IDLE</span>
+        <span>Ожидание</span>
+      </button>
+      <button class="skill-btn" data-slot="atk" type="button">
+        <span class="key-tag">ATK</span>
+        <span id="btnAtkLabel">Обычное умение</span>
+      </button>
+      <button class="skill-btn" data-slot="sup" type="button">
+        <span class="key-tag">SUP</span>
+        <span id="btnSupLabel">Суперумение</span>
+      </button>
+      <button class="skill-btn" data-slot="hyp" type="button">
+        <span class="key-tag">HYP</span>
+        <span id="btnHypLabel">Ульта</span>
+      </button>
+
+      <div class="playback-meta">
+        <button class="auto-btn" id="btnAutoCycle" type="button" title="Автоматически повторять выбранное боевое умение">↻ Автоповтор: Выкл</button>
+        <span class="frame-readout" id="frameReadout">Кадр 01/25</span>
+      </div>
+    </nav>
+
+    <!-- 4. ДВА ТЕКСТОВЫХ БЛОКА ПОД КНОПКАМИ: УМЕНИЕ/FX И БАЛАНС НА КАПЕ -->
+    <section class="verdicts-grid" aria-label="Разбор умения, FX и баланса">
+      <article class="verdict-card" id="blockFx">
+        <div class="verdict-head">
+          <span class="verdict-label" id="fxTitle">Блок А — Умение и программный эффект (FX)</span>
+          <span class="status-pill keep" id="fxBadge">Бесшовный цикл</span>
+        </div>
+        <div class="verdict-body" id="fxBody"></div>
+      </article>
+
+      <article class="verdict-card" id="blockBalance">
+        <div class="verdict-head">
+          <span class="verdict-label" id="balTitle">Блок Б — Баланс на максимальной прокачке (XX★5)</span>
+          <span class="status-pill balanced" id="balBadge">В балансе (2 точечные правки)</span>
+        </div>
+        <div class="verdict-body" id="balBody"></div>
+      </article>
+    </section>
+  </div>
+
+  <script src="gods-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
