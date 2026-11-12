@@ -7620,6 +7620,26 @@ im.onload = () => { r.ok = true; };
 im.src = url;
 W.imgs.set(url, r);
 } return r.ok ? r.im : null; }
+/* Hand-off (Maxim 27.10 / 12.11): a baked sheet effect that is cut by the frame edge is continued outward
+   by the engine's own particles, in the colour sampled from the sheet, starting on the frame it reaches the edge. */
+function hoEmit(F, u, A, dur) {
+const ho = A.ho, n = Math.max(1, (A.frames || 25) - 1), col = ho.col || '#ffffff';
+const EDGE = { top: [0, -1], bottom: [0, 1], left: [-1, 0], right: [1, 0] };
+for (const k in EDGE)
+for (const [i, pos, str] of ho[k] || [])
+F.at(i / n * dur + .001, () => {
+const fr = frameOf(u);
+if (!fr || !fr.atk)
+return;
+const [nx, ny] = EDGE[k];
+const x = k === 'left' ? fr.x : k === 'right' ? fr.x + fr.w : fr.x + pos * fr.w;
+const y = k === 'top' ? fr.y : k === 'bottom' ? fr.y + fr.h : fr.y + pos * fr.h;
+const m = 1 + Math.round(str * 2);
+for (let j = 0; j < m; j++)
+F.p({ x: x + F.rnd(-3, 3) * Math.abs(ny), y: y + F.rnd(-3, 3) * Math.abs(nx), vx: nx * F.rnd(55, 110) + F.rnd(-10, 10), vy: ny * F.rnd(55, 110) + F.rnd(-10, 10), ay: ny < 0 ? -20 : 0, drag: 1.4, life: F.rnd(.32, .55), s0: F.rnd(2.2, 3.6), s1: .6, tex: 'ember', col, stretch: .05 });
+F.p({ x, y, vx: nx * 40, vy: ny * 40, drag: 1, life: .3, s0: 9 + 8 * str, s1: 4, tex: 'glow', col, a0: .28 });
+});
+}
 function frameOf(u) {
 const gu = u && u.gu, fig = gu && gu.fig;
 if (!fig || !fig.isConnected)
@@ -7681,6 +7701,8 @@ const rt = relTrue(u.gu, kind, A), dur = clamp(hitAt / rt, .3, 1.7);
 at = dur * A.rel;
 if (u === this.focus && F)
 (F.sheetT || (F.sheetT = {}))[kind] = { t0: this.t, dur, rel: rt, frames: A.frames || 25 };
+if (u === this.focus && F && A.ho)
+hoEmit(F, u, A, dur);
 }
 play(u.gu, kind, at);
 },
@@ -30999,7 +31021,7 @@ cast(F, e) {
 F.st.playAnim(e.u, 'atk', REL_SHOT);
 F.atkGlowNew(e.u);
 nfLanterns(F, 1.2, { skip: 'a', skipAt: REL_SHOT });
-F.at(REL_SHOT, () => { const P = nfPt(F, 'a'); F.flash(P.x, P.y, 14, '#7fd0ff', { dur: .2 }); nfFoxShot(F, P, F.tc(e.tgt, .42), T_WIND + T_HEAL - REL_SHOT, { arc: -26, wob: 18, r: 10, ts: 1.2, onHit: (x, y) => nfFoxBurst(F, x, y, 1.2) }); });
+F.at(REL_SHOT, () => { const P = nfPt(F, 'a'); F.flash(P.x, P.y, BR.isProposed ? 9 : 14, '#7fd0ff', { dur: .2, k: BR.isProposed ? .55 : 1 }); nfFoxShot(F, P, F.tc(e.tgt, .42), T_WIND + T_HEAL - REL_SHOT, { arc: -26, wob: 18, r: 10, ts: 1.2, onHit: (x, y) => nfFoxBurst(F, x, y, 1.2) }); });
 nfFoxDecoys(F);
 },
 },
@@ -31014,7 +31036,20 @@ nfFoxDecoys(F);
 sup(F, e) {
 F.supDrawn = true;
 const P = nfPt(F, 's'), sides = [nfPt(F, 'a'), nfPt(F, 'r')];
-F.flash(P.x, P.y, 16, '#7fd0ff', { dur: .18 });
+// 12.11: sheet where the tails gather into one bundle and a beam leaves through the top of the frame:
+// the engine continues that beam above the frame, it blooms over her head and splits into fox-fires for every enemy
+const fr0 = BR.isProposed && F.st.frameOf ? F.st.frameOf(F.st.focus) : null, A0 = fr0 && fr0.atk ? BR.animOf(BR.SHEETS_SUP, F.st.focus.gu) : null;
+const tp = A0 && A0.ho && A0.ho.top && A0.ho.top.length >= 3 ? A0.ho.top : null;
+if (tp) {
+const bx = fr0.x + fr0.w * tp.reduce((q, v) => q + v[1], 0) / tp.length, by0 = fr0.y + 4, by1 = fr0.y - Math.min(30, fr0.h * .3), O = { x: bx, y: by1 };
+F.beam(bx, by0, bx, by1, { col: '#6ec8ff', core: '#e8f8ff', w: 3, dur: .5, grow: .05 });
+F.flash(bx, by1, 8, '#7fd0ff', { dur: .2, k: .5 });
+for (let i = 0; i < 7; i++)
+F.at(i * .05, () => F.p({ x: bx + F.rnd(-2, 2), y: by1 + F.rnd(-2, 2), vx: F.rnd(-22, 22), vy: F.rnd(-30, -8), ay: -20, drag: 2, life: F.rnd(.25, .4), s0: F.rnd(5, 8), s1: 1.5, tex: nfTx.tongue(), ramp: NF_FOX, hot: true }));
+e.targets.forEach(t => nfFoxShot(F, O, F.tc(t, .42), FLY_S + .01, { arc: -14, wob: 8, r: 7, ts: .8, ease: 'linear', onHit: (x, y) => nfFoxBurst(F, x, y, .9) }));
+return;
+}
+F.flash(P.x, P.y, BR.isProposed ? 9 : 16, '#7fd0ff', { dur: .18, k: BR.isProposed ? .5 : 1 });   // 12.11: the new sheet already lights its own flames; Maxim found the flash too bright
 e.targets.forEach((t, i) => { const from = i === 0 ? P : sides[i % 2]; nfFoxShot(F, from, F.tc(t, .42), FLY_S + .01, { arc: -20, wob: 8, r: 7, ts: .8, ease: 'linear', onHit: (x, y) => nfFoxBurst(F, x, y, .9) }); });
 },
 hit(F, e) { return 'default'; },
