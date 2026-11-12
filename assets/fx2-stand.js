@@ -6584,8 +6584,15 @@ anticip(u, kind, rel, R, e) {
 const big = kind === 'h';
 if (!R.noCharge)
 this.at(rel * .6, () => this.charge(this.wp(kind), rel * .38, { col: this.pal.c, n: big ? 12 : 8, r: big ? 24 : 18, s: big ? 13 : 10 }));
-if (R.anticip)
+if (R.anticip) {
+const A9 = BR.isProposed && u.gu ? BR.animOf(kind === 's' ? BR.SHEETS_SUP : BR.SHEETS_HYP, u.gu) : null;
+if (A9 && A9.isNewSheet && BR.OLD_SIG && BR.OLD_SIG.has(u.hid)) {
+const at0 = this.at, me = this, tr = .5;
+this.at = function (dt, fn) { return at0.call(me, dt >= tr - .22 && dt < tr - .015 ? tr - .012 + (dt - (tr - .22)) * .05 : dt, fn); };
+try { R.anticip.call(this, this, u, kind, rel, e); } finally { delete this.at; }
+} else
 R.anticip.call(this, this, u, kind, rel, e);
+}
 const k2 = kind === 's' ? 'sup' : 'hyp';
 if (this.light && this.light.kind === k2 && (!u.mask || !u.mask.keep))
 u.mask = Object.assign({ e: [] }, u.mask || {}, { kind: k2, from: 0, to: 999, keep: this.light.keep });
@@ -7406,6 +7413,7 @@ const ST_GOOD = new Set(['haste', 'dr', 'hide', 'dodge', 'refl', 'thorn', 'terro
 const ST_BAD = new Set(['slow', 'stall', 'vuln', 'hb', 'sb', 'crd', 'force', 'hxDn']);
 const MARK_GOOD = { prophecy: 1, copy: 1, clone: 1, valh: 1, labor: 1, soul: 1, bloodlust: 1, victim: 0 };
 const OLD = new Set(["agni", "amaterasu", "anansi", "anubis", "aoguang", "apollo", "ares", "artemis", "athena", "demeter", "freya", "freyr", "gaia", "hades", "hecate", "heimdall", "hel", "hephaestus", "horus", "houyi", "indra", "inti", "isis", "kali", "loki", "mazu", "mictlan", "odin", "osiris", "pachamama", "pangu", "pele", "poseidon", "prometheus", "quetzalcoatl", "ra", "sekhmet", "set", "shango", "shiva", "surt", "susanoo", "thor", "varuna", "veles", "wukong", "zeus"]);
+BR.OLD_SIG = OLD;   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
 const own = gu => godOk(gu) && recipe(gu.hid) && !!(BR.SHEETS_V2[gu.hid] || BR.all) && (!BR.only || BR.only.has(gu.hid));
@@ -7709,6 +7717,10 @@ if (kind === 'atk' && act.k === 'a' && F && F.meleeAt)
 hitAt = T_MELEE - .02;
 }
 const A = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
+// 12.11 Maxim (batch 3): "first the game effect, then the baked burst". The old signatures launch their effect at .5 s
+// (written for the old sheets), the new sheet reached its release at .6 s. Bring the baked release to the script.
+if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && hitAt > .5 && BR.OLD_SIG && BR.OLD_SIG.has(u.hid))
+hitAt = .5;
 let at = hitAt;
 if (A && A.rel && hitAt) {
 const rt = relTrue(u.gu, kind, A), dur = clamp(hitAt / rt, .3, 1.7);

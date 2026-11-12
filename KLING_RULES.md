@@ -106,3 +106,39 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 - A projectile drawn by Kling in the wrong direction (e.g. a bolt flying down) is removed with `skip`; the game
   draws the real one from `wf`.
 - Retakes are overwritten under the same clip name; the first take is kept in `b3/take1/`.
+
+## Added 12.11 (night) after Maxim's review of batch 3 — binding
+
+- **Body quality is never traded for effects.** A wide effect (wings, rings) must not make the frame wider so that
+  the body is stored smaller. If a clip's body comes out smaller than in the god's other action sheets, the clip
+  is a reject: retake it compact (e.g. wings tall and narrow, not spread). Check with `b3/margins.py` + the body
+  table (bodyPx action / bodyPx idle). Do not invent quality trade-offs — ask Maxim.
+- **Idle = slow and smooth only.** No sharp or fast arm moves (they read as an attack), the weapon is never raised
+  or aimed, no effects overkill. The feet must step. The body must not rotate like a figurine on a stand.
+- **Weapon never at full arm's length** to the side or above the head: it leaves the frame and stays cut for a
+  second. Bent arm, lean back; a staff rises at most a little above the head, or the god kneels with the staff in
+  hand. Tall-weapon gods get the roomier canvas `tight/<god>_<style>_mid.png` (figure 80%, +10% head-room).
+- **Never aim sideways** — allies stand left and right, it looks like shooting an ally. Aim up; muzzle/tip well
+  inside the frame, the flash must not be cut.
+- **No bursts in all directions** that reach every frame edge (the whole frame border becomes visible). Effects stay
+  compact around the weapon/hand.
+- **Sync.** The game effect must not start before the baked burst, damage must not fly before the shot, and the
+  origin is the weapon (not the head, not the feet). Check every action on the stand frame by frame.
+- **The game projectile must look like the thing**: an arrow like an arrow, a thrown bottle like a bottle. A small
+  "droplet" is not acceptable for heals either.
+- **No unused space.** Sheet frames are cropped to what is really used over the 25 frames (`b3/margins.py` shows
+  the unused %); keep the margin at 2 px. What Maxim sees with margins is the Kling source video, not the sheet.
+- Skills of one god must not shrink the figure on screen (Van Helsing TI super looked shorter because a glow on
+  the ground was measured as "feet"): no ground glow under the feet unless it is the skill itself.
+
+## Added 13.11 — Maxim, binding: do not move the agreed limits
+
+- **Only the tight input canvas** (`tight/<god>_<style>_tight.png`). The roomier `_mid` / `_loose` / `_tall` canvases
+  used in the rework pass of 13.11 were MY deviation and Maxim rejected it ("we chose the size; if it does not fit,
+  you must make the animation fit, not move the borders"). Do not use them again. If a weapon or effect does not
+  fit: change the motion (bent arm, lean back, kneel, lower the weapon) and retake — never enlarge the canvas,
+  never store the body smaller, never store a bigger frame.
+- The sheet limits are fixed: <= 180x220 (mob), 4 sheets <= the live god's weight, body size = the god's usual size
+  (adapter override `body_min`, written by the pass from `b3/body_min.json`). The adapter crops an oversized effect
+  softly instead of shrinking the body (`crop` in the metrics) — that is a safety net, not a licence for wide effects.
+- When anything "does not work", do not quietly change an agreed rule to make it work — tell Maxim and ask.
