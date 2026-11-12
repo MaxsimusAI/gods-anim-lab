@@ -141,3 +141,27 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
   (adapter override `body_min`, written by the pass from `b3/body_min.json`). The adapter crops an oversized effect
   softly instead of shrinking the body (`crop` in the metrics) — that is a safety net, not a licence for wide effects.
 - When anything "does not work", do not quietly change an agreed rule to make it work — tell Maxim and ask.
+
+## Added 13.11 (2) after Maxim's review of v16 — binding
+
+- **Every hit must show who hits whom.** 5 allies and 5 enemies act at once; a weapon swung in place plus a number
+  over some enemy is unreadable. Melee-looking basics (spear, sword, sickle swing) LEAP to the enemy, strike there and
+  return (stand: `BR.LEAP_NEW`; support gods whose basic is a buff `cast` leap to the enemy of their auxiliary shot).
+  Ranged basics send a clearly visible projectile from the weapon to the target. Buffs: something visibly flies from
+  the god to the allies. Before making a clip decide which of the three it is and write it in the notes.
+- **The game effect and the baked motion are one gesture.** If the game draws a bottle, the god tosses a bottle in the
+  clip and the game's bottle starts exactly where the baked one leaves (hand / top edge). A glow at the chest plus a
+  bottle appearing above the head = reject. Same for arrows, bolts, orbs.
+- **Instant bolts (Zeus, Indra and similar `proj: 'bolt'` basics)** are drawn by the game at the hit moment (~0.67 s),
+  not at the release (.385 s). `playAnim` cannot stretch a k=5 sheet that far (total duration is clamped to 1.7 s), so
+  these sheets are built with the release at sheet frame **k=12**: frames 0-12 = raise + charge (weapon already up and
+  crackling), frame 12 = the bolt leaves from the raised weapon, then the follow-through. The weapon must still be
+  raised at the release frame.
+- **"Not sideways" does not mean "only up".** A gun/crossbow may point up OR toward the viewer with a blank shot
+  (smoke puff, glint; Blackbeard is the model) — just never at the neighbours left/right.
+- **Recoil and body motion are proportionate.** A crossbow or rifle gives a small shoulder kick, not a full-body lunge.
+- **Both styles get the same richness.** If the TI clip has spirals/ribbons/auras and the BT clip only a small glow,
+  the BT clip is a reject. Compare the two rows of the time series before publishing.
+- **"Fixed" means seen, not assumed.** After any timing/FX change run `b3/seq.py out.jpg <god> <slot>` (time series of
+  the action on the stand, BT row + TI row) and look at it. Never report a fix that was not looked at in the series.
+- Empty space: checked with `b3/margins2.py` (union of all 25 frames). Margins above 2-3 px on a sheet = re-adapt it.

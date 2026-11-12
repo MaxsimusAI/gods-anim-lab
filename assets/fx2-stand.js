@@ -1,5 +1,6 @@
 /* FX2 — «Кузница» в бою (собрано tools/fx2/build.mjs 2026-10-24; исходники: docs/pantheon-final/src-live/src, tools/fx2). Не править руками. */
 window.__fx2Boot = function (BR) {
+const BRG = BR;   // the stand object under a name that inner blocks do not shadow
 const TAU = Math.PI * 2;
 const clamp = (x, a, b) => x < a ? a : x > b ? b : x;
 const lerp = (a, b, t) => a + (b - a) * t;
@@ -7413,7 +7414,10 @@ const ST_GOOD = new Set(['haste', 'dr', 'hide', 'dodge', 'refl', 'thorn', 'terro
 const ST_BAD = new Set(['slow', 'stall', 'vuln', 'hb', 'sb', 'crd', 'force', 'hxDn']);
 const MARK_GOOD = { prophecy: 1, copy: 1, clone: 1, valh: 1, labor: 1, soul: 1, bloodlust: 1, victim: 0 };
 const OLD = new Set(["agni", "amaterasu", "anansi", "anubis", "aoguang", "apollo", "ares", "artemis", "athena", "demeter", "freya", "freyr", "gaia", "hades", "hecate", "heimdall", "hel", "hephaestus", "horus", "houyi", "indra", "inti", "isis", "kali", "loki", "mazu", "mictlan", "odin", "osiris", "pachamama", "pangu", "pele", "poseidon", "prometheus", "quetzalcoatl", "ra", "sekhmet", "set", "shango", "shiva", "surt", "susanoo", "thor", "varuna", "veles", "wukong", "zeus"]);
-BR.OLD_SIG = OLD;   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
+BR.OLD_SIG = OLD;
+BR.boltSync = u => !!(BR.isProposed && u && u.gu && (BR.animOf(BR.SHEETS_ATK, u.gu) || {}).isNewSheet);
+BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill release time of the NEW sheets (s after the cast starts)
+BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
 const own = gu => godOk(gu) && recipe(gu.hid) && !!(BR.SHEETS_V2[gu.hid] || BR.all) && (!BR.only || BR.only.has(gu.hid));
@@ -7715,7 +7719,11 @@ if (u === this.focus) {
 act.played = true;
 if (kind === 'atk' && act.k === 'a' && F && F.meleeAt)
 hitAt = T_MELEE - .02;
+if (kind === 'atk' && act.leapAt)
+hitAt = act.leapAt;   // the strike frame lands when the leap arrives
 }
+if (BR.isProposed && BR.REL_NEW && BR.REL_NEW[u.hid + ':' + kind] && (BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) || {}).isNewSheet)
+hitAt = BR.REL_NEW[u.hid + ':' + kind];
 const A = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
 // 12.11 Maxim (batch 3): "first the game effect, then the baked burst". The old signatures launch their effect at .5 s
 // (written for the old sheets), the new sheet reached its release at .6 s. Bring the baked release to the script.
@@ -8039,6 +8047,8 @@ if (!e.aux)
 FX2_EVENTS.intent(act.F, e, VUof);
 if (t === 'shoot' && e.aux) {
 act.aux = 1;
+if (BR._auxSkip && BR._auxSkip.has(e))
+return 2;   // the god leaps to this enemy instead of sending a tiny orb
 auxShot(act, e);
 return 2;
 }
@@ -8051,10 +8061,24 @@ fe.sup = { name: nm.name || '', kind: fx === 'multi' ? 'multi' : SUP_KIND[fx] ||
 else
 fe.hyp = { name: nm.name || '', kind: HYP_KIND[fx] || fx || 'annihilate' };
 }
+// 13.11 Maxim: a spear swung in place does not tell who is being hit. Melee-looking basics on the new sheets leap to the
+// enemy: a plain 'shoot' leaps to its target; a support 'cast' (buff to an ally) leaps to the enemy of its auxiliary shot.
+const leapOk = BR.isProposed && !e.aux && e.fx !== 'mad' && BR.LEAP_NEW && BR.LEAP_NEW.has(gu.hid) && (BR.animOf(BR.SHEETS_ATK, gu) || {}).isNewSheet;
+const axNew = leapOk && t === 'cast' && batch && batch.find ? batch.find(x => x && x.type === 'shoot' && x.aux && x.u === e.u && x.tgt && x.tgt !== e.u) : null;
+const leapNew = !!axNew || leapOk && t === 'shoot';
+let leapTgt = null;
+if (leapNew) {
+const le = axNew || e;
+act.leapAt = (le.windup || 0) + (le.dur || .3);
+leapTgt = VUof(le.tgt);
+if (axNew)
+(BR._auxSkip || (BR._auxSkip = new WeakSet())).add(axNew);
+}
 emit(act, e, fe);
-const leapShot = t === 'shoot' && !e.aux && LEAP_SHOOT.has(gu.hid);
-if ((t === 'lunge' || leapShot) && fe.tgt && fe.tgt !== act.vu && act.F.finLeap && !(act.F.R && act.F.R.noLeap))
-run(act, () => act.F.finLeap(act.vu, fe.tgt, act.F.t + (leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42)));
+const leapShot = leapNew || t === 'shoot' && !e.aux && LEAP_SHOOT.has(gu.hid);
+const lTgt = leapTgt || fe.tgt;
+if ((t === 'lunge' || leapShot) && lTgt && lTgt !== act.vu && act.F.finLeap && !(act.F.R && act.F.R.noLeap))
+run(act, () => act.F.finLeap(act.vu, lTgt, act.F.t + (leapNew ? act.leapAt : leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42)));
 if (!act.played)
 play(gu, k === 'a' ? 'atk' : k === 's' ? 'sup' : 'hyp', k === 'a' ? act.melee ? REL_MELEE : REL_SHOT : REL_SUP);
 if (k === 'a' && t !== 'lunge')
@@ -20810,9 +20834,11 @@ a: {
 proj: 'bolt', col: '#9fd8ff', hitMotif: 'storm',
 shoot(F, e) {
 const u = e.u;
-F.st.playAnim(u, 'atk', REL_SHOT);
-F.atkGlowNew(u);
 const h1 = K1.ev(F, x => x.type === 'hit' && x.u === e.tgt && x.by === u)[0], tHit = h1 ? h1.t : typeof FX2_EVENTS !== 'undefined' ? FX2_EVENTS.impact(F, e.tgt, T_WIND + T_FLY) : T_WIND + T_FLY;
+const NS = BR.boltSync(u);   // new sheet: the release frame lands on the bolt itself, the charge is baked into the wind-up
+F.st.playAnim(u, 'atk', NS ? Math.max(REL_SHOT, tHit - .03 - F.t) : REL_SHOT);
+F.atkGlowNew(u);
+if (!NS)
 F.at(REL_SHOT, () => K1.crackle(F, F.wp('a'), tHit - REL_SHOT - .03, '#9fd8ff'));
 F.at(Math.max(0, tHit - .03 - F.t), () => { const h = F.wp('a'), p = F.tc(e.tgt, .42); F.bolt(h.x, h.y, p.x, p.y, { col: '#9fd8ff', w: 1.25, dur: .3, branches: 3, rough: .2 }); F.flash(h.x, h.y, 18, '#9fd8ff', { dur: .18 }); });
 },
@@ -21020,11 +21046,12 @@ a: {
 proj: 'bolt', col: '#ffe6a0', hitMotif: 'storm',
 shoot(F, e) {
 const u = e.u;
-F.st.playAnim(u, 'atk', REL_SHOT);
+const NS = BR.boltSync(u), H0 = K1.ev(F, x => x.type === 'hit' && x.u === e.tgt && x.by === u)[0];
+F.st.playAnim(u, 'atk', NS ? Math.max(REL_SHOT, H0 ? K1.dt(F, H0, .03) : T_WIND + T_FLY - .03) : REL_SHOT);
 F.atkGlowNew(u);
 K1.ev(F, x => x.type === 'hit' && x.u === e.tgt && x.by === u).forEach((x, i) => {
 const lead = i ? .24 : x.t - REL_SHOT;
-F.at(K1.dt(F, x, lead), () => { K1.crackle(F, F.wp('a'), lead - .04, '#ffe6a0', true); if (i)
+F.at(K1.dt(F, x, lead), () => { if (!NS || i) K1.crackle(F, F.wp('a'), lead - .04, '#ffe6a0', true); if (i)
 F.sigil('vajra', F.wp('a').x, F.wp('a').y, 9, '#ffe6a0', { dur: .3, in: .08, out: .5, spin: 4 }); });
 F.at(K1.dt(F, x, .03), () => { const h = F.wp('a'), p = F.tc(e.tgt, .42); K1.bolt2(F, h.x, h.y, p.x, p.y, { w: 1.2, dur: .3, branches: 2 }); F.flash(h.x, h.y, 18, '#ffe6a0', { dur: .18 }); });
 });
@@ -21129,6 +21156,8 @@ F.hypDrawn = true;
 },
 };
 K1.intiHead = (g, a, k, F2, ang) => {
+if (BR.isProposed)
+g.scale(2, 2);
 g.rotate(-(ang || 0) + a * 5);
 g.globalCompositeOperation = 'lighter';
 g.drawImage(TX.get('glow', '#ffcf3a'), -16, -16, 32, 32);
@@ -32766,9 +32795,14 @@ anticip(F, u, kind, rel, e) {
 const t = e.targets[0];
 if (!t)
 return;
-const T0 = .34, T = (nlEv(F, 'hit', x => x.src === 'super') || { t: T_SUP }).t, hand = () => nlP(u, .48, 1.02);
+// 13.11 Maxim: on the new sheet he tosses a real vial; the game's flask must start where the baked vial leaves the frame
+// and at that moment (not appear above the head beforehand).
+const NS = BRG.isProposed && u && (BRG.animOf(BRG.SHEETS_SUP, u.gu || u) || {}).isNewSheet;   // BR is Brynhild's palette in this block
+const T0 = NS ? BRG.REL_NEW['vanhelsing:sup'] : .34, T = (nlEv(F, 'hit', x => x.src === 'super') || { t: T_SUP }).t, hand = () => NS ? F.wp('s') : nlP(u, .48, 1.02);
+if (!NS) {
 F.obj(T0 - F.t, (g, a) => { const w = hand(), q = a / T0; g.translate(w.x, w.y - q * 6); g.rotate(-.3 + Math.sin(a * 12) * .12); nlFlask(g, 2, clamp(q / .25, 0, 1)); });
 nlGather(F, hand(), T0, VH.holy, 6, 20);
+}
 nlAt(F, T0, () => {
 const w = hand(), to = F.tc(t, .42);
 nlFly(F, { x: w.x, y: w.y - 6 }, to, Math.max(.1, T - F.t), { arc: -80, ease: 'linear', col: VH.holy, w: 8, streak: 30, head: (g, a) => { g.rotate(a * 16); nlFlask(g, 2, 1); },
@@ -32818,11 +32852,14 @@ F.mo(p.x, p.y, 'shadow', 7, 1, { col: '#e8f0ff', smoke: '#1a1020' });
 h: {
 col: VH.c, noCharge: true,
 anticip(F, u, kind, rel, e) {
-F.at(.1, () => nlSkyUp(F, vhW(u), '#e8f0ff', .2, g => { g.rotate(0); nlBolt(g, 1.7); }));
-F.at(.2, () => nlsigil(F, 'nl_xbow', '#e8f0ff'));
+// 13.11 Maxim: "damage flies before the shot". On the new sheet the stake leaves upward in the clip; the game's sky
+// streak continues it from the same point at that moment, then the big stake falls on the target.
+const NSh = BRG.isProposed && u && (BRG.animOf(BRG.SHEETS_HYP, u.gu || u) || {}).isNewSheet, T0h = NSh ? BRG.REL_NEW['vanhelsing:hyp'] : .1;
+F.at(T0h, () => nlSkyUp(F, NSh ? F.wp('h') : vhW(u), '#e8f0ff', .2, g => { g.rotate(0); nlBolt(g, 1.7); }));
+F.at(NSh ? T0h : .2, () => nlsigil(F, 'nl_xbow', '#e8f0ff'));
 const t = e.targets[0], T = (nlEv(F, 'hit', x => x.src === 'hyper') || { t: T_SUP }).t;
 if (t)
-nlAt(F, .46, () => nlStakeFall(F, t, Math.max(.12, T - F.t)));
+nlAt(F, NSh ? T0h + .05 : .46, () => nlStakeFall(F, t, Math.max(.12, T - F.t)));
 },
 ult(F) { F.hypDrawn = true; },
 },
