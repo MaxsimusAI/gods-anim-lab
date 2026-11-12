@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Стенд приёмки 62 богов: анимации, FX и баланс XX★5 — Битва титанов &amp; Titan Idols</title>
+  <title>Стенд приёмки 62 богов: подлинный FX2 «Кузница», анимации и баланс XX★5 — Битва титанов &amp; Titan Idols</title>
   <link rel="icon" type="image/webp" href="assets/ui/ports/kitsune.webp">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=6">
 </head>
 <body>
   <div class="app-shell">
@@ -13,7 +13,7 @@
     <header class="top-bar">
       <div class="top-row-1">
         <div class="brand-wrap">
-          <span class="brand-title">Стенд 3 арен (62 бога)</span>
+          <span class="brand-title">Стенд 3 арен · SIM + FX2 «Кузница» (62 бога)</span>
           <div class="stage-tabs" role="tablist" aria-label="Разделы богов">
             <button class="stage-tab active" id="tabExisting" data-group="existing" type="button">Существующие боги (52)</button>
             <button class="stage-tab" id="tabNew10" data-group="new10" type="button">10 новых богов «под ключ» (10)</button>
@@ -34,15 +34,17 @@
       <div class="top-row-2">
         <div class="metrics-line" id="metricsLine"></div>
         <div class="toggles-wrap">
+          <div class="seg-group" role="group" aria-label="Скорость просмотра">
+            <span class="seg-label">Скорость:</span>
+            <button class="seg-btn" data-spd="0.25" type="button">0.25×</button>
+            <button class="seg-btn" data-spd="0.5" type="button">0.5×</button>
+            <button class="seg-btn active" data-spd="1" type="button">1×</button>
+            <button class="seg-btn" id="btnPause" type="button">⏸ Пауза</button>
+          </div>
           <div class="seg-group" role="group" aria-label="Качество спрайта">
             <span class="seg-label">Листы:</span>
             <button class="seg-btn active" data-tier="mob" type="button">mob (≤180×220)</button>
             <button class="seg-btn" data-tier="lite" type="button">lite (≤126×154)</button>
-          </div>
-          <div class="seg-group" id="supResGroup" role="group" aria-label="Тест разрешения генерации на супере">
-            <span class="seg-label">Тест sup:</span>
-            <button class="seg-btn active" data-res="720p" type="button">720p</button>
-            <button class="seg-btn" data-res="360p" type="button">360p (−67% токенов)</button>
           </div>
         </div>
       </div>
@@ -53,7 +55,7 @@
       <!-- Заполняется скриптом app.js для 3 арен: live_bt, new_bt, new_ti -->
     </main>
 
-    <!-- 3. ЧЕТЫРЕ СИНХРОННЫЕ КНОПКИ УМЕНИЙ -->
+    <!-- 3. СИНХРОННЫЕ КНОПКИ УМЕНИЙ -->
     <nav class="controls-bar" aria-label="Управление умениями">
       <button class="skill-btn active" data-slot="idle" type="button">
         <span class="key-tag">IDLE</span>
@@ -73,17 +75,18 @@
       </button>
 
       <div class="playback-meta">
+        <button class="auto-btn" id="btnShowcase" type="button" title="Показать подряд обычное умение → супер → ульту">▶ Показ 3 умений</button>
         <button class="auto-btn" id="btnAutoCycle" type="button" title="Автоматически повторять выбранное боевое умение">↻ Автоповтор: Выкл</button>
         <span class="frame-readout" id="frameReadout">Кадр 01/25</span>
       </div>
     </nav>
 
-    <!-- 4. ДВА ТЕКСТОВЫХ БЛОКА ПОД КНОПКАМИ: УМЕНИЕ/FX И БАЛАНС НА КАПЕ -->
+    <!-- 4. ДВА ТЕКСТОВЫХ БЛОКА ПОД КНОПКАМИ: УМЕНИЕ/FX2 И БАЛАНС НА КАПЕ -->
     <section class="verdicts-grid" aria-label="Разбор умения, FX и баланса">
       <article class="verdict-card" id="blockFx">
         <div class="verdict-head">
-          <span class="verdict-label" id="fxTitle">Блок А — Умение и программный эффект (FX)</span>
-          <span class="status-pill keep" id="fxBadge">Бесшовный цикл</span>
+          <span class="verdict-label" id="fxTitle">Блок А — Умение и программный эффект (FX2 «Кузница»)</span>
+          <span class="status-pill keep" id="fxBadge">Подлинный FX2</span>
         </div>
         <div class="verdict-body" id="fxBody"></div>
       </article>
@@ -110,7 +113,9 @@
     </div>
   </div>
 
-  <script src="gods-data.js?v=4"></script>
-  <script src="app.js?v=4"></script>
+  <script src="assets/gods-data.js?v=6"></script>
+  <script src="assets/sim-core.js?v=6"></script>
+  <script src="assets/fx2-stand.js?v=6"></script>
+  <script src="app.js?v=6"></script>
 </body>
 </html>

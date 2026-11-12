@@ -369,12 +369,18 @@ html, body {
   position: relative;
   display: flex;
   flex-direction: column;
-  min-height: 360px;
+  min-height: 0;
   border-radius: 12px;
   border: 1px solid var(--border-gold);
   background: #100c09;
   overflow: hidden;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.65);
+}
+
+@media (max-width: 1099px), (max-height: 819px) {
+  .arena-card {
+    min-height: 410px;
+  }
 }
 
 .arena-card.is-new {
@@ -425,12 +431,10 @@ html, body {
 .arena-stage {
   position: relative;
   flex: 1 1 auto;
-  min-height: 320px;
+  min-height: 0;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  gap: clamp(24px, 7vh, 96px);
-  padding: 10px 10px 12px;
+  align-items: stretch;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -444,21 +448,54 @@ html, body {
   inset: 0;
   background:
     radial-gradient(ellipse 75% 50% at 50% 52%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.55)),
-    linear-gradient(180deg, rgba(8, 6, 5, 0.45) 0%, rgba(8, 6, 5, 0.12) 45%, rgba(8, 6, 5, 0.52) 100%);
+    linear-gradient(180deg, rgba(8, 6, 5, 0.48) 0%, rgba(8, 6, 5, 0.14) 45%, rgba(8, 6, 5, 0.54) 100%);
   pointer-events: none;
   z-index: 0;
+}
+
+/* Phone-proportioned battle box so FX2 constellations, lightning & arcs match mobile combat scale 1:1 */
+.battle-app {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.battle-arena {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 8px 8px 12px;
+}
+
+.arena-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.field-mid {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 14px;
+  pointer-events: none;
 }
 
 .arena-note-pill {
   position: absolute;
   left: 50%;
-  top: 43%;
-  transform: translate(-50%, -140%);
-  z-index: 7;
-  padding: 2px 9px;
+  top: 44%;
+  transform: translate(-50%, -50%);
+  z-index: 8;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(20, 14, 10, 0.88);
-  border: 1px solid rgba(255, 200, 90, 0.48);
+  background: rgba(20, 14, 10, 0.90);
+  border: 1px solid rgba(255, 200, 90, 0.52);
   color: #ffd985;
   font-size: 10.5px;
   font-weight: 600;
@@ -472,24 +509,48 @@ html, body {
   opacity: 1;
 }
 
-/* Upper Enemy Block & Lower Hero Block */
-.team-block {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+.newgod-live-banner {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9;
+  max-width: 88%;
+  text-align: center;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: rgba(14, 11, 9, 0.88);
+  border: 1px solid rgba(168, 228, 255, 0.45);
+  color: #dff4ff;
+  font-size: 11.5px;
+  line-height: 1.35;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.75);
+  pointer-events: none;
+}
+
+.newgod-live-banner b {
+  display: block;
+  color: #ffe59e;
+  margin-bottom: 2px;
 }
 
 .row5 {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 5px;
+  gap: 4px;
   align-items: end;
 }
 
 .bars-row {
+  z-index: 5;
   align-items: center;
+  margin-bottom: 2px;
+}
+
+.ally-bars {
+  margin-top: 2px;
+  margin-bottom: 3px;
 }
 
 .bar {
@@ -497,7 +558,12 @@ html, body {
   align-items: center;
   gap: 2px;
   min-width: 0;
-  height: 15px;
+  height: 14px;
+  transition: opacity 0.2s;
+}
+
+.bar.gone {
+  opacity: 0.18;
 }
 
 .tracks {
@@ -510,10 +576,10 @@ html, body {
 
 .track {
   position: relative;
-  height: 10px;
+  height: 9px;
   border-radius: 3px;
   background: #0c0a08;
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12);
   overflow: hidden;
 }
 
@@ -533,11 +599,17 @@ html, body {
 
 .track .cur {
   background: linear-gradient(180deg, #9ccc6a, #4d8a2a);
-  transition: width 0.22s ease-out;
+  transition: width 0.2s ease-out;
 }
 
-.enemy-block .track .cur {
+.enemy-bars .track .cur {
   background: linear-gradient(180deg, #e0574a, #8c1c14);
+}
+
+.track .shd {
+  background: linear-gradient(180deg, rgba(160, 234, 255, 0.85), rgba(62, 152, 224, 0.85));
+  width: 0%;
+  transition: width 0.2s ease-out;
 }
 
 .track b {
@@ -546,7 +618,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 9px;
+  font-size: 8.5px;
   font-weight: 700;
   color: #fff;
   text-shadow: 0 1px 1px #000, 0 0 3px #000;
@@ -577,13 +649,15 @@ html, body {
   box-shadow: 0 0 6px #ffd34d;
 }
 
-/* Unit Figure Cells */
+/* Unit Figure Rows: efigs z-index:2 (above fx2u=1, below fx2m=3), hfigs z-index:4 (above fx2m=3, below fx2o=6) */
 .enemy-figs {
-  height: clamp(96px, 12.8vh, 144px);
+  z-index: 2;
+  height: clamp(92px, 13.5vh, 146px);
 }
 
 .ally-figs {
-  height: clamp(152px, 21vh, 224px);
+  z-index: 4;
+  height: clamp(138px, 20.5vh, 214px);
 }
 
 .figcell {
@@ -603,20 +677,38 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  transition: transform 0.26s cubic-bezier(0.22, 0.85, 0.32, 1), opacity 0.25s;
+  transition: filter 0.22s, opacity 0.25s;
 }
 
-.figwrap.mannequin {
-  height: 84%;
-}
-
-.enemy-figs .figwrap.mannequin {
+.enemy-figs .figwrap {
   height: 92%;
 }
 
-.figwrap.fallen .mannequin-img {
-  filter: brightness(0.12) grayscale(1) opacity(0.52);
-  transform: translateY(10%) rotate(-18deg) scaleY(0.86);
+/* Keep companion dummies slightly dimmed so the tested center god pops immediately */
+.ally-figs .figcell:not(.hero-focus) .figwrap {
+  height: 88%;
+  filter: brightness(0.64) saturate(0.75);
+}
+
+.enemy-figs .figwrap {
+  filter: brightness(0.76) saturate(0.82);
+}
+
+.figcell.hero-focus {
+  z-index: 3;
+}
+
+.figwrap.dead {
+  opacity: 0.26;
+  filter: grayscale(1) brightness(0.35) !important;
+}
+
+.figwrap.shielded {
+  filter: drop-shadow(0 0 6px rgba(130, 224, 255, 0.65));
+}
+
+.figwrap.invuln {
+  filter: drop-shadow(0 0 7px rgba(255, 226, 122, 0.8));
 }
 
 .figwrap::before {
@@ -631,44 +723,17 @@ html, body {
   pointer-events: none;
 }
 
-.mannequin-img {
-  position: relative;
-  height: 92%;
-  width: auto;
-  max-width: none;
-  object-fit: contain;
-  object-position: 50% 100%;
-  filter: brightness(0.24) saturate(0.25) contrast(1.15) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
-  animation: dummyIdle 3.4s ease-in-out infinite;
-  transform-origin: 50% 96%;
-  transition: filter 0.22s, transform 0.22s;
+.figin {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
   pointer-events: none;
 }
 
-.ally-figs .mannequin-img {
-  filter: brightness(0.32) saturate(0.35) contrast(1.1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.8));
-}
-
-.figwrap.hit-shake .mannequin-img {
-  filter: brightness(0.68) saturate(0.55);
-  transform: translateY(-3px) scale(0.98);
-}
-
-.figwrap.heal-glow .mannequin-img {
-  filter: brightness(0.55) saturate(0.62);
-}
-
-@keyframes dummyIdle {
-  50% { transform: translateY(-1.4%) scaleY(1.012); }
-}
-
-/* Tested God Animated Sprite (exact v2Style geometry) */
-.hero-spot {
-  z-index: 3;
-}
-
 .fig.sprite,
-.atk.sprite {
+.atk {
   position: absolute;
   bottom: 0;
   left: 50%;
@@ -678,27 +743,21 @@ html, body {
   will-change: background-position, transform;
 }
 
+.atk {
+  transform: none;
+  display: none;
+}
+
 .fig.sprite.static-breath {
   animation: heroBreath 3.1s ease-in-out infinite;
   transform-origin: 50% 96%;
 }
 
 @keyframes heroBreath {
-  50% { filter: brightness(1.03); transform: translateX(-50%) scaleY(1.012); }
+  50% { transform: translateX(-50%) scaleY(1.012); }
 }
 
-.atk.sprite.static-cast {
-  animation: heroStaticCast 0.85s ease-out;
-  transform-origin: 50% 95%;
-}
-
-@keyframes heroStaticCast {
-  0% { filter: brightness(1); }
-  38% { filter: brightness(1.16) drop-shadow(0 0 6px rgba(255, 226, 150, 0.45)); transform: translateX(-50%) translateY(-4px) scale(1.03); }
-  100% { filter: brightness(1); transform: translateX(-50%) translateY(0) scale(1); }
-}
-
-/* Authentic Subtle Foot Auras (.aura.up / .aura.down — restrained, no screen bloom) */
+/* Authentic Subtle Foot Auras (.aura.up / .aura.down) */
 .figwrap .aura {
   position: absolute;
   left: 4%;
@@ -726,7 +785,7 @@ html, body {
 /* Status Icons (.sts2) */
 .sts2 {
   position: absolute;
-  right: -2px;
+  right: -1px;
   top: 6%;
   display: flex;
   flex-direction: column;
@@ -738,8 +797,8 @@ html, body {
 .sts2 i {
   position: relative;
   display: block;
-  width: 15px;
-  height: 15px;
+  width: 14px;
+  height: 14px;
   filter: drop-shadow(0 0 1px #000) drop-shadow(0 1px 2px rgba(0, 0, 0, 0.9));
 }
 
@@ -757,28 +816,7 @@ html, body {
   filter: brightness(0.9) sepia(1) saturate(5) hue-rotate(-8deg) brightness(1.22);
 }
 
-.sts2 i b {
-  position: absolute;
-  right: -5px;
-  bottom: -4px;
-  font: 700 9px/1 var(--f-ui);
-  color: #fff;
-  background: #2b1d0f;
-  border-radius: 5px;
-  padding: 1px 2.5px;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.8);
-}
-
-/* Canvas FX & Floating Combat Text Layer */
-.arena-fxc {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 4;
-}
-
+/* FX2 Over-Canvas & Floating Combat Text Layer */
 .arena-fxdom {
   position: absolute;
   inset: 0;
