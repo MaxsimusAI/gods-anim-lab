@@ -165,3 +165,20 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 - **"Fixed" means seen, not assumed.** After any timing/FX change run `b3/seq.py out.jpg <god> <slot>` (time series of
   the action on the stand, BT row + TI row) and look at it. Never report a fix that was not looked at in the series.
 - Empty space: checked with `b3/margins2.py` (union of all 25 frames). Margins above 2-3 px on a sheet = re-adapt it.
+
+## Added 13.11 (3) after making batch 4 (Ra, Heimdall, Hou Yi, Erlang, Agni)
+
+- Kling keeps making the same mistakes; write the cure into the first prompt, not only the retake:
+  * archers: "the bow stays upright at his side, the bow hand does not move, he never draws the string, never holds an
+    arrow, never takes an archer's stance" — otherwise a horizontal arrow aimed at the neighbour appears (Hou Yi TI x3);
+  * staffs/torches: "the staff stays upright the whole time: never tilts, swings, lies horizontally" (Agni);
+  * magic gathering: "no threads or lines of light in the air, nothing flies in from the edges" (Erlang super filled the
+    whole frame); transformations: "no wings, no feathers" (Erlang ult grew wings);
+  * crossed blades / eye / gem: "no star-shaped glint, no cross-shaped flare, the background never brightens".
+- "Calm idle" prompts come out static (0.4-1.0). Ask for explicit continuous actions: torso/hip sway, a slow step to
+  the side and back, knees bend, head left then right, shoulders roll, re-grip; "all moves slow and smooth".
+- A wind-up that shows a forbidden pose (arrow aimed sideways) can be cut with one long `skip` when the body barely
+  moves between the cut points (Hou Yi TI attack: skip 13-43). A half-second full-frame flash can be cut the same way.
+- Heavy golden auras compress badly: Heimdall's 4 sheets are 23-28% heavier in KB than his (very light) live sheets at
+  the lowest quality step, while RAM is below live. Do not shrink the body silently — report and let Maxim choose.
+- Kling MCP rate-limits query_tasks at ~6 parallel calls: poll 4-5 at a time.
