@@ -88,10 +88,9 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
   the loop. Rejected idles of batch 2 had 0.3–1.2 everywhere; a good idle has 2+ in the middle parts and no part
   below ~1 except the very start/end. Below that -> retake with an explicit list of continuous actions (weight
   shift, step in place, weapon handling, head turn, cloth) and "never freezing".
-- **Wings and other wide effects need a looser input canvas.** On the tight canvas Kling opens wings past the frame
-  and they stay cut for 1–1.5 s (forbidden: slow/long clipping). For such a clip use the figure at ~56% of the
-  width with ~14% extra head-room (`tight/<god>_<style>_loose.png`) and say in the prompt that the wings are compact
-  and never reach the frame edges. The adapter normalises the body height, so the looser canvas is safe.
+- ~~Wings and other wide effects need a looser input canvas.~~ **CANCELLED 13.11 by Maxim** — the input canvas is
+  never widened. Wide effects are made to fit the tight canvas by changing the motion itself (halo and feathers
+  instead of open wings, effect around the body, short burst), see "do not move the agreed limits" below.
 - **A straight cut at the frame edge is softened.** Where the sheet frame edge is the edge of the Kling video, the
   adapter now fades everything (body too) over the last ~3.5%; `b3/softcut.py` does the same on already built sheets.
   It hides a short cut of a cloak or a spark; it does not excuse long clipping — that is still a retake.
@@ -117,7 +116,7 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
   or aimed, no effects overkill. The feet must step. The body must not rotate like a figurine on a stand.
 - **Weapon never at full arm's length** to the side or above the head: it leaves the frame and stays cut for a
   second. Bent arm, lean back; a staff rises at most a little above the head, or the god kneels with the staff in
-  hand. Tall-weapon gods get the roomier canvas `tight/<god>_<style>_mid.png` (figure 80%, +10% head-room).
+  hand. (The roomier `_mid` canvas once suggested here is CANCELLED 13.11 — tight canvas only.)
 - **Never aim sideways** — allies stand left and right, it looks like shooting an ally. Aim up; muzzle/tip well
   inside the frame, the flash must not be cut.
 - **No bursts in all directions** that reach every frame edge (the whole frame border becomes visible). Effects stay
