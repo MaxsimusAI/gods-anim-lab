@@ -3,36 +3,45 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Стенд приёмки анимаций, FX и баланса — Битва титанов &amp; Titan Idols</title>
-  <link rel="icon" type="image/webp" href="assets/ui/kitsune-port.webp">
-  <link rel="stylesheet" href="styles.css?v=2">
+  <title>Стенд приёмки 62 богов: анимации, FX и баланс XX★5 — Битва титанов &amp; Titan Idols</title>
+  <link rel="icon" type="image/webp" href="assets/ui/ports/kitsune.webp">
+  <link rel="stylesheet" href="styles.css?v=4">
 </head>
 <body>
   <div class="app-shell">
-    <!-- 1. ВЕРХНЯЯ ПАНЕЛЬ: ПЕРЕКЛЮЧАТЕЛЬ БОГОВ И МЕТРИКИ -->
+    <!-- 1. ВЕРХНЯЯ ПАНЕЛЬ: ВКЛАДКИ (52 + 10), ФИЛЬТРЫ СТИХИЙ, ПЕРЕКЛЮЧАТЕЛЬ БОГОВ И МЕТРИКИ -->
     <header class="top-bar">
       <div class="top-row-1">
         <div class="brand-wrap">
-          <span class="brand-title">Стенд 3 арен: Битва титанов &amp; Titan Idols</span>
+          <span class="brand-title">Стенд 3 арен (62 бога)</span>
           <div class="stage-tabs" role="tablist" aria-label="Разделы богов">
-            <button class="stage-tab active" id="tabExisting" type="button">Существующие боги (Пилот: 1)</button>
-            <button class="stage-tab locked" id="tabNew10" type="button" title="Откроется на Этапе 4Б после приёмки первых пятёрок">10 новых богов «под ключ» (Этап 4Б)</button>
+            <button class="stage-tab active" id="tabExisting" data-group="existing" type="button">Существующие боги (52)</button>
+            <button class="stage-tab" id="tabNew10" data-group="new10" type="button">10 новых богов «под ключ» (10)</button>
           </div>
+          <div class="el-filters" id="elFilters" role="group" aria-label="Фильтр стихий"></div>
         </div>
-        <div class="god-roster" id="godRoster"></div>
+
+        <div class="quick-nav">
+          <button class="nav-arrow" id="btnPrevGod" type="button" title="Предыдущий бог (←)">◀</button>
+          <select class="god-select" id="godQuickSelect" aria-label="Быстрый выбор бога"></select>
+          <button class="nav-arrow" id="btnNextGod" type="button" title="Следующий бог (→)">▶</button>
+          <button class="concept-btn" id="btnConceptModal" type="button" hidden>🔍 Арт 2K (БТ + TI)</button>
+        </div>
       </div>
+
+      <div class="god-roster" id="godRoster" role="navigation" aria-label="Список богов"></div>
 
       <div class="top-row-2">
         <div class="metrics-line" id="metricsLine"></div>
         <div class="toggles-wrap">
           <div class="seg-group" role="group" aria-label="Качество спрайта">
             <span class="seg-label">Листы:</span>
-            <button class="seg-btn active" data-tier="mob" type="button">mob (основной)</button>
-            <button class="seg-btn" data-tier="lite" type="button">lite (×0.7)</button>
+            <button class="seg-btn active" data-tier="mob" type="button">mob (≤180×220)</button>
+            <button class="seg-btn" data-tier="lite" type="button">lite (≤126×154)</button>
           </div>
-          <div class="seg-group" role="group" aria-label="Тест разрешения генерации на супере">
+          <div class="seg-group" id="supResGroup" role="group" aria-label="Тест разрешения генерации на супере">
             <span class="seg-label">Тест sup:</span>
-            <button class="seg-btn active" data-res="720p" type="button">720p (эталон)</button>
+            <button class="seg-btn active" data-res="720p" type="button">720p</button>
             <button class="seg-btn" data-res="360p" type="button">360p (−67% токенов)</button>
           </div>
         </div>
@@ -82,14 +91,26 @@
       <article class="verdict-card" id="blockBalance">
         <div class="verdict-head">
           <span class="verdict-label" id="balTitle">Блок Б — Баланс на максимальной прокачке (XX★5)</span>
-          <span class="status-pill balanced" id="balBadge">В балансе (2 точечные правки)</span>
+          <span class="status-pill balanced" id="balBadge">В балансе</span>
         </div>
         <div class="verdict-body" id="balBody"></div>
       </article>
     </section>
   </div>
 
-  <script src="gods-data.js?v=2"></script>
-  <script src="app.js?v=2"></script>
+  <!-- Модальное окно полноразмерного сравнения 2K-артов новых богов (БТ vs Titan Idols) -->
+  <div class="concept-modal" id="conceptModal" hidden>
+    <div class="concept-backdrop" id="conceptBackdrop"></div>
+    <div class="concept-dialog" role="dialog" aria-modal="true" aria-labelledby="conceptModalTitle">
+      <div class="concept-head">
+        <span class="concept-title" id="conceptModalTitle">Концепт-арт нового бога (БТ + Titan Idols)</span>
+        <button class="concept-close" id="btnCloseConcept" type="button">✕ Закрыть</button>
+      </div>
+      <div class="concept-body" id="conceptModalBody"></div>
+    </div>
+  </div>
+
+  <script src="gods-data.js?v=4"></script>
+  <script src="app.js?v=4"></script>
 </body>
 </html>
