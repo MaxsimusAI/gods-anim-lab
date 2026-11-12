@@ -770,6 +770,8 @@
     document.getElementById('fxBody').innerHTML =
       `<p>${sk.descRu}</p>` +
       (sk.animRu ? `<div class="fx-verdict-box"><b>Анимация Kling:</b> ${sk.animRu}</div>` : '') +
+      (sk.todoRu ? `<div class="fx-verdict-box" style="border-left-color:#e0903a"><b>Что доработать (замечания Максима):</b> ${sk.todoRu}</div>` : '') +
+      (sk.balRu ? `<div class="fx-verdict-box" style="border-left-color:#6ec8ff"><b>Баланс — предложение (не внедрено, мин. → макс. прокачка):</b> ${sk.balRu}</div>` : '') +
       `<div class="fx-verdict-box"><b>Движок FX2 «Кузница»:</b> ${sk.fxVerdictRu}</div>`;
 
     const bal = god.balance;

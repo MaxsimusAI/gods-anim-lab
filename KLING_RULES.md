@@ -61,3 +61,23 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 ## Stand
 - https://maxsimusai.github.io/gods-anim-lab/ : left arena = live game, then new BT, new TI. Everything on one screen.
 - Ally health bars under the feet. Per-slot note "what to check".
+
+## Added 12.11 after the review of batch 2 (Zeus, Demeter, Hel, Amaterasu)
+- Do not over-correct "no blinding flashes" into "almost no effect". Maxim wants a WOW picture: every action clip needs a
+  rich, clearly visible baked effect on the weapon / hands / body (energy gathering, runes, swirling leaves, aura, arcs)
+  in the god's colour, medium brightness. Forbidden is only: white-out, lens flare, full-screen flash, brightened background.
+  A tiny glow + a tiny programmatic dot = rejected ("Demeter BT attack", "Hel attack", "Amaterasu BT attack").
+- Enemies are at the TOP of the screen. Do not aim the weapon at the viewer: the tip ends up over the belly and the
+  effect "flies from the belt". Raise the weapon tip up / up-forward so it is clearly visible; the effect leaves upward
+  and the game continues it from there (the Kitsune beam is the model).
+- Every baked effect that leaves through a frame edge must have a visible programmatic continuation that connects it
+  to what happens on the enemies (Zeus ult: bolt goes into the edge, then unrelated bolts fall from the sky = rejected).
+- Idle must be alive for the WHOLE loop: no pause, weight shifts and leg/hip movement, cloth and hair, a small gesture;
+  not just a heaving chest (Zeus TI) and not "twitch - freeze for a second - twitch" (Demeter TI) or a barely moving
+  statue (Hel, Amaterasu BT).
+- Super and ult must differ clearly from the basic attack and must not be "the same pose, slower" (Amaterasu BT).
+- Check timing of every clip on the stand: not too fast (Amaterasu TI super) and effect in sync with the motion.
+- The stand's weapon point is NewFX.prototype.wp (not the base wp) - the wf origin is implemented there since 12.11.
+- All balance proposals and all of Maxim's remarks per god are stored in kling_done.json ("balance", "todo") and shown
+  on the stand under each skill. Nothing may live only in the chat. Backlog gods are re-done after the roster pass
+  or when Maxim says.

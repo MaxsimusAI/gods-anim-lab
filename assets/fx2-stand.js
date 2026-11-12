@@ -8593,6 +8593,16 @@ return; W.np++; return P0.call(this, o); };
 NewFX.prototype.wp = function (kind = 'a', u = this.u) {
 let P = null;
 const gu = u && u.gu;
+// 12.11 Maxim: the effect must be born exactly where the baked effect is. The adapter stores that point as a fraction
+// of the sheet frame (wf); use the frame that is on screen right now, so it is exact by construction.
+if (BR.isProposed && gu && this.st && this.st.frameOf) {
+const A0 = BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, gu);
+const fr = A0 && A0.wf ? this.st.frameOf(u) : null;
+if (fr && fr.atk) {
+const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - A0.wf[0] : A0.wf[0];
+return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + A0.wf[1] * fr.h - u.feet) * k0, h: boxOf(u).h };
+}
+}
 if (gu && BR.SHEETS_V2[gu.hid]) {
 const A = BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, gu);
 if (A && A.wpt)
