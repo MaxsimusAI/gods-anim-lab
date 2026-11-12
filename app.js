@@ -66,10 +66,12 @@
   }
 
   function preloadImg(url) {
-    if (!url || state.sheetWarm[url]) return;
-    state.sheetWarm[url] = true;
+    if (!url) return null;
+    if (state.sheetWarm[url]) return state.sheetWarm[url];
     const im = new Image();
     im.src = url;
+    state.sheetWarm[url] = im;
+    return im;
   }
 
   function warmGodAssets(god) {
@@ -156,7 +158,7 @@
     const A = T.animOf(tbl, u);
     if (!A) return;
 
-    preloadImg(A.src);
+    const im = preloadImg(A.src);
     const PRI = { atk: 0, sup: 1, hyp: 2 };
     const existing = [...u.fig.querySelectorAll('.atk')].find(x => x.style.display === 'block');
     if (existing && PRI[existing._kind] > PRI[kind]) return;
@@ -172,7 +174,7 @@
 
     el._A = A;
     el._f = -1;
-    el.style.backgroundImage = `url(${A.src})`;
+    el.style.backgroundImage = `url("${A.src}")`;
     el.style.backgroundSize = `${(A.cols || 1) * 100}% ${(A.rows || 1) * 100}%`;
     el.style.height = `${(A.aH * 100).toFixed(2)}%`;
     el.style.aspectRatio = `${A.w} / ${A.h}`;
@@ -185,11 +187,24 @@
     const playSec = (hitAt && A.rel) ? Math.min(2.6, Math.max(0.42, hitAt / A.rel)) : (A.play || defaultPlay);
     el._startT = arenaObj.animClock;
     el._dur = playSec;
-    el.style.display = 'block';
-
-    if (u._idleEl) u._idleEl.style.visibility = 'hidden';
+    el._active = true;
     u.fig.style.zIndex = kind === 'atk' ? '' : '3';
     setSpriteFrame(el, 0, A.cols || 1, A.rows || 1);
+
+    if (!im || (im.complete && im.naturalWidth > 0)) {
+      el.style.display = 'block';
+      if (u._idleEl) u._idleEl.style.visibility = 'hidden';
+    } else {
+      // Keep idle figure visible until action sheet finishes downloading over network (zero blank flash)
+      el.style.display = 'none';
+      if (u._idleEl) u._idleEl.style.visibility = '';
+      im.addEventListener('load', () => {
+        if (el._active && el._A === A && arenaObj.animClock < el._startT + el._dur) {
+          el.style.display = 'block';
+          if (u._idleEl) u._idleEl.style.visibility = 'hidden';
+        }
+      }, { once: true });
+    }
   }
 
   function stepArenaSprites(arenaObj) {
@@ -211,6 +226,7 @@
         if (ax.style.display !== 'block' || !ax._A) continue;
         const p = (tNow - ax._startT) / Math.max(0.05, ax._dur);
         if (p >= 1 || !u.alive) {
+          ax._active = false;
           ax.style.display = 'none';
           u.fig.style.zIndex = '';
         } else {
@@ -784,7 +800,7 @@
         }
         clearFloatingDom(a);
         if (a.focusUnit && a.focusUnit.fig) {
-          a.focusUnit.fig.querySelectorAll('.atk').forEach(el => { el.style.display = 'none'; });
+          a.focusUnit.fig.querySelectorAll('.atk').forEach(el => { el._active = false; el.style.display = 'none'; });
           if (a.focusUnit._idleEl) a.focusUnit._idleEl.style.visibility = '';
         }
       }
@@ -806,7 +822,7 @@
       }
       // Interrupt previous focusUnit .atk overlay so repeated clicks always fire crisply
       if (a.focusUnit.fig) {
-        a.focusUnit.fig.querySelectorAll('.atk').forEach(el => { el.style.display = 'none'; });
+        a.focusUnit.fig.querySelectorAll('.atk').forEach(el => { el._active = false; el.style.display = 'none'; });
         if (a.focusUnit._idleEl) a.focusUnit._idleEl.style.visibility = '';
       }
       const ev = SIM.triggerSlot(a.B, a.focusUnit, slot);
