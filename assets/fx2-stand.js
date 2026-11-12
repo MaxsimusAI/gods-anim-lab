@@ -8380,7 +8380,7 @@ drawGlyphAt(g, m.g, b.x + b.w * .3, b.top + 4, a < .15 ? 7.5 * (.7 + 2 * a) : 7.
 }
 if (!(v.decoyFx && v.alive && v.decoys > 0))
 v._dcLive = false;
-else if (BR.isProposed && v.hid === 'kitsune') {
+else if (false) {   // 12.11 Maxim: tiny orbiting wisps were unreadable; decoys are shown as translucent doubles, as in the live game
 const b = boxOf(v), cnt = Math.min(3, v.decoys);
 g.save();
 for (let i = 0; i < cnt; i++) {
@@ -20426,8 +20426,13 @@ F.mo(s.x, s.y, 'gold', 5, .6);
 s: {
 col: '#ffe9a8',
 sup(F, e) {
-const owl = sheetPt(F.u, 'sup', .7, .2);
+// 12.11 Maxim: on the new sheets the effect starts exactly where the baked glow is (the shield), not at a fixed spot
+const owl = BR.isProposed ? F.wp('s') : sheetPt(F.u, 'sup', .7, .2);
 F.mo(owl.x, owl.y, 'feather', 4, .9, { cols: ['#ffe9a8', '#fff6d8'] });
+if (BR.isProposed) {
+F.ring(owl.x, owl.y, 8, 44, '#ffd77a', { dur: .45, w: 2.4 });
+F.flash(owl.x, owl.y, 14, '#ffe9a8', { dur: .22, k: .6 });
+}
 const seen = new Set();
 K1.ev(F, x => x.type === 'shield' && x.on).forEach(x => {
 const twice = seen.has(x.u);
@@ -20440,13 +20445,13 @@ superHit(F, e) { },
 },
 h: {
 col: '#ffe9a8', markGlyph: 'k1gorgon', keep: [.495, .58, .325, .47],
-anticip(F, u) {
-const s = F.wp('h');
-F.at(.2, () => { K1.rays(F, s.x, s.y, { r: 46, n: 14, col: '#ffd77a', core: '#fffbe6', dur: .45, w: 2.6, spin: .3, k: .85 }); F.flash(s.x, s.y, 28, '#ffd77a', { dur: .3, k: .6 }); });
-F.at(.42, () => { K1.rays(F, s.x, s.y, { r: 56, n: 16, col: '#ffe9a8', core: '#ffffff', dur: .42, w: 3, spin: -.3, k: .9 }); const b = boxOf(u), ey = b.feet < LAY.H * .5 ? b.feet + 20 : b.top - 22; F.sigil('k1gorgon', b.x, ey, 22, '#ffe9a8', { dur: 1.1, in: .14, out: .7, k: .95, fill: true }); });
+anticip(F, u, k, rel) {
+const s = F.wp('h'), P = BR.isProposed, t1 = P ? Math.max(.1, (rel || .6) - .04) : .2, t2 = P ? t1 + .2 : .42;
+F.at(t1, () => { K1.rays(F, s.x, s.y, { r: 46, n: 14, col: '#ffd77a', core: '#fffbe6', dur: .45, w: 2.6, spin: .3, k: .85 }); F.flash(s.x, s.y, 28, '#ffd77a', { dur: .3, k: .6 }); });
+F.at(t2, () => { K1.rays(F, s.x, s.y, { r: 56, n: 16, col: '#ffe9a8', core: '#ffffff', dur: .42, w: 3, spin: -.3, k: .9 }); const b = boxOf(u), ey = b.feet < LAY.H * .5 ? b.feet + 20 : b.top - 22; F.sigil('k1gorgon', P ? s.x : b.x, P ? s.y : ey, P ? 16 : 22, '#ffe9a8', { dur: 1.1, in: .14, out: .7, k: .95, fill: true }); });
 },
 ult(F, e) {
-const ub = boxOf(F.u), eye = { x: ub.x, y: ub.feet < LAY.H * .5 ? ub.feet + 20 : ub.top - 22 };
+const ub = boxOf(F.u), eye = BR.isProposed ? F.wp('h') : { x: ub.x, y: ub.feet < LAY.H * .5 ? ub.feet + 20 : ub.top - 22 };
 e.targets.forEach((t, i) => { const p = F.tc(t, .5); F.at(i * .015, () => K1.shaft(F, eye, p, { col: '#e8e2c0', w0: 3, w1: boxOf(t).w * .14, dur: .5, grow: Math.max(.06, FLY_S - i * .015), k: .3 })); });
 for (let i = 0; i < 12; i++)
 F.at(.1 + i * .03, () => { const t = F.pick(e.targets), b = boxOf(t); F.p({ x: b.x + F.rnd(-b.w * .3, b.w * .3), y: b.top + F.rnd(0, b.h * .6), vx: F.rnd(-6, 6), vy: F.rnd(10, 30), drag: 1, life: F.rnd(.5, .8), s0: F.rnd(1.6, 2.6), s1: 1, tex: 'dot', col: '#d8d0b0', a0: .8, add: false }); });
@@ -30927,6 +30932,8 @@ if (o.leaf)
 F.p({ x, y: y - 6, vx: F.rnd(-30, 30), vy: -F.rnd(40, 70), ay: 120, drag: 1.2, life: F.rnd(.8, 1), s0: 9, s1: 8, tex: txOr('leaf2', 'leaf'), col: '#9ac850', add: false, rot: F.rnd(0, 6), vr: F.rnd(-7, 7), sway: 8, sf: 6, a0: .95 });
 }
 function nfLanterns(F, dur, o = {}) {
+if (BR.isProposed)
+return;   // 12.11 Maxim: tiny wisps around the god read as noise; the new sheets carry their own fire
 F.obj(dur, (g, a) => {
 const al = clamp(a / .12, 0, 1) * (a > dur - .15 ? Math.max(0, (dur - a) / .15) : 1);
 const b = BR.isProposed ? boxOf(F.u) : null;
@@ -31041,12 +31048,12 @@ const P = nfPt(F, 's'), sides = [nfPt(F, 'a'), nfPt(F, 'r')];
 const fr0 = BR.isProposed && F.st.frameOf ? F.st.frameOf(F.st.focus) : null, A0 = fr0 && fr0.atk ? BR.animOf(BR.SHEETS_SUP, F.st.focus.gu) : null;
 const tp = A0 && A0.ho && A0.ho.top && A0.ho.top.length >= 3 ? A0.ho.top : null;
 if (tp) {
-const bx = fr0.x + fr0.w * tp.reduce((q, v) => q + v[1], 0) / tp.length, by0 = fr0.y + 4, by1 = fr0.y - Math.min(30, fr0.h * .3), O = { x: bx, y: by1 };
+const bx = fr0.x + fr0.w * tp.reduce((q, v) => q + v[1], 0) / tp.length, by0 = fr0.y + fr0.h * .07, by1 = fr0.y - Math.min(30, fr0.h * .3), O = { x: bx, y: by1 };
 F.beam(bx, by0, bx, by1, { col: '#6ec8ff', core: '#e8f8ff', w: 3, dur: .5, grow: .05 });
 F.flash(bx, by1, 8, '#7fd0ff', { dur: .2, k: .5 });
 for (let i = 0; i < 7; i++)
 F.at(i * .05, () => F.p({ x: bx + F.rnd(-2, 2), y: by1 + F.rnd(-2, 2), vx: F.rnd(-22, 22), vy: F.rnd(-30, -8), ay: -20, drag: 2, life: F.rnd(.25, .4), s0: F.rnd(5, 8), s1: 1.5, tex: nfTx.tongue(), ramp: NF_FOX, hot: true }));
-e.targets.forEach(t => nfFoxShot(F, O, F.tc(t, .42), FLY_S + .01, { arc: -14, wob: 8, r: 7, ts: .8, ease: 'linear', onHit: (x, y) => nfFoxBurst(F, x, y, .9) }));
+e.targets.forEach(t => nfFoxShot(F, O, F.tc(t, .42), FLY_S + .01, { arc: -14, wob: 6, r: 10, ts: 1.15, ease: 'linear', onHit: (x, y) => nfFoxBurst(F, x, y, .9) }));
 return;
 }
 F.flash(P.x, P.y, BR.isProposed ? 9 : 16, '#7fd0ff', { dur: .18, k: BR.isProposed ? .5 : 1 });   // 12.11: the new sheet already lights its own flames; Maxim found the flash too bright
@@ -31061,11 +31068,12 @@ nfsigil(F, 'kitsune', '#bfe9ff');
 const b0 = boxOf(u), N = BR.isProposed ? 9 : 11, L = [];
 for (let i = 0; i < N; i++) {
 if (BR.isProposed) {
-const ang = Math.PI * (.12 + .76 * (i / (N - 1)));
-const rx = Math.min(24, b0.w * .34), ry = Math.min(18, b0.h * .16);
-const x = b0.x + Math.cos(Math.PI - ang) * rx;
-const y = b0.top + b0.h * .18 - Math.sin(ang) * ry;
-L.push({ x, y, d: .05 + i * .035 });
+// 12.11 Maxim: the fox-fires must be born where the baked flame is (raised hand / top edge of the sheet), not at the chest
+const ang = Math.PI * (.12 + .76 * (i / (N - 1))), hp = F.wp('h');
+const rx = Math.min(20, b0.w * .3), ry = 12;
+const x = hp.x + Math.cos(Math.PI - ang) * rx;
+const y = Math.min(hp.y, b0.top + 6) - 4 - Math.sin(ang) * ry;
+L.push({ x, y, d: Math.max(.05, (rel || .6) - .22) + i * .02 });
 } else {
 const x = 22 + i * (LAY.W - 44) / (N - 1);
 L.push({ x, y: LAY.sy > 0 ? LAY.hFeet - LAY.hRow * 1.2 - Math.sin(i / (N - 1) * Math.PI) * 26 : LAY.hFeet + LAY.hRow * .3 + Math.sin(i / (N - 1) * Math.PI) * 26, d: .08 + Math.abs(x - b0.x) / LAY.W * .5 });
