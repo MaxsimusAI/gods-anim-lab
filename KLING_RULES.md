@@ -1,0 +1,63 @@
+# Kling animation rules for the gods (BT + Titan Idols)
+
+Owner: Maxim (game designer, not a programmer). Chat with him in Russian, short, no code or file names.
+Read this file before making every god. Add a rule here every time Maxim corrects something.
+
+## Goal
+Every god gets 4 sheets (idle, atk, sup, hyp) x 2 styles (BT dark fantasy, TI anime), 25 frames 5x5.
+The live BT game is the reference; the new version must be better: livelier, juicier, lighter.
+Work in batches of 5 gods (from 12.11); publish on the stand, Maxim reviews, then next batch.
+Nothing goes into the game repos or servers until Maxim says so. Balance changes only after his approval.
+
+## Before generating (no wasted credits)
+- Analyse first: skills, live sheets and their weight, the game's FX colour for this god, how the game plays the sheet.
+- One take per clip. A retake only for a concrete defect. Never 2 variants "just in case".
+- Kling 4.0, image-to-video, 3 s, 720p, first frame = last frame, 30 credits. Sound is not used.
+- Input picture: tight canvas (tools/tight.py): figure ~74% of width, top 7%, bottom 3%, flat gray 127.
+  Empty space around the figure makes Kling fill it with wide swings. BT source: art-new/std/<god>.png (1024x1536).
+  TI source: the game art (600 px) - no hi-res found.
+- Look at the art itself. If a picture is bad or inconvenient (weapon much taller than the head, etc.) tell Maxim -
+  he can have ChatGPT redraw it.
+
+## Motion
+- Living character: weight shifts, bending knees, supple spine. Not only an arm moving, but not everyone must jump/spin.
+- Never "figurine on a turntable". Do not use the words turn around / spin / pirouette / twirl.
+- No object similes in prompts ("lantern-like" produced a real lantern).
+- The figure keeps the same size: feet planted, no step or lunge toward the camera (otherwise she is a giant when she
+  leaps to the enemy row: enemies are drawn smaller by perspective). Say it explicitly in every prompt.
+- Timing the game needs: the game plays the sheet so that the release frame lands on the hit moment.
+  Ranged basic: release = sheet frame 5 (wind-up plays ~0.39 s). Melee basic: frame 4 (~0.28 s). Super/ult: frame 9 (~0.6 s).
+  So the wind-up in the video must be SHORT (basic: first third of a second; super/ult: first second), then a long,
+  relaxed recovery. A long wind-up squeezed into 4-5 frames looks jerky ("too abrupt").
+- If Kling still made a long wind-up: start the sheet later (v0 = release - ~10 video frames) instead of squeezing.
+- Removing frames from the middle (skip) makes a visible jerk - use only for 2-6 frames (a full-frame flash), not to hide
+  a weapon that left the frame; re-shoot instead.
+
+## Frame and weight
+- Total of the 4 new sheets <= the live god's sheets (KB and decoded RAM), better less. 180x220 is only the ceiling.
+- Prefer ideas that make the silhouette narrower (tails gathered into one bundle, thrust toward the viewer, kneel
+  behind a shield) so the picture can be stored larger.
+- Leaving the frame: a tip of a sleeve / 30% of a fan for ~0.3 s is fine if it is fast there-and-back.
+  Slow or long exits are bad (half a sword for half a second, a fan slowly sweeping out).
+
+## Effects
+- Smart tricks: blank shots (only smoke / a glint at the weapon), the projectile is drawn by the game.
+- Baked effect colour = the god's FX colour in the game.
+- NO blinding flashes, baked or programmatic: no lens flare, starburst, white-out, full-screen flash. Soft glows only
+  (players watch on a phone; every god flashing at the screen is unbearable).
+- A baked effect may reach the frame edge: there it must dissolve softly (adapter does it) and the game continues it.
+- The programmatic effect must be born exactly where the baked effect is (centre of the shield, raised hand, top
+  edge where the beam leaves) and at the moment the motion gets there. Check the origin point on the stand for every
+  clip (wf = point in the sheet frame) - "slightly below and to the right of the shield" is a defect.
+- No tiny unreadable wisps/lanterns around the god. Decoys = translucent doubles as in the live game.
+- Programmatic effects must not look cheap: plain radial rays, pebbles under the feet, 5 little balls - bad.
+  Each skill should read clearly: what flew where and what it did.
+
+## Skills / balance (proposals only)
+- Many skills are samey or out of balance. Prefer long weak effects to short huge ones, more own damage for supports.
+- Always give numbers for minimum and maximum progression (e.g. -10% for 10 s -> -25% for 20 s).
+- Check with the SIM after approval.
+
+## Stand
+- https://maxsimusai.github.io/gods-anim-lab/ : left arena = live game, then new BT, new TI. Everything on one screen.
+- Ally health bars under the feet. Per-slot note "what to check".

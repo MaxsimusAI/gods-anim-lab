@@ -12260,6 +12260,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
             impact: isReal25 ? (sl.impact || 11) : 0,
             wpt: isReal25 && sl.wpt ? sl.wpt.slice() : fallbackWpt,
             ho: isReal25 && sl.ho ? sl.ho : null,
+          wf: isReal25 && sl.wf ? sl.wf : null,
             isNewSheet: isReal25,
           };
         }

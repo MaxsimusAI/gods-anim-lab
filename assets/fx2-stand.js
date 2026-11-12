@@ -3012,7 +3012,9 @@ drag: o.drag ?? 3, ay: o.ay ?? 0, stretch: o.stretch ?? .045, add: o.add ?? true
 }
 }
 flash(x, y, r, col, o = {}) {
-const t0 = this.t, dur = o.dur || .22, k = o.k ?? 1;
+if (BR.isProposed)
+r = Math.min(r, 30);   // 12.11 Maxim: nothing may blind the player on a phone
+const t0 = this.t, dur = o.dur || .22, k = (o.k ?? 1) * (BR.isProposed ? .5 : 1);
 this.O.push({ t0, dur, layer: o.layer, draw: (g, a) => {
 const q = a / dur, s = r * (o.grow ? lerp(.6, 1.15, EASE['ease-out'](q)) : lerp(.85, 1.1, q)), al = (q < .15 ? q / .15 : 1 - (q - .15) / .85) * k;
 g.globalCompositeOperation = 'lighter';
@@ -3797,6 +3799,16 @@ const WPT_DEF = { a: [0, -.62], s: [0, -.66], h: [0, -.7] };
 const MOTIF_EL = { dark: 'shadow', light: 'holy', water: 'water', earth: 'stone', fire: 'embers' };
 const MOVES = {
 wp(kind = 'a', u = this.u) {
+// 12.11 Maxim: on the new sheets the effect must start exactly where the baked effect is. The adapter stores that
+// point as a fraction of the sheet frame (wf); take it from the frame that is on screen right now.
+if (BR.isProposed && u && u.gu && this.st && this.st.frameOf) {
+const A0 = BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
+const fr = A0 && A0.wf ? this.st.frameOf(u) : null;
+if (fr && fr.atk) {
+const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - A0.wf[0] : A0.wf[0];
+return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + A0.wf[1] * fr.h - u.feet) * k0, h: boxOf(u).h };
+}
+}
 const P = (WPT[u.hid] || {})[kind] || WPT_DEF[kind];
 const b = boxOf(u), k = u.fh * u.sc;
 return { x: b.x + P[0] * k * (u.flip ? -1 : 1), y: b.feet + P[1] * k, h: b.h };
@@ -6899,6 +6911,8 @@ this.motions = this.motions.filter(m => m.u !== u);
 const hitIn = Math.max(0, tHit - this.t);
 const a = boxOf({ ...u, tx: 0, ty: 0, sc: 1 }), th = tgt.home, b = th ? { x: th.x, top: th.top, h: th.h, w: th.w, feet: th.top + th.h } : boxOf(tgt);
 let k = clamp((tgt.row || b.h) / Math.max(1, u.row || a.h), o.super ? .85 : .75, o.super ? 1.15 : 1.35);
+if (BR.isProposed)   // 12.11 Maxim: an ally who leaps to the far row must shrink to the enemies' size (perspective), not stay a giant
+k = clamp((tgt.row || b.h) / Math.max(1, u.row || a.h) * .94, .58, 1.35);
 const up = b.feet < a.feet;
 const left = b.x > LAY.W * .4, half = a.w * k * .5;
 const gap = o.super ? Math.min(b.w, a.w * k) * .62 + a.w * k * .2 : Math.max(b.w, b.h * .42) * (o.side ?? .62);
@@ -20376,6 +20390,74 @@ F.ring(x, y, 4, 24, '#fff1c4', { dur: .3, w: 2, k: .9 });
 }
 } });
 };
+K1.aegisTo = (F, from, t, dur, big) => {
+const to = F.tc(t, .5);
+F.shot(from, to, dur, { arc: -16 + F.rnd(-6, 6), ease: 'ease-in-out', trailW: big ? 5 : 3.6, col: '#ffd77a', trailCol: '#ffe9a8', coreCol: '#fff6d8', trailLife: .2, head: headOf('orb', '#ffd77a', '#fff6d8', big ? 6 : 4.5), onHit: () => K1.aegisDisc(F, t, big) });
+};
+K1.aegisDisc = (F, t, big) => {
+const D = 1.0;
+F.obj(D, (g, a) => {
+if (!t.alive)
+return;
+const b = boxOf(t), cx = b.x, cy = b.top + b.h * .52, R = Math.min(b.w * .36, b.h * .3) * (big ? 1.22 : 1);
+const q = EASE['ease-out'](clamp(a / .24, 0, 1)), al = a > D - .35 ? Math.max(0, (D - a) / .35) : 1;
+g.save();
+g.globalCompositeOperation = 'lighter';
+const gr = g.createRadialGradient(cx, cy, R * .1, cx, cy, R * q);
+gr.addColorStop(0, rgba('#fff1c4', .05 * al));
+gr.addColorStop(.75, rgba('#ffd77a', .2 * al));
+gr.addColorStop(1, rgba('#ffd77a', 0));
+g.fillStyle = gr;
+g.beginPath();
+g.arc(cx, cy, R * q, 0, TAU);
+g.fill();
+g.lineCap = 'round';
+for (const [rr, lw, c, k] of [[1, 1.8, '#ffe9a8', .95], [.8, .8, '#ffd77a', .6]]) {
+g.strokeStyle = rgba(c, k * al);
+g.lineWidth = lw;
+g.beginPath();
+g.arc(cx, cy, R * rr, -Math.PI / 2, -Math.PI / 2 + TAU * q);
+g.stroke();
+}
+const sw = clamp((a - .18) / .34, 0, 1);
+if (sw > 0 && sw < 1) {
+g.beginPath();
+g.arc(cx, cy, R * .97, 0, TAU);
+g.clip();
+const sx = cx - R * 1.3 + sw * R * 2.6, lg = g.createLinearGradient(sx - R * .28, 0, sx + R * .28, 0);
+lg.addColorStop(0, rgba('#ffffff', 0));
+lg.addColorStop(.5, rgba('#fff6d8', .38 * al));
+lg.addColorStop(1, rgba('#ffffff', 0));
+g.fillStyle = lg;
+g.transform(1, 0, -.35, 1, cy * .35, 0);
+g.fillRect(sx - R * .28, cy - R, R * .56, R * 2);
+}
+g.restore();
+drawGlyphAt(g, 'owl', cx, cy, R * .62, '#fff1c4', .55 * al * q);
+});
+if (big)
+F.at(.12, () => F.ring(boxOf(t).x, boxOf(t).top + boxOf(t).h * .52, 6, Math.min(boxOf(t).w * .5, 30), '#ffe9a8', { dur: .4, w: 1.4, k: .7 }));
+};
+// 12.11 Maxim: pebbles under the feet looked cheap -> the body itself turns to grey stone and a little dust rises
+K1.petrify2 = (F, t, dur) => {
+const fig = t.gu && t.gu.fig;
+if (!fig)
+return K1.petrify(F, t, dur);
+const prevF = fig.style.filter, prevT = fig.style.transition;
+let done = false;
+const clear = () => { if (done)
+return; done = true; fig.style.transition = 'filter .35s ease'; fig.style.filter = prevF || ''; setTimeout(() => { fig.style.transition = prevT || ''; }, 400); };
+fig.style.transition = 'filter .4s ease';
+fig.style.filter = 'grayscale(1) brightness(.78) contrast(1.2)';
+F.obj(dur, (g, a) => { if (!t.alive || a > dur - .05)
+clear(); });
+F.at(dur, clear);
+setTimeout(clear, dur * 4000 + 3000);
+const b = boxOf(t);
+for (let i = 0; i < 9; i++)
+F.at(i * .04, () => F.p({ x: b.x + F.rnd(-b.w * .28, b.w * .28), y: b.feet - (i / 9) * b.h * .85, vx: F.rnd(-8, 8), vy: F.rnd(-22, -8), drag: 1.5, life: F.rnd(.45, .7), s0: F.rnd(2.5, 4), s1: 1, tex: 'dot', col: F.pick(['#cfc8b6', '#a8a090', '#e0dac8']), a0: .55, add: false }));
+F.ring(b.x, b.feet - 2, 4, b.w * .42, '#d8d0b8', { dur: .45, w: 1.4, sy: .32, k: .55 });
+};
 K1.petrify = (F, t, dur) => {
 const b = boxOf(t);
 F.finFeet(t, 'stone', dur);
@@ -20430,8 +20512,17 @@ sup(F, e) {
 const owl = BR.isProposed ? F.wp('s') : sheetPt(F.u, 'sup', .7, .2);
 F.mo(owl.x, owl.y, 'feather', 4, .9, { cols: ['#ffe9a8', '#fff6d8'] });
 if (BR.isProposed) {
-F.ring(owl.x, owl.y, 8, 44, '#ffd77a', { dur: .45, w: 2.4 });
-F.flash(owl.x, owl.y, 14, '#ffe9a8', { dur: .22, k: .6 });
+// the Aegis leaves the shield as two soft rings, a ribbon of gold light runs to every ally and a round aegis forms on them
+F.ring(owl.x, owl.y, 6, 30, '#ffd77a', { dur: .4, w: 2.2 });
+F.at(.1, () => F.ring(owl.x, owl.y, 4, 48, '#ffe9a8', { dur: .6, w: 1.2, k: .6 }));
+const seen2 = new Set();
+K1.ev(F, x => x.type === 'shield' && x.on).forEach(x => {
+const twice = seen2.has(x.u);
+seen2.add(x.u);
+const fl = twice ? .22 : clamp(x.t - F.t, .14, .32);
+F.at(Math.max(0, x.t - F.t - fl), () => K1.aegisTo(F, owl, x.u, fl, twice));
+});
+return;
 }
 const seen = new Set();
 K1.ev(F, x => x.type === 'shield' && x.on).forEach(x => {
@@ -20447,23 +20538,29 @@ h: {
 col: '#ffe9a8', markGlyph: 'k1gorgon', keep: [.495, .58, .325, .47],
 anticip(F, u, k, rel) {
 const s = F.wp('h'), P = BR.isProposed, t1 = P ? Math.max(.1, (rel || .6) - .04) : .2, t2 = P ? t1 + .2 : .42;
+if (P) {
+F.at(t1, () => { const c = F.wp('h'); F.sigil('k1gorgon', c.x, c.y, 15, '#ffe9a8', { dur: 1.0, in: .16, out: .6, k: .9, fill: true }); F.ring(c.x, c.y, 5, 26, '#ffe9a8', { dur: .5, w: 1.6, k: .7 }); });
+F.at(t1 + .16, () => { const c = F.wp('h'); F.ring(c.x, c.y, 4, 40, '#ffd77a', { dur: .6, w: 1, k: .5 }); });
+return;
+}
 F.at(t1, () => { K1.rays(F, s.x, s.y, { r: 46, n: 14, col: '#ffd77a', core: '#fffbe6', dur: .45, w: 2.6, spin: .3, k: .85 }); F.flash(s.x, s.y, 28, '#ffd77a', { dur: .3, k: .6 }); });
 F.at(t2, () => { K1.rays(F, s.x, s.y, { r: 56, n: 16, col: '#ffe9a8', core: '#ffffff', dur: .42, w: 3, spin: -.3, k: .9 }); const b = boxOf(u), ey = b.feet < LAY.H * .5 ? b.feet + 20 : b.top - 22; F.sigil('k1gorgon', P ? s.x : b.x, P ? s.y : ey, P ? 16 : 22, '#ffe9a8', { dur: 1.1, in: .14, out: .7, k: .95, fill: true }); });
 },
 ult(F, e) {
 const ub = boxOf(F.u), eye = BR.isProposed ? F.wp('h') : { x: ub.x, y: ub.feet < LAY.H * .5 ? ub.feet + 20 : ub.top - 22 };
 e.targets.forEach((t, i) => { const p = F.tc(t, .5); F.at(i * .015, () => K1.shaft(F, eye, p, { col: '#e8e2c0', w0: 3, w1: boxOf(t).w * .14, dur: .5, grow: Math.max(.06, FLY_S - i * .015), k: .3 })); });
+if (!BR.isProposed)
 for (let i = 0; i < 12; i++)
 F.at(.1 + i * .03, () => { const t = F.pick(e.targets), b = boxOf(t); F.p({ x: b.x + F.rnd(-b.w * .3, b.w * .3), y: b.top + F.rnd(0, b.h * .6), vx: F.rnd(-6, 6), vy: F.rnd(10, 30), drag: 1, life: F.rnd(.5, .8), s0: F.rnd(1.6, 2.6), s1: 1, tex: 'dot', col: '#d8d0b0', a0: .8, add: false }); });
 F.hypDrawn = true;
 },
 ctrl(F, e) { if (e.as !== 'stone')
-return 'default'; K1.petrify(F, e.u, e.dur || 4); },
+return 'default'; (BR.isProposed ? K1.petrify2 : K1.petrify)(F, e.u, e.dur || 4); },
 hit(F, e) {
 if (e.by && e.by !== F.u && e.by.side === F.u.side) {
 const p = F.tc(e.u, .45), c = G.HEROES[e.by.hid] ? G.HEROES[e.by.hid].fx : '#ffffff';
 F.hit1(p.x, p.y, { col: c, s: .8, mn: 0 });
-if (e.u.stun && e.u.ctrlAs === 'stone') {
+if (e.u.stun && e.u.ctrlAs === 'stone' && !BR.isProposed) {
 F.burst(p.x, p.y, { n: 12, tex: txOr('rock2', 'rock'), col: ['#b8b0a0', '#8a8272', '#d0c8b4'], v0: 80, v1: 200, s0: 5, s1: 3, l0: .4, l1: .7, ay: 420, add: false, vr: 8, stretch: 0 });
 F.mo(p.x, p.y + 10, 'stone', 6, .9, { rock: '#9a9282', dust: '#8a8270' });
 }
