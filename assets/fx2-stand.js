@@ -20627,7 +20627,40 @@ return 'default';
 },
 },
 };
-K1.arrow = (F, from, to, dur, o = {}) => F.shot(from, to, dur, { arc: o.arc ?? -10, ease: o.ease, trailW: o.small ? 3 : 4, col: '#ffd04a', trailCol: '#ffc23a', coreCol: '#fff1c4', trailLife: o.tl ?? .1, head: arrowHead('#ffd04a', '#fff6d0', o.small ? 18 : 22), emit: emitOf('ember', ['#ffd04a', '#fff1b0'], { p: .5, s0: 3 }), onHit: o.onHit });
+K1.arrow = (F, from, to, dur, o = {}) => F.shot(from, to, dur, { arc: o.arc ?? -10, ease: o.ease, trailW: o.small ? 3 : 4, col: '#ffd04a', trailCol: '#ffc23a', coreCol: '#fff1c4', trailLife: o.tl ?? .1, head: o.head || arrowHead('#ffd04a', '#fff6d0', o.small ? 18 : 22), emit: emitOf('ember', ['#ffd04a', '#fff1b0'], { p: .5, s0: 3 }), onHit: o.onHit });
+// 13.11 Maxim: "the super's effect does not look like an arrow" - a readable golden arrow: shaft, broad head, fletching;
+// the fire only licks along the shaft and does not hide its shape (proposed arenas only).
+K1.sunArrow = (k = 1) => (g, a) => {
+g.save();
+g.scale(k, k);
+const L = 46, f = 1 + .12 * Math.sin(a * 50);
+g.globalCompositeOperation = 'lighter';
+g.globalAlpha = .5;
+g.drawImage(TX.get('glow', '#ffb43a'), -18, -9, 32, 18);
+g.save();
+g.rotate(-Math.PI / 2);
+g.globalAlpha = .55;
+g.drawImage(TX.get(txOr('flame2', 'flame'), '#ffb43a', true), -5, -28 * f, 10, 28 * f);
+g.restore();
+g.globalAlpha = 1;
+g.globalCompositeOperation = 'source-over';
+g.lineCap = 'round';
+g.strokeStyle = 'rgba(70,32,0,.8)';
+g.lineWidth = 4.4;
+g.beginPath(); g.moveTo(-L, 0); g.lineTo(0, 0); g.stroke();
+g.strokeStyle = '#ffd774';
+g.lineWidth = 2.4;
+g.beginPath(); g.moveTo(-L, 0); g.lineTo(0, 0); g.stroke();
+g.lineWidth = .9;
+g.strokeStyle = 'rgba(70,32,0,.8)';
+g.fillStyle = '#fff0c0';
+for (const sg of [-1, 1]) { g.beginPath(); g.moveTo(-L + 13, 0); g.lineTo(-L - 3, sg * 7); g.lineTo(-L + 1, 0); g.closePath(); g.fill(); g.stroke(); }
+g.fillStyle = '#fff6d6';
+g.strokeStyle = '#b8740f';
+g.lineWidth = 1.2;
+g.beginPath(); g.moveTo(13, 0); g.lineTo(-1, -6); g.lineTo(2.5, 0); g.lineTo(-1, 6); g.closePath(); g.fill(); g.stroke();
+g.restore();
+};
 K1.fireArrow = (g, a) => {
 g.globalCompositeOperation = 'lighter';
 g.drawImage(TX.get('glow', '#ffb43a'), -44, -15, 60, 30);
@@ -20747,7 +20780,7 @@ const u = e.u;
 F.st.playAnim(u, 'atk', REL_SHOT);
 F.atkGlowNew(u);
 const h1 = K1.ev(F, x => x.type === 'hit' && x.u === e.tgt && x.by === u)[0], tHit = h1 ? h1.t : typeof FX2_EVENTS !== 'undefined' ? FX2_EVENTS.impact(F, e.tgt, T_WIND + T_FLY) : T_WIND + T_FLY;
-F.at(REL_SHOT, () => { const from = F.wp('a'), to = F.tc(e.tgt, .42); F.flash(from.x, from.y, 12, '#ffd04a', { dur: .16 }); K1.arrow(F, from, to, Math.max(.1, tHit - REL_SHOT)); });
+F.at(REL_SHOT, () => { const from = F.wp('a'), to = F.tc(e.tgt, .42); F.flash(from.x, from.y, 12, '#ffd04a', { dur: .16 }); K1.arrow(F, from, to, Math.max(.1, tHit - REL_SHOT), BR.isProposed ? { head: K1.sunArrow(.8) } : undefined); });
 },
 chain(F, e) {
 const a = F.tc(e.u, .42), b = F.tc(e.tgt, .42);
@@ -20785,7 +20818,7 @@ if (!t)
 return;
 const from = F.wp('s'), to = F.tc(t, .45), f = F.feetOf(t), ang = Math.atan2(to.y - from.y, to.x - from.x);
 F.flash(from.x, from.y, 26, '#ffd04a', { dur: .22 });
-F.shot(from, to, FLY_S, { arc: -4, ease: 'linear', trailW: 9, col: '#ffb43a', trailCol: '#ffc23a', coreCol: '#ffcf7a', trailLife: .04, head: K1.fireArrow, emit: emitOf('ember', ['#ffd04a', '#ff9a2a'], { p: .9, s0: 4, ay: -40 }) });
+F.shot(from, to, FLY_S, { arc: -4, ease: 'linear', trailW: BR.isProposed ? 4 : 9, col: '#ffb43a', trailCol: '#ffc23a', coreCol: '#ffcf7a', trailLife: .04, head: BR.isProposed ? K1.sunArrow(1.05) : K1.fireArrow, emit: emitOf('ember', ['#ffd04a', '#ff9a2a'], { p: .9, s0: 4, ay: -40 }) });
 FX_IMPACT_K_LIGHT1(F, t, FLY_S, () => {
 F.pierce(to.x, to.y, ang, { col: '#ffd04a', L: 74, w: 7, n: 12 });
 K1.rays(F, to.x, to.y, { r: 58, n: 14, col: '#ffc23a', core: '#fff6d0', dur: .45, w: 3.4 });
@@ -20855,7 +20888,11 @@ col: '#9fd8ff', keep: [.5, .62, .29, .42],
 anticip(F, u) {
 F.at(.3, () => K1.clouds(F, 30, LAY.W - 30, K1.skyY(F), 1.15, { flick: '#cfeeff', flickN: 5 }));
 F.at(.4, () => K1.burstBolts(F, sheetPt(u, 'sup', .64, .27), 4, 34, '#bfe6ff', false, { a0: -Math.PI / 2, gap: .04 }));
-F.at(.5, () => K1.skyLink(F, sheetPt(u, 'sup', .64, .25), '#bfe6ff'));
+// 13.11: on the new arenas the bolt visibly goes from Zeus's hand/staff into the storm clouds over the enemies,
+// then the clouds strike (rule: a baked effect needs a visible link to what happens on the enemies).
+F.at(.5, () => { const v = sheetPt(u, 'sup', .64, .25);
+if (BR.isProposed) { const sy = K1.skyY(F), sx = LAY.W / 2 + F.rnd(-30, 30); K1.bolt(F, false, v.x, v.y, sx, sy, { col: '#bfe6ff', w: 1.3, dur: .3, branches: 3, rough: .22 }); F.flash(sx, sy, 30, '#bfe6ff', { dur: .25 }); }
+else K1.skyLink(F, v, '#bfe6ff'); });
 },
 sup(F, e) {
 K1.ev(F, x => x.type === 'hit' && x.by === F.u && x.src === 'super').forEach(x => F.at(K1.dt(F, x, .02), () => {
@@ -20874,6 +20911,9 @@ col: '#bfe6ff',
 anticip(F, u) {
 F.at(.24, () => K1.clouds(F, 30, LAY.W - 30, K1.skyY(F), 1.4, { flick: '#cfeeff', flickN: 6 }));
 F.at(.36, () => F.sigil('bolt', LAY.W / 2, LAY.py(150 + 54), 30, '#bfe6ff', { dur: .62, in: .14, out: .55, k: .95, fill: true }));
+if (BR.isProposed)
+F.at(.36, () => { const v = sheetPt(u, 'hyp', .5, .2), FS = F.foes().map(boxOf), ft = FS.length ? Math.min(...FS.map(b => b.top)) : 60, top = { x: LAY.W / 2 + 20, y: Math.max(4, ft - 30) };
+K1.bolt(F, false, v.x, v.y, top.x, top.y, { col: '#cfeeff', w: 1.6, dur: .34, branches: 3, rough: .2 }); F.flash(v.x, v.y, 20, '#bfe6ff', { dur: .2 }); F.flash(top.x, top.y, 34, '#bfe6ff', { dur: .25 }); });
 },
 ult(F, e) {
 const FS = F.foes().map(boxOf), fy = FS.length ? FS.reduce((s2, b) => s2 + b.feet, 0) / FS.length : LAY.eFeet, ft = FS.length ? Math.min(...FS.map(b => b.top)) : fy - 80;
@@ -21106,7 +21146,11 @@ if (!t)
 return;
 const b = boxOf(t);
 F.at(.2, () => K1.clouds(F, b.x - 60, b.x + 60, Math.max(14, b.top - 36), 1.25, { n: 5, col: '#a89c84', lit: '#8a7444', flick: '#ffe6a0', flickN: 6, s: .95 }));
-F.at(.3, () => { const v = sheetPt(u, 'hyp', .33, .37); K1.burstBolts(F, v, 4, 30, '#ffe6a0', true, { gap: .05, a0: -Math.PI / 2 }); K1.skyLink(F, v, '#ffe6a0', true); });
+F.at(.3, () => { const v = sheetPt(u, 'hyp', .33, .37); K1.burstBolts(F, v, 4, 30, '#ffe6a0', true, { gap: .05, a0: -Math.PI / 2 });
+// 13.11 Maxim: "the lightning from above hits emptiness / no sync". On the new arenas the bolt visibly runs from the raised
+// vajra to the storm cloud above the target, then the column falls from that cloud.
+if (BR.isProposed) { const y0 = Math.max(4, b.top - b.h * .55); K1.bolt(F, true, v.x, v.y, b.x, y0, { col: '#ffe6a0', w: 1.3, dur: .32, branches: 3, rough: .22 }); F.flash(b.x, y0, 26, '#ffe6a0', { dur: .22 }); }
+else K1.skyLink(F, v, '#ffe6a0', true); });
 F.at(.36, () => F.sigil('vajra', b.x, Math.max(30, b.top - 34), 30, '#ffe6a0', { dur: .7, in: .15, out: .55, spin: 1.6, k: .95, fill: true }));
 },
 ult(F, e) {

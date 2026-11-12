@@ -182,3 +182,10 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 - Heavy golden auras compress badly: Heimdall's 4 sheets are 23-28% heavier in KB than his (very light) live sheets at
   the lowest quality step, while RAM is below live. Do not shrink the body silently — report and let Maxim choose.
 - Kling MCP rate-limits query_tasks at ~6 parallel calls: poll 4-5 at a time.
+
+- **Sky strikes need a visible chain.** When the game drops lightning/fire from the sky on enemies (Zeus super and ult,
+  Indra ult), first draw a bolt from the god's weapon/hand to the cloud above the targets at the release moment, then
+  the strike. A bolt that only goes up over the god and a strike elsewhere = "hits emptiness" (Maxim, batch 3).
+- **Projectiles: draw the object, not a comet.** Apollo's game arrow is now shaft + broad head + fletching with fire
+  only along the shaft (`K1.sunArrow`). Check projectiles in slow motion: `b3/seq.py out god slot n step 0.25 start_ms`.
+- Old sheets re-adapted with pad 2 px (13.11): all 136 sheets have <= 3 px empty margin (`b3/margins2.py`).
