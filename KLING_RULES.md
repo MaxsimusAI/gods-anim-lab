@@ -81,3 +81,28 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 - All balance proposals and all of Maxim's remarks per god are stored in kling_done.json ("balance", "todo") and shown
   on the stand under each skill. Nothing may live only in the chat. Backlog gods are re-done after the roster pass
   or when Maxim says.
+
+## Added 12.11 after making batch 3 (Apollo, Brynhild, Van Helsing, Indra, Inti)
+
+- **Idle is measured, not eyeballed.** `b3/motion.py <clip>` prints the mean frame-to-frame motion for six parts of
+  the loop. Rejected idles of batch 2 had 0.3–1.2 everywhere; a good idle has 2+ in the middle parts and no part
+  below ~1 except the very start/end. Below that -> retake with an explicit list of continuous actions (weight
+  shift, step in place, weapon handling, head turn, cloth) and "never freezing".
+- **Wings and other wide effects need a looser input canvas.** On the tight canvas Kling opens wings past the frame
+  and they stay cut for 1–1.5 s (forbidden: slow/long clipping). For such a clip use the figure at ~56% of the
+  width with ~14% extra head-room (`tight/<god>_<style>_loose.png`) and say in the prompt that the wings are compact
+  and never reach the frame edges. The adapter normalises the body height, so the looser canvas is safe.
+- **A straight cut at the frame edge is softened.** Where the sheet frame edge is the edge of the Kling video, the
+  adapter now fades everything (body too) over the last ~3.5%; `b3/softcut.py` does the same on already built sheets.
+  It hides a short cut of a cloak or a spark; it does not excuse long clipping — that is still a retake.
+- **White frame at the release.** If the release frame is a white ball / lens flare, do not retake: remove those
+  1–3 frames with `skip` and put `imp` on the next frame (the ring/burst after the flash). Works because a flash is
+  not a movement.
+- **Melee gods** (stand style `melee: true`, e.g. Brynhild) release at sheet frame k=4, ranged basics at k=5,
+  super/ult at k=9. Check the style before setting `k`.
+- **Old per-god signatures** place sparks with `sheetPt(u, kind, fx, fy)` (fractions of the OLD sheet). On the new
+  sheets `sheetPt` now returns the measured origin `wf`, the same point as `F.wp`. So `wf` must be set for every
+  action clip — it drives both.
+- A projectile drawn by Kling in the wrong direction (e.g. a bolt flying down) is removed with `skip`; the game
+  draws the real one from `wf`.
+- Retakes are overwritten under the same clip name; the first take is kept in `b3/take1/`.

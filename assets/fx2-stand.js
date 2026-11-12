@@ -8620,7 +8620,18 @@ return a <= s ? dx : Math.sign(dx) * Math.min(C, s + (a - s) * .3);
 }
 if (typeof sheetPt === 'function') {
 const SP0 = sheetPt;
-sheetPt = function (u, kind, fx, fy) { const p = SP0(u, kind, fx, fy); if (u && u.cx != null) {
+sheetPt = function (u, kind, fx, fy) {
+// 12.11 (batch 3): the old signatures place their sparks by fractions of the OLD sheet frame. On a new Kling sheet that
+// point is wrong, so use the measured origin of the baked effect (wf) of the frame that is on screen now.
+if (BR.isProposed && u && u.gu && u.cx != null) {
+const A0 = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
+const fr = A0 && A0.wf && FX2W.frameOf ? FX2W.frameOf(u) : null;
+if (fr && fr.atk) {
+const k0 = u.sc * (u.msc || 1), wx = u.flip ? 1 - A0.wf[0] : A0.wf[0];
+return { x: u.cx + u.tx + (fr.x + wx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + A0.wf[1] * fr.h - u.feet) * k0 };
+}
+}
+const p = SP0(u, kind, fx, fy); if (u && u.cx != null) {
 const b = boxOf(u);
 p.x = b.x + capX(p.x - b.x, u);
 } return p; };
