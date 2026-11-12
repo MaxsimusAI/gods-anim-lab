@@ -633,7 +633,7 @@
     const allInGroup = getAllGods().filter(g => g.group === state.group);
     const vidCnt = allInGroup.filter(g => g.hasVideoAnim).length;
     const items = [{ k: 'all', lbl: `Все (${allInGroup.length})` }];
-    if (vidCnt > 0) items.push({ k: 'video', lbl: `🎬 25 кд (${vidCnt})` });
+    if (vidCnt > 0) items.push({ k: 'video', lbl: `🎬 Kling готов (${vidCnt})` });
     for (const [ek, elbl] of [['light', '⚡ Свет'], ['fire', '🔥 Огонь'], ['water', '💧 Вода'], ['earth', '🌿 Земля'], ['dark', '🌑 Тьма']]) {
       const cnt = allInGroup.filter(g => g.element === ek).length;
       if (cnt > 0) items.push({ k: ek, lbl: `${elbl} (${cnt})` });
@@ -662,7 +662,7 @@
     const host = document.getElementById('godRoster');
     host.innerHTML = gods.map((g, idx) => {
       const cls = g.id === state.godId ? 'god-pill active' : 'god-pill';
-      const dot = g.hasVideoAnim ? `<i class="vid-dot" title="Проверенные 25-кадровые листы (${g.videoSlotsReady}/8)"></i>` : '';
+      const dot = g.hasVideoAnim ? `<i class="vid-dot" title="Kling готов (${g.videoSlotsReady}/8)"></i>` : '';
       return `<button class="${cls}" data-god="${g.id}" type="button"><img src="${g.portrait}" alt=""><span>${idx + 1}. ${g.name}</span>${dot}</button>`;
     }).join('');
 
@@ -677,7 +677,7 @@
 
     const sel = document.getElementById('godQuickSelect');
     sel.innerHTML = gods.map((g, idx) =>
-      `<option value="${g.id}"${g.id === state.godId ? ' selected' : ''}>${idx + 1}. ${g.name} (${g.elementIcon} ${g.roleRu})${g.videoSlotsReady ? ` · ${g.videoSlotsReady}/8 кд` : ''}</option>`
+      `<option value="${g.id}"${g.id === state.godId ? ' selected' : ''}>${idx + 1}. ${g.name} (${g.elementIcon} ${g.roleRu})${g.videoSlotsReady ? ` · Kling ${g.videoSlotsReady}/8` : ''}</option>`
     ).join('');
 
     const god = currentGod();
@@ -698,10 +698,10 @@
       const sw = sh.sheetW || sh.w * sh.cols;
       const shH = sh.sheetH || sh.h * sh.rows;
       if (sh.isStaticRef) {
-        a.tagEl.textContent = `⏳ Очередь 25 кд · Арт ${sh.w}×${sh.h} px`;
+        a.tagEl.textContent = `⏳ Kling ещё не сделан · фигура ${sh.w}×${sh.h} px`;
         a.tagEl.classList.add('is-ref');
       } else {
-        a.tagEl.textContent = `🎬 ${sh.frames} кд · ${sh.w}×${sh.h} px (${sw}×${shH})`;
+        a.tagEl.textContent = (a.key === 'live_bt' || a.id === 'live_bt' ? `В игре · ${sh.frames} кадров · ${sh.w}×${sh.h} px` : `🎬 Kling · ${sh.frames} кадров · ${sh.w}×${sh.h} px`);
         a.tagEl.classList.remove('is-ref');
       }
 
@@ -750,7 +750,7 @@
       `<span>${liveTxt}</span>` +
       `<span>Новая БТ (${sl}, ${ceilTxt}): <b>${shBt.w}×${shBt.h}px</b> (${pBt.kb} КБ · ${pBt.ram} МБ)</span>` +
       `<span>Titan Idols (${sl}, ${ceilTxt}): <b>${shTi.w}×${shTi.h}px</b> (${pTi.kb} КБ · ${pTi.ram} МБ)</span>` +
-      `<span>Видео 25 кд: <b>${god.videoSlotsReady}/8</b></span>`;
+      `<span>Kling: <b>${god.videoSlotsReady}/8</b></span>`;
   }
 
   function renderControlsAndVerdicts(god) {
@@ -769,6 +769,7 @@
     fxBadge.className = 'status-pill ' + (sk.fxUpgraded ? 'upgrade' : 'keep');
     document.getElementById('fxBody').innerHTML =
       `<p>${sk.descRu}</p>` +
+      (sk.animRu ? `<div class="fx-verdict-box"><b>Анимация Kling:</b> ${sk.animRu}</div>` : '') +
       `<div class="fx-verdict-box"><b>Движок FX2 «Кузница»:</b> ${sk.fxVerdictRu}</div>`;
 
     const bal = god.balance;
