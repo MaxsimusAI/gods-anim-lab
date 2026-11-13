@@ -68,3 +68,13 @@ note: the jerk meter of `sheet_motion.py` did NOT flag this sheet (1.4) — jerk
 clip: athena_ti_idle
 status: re-shoot — glued feet / spear above the top; Kling refused one retake ("copyright": reword neutrally)
 ```
+
+```
+clip: athena_bt_idle, athena_ti_idle
+status: re-shoot (13.11 22:05: not accepted → re-shoot; TI glued feet, spear above the top)
+idea: weight from leg to leg, hips and shoulders follow, the shield lowers a little and comes back, the spear stands on the
+  ground tilted (its tip inside the frame), cloak and crest follow
+```
+
+Note 13.11 evening: the BT shield already carries a Medusa relief — in the accepted BT ult the shield is presented with
+the Medusa face; the game's translucent Medusa picture can simply be dropped for BT without a re-shoot (to Maxim).

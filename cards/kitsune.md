@@ -77,3 +77,27 @@ remarks:
 choice of 13.11 ~17:40 (question window, not his own words): «Почти без шагов» for Kitsune's actions.
 He rejected the result the same evening («ноги статичные…») — not in force.
 ```
+
+```
+clip: kitsune_bt_idle, kitsune_ti_idle
+status: re-shoot (13.11 22:05: not accepted → re-shoot under the new rules)
+idea: weight from leg to leg, hips and shoulders follow, the tails sway slowly; BT the mask lowers from the face and returns,
+  TI she fans herself at the chest, the ears twitch
+```
+
+```
+clip: kitsune_ti_atk (new idea, 13.11 evening)
+idea: a short crouch with a hip turn, the fan snaps open with a sharp sweep forward at the chest, sky-blue fox-fire flares
+  along the fan's edge; the fan stays inside the frame
+game_fx: one fox-fire from the fan edge (wf) to the target
+```
+
+```
+clip: kitsune_ti_sup (new idea, 13.11 evening)
+idea: she crouches, the open fan covers her face, the tails press close together behind her (never wider than at the start),
+  fox-fires light on the tips of the tails and on the fan
+game_fx: the fires fly from the tips of the tails to every enemy (as BT, v29)
+```
+
+Decision 13.11 22:05: Kitsune BT super and ult — the 12.11 takes (sharp cut) are «сейчас» (v33); the 13.11 BT ult was
+called «ещё хуже», the super is his own idea. The mask in the ult: ask before any re-shoot (protected take).
