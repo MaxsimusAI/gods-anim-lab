@@ -104,3 +104,9 @@ See `remarks_ru.md` next to this file.
   downscale, WebP with a weaker deblocking filter. Result 316 KB = 112 % of live, frame 177×220 (memory 113 % of live, +3 %
   against the previous cut). A better matting model (BiRefNet) did not fit in the workspace memory (6 GB) — isnet kept.
   Published as «сейчас» (v30) for his look; tools `pipeline/b3/sharp_prep.py`, `sharp_cut.py`.
+- 13.11 (21:44) Maxim on the sharp cut of Kitsune's BT strike (v30): «теперь анимация обычного удара круто выглядит. Это надо
+  зафиксировать, тогда тоже в правилах и так делать. Именно сама четкость. Все четко, все видно.» → proposed as a skill update
+  (B2: file up to 120 % of live for sharpness, memory not; B3: the sharp cut for every sheet). The same evening the eight
+  other local 12.11 sources were cut the same way: v31 «сейчас» Kitsune TI ult, Athena super BT/TI, Zeus super BT/TI; v32
+  «вчера» Kitsune TI strike, BT super, BT ult. Frame IoU against the previous cuts 0.94-0.96 (same moments). Width +0-5 px
+  (memory +0-3 %). The 13.11 takes and the idles need their source videos from Maxim's computer (bridge offline).

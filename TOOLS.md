@@ -158,3 +158,14 @@ Overrides `work/impact_overrides.json` per clip:
   `src` exists and its size = sheetW×sheetH, incl. v20 packs and static refs); bump `?v=` in index.html; commit (not the root
   `gods-data.js`, no tokens/urls); push; verify the live site serves the new `?v=` and loads without errors.
 - "вчера" for a clip published for the first time after v20 shows the old reference/static sheet (builder `FIRST` set).
+
+## Sharp cut (13.11, Maxim «так делать»)
+
+`bash pipeline/b3/sharp_batch.sh <clip>...` (copy to `/home/claude/kl/b3/` first, like the other b3 tools): per clip, full-size
+frames from `b2/mp4/<clip>.mp4` → `sharp_prep.py` (NL-means denoise h=3; BT only: LAB lightness/saturation moved 60 % toward
+`art/f0/<god>.webp`, measured on frame 1; TI art is not in the repo, so TI gets no tone step) → `sharp_cut.py <sandbox> 1.2
+isnet-general-use <clip>` (the normal cutter with unsharp 0.9/70 after the downscale and WebP via the `webp` package:
+filter_strength 20, sharpness 3, sns 60, method 6, quality by binary search under 120 % of the live KB; lite under 120 % of
+its cap) → sheets and metrics copied into the workspace → `pub1.sh` («сейчас») or `pubprev.sh` («вчера»). Needs
+`pip install --break-system-packages webp`. Kitsune BT super afterwards: `hue_fix.py <v20 ref> <sheet> <cap KB>` (teal → sky
+blue). BiRefNet matting needs more than the 6 GB of the workspace — isnet stays. Cost: about 2 min per clip.
