@@ -136,3 +136,9 @@ See `remarks_ru.md` next to this file.
   Demeter strike/ult retakes: «Пока не надо». Kitsune TI super (tails wider than the frame three times): «Пока не надо».
   Artemis TI super (several translucent bows): «Пометить надо, что исправить, но пойти пока дальше.» → noted in her card and
   on the stand; on hold. Next: the following gods.
+- 14.11 (00:40) Maxim: «ты пишешь, что появились кнопки, а где они на сайте? Я что-то их не вижу» → v38 had published only the
+  data: app.js/styles.css were not in the publish scripts' commit list. Fixed in v39 (and in pubcode/pub1/pubprev); a «+N»
+  badge now marks the slot buttons that have takes.
+- 14.11 night, Hel (god 6, «пойти пока дальше»): sources of all 8 published takes found (Maxim's tar + Kling history), all 8
+  re-cut sharp (v40). New takes: super BT/TI published (v41, WATCH); BT ult haze removed (matting artifact, new
+  `b3/haze_fix.py`); BT strike: 3 takes failed → near-misses as «Версия 2/3»; TI strike and TI ult retakes under review.
