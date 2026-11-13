@@ -152,3 +152,5 @@ See `remarks_ru.md` next to this file.
   (Maxim's remark «spear cut on the return»): new idea — a short two-hand thrust diagonally down, spear kept in the frame.
   Hou Yi TI strike/ult failed (flat aim into the right edge, fire across the frame) → retake with one change: aim diagonally
   down (as in the BT super that passed).
+- 14.11 (05:05) 10 gods: v76 Indra TI super, Inti TI ult (smoke); v77 near-misses as «Версия 2» (Hou Yi TI ult, Erlang TI
+  strike); v78 Erlang BT strike, Hou Yi TI strike. Van Helsing retakes failed twice → old takes stay, idea question to Maxim.

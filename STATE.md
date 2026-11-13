@@ -71,10 +71,13 @@ Later (v60–v74): Apollo, Brynhild, Indra re-cuts published (Brynhild TI ult, I
 BT strike, BT/TI ult re-cut; Erlang idles, BT ult, strikes re-cut (v74; BT/TI super and TI ult keep the old cut: the re-cut
 adds a white flash / cuts the top); Inti TI super re-cut with fit (v74; BT super keeps the old cut — the fit re-cut cuts the
 sun); Hou Yi new BT strike/super/ult and TI super published (v74, review WATCH/PASS).
-Open: Inti TI ult smoke clean-up (new `kl/g7/smoke_fix.py`), Indra TI super fit re-cut, Van Helsing TI strike / BT super /
-TI super retake 2 — fresh-eyes review running; retakes shot: Erlang BT/TI strike (new idea: short two-hand thrust down, the
-spear stays in the frame), Hou Yi TI strike and TI ult (aim diagonally down instead of flat into the side edge). Then G4
-stand check of the new effects of all re-shot clips, sources tar to Maxim, report.
+v76–v78: Indra TI super fit re-cut (same moments, sharper), Inti TI ult smoke cleaned (`kl/g7/smoke_fix.py`, review WATCH:
+small holes in the floor ring 21–23), Erlang BT strike new take (short thrust, WATCH), Hou Yi TI strike retake (aim diagonally
+down, WATCH). «Версия 2»: Hou Yi TI ult (aim fixed, starburst at the release — two retakes failed), Erlang TI strike take 1
+(wind ring to the edges). Van Helsing TI strike / BT super / TI super: two takes each failed (flat aim into the edge; no
+magic, a vial from nowhere) → the old takes stay; ask Maxim for a new idea before more credits. Inti BT super keeps the old
+cut. Sources of all new takes saved: `Kling тест\workspace\mp4-zz-v76-10gods.tar` (+ SHA256SUMS).
+Open: Erlang TI strike retake 2 under review; G4 stand check of the new game effects running.
 
 ## Next step
 
