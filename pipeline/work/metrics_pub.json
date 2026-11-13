@@ -13793,14 +13793,14 @@
    "file": "hel-bt-hyp-mob.webp",
    "w": 177,
    "h": 220,
-   "kb": 345.7,
+   "kb": 344.7,
    "ramMb": 3.71
   },
   "lite": {
    "file": "hel-bt-hyp-lite.webp",
    "w": 124,
    "h": 154,
-   "kb": 188.2,
+   "kb": 186.5,
    "ramMb": 1.82
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
@@ -13863,49 +13863,60 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 9,
-  "rel": 0.375,
+  "impact": 10,
+  "rel": 0.417,
   "wpt": [
-   0.045,
-   -0.686
+   0.109,
+   -0.687
   ],
   "wf": [
-   0.56,
-   0.36
+   0.59,
+   0.26
   ],
-  "maxDiff": 29.33,
+  "maxDiff": 38.6,
   "fig": {
-   "top": 0.0725,
-   "foot": 0.9877,
-   "ax": 0.4985
+   "top": 0.0775,
+   "foot": 0.9788,
+   "ax": 0.4994
   },
-  "defects": [],
-  "crop": null,
-  "ho": null,
-  "q": 76,
+  "defects": [
+   "raw_edge_clip"
+  ],
+  "crop": "LR",
+  "ho": {
+   "top": [
+    [
+     11,
+     0.585,
+     0.37
+    ]
+   ],
+   "col": "#53ff6b"
+  },
+  "q": 71,
   "bodyPx": 198,
-  "bodyPxF": 197.68,
+  "bodyPxF": 198.29,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 269.5,
    "ramMb": 2.85,
    "kbPct": 120,
-   "ramPct": 104
+   "ramPct": 133
   },
   "mob": {
    "file": "hel-bt-sup-mob.webp",
-   "w": 144,
-   "h": 216,
-   "kb": 322.7,
-   "ramMb": 2.97
+   "w": 180,
+   "h": 220,
+   "kb": 322.5,
+   "ramMb": 3.78
   },
   "lite": {
    "file": "hel-bt-sup-lite.webp",
-   "w": 101,
-   "h": 151,
-   "kb": 174.7,
-   "ramMb": 1.45
+   "w": 126,
+   "h": 154,
+   "kb": 177.8,
+   "ramMb": 1.85
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -14346,49 +14357,92 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 9,
-  "rel": 0.375,
+  "impact": 12,
+  "rel": 0.5,
   "wpt": [
-   0.124,
-   -0.77
+   0.102,
+   -0.657
   ],
   "wf": [
-   0.72,
-   0.26
+   0.6,
+   0.22
   ],
-  "maxDiff": 43.07,
+  "maxDiff": 72.49,
   "fig": {
-   "top": 0.0421,
-   "foot": 0.9907,
-   "ax": 0.5054
+   "top": 0.042,
+   "foot": 0.9686,
+   "ax": 0.4993
   },
-  "defects": [],
+  "defects": [
+   "raw_edge_clip"
+  ],
   "crop": null,
-  "ho": null,
-  "q": 91,
+  "ho": {
+   "top": [
+    [
+     9,
+     0.721,
+     0.2
+    ],
+    [
+     10,
+     0.661,
+     0.21
+    ],
+    [
+     11,
+     0.599,
+     0.68
+    ],
+    [
+     12,
+     0.64,
+     0.86
+    ],
+    [
+     13,
+     0.498,
+     1.0
+    ],
+    [
+     14,
+     0.567,
+     0.34
+    ]
+   ],
+   "right": [
+    [
+     11,
+     0.19,
+     0.11
+    ]
+   ],
+   "col": "#4aff7a"
+  },
+  "q": 89,
   "bodyPx": 197,
-  "bodyPxF": 197.31,
+  "bodyPxF": 197.37,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 269.5,
    "ramMb": 2.85,
-   "kbPct": 113,
-   "ramPct": 79
+   "kbPct": 118,
+   "ramPct": 89
   },
   "mob": {
    "file": "hel-ti-sup-mob.webp",
-   "w": 114,
-   "h": 208,
-   "kb": 304.7,
-   "ramMb": 2.26
+   "w": 125,
+   "h": 213,
+   "kb": 317.6,
+   "ramMb": 2.54
   },
   "lite": {
    "file": "hel-ti-sup-lite.webp",
-   "w": 80,
-   "h": 146,
-   "kb": 176.4,
-   "ramMb": 1.11
+   "w": 88,
+   "h": 149,
+   "kb": 175.0,
+   "ramMb": 1.25
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
