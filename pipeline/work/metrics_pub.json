@@ -13926,113 +13926,85 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 5,
-  "rel": 0.208,
+  "impact": 8,
+  "rel": 0.333,
   "wpt": [
-   0.155,
-   -0.923
+   -0.126,
+   -0.97
   ],
   "wf": [
-   0.73,
-   0.11
+   0.35,
+   0.25
   ],
-  "maxDiff": 26.44,
+  "maxDiff": 48.68,
   "fig": {
-   "top": 0.0364,
-   "foot": 0.9906,
-   "ax": 0.4462
+   "top": 0.0928,
+   "foot": 0.9912,
+   "ax": 0.4993
   },
-  "defects": [],
-  "crop": null,
+  "defects": [
+   "raw_edge_clip"
+  ],
+  "crop": "TB",
   "ho": {
    "top": [
     [
-     3,
-     0.147,
-     0.06
-    ],
-    [
-     4,
-     0.196,
-     0.06
-    ],
-    [
-     5,
-     0.37,
-     0.09
-    ],
-    [
-     6,
-     0.189,
-     0.06
-    ],
-    [
-     7,
-     0.154,
-     0.06
-    ],
-    [
-     8,
-     0.448,
-     0.14
-    ],
-    [
-     9,
-     0.556,
-     0.28
-    ],
-    [
      10,
-     0.596,
-     0.44
+     0.117,
+     0.35
     ],
     [
      11,
-     0.622,
-     0.63
+     0.181,
+     0.06
     ],
     [
      12,
-     0.61,
-     0.5
+     0.232,
+     0.28
     ],
     [
      13,
-     0.587,
-     0.34
+     0.22,
+     0.15
     ],
     [
      14,
-     0.56,
-     0.21
+     0.218,
+     0.24
+    ],
+    [
+     20,
+     0.12,
+     0.07
     ]
    ],
-   "col": "#47ff79"
+   "col": "#94fead"
   },
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.52,
+  "bodyPxF": 197.65,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 269.5,
    "ramMb": 2.85,
-   "kbPct": 120,
-   "ramPct": 75
+   "kbPct": 116,
+   "ramPct": 92
   },
   "mob": {
    "file": "hel-ti-atk-mob.webp",
-   "w": 108,
-   "h": 207,
-   "kb": 323.0,
-   "ramMb": 2.13
+   "w": 125,
+   "h": 220,
+   "kb": 311.6,
+   "ramMb": 2.62
   },
   "lite": {
    "file": "hel-ti-atk-lite.webp",
-   "w": 76,
-   "h": 145,
+   "w": 88,
+   "h": 154,
    "kb": 176.2,
-   "ramMb": 1.05
+   "ramMb": 1.29
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -14287,14 +14259,14 @@
    "file": "hel-ti-hyp-mob.webp",
    "w": 125,
    "h": 211,
-   "kb": 348.6,
+   "kb": 345.1,
    "ramMb": 2.52
   },
   "lite": {
    "file": "hel-ti-hyp-lite.webp",
    "w": 88,
    "h": 148,
-   "kb": 191.6,
+   "kb": 190.3,
    "ramMb": 1.24
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
