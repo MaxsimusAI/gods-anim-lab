@@ -55,11 +55,11 @@
   "r4": "rt1"
  },
  "demeter_ti_sup": {
-  "imp": 27,
+  "imp": 26,
   "k": 9,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt"
  },
  "demeter_ti_hyp": {
   "imp": 28,
@@ -911,11 +911,11 @@
   "r4": true
  },
  "athena_bt_atk": {
-  "imp": 26,
+  "imp": 28,
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt"
  },
  "zeus_bt_hyp": {
   "imp": 39,
@@ -960,11 +960,11 @@
   "r4": true
  },
  "artemis_bt_hyp": {
-  "imp": 22,
+  "imp": 39,
   "k": 9,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt"
  },
  "artemis_bt_sup": {
   "imp": 27,

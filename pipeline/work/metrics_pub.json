@@ -9527,7 +9527,7 @@
  },
  "demeter_bt_idle": {
   "id": "demeter_bt_idle",
-  "srcRes": "272x420",
+  "srcRes": "764x1184",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -9538,43 +9538,44 @@
    -0.62
   ],
   "wf": [
-   0.531,
-   0.432
+   0.55,
+   0.428
   ],
-  "maxDiff": 32.44,
+  "maxDiff": 32.27,
   "fig": {
-   "top": 0.0898,
-   "foot": 0.9897,
-   "ax": 0.5308
+   "top": 0.085,
+   "foot": 0.988,
+   "ax": 0.5498
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
+  "q": 90,
   "bodyPx": 198,
-  "bodyPxF": 197.98,
+  "bodyPxF": 197.76,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 313.2,
    "ramMb": 4.48,
-   "kbPct": 78,
-   "ramPct": 60
+   "kbPct": 117,
+   "ramPct": 61
   },
   "mob": {
    "file": "demeter-bt-idle-mob.webp",
-   "w": 129,
-   "h": 220,
-   "kb": 245.6,
-   "ramMb": 2.71
+   "w": 130,
+   "h": 219,
+   "kb": 366.8,
+   "ramMb": 2.72
   },
   "lite": {
    "file": "demeter-bt-idle-lite.webp",
-   "w": 90,
-   "h": 154,
-   "kb": 123.3,
-   "ramMb": 1.32
-  }
+   "w": 91,
+   "h": 153,
+   "kb": 202.9,
+   "ramMb": 1.33
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "demeter_bt_sup": {
   "id": "demeter_bt_sup",
