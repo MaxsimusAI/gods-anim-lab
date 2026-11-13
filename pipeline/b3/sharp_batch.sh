@@ -12,7 +12,7 @@ for c in "$@"; do
   rm -rf $d/raw
   (cd /tmp && python3 $K/b3/sharp_cut.py $d 1.2 isnet-general-use $c 2>&1 | grep -E "\->|rror")
   s=$(echo $c | tr _ -); cp $d/gods-anim-lab-repo/assets/sheets/$s-mob.webp $d/gods-anim-lab-repo/assets/sheets/$s-lite.webp $K/work/gods-anim-lab-repo/assets/sheets/
-  python3 - $c $d <<PY
+  flock /tmp/am.lock python3 - $c $d <<PY
 import json,sys
 c,d=sys.argv[1:3]; S=json.load(open(d+'/adapted_all_metrics.json'))[c]; S['prep']='sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)'
 p='$K/work/adapted_all_metrics.json'; A=json.load(open(p)); A[c]=S; json.dump(A,open(p,'w'),indent=1)
