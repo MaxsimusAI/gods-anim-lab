@@ -56,6 +56,10 @@ Never rely on memory of an earlier god — re-check against this file.
    `kl/work/*.json` (metrics, overrides, notes = `kling_done.json`, live metrics), `kl/shot3.py`,
    and downloads the release assets: current Kling source videos → `kl/b2/mp4/<clip>.mp4`,
    tight input canvases → `kl/tight/`.
+   **After every batch save the new source videos back**: `tar` the batch's current `b2/mp4/<clip>.mp4` into
+   `mp4-zz-v<site version>.tar` (extracted last, so it overrides older takes), add its line to SHA256SUMS.txt and write both
+   into Maxim's `Kling тест\workspace` (SendUserFile → device_commit_files with the fileUuid). v21: `mp4-zz-v21.tar` = 40 clips
+   of gods 1-5. Without this the next session loses the clips (that is how Kitsune and Athena sources were lost).
    Needs: `pip install --break-system-packages rembg onnxruntime scipy pillow numpy playwright && python3 -m playwright install chromium`, ffmpeg.
 3. Stand locally: `cd /home/claude/gods-anim-lab && python3 -m http.server 8765` (stop it when done; no hanging processes).
 4. Clip name = `<god>_<bt|ti>_<idle|atk|sup|hyp>`; sheet file = `<god>-<bt|ti>-<slot>-<mob|lite>.webp`.
