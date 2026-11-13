@@ -13207,8 +13207,20 @@ F.at(i * .04, () => F.p({ x: b.x + F.rnd(-b.w * .25, b.w * .25), y: b.top + b.h 
 s: {
 col: '#9fffd0', core: '#f0fff8',
 anticip(F, u, k, rel, e) {
-kdTL(F, 'sup', [[0, .45, 0, 5.99], [.45, .98, 5, 5.99], [.98, 1.2, 21, 24.99]]);
 const t = e.targets[0];
+if (F.newSheet('sup', u)) {
+// 14.11 (stand check #23): the new take clenches the fist beside her head - the grip leaves the fist at the real release,
+// flies over the allies to the target; no code timeline, no floor chain from the hem
+const tR = F.relDt('sup', .5);
+if (!t)
+return;
+F.at(Math.max(0, tR - .12), () => { const w = F.wp('s', u); F.flash(w.x, w.y, 14, HL_G, { dur: .18 }); });
+F.at(tR, () => { const from = F.wp('s', u), to = F.tc(t, .45);
+F.shot(from, to, .22, { arc: -34, wobble: 4, trailW: 9, col: HL_G, trailCol: HL_G, coreCol: '#d8fff0', trailLife: .08, head: HEAD.wisp(HL_G, HL_GC, 10),
+emit: (F2, x, y) => { if (F.rng() < .6) F.p({ x, y, vx: F.rnd(-10, 10), vy: F.rnd(-14, 8), drag: 2, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1.2, tex: 'glow', col: F.rng() < .5 ? HL_B : HL_G }); } }); });
+return;
+}
+kdTL(F, 'sup', [[0, .45, 0, 5.99], [.45, .98, 5, 5.99], [.98, 1.2, 21, 24.99]]);
 if (!t)
 return;
 F.at(.4, () => { const a = F.feetOf(u), f1 = F.feetOf(t); frostRun(F, { x: a.x + a.w * .2, y: a.y - 4 }, { x: f1.x, y: f1.y + 2 }, .2); });

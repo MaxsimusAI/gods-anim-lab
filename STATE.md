@@ -47,6 +47,17 @@ The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\k
   runs along the staff' → a column out of the top; 'the light leaves the bow' → a flat arrow into the side edge, 'the arrow of
   light vanishes in a flash right at the bow; nothing flies away' fixed it; 'grow to the waist' → thorns above the head.
 
+## 14.11 night — god 6 Hel (site v40-v43)
+
+- Sources of all 8 published takes found (Maxim's mp4-d-h.tar; three 13.11 tight takes in the Kling history), all 8 re-cut
+  sharp (v40; fresh eyes: same moments, sharper). New source videos saved to `Kling тест\workspace\mp4-zz-v43-hel.tar`.
+- New takes (12 clips, 360 credits; ids `pipeline/r6/kling_tasks_1411.json`, prompts `pipeline/r6/`): super BT/TI published
+  (v41, WATCH); TI strike retake 2 published (v43, WATCH); BT strike — 3 takes failed → «Версия 2/3», old take stays;
+  TI ult — 2 takes failed (fire ring wider than the frame) → «Версия 2/3», old take stays (matting slab removed).
+- Matting haze ("lilac slab", gray haze) = pipeline artifact around green fire, removed by `b3/haze_fix.py` (BT/TI ult).
+- Waiting for Maxim: Hel BT strike (keep old / v2 / v3 / new idea), Hel TI ult (old / v2 / v3); his look at everything.
+- Game effect of the super re-timed to the new take (fist, real release) — stand check running.
+
 ## Next step
 
 1. Maxim looks at Kitsune, Athena, Zeus on the stand: are the re-cuts sharp enough; which take to keep in the three
