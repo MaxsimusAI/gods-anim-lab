@@ -52,3 +52,7 @@ Zeus TI atk background brightening. Nothing published from this set.
 - 13.11 ~17:30 R3 Kitsune (rv/rev6): kitsune_bt_atk RETAKE (tails out left 8 fr, no clear release), kitsune_bt_hyp RETAKE (tails out
   left 0.9 s, flames lingering up), kitsune_ti_atk RETAKE (spin, hop toward camera, fan out left 21 fr). 2nd failure on the same
   defect (tails/fan out of the tight canvas) → ask Maxim (section 5 rule).
+- 13.11 ~17:50: demeter_bt_atk/hyp R3 RETAKE (sickle vanishes, rv/rev7); zeus_ti_atk R3 RETAKE, athena_ti_hyp WATCH → published v25
+  (rv/rev8); zeus_bt_atk/bt_hyp/ti_hyp R3 rejected at G1 (bolt lingering at the top, bolt across the frame); kitsune_ti_hyp R3 spins;
+  demeter_ti_hyp R3 staff tilts; artemis_bt_atk R3 arm stretched. Idles (rv/rev5): artemis_ti RETAKE (seam freeze 0.65 s),
+  demeter_bt RETAKE (glued), zeus_bt WATCH (hand over mouth ~1 s). Maxim 17:40 → R4 (jobs_r5.json): 17 clips.

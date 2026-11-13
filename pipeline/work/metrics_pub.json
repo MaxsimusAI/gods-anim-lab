@@ -44260,42 +44260,42 @@
    -0.62
   ],
   "wf": [
-   0.541,
-   0.415
+   0.552,
+   0.426
   ],
-  "maxDiff": 27.88,
+  "maxDiff": 43.38,
   "fig": {
-   "top": 0.0629,
-   "foot": 0.9896,
-   "ax": 0.5406
+   "top": 0.0818,
+   "foot": 0.9873,
+   "ax": 0.5525
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 76,
   "bodyPx": 198,
-  "bodyPxF": 198.31,
+  "bodyPxF": 198.3,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 364.7,
    "ramMb": 4.1,
-   "kbPct": 79,
-   "ramPct": 55
+   "kbPct": 74,
+   "ramPct": 57
   },
   "mob": {
    "file": "zeus-bt-idle-mob.webp",
-   "w": 110,
-   "h": 214,
-   "kb": 287.9,
-   "ramMb": 2.24
+   "w": 111,
+   "h": 219,
+   "kb": 269.1,
+   "ramMb": 2.32
   },
   "lite": {
    "file": "zeus-bt-idle-lite.webp",
-   "w": 77,
-   "h": 150,
-   "kb": 147.3,
-   "ramMb": 1.1
+   "w": 78,
+   "h": 153,
+   "kb": 138.6,
+   "ramMb": 1.14
   }
  },
  "zeus_bt_sup": {
