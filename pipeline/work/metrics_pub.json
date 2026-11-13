@@ -16223,7 +16223,7 @@
    0.5,
    0.419
   ],
-  "maxDiff": 25.64,
+  "maxDiff": 25.04,
   "fig": {
    "top": 0.0725,
    "foot": 0.9845,
@@ -16232,27 +16232,32 @@
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 46,
+  "q": 91,
   "bodyPx": 198,
-  "budget": {
-   "kb": 224.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "bodyPxF": 197.9,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 462.8,
+   "ramMb": 5.55,
+   "kbPct": 108,
+   "ramPct": 49
   },
   "mob": {
    "file": "houyi-bt-idle-mob.webp",
    "w": 131,
    "h": 217,
-   "kb": 214.4,
+   "kb": 498.7,
    "ramMb": 2.71
   },
   "lite": {
    "file": "houyi-bt-idle-lite.webp",
    "w": 92,
    "h": 152,
-   "kb": 121.5,
+   "kb": 285.2,
    "ramMb": 1.33
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_bt_sup": {
   "id": "houyi_bt_sup",
@@ -16541,7 +16546,7 @@
    0.503,
    0.437
   ],
-  "maxDiff": 24.02,
+  "maxDiff": 24.01,
   "fig": {
    "top": 0.0974,
    "foot": 0.9908,
@@ -16550,27 +16555,32 @@
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
+  "q": 91,
   "bodyPx": 197,
-  "budget": {
-   "kb": 224.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "bodyPxF": 196.55,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 462.8,
+   "ramMb": 5.55,
+   "kbPct": 97,
+   "ramPct": 48
   },
   "mob": {
    "file": "houyi-ti-idle-mob.webp",
    "w": 126,
    "h": 220,
-   "kb": 201.1,
+   "kb": 447.0,
    "ramMb": 2.64
   },
   "lite": {
    "file": "houyi-ti-idle-lite.webp",
    "w": 88,
    "h": 154,
-   "kb": 121.4,
+   "kb": 261.3,
    "ramMb": 1.29
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_ti_sup": {
   "id": "houyi_ti_sup",
