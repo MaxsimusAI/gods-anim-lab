@@ -417,13 +417,19 @@ def process_one_clip(task):
     crop_edges = _neg_pad if _pd else ""
     solid_cut = 0.0
     _bm = None
-    if not is_idle:
+    # Skill v2, section 4: a PROTECTED take is re-cut whole - never cropped around the body, never re-shot. With
+    # {"fit": true} in impact_overrides.json the clip keeps its full window and is stored at the largest scale at which
+    # that window fits 180x220 (scale_mob below); its stored body px is reported, not flagged as body_small.
+    _fit = bool(OVR.get(clip_id, {}).get("fit")) and not is_idle
+    if not is_idle and not _fit:
         _ib = idle_body_px(clip_id)
         if _ib is None:
             raise RuntimeError(f"{clip_id}: the idle of this god-style is not cut with adapter v21 yet - cut the idle first (L4)")
         _bm = max(_ib, float(OVR.get(clip_id, {}).get("body_min") or 0))
     body_scale = (float(_bm) / human_h_src) if (_bm and not is_idle) else nom_scale
-    if not is_idle:
+    if _fit:
+        body_scale = 1e9   # the frame ceiling decides
+    if not is_idle and not _fit:
         max_w = int(MAX_MOB_W / body_scale); max_h = int(MAX_MOB_H / body_scale)
         if (wx1 - wx0) > max_w:
             # keep the solid union if it fits, centred on it; otherwise centre on the body axis
