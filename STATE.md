@@ -37,6 +37,10 @@ The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\k
   Athena TI idle/hyp, Artemis TI idle, BT/TI atk (retake 1), BT sup, Zeus TI idle, TI atk (retake 1), BT hyp, Demeter TI
   idle, BT sup. Retakes running: Athena BT/TI atk, Zeus TI hyp, Artemis BT/TI hyp, Demeter BT idle, Demeter TI sup (new
   idea: low row of shoots). The 4 BT idle re-shoots of Kitsune/Athena/Artemis/Zeus are alternatives (`kl/r4/alt/`), not used.
+- Retake round (13.11 night): Demeter BT idle retake published v37 (WATCH). Failed again (fresh eyes): Athena BT/TI atk
+  (spear out of the right edge / beam across the frame), Zeus TI hyp (lightning column from the sky), Artemis BT hyp (arrow
+  light into the edge, moon cut), Demeter TI sup new idea (shoots became a field to her chest). Artemis TI hyp retake: flash
+  at the bow, moon cut at the top — not cut yet. Limit of 12 clips reached for Artemis and Demeter.
 - Waiting for Maxim: Demeter BT/TI atk and BT/TI hyp (limit of 12 clips per god reached), Kitsune TI sup (3rd take wider than
   the frame), Artemis TI sup (translucent bow copies).
 - Lessons for prompts (section 7 table candidates): 'flares' on a weapon → a slash streak across the whole frame; 'lightning
