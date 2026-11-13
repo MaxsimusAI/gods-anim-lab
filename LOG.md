@@ -92,3 +92,9 @@ See `remarks_ru.md` next to this file.
   Hades's and Wukong's doubles, the rising spectral copy); the live arena is unchanged.
   → CHECK: `PATTERNS.md` 33-35. IDEA: symbols baked into the clip (Kitsune mask, Medusa on Athena's shield, Artemis's moon,
   Demeter's ears of wheat). Rules: proposed as a skill update (two new lines, E2 and E3).
+- 13.11 (21:05) Maxim: «в новой версии вроде рост больше, но она как будто менее четкая… в аниме она не так размыто
+  выглядит. Хотя рост плюс-минус так же». Measured on Kitsune BT atk (same take, frame 0): the BT strikes were saved at WebP
+  quality 58 to stay under the live file size (TI 70, idles 76); the frames were cut from half-size video frames (420 px high,
+  an old speed shortcut); the Kling video is lower in contrast than the drawn art. Test cut: full frames + light unsharp mask +
+  quality 70 = visibly crisper, file 130 % of live, memory unchanged. Asked him before changing anything (B2: file above live).
+  → CHECK 18 already covers it ("softer than the live god"); no new rule.
