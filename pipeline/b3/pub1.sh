@@ -16,6 +16,8 @@ import json,os,sys
 A=json.load(open('$K/work/adapted_all_metrics.json')); G=json.load(open('$K/work/kling_done.json'))['gods']; bad=[]
 for c in sys.argv[1:]:
     s=c.replace('_','-')
+    import re
+    if not re.fullmatch(r'[a-z]+_(bt|ti)_(idle|atk|sup|hyp)', c): bad.append(c+': not a clip id god_style_slot')
     if 'take' in c or 'rejected' in c: bad.append(c+': take/rejected')
     if c not in A: bad.append(c+': no metrics (not cut)')
     elif A[c].get('v')!=21: bad.append(c+': metrics not v21')
@@ -24,16 +26,24 @@ for c in sys.argv[1:]:
         if not os.path.exists(f'$W/{s}-{t}.webp'): bad.append(f'{c}: no {t} sheet')
 if bad: print('REFUSED:', '; '.join(bad)); sys.exit(1)
 PY
-[ -z "$(git -C $R status --porcelain -- assets index.html)" ] || { echo "REFUSED: uncommitted changes under assets/ or index.html"; exit 1; }
+# the repo must be clean except PLAYBOOK.md (rules are committed with the publish); code changes go in their own reviewed commit
+DIRTY=$(git -C $R status --porcelain | grep -v ' PLAYBOOK.md$' || true)
+[ -z "$DIRTY" ] || { echo "REFUSED: uncommitted changes in the repo (commit reviewed code separately):"; echo "$DIRTY"; exit 1; }
 
 # 2. backups + restore on failure
-B=$(mktemp -d); cp $K/work/kling_done.json $K/work/metrics_pub.json $B/
-restore() { cp $B/kling_done.json $B/metrics_pub.json $K/work/; git -C $R checkout -q -- assets index.html pipeline 2>/dev/null || true
-            git -C $R clean -qfd -- assets/sheets 2>/dev/null || true; echo "FAILED - restored, nothing published"; }
-trap restore ERR
+B=$(mktemp -d); cp $K/work/kling_done.json $K/work/metrics_pub.json $K/work/metrics_v20.json $B/
+restore() { trap - ERR INT TERM HUP
+            cp $B/kling_done.json $B/metrics_pub.json $B/metrics_v20.json $K/work/
+            git -C $R reset -q -- assets index.html pipeline app.js 2>/dev/null || true
+            git -C $R checkout -q -- assets index.html pipeline app.js 2>/dev/null || true
+            git -C $R clean -qfd -- assets/sheets pipeline 2>/dev/null || true
+            echo "FAILED - kling_done/metrics restored, repo files reset to HEAD (PLAYBOOK.md untouched), nothing published"; exit 1; }
+trap restore ERR INT TERM HUP
 
 V=$(python3 - <<PY
-import json; p='$K/work/kling_done.json'; d=json.load(open(p)); d['ver']=int(d['ver'])+1
+import json,re; p='$K/work/kling_done.json'; d=json.load(open(p))
+cur=[int(x) for x in re.findall(r'\?v=(\d+)', open('$R/index.html').read())] or [0]
+d['ver']=max(int(d['ver']), max(cur))+1   # never reuse a ?v= that browsers may have cached
 json.dump(d,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=1); print(d['ver'])
 PY
 )
@@ -68,17 +78,23 @@ cp $K/work/adapted_all_metrics.json $K/work/impact_overrides.json $K/work/kling_
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 rm -f $R/pipeline/b3/up.sh.bak
 cd $R
-git add -A -- assets index.html pipeline PLAYBOOK.md app.js
-if git diff --cached --name-only | grep -qiE "tok|urls|jobs_|secret|\.private|\.local"; then echo "SECRET-LIKE FILE STAGED"; false; fi
-if git diff --cached -U0 | grep -E '^\+' | grep -qiE "klingai\.com|kcdn|x-kcdn-pid|ticket=|access_token|privaterelay"; then echo "SECRET-LIKE CONTENT STAGED"; false; fi
+git add -A -- assets index.html pipeline PLAYBOOK.md
+# secret scan on files, not pipes (grep -q + pipefail = SIGPIPE = silent pass); patterns live in b3/secret_patterns.txt,
+# which is excluded from the content scan so the scanner does not flag itself
+git diff --cached --name-only > $B/names.txt
+git diff --cached -U0 -- . ':(exclude)pipeline/b3/secret_patterns.txt' > $B/diff.txt
+M=$(grep -iE 'tok|urls|jobs_|secret|\.private|\.local' $B/names.txt | grep -v 'secret_patterns.txt' || true)
+if [ -n "$M" ]; then echo "SECRET-LIKE FILE STAGED: $M"; false; fi
+N=$(grep -E '^\+' $B/diff.txt | grep -ciE -f $K/b3/secret_patterns.txt || true)
+if [ "${N:-0}" != "0" ]; then echo "SECRET-LIKE CONTENT STAGED ($N lines)"; false; fi
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -q -m "v$V: $MSG
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01TwtrTMgVuTY1biwfC6EyG2"
-trap - ERR
+trap - ERR INT TERM HUP
 git -c push.negotiate=true push -q origin HEAD || { echo "PUSH FAILED - committed locally as v$V, not live"; exit 1; }
-for i in $(seq 1 12); do
+for i in $(seq 1 8); do
   got=$(curl -s -m 20 "https://maxsimusai.github.io/gods-anim-lab/index.html?nc=$RANDOM$i" | grep -o '?v=[0-9]*' | head -1 || true)
   [ "$got" = "?v=$V" ] && { echo "published v$V (live): $*"; exit 0; }; sleep 20
 done
-echo "pushed v$V but the live site still serves $got after 4 min - check GitHub Pages"; exit 1
+echo "pushed v$V (committed, do NOT re-run) but the live site still serves $got after ~5 min - check GitHub Pages"; exit 3

@@ -50,7 +50,9 @@ _prev_all = set(prev_m)
 prev_m = {k: v for k, v in prev_m.items() if _changed(k, v)}
 # clips published for the first time after v20 (no sheet "yesterday"): in "вчера" they show what the stand showed then
 # (the reference / static sheet), and their god counts as changed
-FIRST = {k for k in adapt_m if k.split("_")[0] in KLING["gods"] and k not in _prev_all and "take" not in k and "rejected" not in k} if _prev_all else set()
+import re as _re
+if KLING["gods"] and not _prev_all: raise SystemExit("work/metrics_v20.json missing/empty - the 'вчера' view cannot be built")
+FIRST = {k for k in adapt_m if _re.fullmatch(r"[a-z]+_(bt|ti)_(idle|atk|sup|hyp)", k) and k.split("_")[0] in KLING["gods"] and k not in _prev_all}
 PREV_GODS = sorted({k.split("_")[0] for k in prev_m} | {k.split("_")[0] for k in FIRST})
 
 EL_RU = {"light": "Свет", "fire": "Огонь", "water": "Вода", "earth": "Земля", "dark": "Тьма"}

@@ -49,3 +49,6 @@ Zeus TI atk background brightening. Nothing published from this set.
 - artemis_bt_idle OK. kitsune_bt_idle WATCH: ~0.5 s near-still seam (was 0.75 s). athena_ti_idle RETAKE: spear lifted, tip cut 6 fr.
 - kitsune_ti_idle RETAKE: full spin (back ~0.4 s), tails cut 8 fr. Zeus bt_atk/bt_hyp/ti_hyp RETAKE (blue ground, bolts across, white-out, tilted staff, step to camera).
 - R3 (compact, tight canvas kept) sent: 21 clips (16 actions + 3 Zeus + 2 idles), ids in jobs_r4.json (private).
+- 13.11 ~17:30 R3 Kitsune (rv/rev6): kitsune_bt_atk RETAKE (tails out left 8 fr, no clear release), kitsune_bt_hyp RETAKE (tails out
+  left 0.9 s, flames lingering up), kitsune_ti_atk RETAKE (spin, hop toward camera, fan out left 21 fr). 2nd failure on the same
+  defect (tails/fan out of the tight canvas) → ask Maxim (section 5 rule).

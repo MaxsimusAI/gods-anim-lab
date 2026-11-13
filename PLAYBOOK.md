@@ -127,7 +127,7 @@ effects stay close to the body and never touch the left and right
 edges of the frame. Nothing is aimed flat horizontally into the left or right edge. The end pose equals the start pose.
 ```
 
-**Motion rules for prompts:**
+**Motion rules for prompts:** (projectiles: see section 12, 13.11 ~17:40 — the power gathers on the weapon, the GAME draws the flight)
 - **The WHOLE body moves in every clip** (Maxim 13.11 15:34: "only the arm bends, the rest is a static picture — bad"):
   legs step and the feet move, hips and torso turn, knees bend, crouch, kneel — wanted. Name 2-3 body moves in every action
   prompt, not only the arm/weapon. Feet glued to one spot for the whole clip = defect (G1.10). [13.11 ~16:50, tight canvas kept:
@@ -275,11 +275,16 @@ Overrides `work/impact_overrides.json` per clip:
   missing, copies the sheets, rebuilds the manifest, bumps `?v=`, syncs `pipeline/`, commits and pushes.   The manifest is built from `work/metrics_pub.json` = metrics of PUBLISHED cuts only (pub1 copies in the listed clips);
   `adapted_all_metrics.json` also holds fresh unreviewed cuts and must never feed the site (13.11 v22 bug: Kitsune/Artemis/
   Zeus/Demeter sheets were declared with the new sizes while the old files were served — fixed in v23). `b3/sizecheck.py`
-  (declared frame size × 5 = real file size for every sheet of the redone gods) runs before every commit and stops on a mismatch.
-  pub1 refuses before writing anything when a clip has no v21 metrics, no sheet, is a take/rejected, or its god is not in
-  kling_done; on a later failure it restores kling_done / metrics_pub / the repo tree. It commits only assets, index.html,
-  pipeline, PLAYBOOK.md, app.js; scans the staged diff for secret-like content; waits until the live site serves the new `?v=`.
-  By hand (only if pub1 cannot be used), the steps are: copy sheets (no `*take*`, `*rejected*`, no extra underscores); copy the
+  (every `src` in gods-data.js exists and its size = sheetW×sheetH, incl. v20 packs and static refs) runs before every commit.
+  pub1 refuses before writing anything when a clip id is not god_style_slot, has no v21 metrics, no sheet, is a take/rejected,
+  its god is not in kling_done, or the repo has uncommitted changes other than PLAYBOOK.md (code goes in its own reviewed commit);
+  on a later failure or signal it restores kling_done / metrics_pub / metrics_v20 and resets the repo files to HEAD. It commits
+  only assets, index.html, pipeline, PLAYBOOK.md; scans staged file names and content (patterns in `b3/secret_patterns.txt`,
+  scanned from a file, not a pipe); waits until the live site serves the new `?v=` (exit 3 = pushed but not live yet — do NOT
+  re-run). Run it with a tool timeout of ≥ 600 000 ms.
+  By hand (only if pub1 cannot be used; take the lock `/tmp/gods-pub.lock` first), the steps are: freeze "вчера" BEFORE
+  overwriting (copy the 66ef083 sheet into `assets/sheets/v20/`, its metrics into `metrics_v20.json`); raise `kling_done.ver`
+  to max(ver, current `?v=`)+1 (it is the sheets' `?k=` cache key); copy sheets (no `*take*`, `*rejected*`, no extra underscores); copy the
   clip's metrics from `adapted_all_metrics.json` into `metrics_pub.json`; rebuild the manifest
   (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`); run `b3/sizecheck.py` (every manifest
   `src` exists and its size = sheetW×sheetH, incl. v20 packs and static refs); bump `?v=` in index.html; commit (not the root
@@ -295,7 +300,14 @@ Overrides `work/impact_overrides.json` per clip:
 - Report to Maxim (Russian, short): what is published; per god what changed; WATCH list (clips you are not sure about, why);
   exceeded limits with numbers; what needs his decision; what is NOT done yet. Never hide an unfinished item.
 
-## 11. Current state (13.11.2026, site v23+) — open work
+## 11. Current state (13.11.2026, site v25) — open work
+
+**v24-v25:** Artemis BT idle and Kitsune BT idle (WATCH: ~0.5 s still seam) published; Athena TI hyp R3 (compact, WATCH: glow
+~1.5 s). pub1 hardened after the 2nd review (secret scan from a file, real rollback after `git add`, clean-tree precheck,
+max(ver, ?v=)+1, signal traps, clip-id check). Open R3/R4: Kitsune actions (Maxim: almost no steps), Zeus and Artemis (Maxim:
+power gathers on the weapon, the game draws the flight; Artemis without drawing), Demeter BT atk/hyp (sickle vanishes →
+retake), Demeter TI hyp (staff tilts), idles: Athena TI, Kitsune TI, Artemis TI (seam freeze), Demeter BT (glued); Zeus BT
+idle WATCH (hand over the mouth ~1 s).
 
 **v22-v23 (13.11 afternoon):** Athena BT idle R2 published (+ BT actions re-cut to its height). v22 built the site from fresh
 UNPUBLISHED cuts (Kitsune/Artemis/Zeus/Demeter declared new sizes on old files) → v23 builds from `work/metrics_pub.json` only,
@@ -417,6 +429,11 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
   a second is NOT allowed — G1.4 tightened from ~0.3 s to ≤ ~0.2 s, template line "raised hand no higher than the top of the
   weapon / head, a hop is small". Cause: the tight canvas has little headroom and the R2 prompts asked for hops / raised arms
   without a height limit.
+- 13.11 (~17:40) Maxim, after 3 failed takes each: (1) KITSUNE actions — almost no steps: crouch and torso/hip turns, feet stay
+  in place (her wide tails leave the tight frame at any step). (2) ZEUS, ARTEMIS and in general every projectile: in the clip the
+  power only GATHERS on the hand/weapon (lightning ball in the fist, glowing arrow on the bow); the flight (bolt, arrow, flame) is
+  drawn by the GAME from wf toward the targets — nothing flies out of the clip. (3) ARTEMIS shoots without drawing: the bow is held
+  at the chest, a glowing arrow appears above/on the bow and is released by the game; never an aimed pose with a stretched arm.
 - 13.11 (~16:50) After 16/16 R2 actions and 3/3 Zeus retakes were rejected (edge exits of tails/bow/fan/flame/cape for 0.5-2 s,
   Artemis arm stretched and aiming ~flat right, rings/crescents/lens flares/body glow, background tint) Maxim chose: KEEP the
   tight canvas (L3), make the moves compact. Rule for ACTION clips (idles keep their own rules): steps only to the side and small,
