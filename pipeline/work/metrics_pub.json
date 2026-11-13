@@ -5613,7 +5613,7 @@
  },
  "artemis_bt_idle": {
   "id": "artemis_bt_idle",
-  "srcRes": "250x420",
+  "srcRes": "740x1248",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -5624,43 +5624,44 @@
    -0.62
   ],
   "wf": [
-   0.508,
+   0.507,
    0.416
   ],
-  "maxDiff": 36.4,
+  "maxDiff": 37.07,
   "fig": {
-   "top": 0.0652,
-   "foot": 0.9896,
-   "ax": 0.5077
+   "top": 0.0637,
+   "foot": 0.9903,
+   "ax": 0.507
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
+  "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.82,
+  "bodyPxF": 198.29,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 323.9,
    "ramMb": 3.93,
-   "kbPct": 73,
-   "ramPct": 56
+   "kbPct": 100,
+   "ramPct": 55
   },
   "mob": {
    "file": "artemis-bt-idle-mob.webp",
-   "w": 108,
+   "w": 107,
    "h": 214,
-   "kb": 237.7,
-   "ramMb": 2.2
+   "kb": 323.7,
+   "ramMb": 2.18
   },
   "lite": {
    "file": "artemis-bt-idle-lite.webp",
-   "w": 76,
+   "w": 75,
    "h": 150,
-   "kb": 128.7,
-   "ramMb": 1.09
-  }
+   "kb": 194.5,
+   "ramMb": 1.07
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "artemis_bt_sup": {
   "id": "artemis_bt_sup",
@@ -6542,7 +6543,7 @@
  },
  "athena_bt_idle": {
   "id": "athena_bt_idle",
-  "srcRes": "252x420",
+  "srcRes": "748x1244",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -6553,45 +6554,46 @@
    -0.62
   ],
   "wf": [
-   0.452,
-   0.431
+   0.449,
+   0.45
   ],
-  "maxDiff": 39.27,
+  "maxDiff": 37.21,
   "fig": {
-   "top": 0.0896,
-   "foot": 0.9872,
-   "ax": 0.4522
+   "top": 0.1197,
+   "foot": 0.99,
+   "ax": 0.4493
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": null,
-  "q": 76,
-  "bodyPx": 197,
-  "bodyPxF": 197.47,
+  "q": 91,
+  "bodyPx": 191,
+  "bodyPxF": 191.47,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 345.6,
    "ramMb": 4.65,
-   "kbPct": 78,
-   "ramPct": 58
+   "kbPct": 106,
+   "ramPct": 56
   },
   "mob": {
    "file": "athena-bt-idle-mob.webp",
-   "w": 129,
+   "w": 125,
    "h": 220,
-   "kb": 269.6,
-   "ramMb": 2.71
+   "kb": 365.3,
+   "ramMb": 2.62
   },
   "lite": {
    "file": "athena-bt-idle-lite.webp",
-   "w": 90,
+   "w": 88,
    "h": 154,
-   "kb": 136.3,
-   "ramMb": 1.32
-  }
+   "kb": 207.2,
+   "ramMb": 1.29
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "athena_bt_sup": {
   "id": "athena_bt_sup",
@@ -21695,7 +21697,7 @@
  },
  "kitsune_bt_idle": {
   "id": "kitsune_bt_idle",
-  "srcRes": "304x420",
+  "srcRes": "812x1120",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -21706,43 +21708,44 @@
    -0.62
   ],
   "wf": [
-   0.516,
-   0.446
+   0.512,
+   0.447
   ],
-  "maxDiff": 44.73,
+  "maxDiff": 50.54,
   "fig": {
-   "top": 0.1146,
-   "foot": 0.9867,
-   "ax": 0.5157
+   "top": 0.1167,
+   "foot": 0.9871,
+   "ax": 0.512
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
-  "bodyPx": 192,
-  "bodyPxF": 191.86,
+  "q": 86,
+  "bodyPx": 191,
+  "bodyPxF": 191.49,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 445.3,
    "ramMb": 5.92,
-   "kbPct": 83,
-   "ramPct": 59
+   "kbPct": 120,
+   "ramPct": 58
   },
   "mob": {
    "file": "kitsune-bt-idle-mob.webp",
-   "w": 167,
+   "w": 165,
    "h": 220,
-   "kb": 369.5,
-   "ramMb": 3.5
+   "kb": 533.6,
+   "ramMb": 3.46
   },
   "lite": {
    "file": "kitsune-bt-idle-lite.webp",
-   "w": 117,
+   "w": 115,
    "h": 154,
-   "kb": 191.2,
-   "ramMb": 1.72
-  }
+   "kb": 291.8,
+   "ramMb": 1.69
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_bt_sup": {
   "id": "kitsune_bt_sup",
@@ -43963,7 +43966,7 @@
  },
  "zeus_bt_idle": {
   "id": "zeus_bt_idle",
-  "srcRes": "220x420",
+  "srcRes": "684x1308",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -43975,42 +43978,43 @@
   ],
   "wf": [
    0.552,
-   0.426
+   0.42
   ],
-  "maxDiff": 43.38,
+  "maxDiff": 44.99,
   "fig": {
-   "top": 0.0818,
-   "foot": 0.9873,
+   "top": 0.0731,
+   "foot": 0.986,
    "ax": 0.5525
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
+  "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.3,
+  "bodyPxF": 198.1,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 364.7,
    "ramMb": 4.1,
-   "kbPct": 74,
-   "ramPct": 57
+   "kbPct": 100,
+   "ramPct": 56
   },
   "mob": {
    "file": "zeus-bt-idle-mob.webp",
-   "w": 111,
-   "h": 219,
-   "kb": 269.1,
-   "ramMb": 2.32
+   "w": 110,
+   "h": 217,
+   "kb": 366.2,
+   "ramMb": 2.28
   },
   "lite": {
    "file": "zeus-bt-idle-lite.webp",
-   "w": 78,
-   "h": 153,
-   "kb": 138.6,
-   "ramMb": 1.14
-  }
+   "w": 77,
+   "h": 152,
+   "kb": 216.2,
+   "ramMb": 1.12
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "zeus_bt_sup": {
   "id": "zeus_bt_sup",
