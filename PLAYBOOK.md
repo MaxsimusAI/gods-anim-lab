@@ -1,7 +1,13 @@
 # Gods animation playbook (Kling → sprite sheets → stand) — the ONLY rule set
 
 Project: «Битва титанов. Сумерки богов» (BT) + its anime clone Titan Idols (TI). Owner: Maxim, game designer, not a programmer.
-This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 2, 13.11.2026 (afternoon: redo of gods 1-5, site v21).
+This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 3, 13.11.2026 15:40 (whole body moves,
+free aim direction, clip-by-clip flow with old/new switch on the stand).
+
+**Where a rule here contradicts another one, the NEWER entry of section 12 wins — and the contradiction must be removed from the
+section where it sits the same day.** (13.11: "feet planted on the same spot" stood in the prompt template and in 3 rules, made
+out of "same size, no growing toward the camera"; result: glued feet in almost every clip. "Never aim sideways" had become
+"aim only up". Both are removed below.)
 
 **Read this whole file at the start of every session and again before EVERY batch, every cut and every publish.**
 The main failure so far: rules were remembered for 3 gods and forgotten on the 4th, the same mistakes went round in circles.
@@ -79,8 +85,10 @@ Per god, before writing any prompt:
 - [ ] Decide per action slot which of three reads it is and write it into the notes:
       **melee** (the god leaps to the enemy, strikes, returns), **ranged** (a clearly visible projectile from the weapon to the target),
       **buff/heal** (something visibly flies from the god to the allies).
-- [ ] Decide where the baked effect leaves the frame (usually the TOP edge — enemies are at the top of the screen)
-      and what the game draws next from exactly that point.
+- [ ] Decide where the baked effect leaves the body. **The same sheet is also shown when this god stands at the TOP of the screen
+      among the enemies** (Maxim 13.11 15:34): the baked effect must read in both positions, so it is short and close to the
+      weapon/hand; its direction is not important (the game draws the flight to the real target from `wf`). Never build a clip
+      around "shoot straight up". Write what the game draws next from exactly that point.
 - [ ] Look at the art. If it is bad/inconvenient (weapon far taller than the head, cut parts, copyright-like look) — tell Maxim,
       he orders a redraw from ChatGPT. Do not burn credits on bad art.
 
@@ -89,8 +97,12 @@ Per god, before writing any prompt:
 **Settings:** `image_to_video`, model `kling-video-v4_0`, duration 3 s, 720p, first frame = tail frame = the tight image,
 no sound. One `taskTraceId` per batch. 30 credits per clip.
 
-**Batching:** batches of 5 gods. Shoot 5 gods → cut → stand → Maxim checks and approves → next 5. Continue so until Maxim
-explicitly says "now send everything". Inside a batch all its clips are sent at once. Poll `query_tasks` at most 3-4 in parallel.
+**Flow (Maxim 13.11 15:36, replaces "batch → wait for approval → next batch"):** nothing waits for a whole batch.
+Clips are still sent to Kling in packs of 5 gods (all clips of the pack at once; poll `query_tasks` at most 3-4 in parallel), but
+EACH clip goes on alone as soon as it is ready: video gate G1 → cut → G3 → fresh-eyes reviewer agent on THIS clip only (section 10)
+→ no objections → published to the stand at once (section 9). The next pack of 5 is sent when the previous pack has been sent out
+to Kling; Maxim looks at the stand whenever he wants and his remarks are fixed in the same flow (they never stop the line).
+He checks on the SITE only — never send him archives or files to look at.
 
 **Takes:** one take per clip. A retake only for a concrete, named defect. Never "a second variant just in case".
 If the same defect survives 2 retakes — stop retaking, show Maxim and ask (the art or the idea is the problem).
@@ -100,8 +112,8 @@ Copyright refusal of the prompt (trademarked names like "Mjolnir") is not charge
 **Prompt template (keep every sentence; fill <…>):**
 ```
 Fixed camera, the flat gray background stays exactly the same color and brightness the whole time, no camera movement, no zoom.
-<Short visual description of the god> keeps the same size, feet planted on the same spot, and faces the viewer the whole time,
-chest toward the viewer; never turns the back or the side to the viewer. <Skill name / "Basic attack" / "Idle">.
+<Short visual description of the god> keeps the same size (never steps toward or away from the camera) and faces the viewer most of the time;
+the whole body moves: <2-3 body moves: steps / turns / crouches / hop>. <Skill name / "Basic attack" / "Idle">.
 <Weapon rule for this god>. <Timeline: what happens in the first third of a second / first second, the release, the recovery>.
 Then <effect> fades and <he/she> returns to the starting pose.
 No arc-shaped or crescent light trails, no sweeping slashes, no circles or rings anywhere, nothing glows on the ground.
@@ -109,26 +121,37 @@ Rich, clearly visible <god FX colour> effects, medium brightness, in both the ef
 All moves are smooth and continuous, no sudden jumps, no flicker. The body stays solid and fully visible in every moment: never fades, never turns transparent or ghostly, no smoke or haze
 rectangle, no explosion filling the frame. No white-out, no lens flare, no starburst, no star-shaped
 or cross-shaped glint, no burst of rays, no full-frame flash, no smoke filling the frame; nothing flies in from the edges;
-nothing is aimed or thrown to the left or to the right; effects stay close to the body and never touch the left and right
-edges of the frame. The end pose equals the start pose.
+effects stay close to the body and never touch the left and right
+edges of the frame. Nothing is aimed flat horizontally into the left or right edge. The end pose equals the start pose.
 ```
 
 **Motion rules for prompts:**
-- Living character: weight shifts, knees bend, supple spine, cloth and hair move. Not only one arm moving; not everyone must jump or spin.
-- Never a figurine on a turntable. Turning only through the feet stepping. Do not use: turn around, spin, pirouette, twirl.
-- Same size all the time: feet planted, no step or lunge toward the camera (the god must not become a giant when leaping to the enemies).
+- **The WHOLE body moves in every clip** (Maxim 13.11 15:34: "only the arm bends, the rest is a static picture — bad"):
+  legs step and the feet move, hips and torso turn, knees bend, crouch, short hop or a little float in the air, a turn or a
+  spin with the feet stepping — all allowed and wanted. Name 2-3 body moves in every action prompt, not only the arm/weapon.
+  Feet glued to one spot for the whole clip = defect (G1.10). Not everyone must jump or spin — vary the ideas per god.
+- Never a figurine on a turntable (the body rotates while the feet stay glued). Turning and spinning are allowed when the feet
+  step with the turn ("steps and turns around once on the spot"). Back to the viewer only for a moment.
+- Same size all the time: no step or lunge toward/away from the camera (the god must not become a giant when leaping to the
+  enemies). Steps to the side, turns, crouches, small hops are fine — they do not change the size.
 - **Timing:** wind-up SHORT — basic: first third of a second; super/ult: first second; then a long relaxed recovery.
 - **Melee (tight canvas): the weapon moves only vertically** — "raises the <weapon> straight up above the head, then chops straight
   down in front of the centre of the body like chopping wood" or "thrusts straight up". Never "slash/swing/cross slash/sweep".
+  The BODY still moves with the blow: a step to the side, the hips turn, the knees bend, a small hop into the chop.
 - **Weapon never at full arm's length** to the side or above the head; a staff at most a little above the head; or kneel.
   Staffs/torches: "the staff stays upright the whole time, never tilts, swings or lies horizontally".
-- **Never aim sideways** (allies stand left and right). Aim UP (crouching and aiming up is fine).
+- **Aim direction is free** (Maxim 13.11 15:34, replaces "never aim sideways / aim up"): the god also stands at the top of the
+  screen, so "up" means nothing. A bow may point slightly up to the side, even toward the ally side; only not flat horizontal
+  into the frame edge. What matters: the weapon stays CLOSE TO THE BODY — bent arm, never the arm fully stretched out
+  (a fully stretched arm in every take was the real defect). The game draws the arrow to the target from `wf`.
 - **Never shoot a real projectile at the viewer** (an arrow with effects fills the frame and the cut shows). Firearms only
   (Blackbeard pistols, Van Helsing TI rifle): a BLANK shot toward the viewer — smoke puff, nothing flies; the game draws the shot.
   Recoil proportional to the weapon (small shoulder kick, not a full-body lunge).
 - A god with a bow does not have to shoot in all 3 skills: other actions are fine (e.g. a raised bow gathering power, a ritual).
-- **Weapons are used:** an archer really draws the string and releases it, aiming UP; the arrow leaves the bow along its flight.
-  Nothing appears "from emptiness / from the top of the bow". No abrupt crouch-and-stand, no string jerked back and forth.
+- **Weapons are used:** an archer really draws the string and releases it, bow close to the body; the arrow leaves the bow along
+  its flight (any direction slightly up; short, the game continues it).
+  Nothing appears "from emptiness / from the top of the bow". No string jerked back and forth. A crouch is fine when it is smooth
+  (no instant drop-and-pop-up within a few frames).
 - **Idle:** slow and smooth only, alive for the WHOLE loop, no pause, no "twitch — freeze — twitch", not only breathing.
   Name continuous actions: torso/hip sway, slow step to the side and back, knees bend, head left then right, shoulders roll,
   re-grip, cloth. The weapon is never raised or aimed in idle. No dancing.
@@ -149,9 +172,12 @@ edges of the frame. The end pose equals the start pose.
 ## 6. Step D — video gate (before cutting; look at it, do not assume)
 
 For every downloaded clip run `b3/strip.py` (7 frames) and, for doubtful ones, look at more frames. Reject = named retake.
-- [ ] G1.1 Same size, faces the viewer, never turns the back/side, feet planted.
+- [ ] G1.1 Same size (no step toward/away from the camera), mostly faces the viewer, back only for a moment.
+- [ ] G1.10 The whole body moves: not only one arm. Feet/legs, hips, torso visibly move during the action. `b3/legs.py <clip>`:
+      feet_max < ~2.5 % AND hips_max < ~5 % of the figure height = glued = retake (a kneel/crouch counts as moving); then LOOK —
+      the meter cannot see a body that only bends at the elbow. Weapon arm never fully stretched out.
 - [ ] G1.2 No forbidden light (L7), background never brightens/darkens.
-- [ ] G1.3 Nothing aimed/thrown sideways; weapon moves as prompted (melee vertical).
+- [ ] G1.3 Nothing aimed flat horizontally into a side edge (slightly up to the side is fine); weapon moves as prompted (melee vertical).
 - [ ] G1.4 Edges: a FAST exit of a tip for ≤ ~0.3 s is fine; a slow or long exit (half a sword for half a second,
       a fan slowly leaving, a weapon held outside) = reject. An effect that flies off and is cut without a game continuation = reject.
 - [ ] G1.5 No arcs/crescents/rings across the frame, no burst in all directions to every edge.
@@ -229,7 +255,11 @@ Overrides `work/impact_overrides.json` per clip:
 - Balance direction (Maxim): fewer samey skills; a long weak effect beats a short huge one; supports deal more own damage.
 - Every remark Maxim makes goes the same day into: this file (if it is a general rule) AND the god's `todo` on the stand.
   Nothing may live only in the chat.
-- Only gods listed in `kling_done.json` show new sheets. A god goes there only when all 8 sheets passed G3 (no old placeholders).
+- **Old/new switch (Maxim 13.11 15:36):** in the two proposed arenas (middle = BT, right = TI) every slot has two versions:
+  "вчера" = the sheet that was published before the current redo (v20, files `assets/sheets/v20/`), "сейчас" = the new one.
+  The left arena (live game) always has one version (L8). A clip goes live on the stand as "сейчас" as soon as it passed its
+  review — the other slots of the god keep their previous sheet. Until a slot is redone, "сейчас" = "вчера".
+- Only gods listed in `kling_done.json` show new sheets.
 - Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild the manifest
   (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`), bump `?v=` in index.html,
   check every new sheet is referenced by the manifest and every reference exists, commit (not the root `gods-data.js`,
@@ -237,8 +267,10 @@ Overrides `work/impact_overrides.json` per clip:
 
 ## 10. Step H — fresh-eyes check and report
 
-- After code changes and before telling Maxim "ready": a separate reviewer agent (has not seen the chat) checks the diff
-  against this file; fix CRITICAL/IMPORTANT, max 2 rounds. Before the report, also re-read section 11 and tick every item touched.
+- Per clip (flow): a separate reviewer agent (has not seen the chat) checks THIS clip — its strip/QA sheet, the stand series and
+  the rules of sections 2, 5, 6, 7 — before it is published. "No objections" → publish at once; objections → fix or retake.
+- After code changes and before telling Maxim "ready": a separate reviewer agent checks the diff against this file;
+  fix CRITICAL/IMPORTANT, max 2 rounds. Before the report, also re-read section 11 and tick every item touched.
 - Report to Maxim (Russian, short): what is published; per god what changed; WATCH list (clips you are not sure about, why);
   exceeded limits with numbers; what needs his decision; what is NOT done yet. Never hide an unfinished item.
 
@@ -271,8 +303,8 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
 - D5 Long edge exits: Erlang BT atk (spear outside frames 0-14, arcs across the frame — violates the vertical-only rule, re-shoot),
   Surt BT atk (fire trail outside 7-11), Amaterasu BT hyp and Artemis TI atk (8 frames at the edge).
 - D6 Flashes at hits: Hou Yi hyp, Erlang sup (white star at hit), Silent TI sup (at the feet).
-- D7 Hou Yi: draws the string now but aims horizontally right (at an ally) in atk and hyp — re-shoot: aim up / crouch and aim up,
-  or another action; never at the viewer.
+- D7 Hou Yi: draws the string but aims flat horizontally right with the arm fully stretched in atk and hyp — re-shoot: bow close to
+  the body, slightly up (any side), the body moves; or another action; never at the viewer.
 - D8 Notes: Maxim's 04:00 remarks are missing in `todo` for ~30 gods (incl. Agni, Erlang, Hou Yi, Heimdall, Ra); 35 gods have a
   generic template in notes and balance ("visual only", "strikes in front of him", "weapon never leaves the frame" — false for some).
 - D9 Weight: the v20 numbers compared totals (4 new vs 2-3 live) — re-measure per animation (L1) and report only real per-sheet excess.
@@ -321,16 +353,20 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
 - 12.11 Same height for all; no growing toward the camera; giant-at-the-enemy problem.
 - 12.11 Edge exits: fast = ok, slow/long = bad; cut effect continues in the game from the same point.
 - 12.11 Idle alive the whole loop, feet move, no figurine; enemies are at the top — aim up, not at the belly.
+  [superseded 13.11 15:34: aim direction is free, the god also stands at the top]
 - 14.10 (gods standard) One frame for all, same body scale in idle and strikes; if it does not fit — change the drawing/motion,
   never shrink the god or change the frame.
-- 12.11 night: body quality never traded for effects; weapon never at full arm; never aim sideways; no bursts to all edges;
+- 12.11 night: body quality never traded for effects; weapon never at full arm; never aim sideways [superseded 13.11 15:34:
+  only not flat into the edge]; no bursts to all edges;
   sync (nothing before the gesture); projectile looks like the thing; crop unused space.
 - 13.11 Do not move agreed limits; tight canvas only; never change a rule quietly — ask.
 - 13.11 Who hits whom: melee leaps, ranged projectile, buff flies to allies; game effect and baked gesture are one gesture;
   "not sideways" ≠ "only up" (viewer + blank shot ok); recoil proportional; BT as rich as TI; "fixed" = seen.
-- 13.11 04:00 Effect follows the animation, never the reverse; no skips/cuts; turning only through the feet; weapons are used;
+- 13.11 04:00 Effect follows the animation, never the reverse; no skips/cuts; turning only through the feet [= the feet step
+  with the turn; it never meant "feet glued"]; weapons are used;
   origin = the gesturing hand/weapon; supers need magic; nothing before the hand is raised; comments repeat — re-read all.
-- 13.11 (13:49) Batches of 5 gods with his approval between batches, until he says "send everything". Weight per animation, soft.
+- 13.11 (13:49) Batches of 5 gods with his approval between batches, until he says "send everything" [superseded 13.11 15:36:
+  clip-by-clip flow, see section 5]. Weight per animation, soft.
   Crop all unused space. Prompts must prevent vanishing body/haze/explosions. Projectile matches the weapon. No real shot at the viewer;
   blank shot only for firearms. Archers need not shoot in every skill. Balance notes on the stand (separate agent possible).
 - 13.11 Fresh-eyes check of all work; this playbook is the single rule set for new chats.
@@ -340,3 +376,11 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
 - 13.11 v21 lessons (technical, not new rules): "aim straight up / vertically" is ignored by Kling for archers (50-60° at best,
   2 tries); an idle needs "shifts the whole weight from one leg to the other, sway large enough to be seen from far away" to pass
   the 22 % gate; "lightning only on the fist and the staff, skin and robes keep their colours" stopped the ghost-white body.
+- 13.11 (15:34) Maxim on v21: (1) no task to shoot "up": the same god later stands at the top among the enemies; aim may go slightly
+  up to the side, even toward an ally; the bow close to the body, the arm NOT fully stretched (it was stretched in every take).
+  (2) Characters must MOVE: in Zeus anime only the forearm rises, the rest is static — bad; almost all characters have glued feet.
+  Allowed and wanted: step, turn, spin, crouch, hop / float a little. Rules updated: sections 4, 5 (template, motion), 6 (G1.1, G1.10).
+- 13.11 (15:36) Maxim: he checks on the SITE, not in archives. Clip-by-clip flow: Kling video → fresh-eyes agent checks the ready
+  clip (not the whole pack) → no objections → straight onto the site; nothing waits for a pack. Packs of 5 for sending are fine.
+  Stand: in the middle and right arenas two buttons per slot — "as yesterday" and "as now"; the left arena keeps one version.
+  If rules contradict each other — re-read all rules, add everything discussed, change the rules that caused the error.
