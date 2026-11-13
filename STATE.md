@@ -58,6 +58,18 @@ The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\k
 - Waiting for Maxim: Hel BT strike (keep old / v2 / v3 / new idea), Hel TI ult (old / v2 / v3); his look at everything.
 - Game effect of the super re-timed to the new take (fist, real release) — stand check running.
 
+## 14.11 night — next 10 gods (Maxim 01:45 «Делай следующие 10 богов»)
+
+Amaterasu, Apollo, Brynhild, Van Helsing, Indra, Inti, Ra, Heimdall, Hou Yi, Erlang Shen. Sources: Maxim's tars (all 80 found,
+`kl/g7/src`). All 80 re-cut sharp (two queues, `/tmp/sb1b.log`, `/tmp/sb2.log`); 'skip' overrides were removed (forbidden), the
+list is in `kl/g7/skips_removed.json`. Per god: fresh-eyes review → publish re-cuts that pass / protected (pub1) → re-shoot
+fails (prompts `pipeline/r7/`, ids `pipeline/r6/kling_tasks_1411.json`) → near-misses as «Версия N».
+Done so far: Inti (5 re-cuts; sup BT/TI to re-cut with fit, TI ult with de-smoke), Ra (5 re-cuts, new super BT/TI, TI strike
+retake 2 cutting), Heimdall (7 re-cuts; BT ult keeps its old cut — the re-cut adds frames he never saw), Amaterasu (5 re-cuts,
+BT super take 3 published, TI super take 3 = «Версия 2», BT strike retake 1 re-cut with de-smoke — publish if clean).
+Open: G4 stand check of the new effects of all re-shot clips; Apollo review running; Brynhild, Van Helsing, Indra, Hou Yi,
+Erlang to do.
+
 ## Next step
 
 1. Maxim looks at Kitsune, Athena, Zeus on the stand: are the re-cuts sharp enough; which take to keep in the three
