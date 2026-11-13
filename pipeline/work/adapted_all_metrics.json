@@ -19487,7 +19487,7 @@
    0.7,
    0.06
   ],
-  "maxDiff": 37.83,
+  "maxDiff": 37.8,
   "fig": {
    "top": 0.0752,
    "foot": 0.991,
@@ -19555,30 +19555,30 @@
    ],
    "col": "#fecc7d"
   },
-  "q": 78,
-  "bodyPx": 184,
-  "bodyPxF": 184.08,
+  "q": 74,
+  "bodyPx": 201,
+  "bodyPxF": 201.48,
   "v": 21,
   "live": {
    "key": "sup",
    "kb": 240.4,
    "ramMb": 2.71,
-   "kbPct": 117,
-   "ramPct": 79
+   "kbPct": 116,
+   "ramPct": 95
   },
   "mob": {
    "file": "inti-bt-sup-mob.webp",
-   "w": 112,
-   "h": 201,
-   "kb": 281.6,
-   "ramMb": 2.15
+   "w": 123,
+   "h": 220,
+   "kb": 279.2,
+   "ramMb": 2.58
   },
   "lite": {
    "file": "inti-bt-sup-lite.webp",
-   "w": 78,
-   "h": 141,
-   "kb": 156.7,
-   "ramMb": 1.05
+   "w": 86,
+   "h": 154,
+   "kb": 157.5,
+   "ramMb": 1.26
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -41463,8 +41463,8 @@
    -1.012
   ],
   "wf": [
-   0.9,
-   0.08
+   0.86,
+   0.05
   ],
   "maxDiff": 22.63,
   "fig": {
@@ -41548,7 +41548,7 @@
    -1.057
   ],
   "wf": [
-   0.84,
+   0.72,
    0.04
   ],
   "maxDiff": 24.91,
@@ -41799,8 +41799,8 @@
    -1.058
   ],
   "wf": [
-   0.71,
-   0.04
+   0.74,
+   0.03
   ],
   "maxDiff": 31.19,
   "fig": {
