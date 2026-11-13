@@ -10986,54 +10986,51 @@
   "impact": 4,
   "rel": 0.167,
   "wpt": [
-   0.282,
-   -0.587
+   0.151,
+   -0.711
   ],
   "wf": [
    0.7,
    0.35
   ],
-  "maxDiff": 73.08,
+  "maxDiff": 73.56,
   "fig": {
-   "top": 0.0609,
-   "foot": 0.9666,
-   "ax": 0.5
+   "top": 0.0895,
+   "foot": 0.9913,
+   "ax": 0.5006
   },
   "defects": [
-   "raw_edge_clip"
+   "raw_edge_clip",
+   "solid_cut(0.5%)"
   ],
-  "crop": null,
-  "ho": {
-   "top": [
-    [
-     0,
-     0.481,
-     0.07
-    ]
-   ],
-   "col": "#ffc793"
-  },
-  "q": 58,
+  "crop": "TB",
+  "ho": null,
+  "q": 68,
   "bodyPx": 198,
-  "budget": {
-   "kb": 190.9,
-   "liveRam": 16.69,
-   "liveKb": 873.6
+  "bodyPxF": 198.4,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 229.8,
+   "ramMb": 5.02,
+   "kbPct": 119,
+   "ramPct": 63
   },
   "mob": {
    "file": "erlang-bt-atk-mob.webp",
    "w": 150,
-   "h": 219,
-   "kb": 187.6,
-   "ramMb": 3.13
+   "h": 220,
+   "kb": 272.7,
+   "ramMb": 3.15
   },
   "lite": {
    "file": "erlang-bt-atk-lite.webp",
    "w": 105,
-   "h": 153,
-   "kb": 101.8,
-   "ramMb": 1.53
-  }
+   "h": 154,
+   "kb": 148.5,
+   "ramMb": 1.54
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "erlang_bt_hyp": {
   "id": "erlang_bt_hyp",
@@ -11041,20 +11038,20 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 9,
-  "rel": 0.375,
+  "impact": 8,
+  "rel": 0.333,
   "wpt": [
-   0.091,
-   -0.639
+   -0.237,
+   -0.979
   ],
   "wf": [
-   0.17,
-   0.08
+   0.23,
+   0.16
   ],
-  "maxDiff": 67.34,
+  "maxDiff": 69.13,
   "fig": {
    "top": 0.0613,
-   "foot": 0.9735,
+   "foot": 0.9726,
    "ax": 0.4902
   },
   "defects": [
@@ -11065,50 +11062,43 @@
    "top": [
     [
      8,
-     0.217,
+     0.209,
      0.07
     ],
     [
      13,
-     0.249,
-     0.06
-    ],
-    [
-     17,
-     0.239,
+     0.254,
      0.06
     ]
    ],
-   "bottom": [
-    [
-     3,
-     0.531,
-     0.06
-    ]
-   ],
-   "col": "#acc9ff"
+   "col": "#adcbff"
   },
-  "q": 46,
-  "bodyPx": 198,
-  "budget": {
-   "kb": 190.9,
-   "liveRam": 16.69,
-   "liveKb": 873.6
+  "q": 65,
+  "bodyPx": 199,
+  "bodyPxF": 198.66,
+  "v": 21,
+  "live": {
+   "key": "hyp",
+   "kb": 246.7,
+   "ramMb": 6.12,
+   "kbPct": 118,
+   "ramPct": 50
   },
   "mob": {
    "file": "erlang-bt-hyp-mob.webp",
    "w": 147,
-   "h": 217,
-   "kb": 194.2,
-   "ramMb": 3.04
+   "h": 218,
+   "kb": 290.7,
+   "ramMb": 3.06
   },
   "lite": {
    "file": "erlang-bt-hyp-lite.webp",
    "w": 103,
-   "h": 152,
-   "kb": 116.1,
-   "ramMb": 1.49
-  }
+   "h": 153,
+   "kb": 157.9,
+   "ramMb": 1.5
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "erlang_bt_idle": {
   "id": "erlang_bt_idle",
@@ -11126,7 +11116,7 @@
    0.505,
    0.419
   ],
-  "maxDiff": 26.98,
+  "maxDiff": 27.0,
   "fig": {
    "top": 0.0691,
    "foot": 0.9911,
@@ -11135,27 +11125,32 @@
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
+  "q": 91,
   "bodyPx": 198,
-  "budget": {
-   "kb": 257.3,
-   "liveRam": 16.69,
-   "liveKb": 873.6
+  "bodyPxF": 198.23,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 397.1,
+   "ramMb": 5.55,
+   "kbPct": 95,
+   "ramPct": 42
   },
   "mob": {
    "file": "erlang-bt-idle-mob.webp",
    "w": 113,
    "h": 215,
-   "kb": 252.3,
+   "kb": 376.9,
    "ramMb": 2.32
   },
   "lite": {
    "file": "erlang-bt-idle-lite.webp",
    "w": 79,
    "h": 150,
-   "kb": 136.5,
+   "kb": 215.2,
    "ramMb": 1.13
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "erlang_bt_sup": {
   "id": "erlang_bt_sup",
@@ -11215,45 +11210,50 @@
   "impact": 4,
   "rel": 0.167,
   "wpt": [
-   0.342,
-   -0.845
+   0.223,
+   -0.766
   ],
   "wf": [
    0.75,
    0.3
   ],
-  "maxDiff": 79.33,
+  "maxDiff": 79.96,
   "fig": {
-   "top": 0.1442,
-   "foot": 0.981,
+   "top": 0.0884,
+   "foot": 0.9912,
    "ax": 0.5
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "TB",
   "ho": null,
-  "q": 46,
-  "bodyPx": 184,
-  "budget": {
-   "kb": 190.9,
-   "liveRam": 16.69,
-   "liveKb": 873.6
+  "q": 60,
+  "bodyPx": 199,
+  "bodyPxF": 198.62,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 229.8,
+   "ramMb": 5.02,
+   "kbPct": 113,
+   "ramPct": 74
   },
   "mob": {
    "file": "erlang-ti-atk-mob.webp",
-   "w": 165,
+   "w": 177,
    "h": 220,
-   "kb": 197.0,
-   "ramMb": 3.46
+   "kb": 258.8,
+   "ramMb": 3.71
   },
   "lite": {
    "file": "erlang-ti-atk-lite.webp",
-   "w": 115,
+   "w": 124,
    "h": 154,
-   "kb": 118.4,
-   "ramMb": 1.69
-  }
+   "kb": 151.1,
+   "ramMb": 1.82
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "erlang_ti_hyp": {
   "id": "erlang_ti_hyp",
@@ -11393,7 +11393,7 @@
    0.484,
    0.43
   ],
-  "maxDiff": 39.75,
+  "maxDiff": 39.77,
   "fig": {
    "top": 0.0873,
    "foot": 0.9893,
@@ -11402,27 +11402,32 @@
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
+  "q": 90,
   "bodyPx": 198,
-  "budget": {
-   "kb": 257.3,
-   "liveRam": 16.69,
-   "liveKb": 873.6
+  "bodyPxF": 198.44,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 397.1,
+   "ramMb": 5.55,
+   "kbPct": 118,
+   "ramPct": 52
   },
   "mob": {
    "file": "erlang-ti-idle-mob.webp",
    "w": 137,
    "h": 220,
-   "kb": 217.1,
+   "kb": 467.1,
    "ramMb": 2.87
   },
   "lite": {
    "file": "erlang-ti-idle-lite.webp",
    "w": 96,
    "h": 154,
-   "kb": 123.7,
+   "kb": 258.4,
    "ramMb": 1.41
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "erlang_ti_sup": {
   "id": "erlang_ti_sup",
@@ -16054,158 +16059,161 @@
  },
  "houyi_bt_atk": {
   "id": "houyi_bt_atk",
-  "srcRes": "314x420",
+  "srcRes": "840x1124",
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 15,
-  "rel": 0.625,
+  "impact": 13,
+  "rel": 0.542,
   "wpt": [
-   0.391,
-   -0.54
+   0.283,
+   -0.771
   ],
   "wf": [
-   0.93,
-   0.53
+   0.92,
+   0.27
   ],
-  "maxDiff": 45.86,
+  "maxDiff": 48.62,
   "fig": {
-   "top": 0.1375,
-   "foot": 0.9903,
-   "ax": 0.492
+   "top": 0.0917,
+   "foot": 0.9914,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "T",
   "ho": {
-   "top": [
-    [
-     16,
-     0.437,
-     0.15
-    ]
-   ],
    "right": [
     [
-     2,
-     0.51,
-     0.07
+     14,
+     0.266,
+     0.26
     ],
     [
-     10,
-     0.501,
-     0.12
-    ],
-    [
-     16,
-     0.493,
-     0.13
-    ],
-    [
-     17,
-     0.506,
+     15,
+     0.317,
      0.12
     ]
    ],
-   "col": "#ffd87e"
+   "col": "#fea54b"
   },
-  "q": 58,
-  "bodyPx": 142,
-  "budget": {
-   "kb": 166.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "q": 74,
+  "bodyPx": 198,
+  "bodyPxF": 197.93,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 300.5,
+   "ramMb": 3.71,
+   "kbPct": 113,
+   "ramPct": 100
   },
   "mob": {
    "file": "houyi-bt-atk-mob.webp",
-   "w": 127,
-   "h": 167,
-   "kb": 148.2,
-   "ramMb": 2.02
+   "w": 177,
+   "h": 220,
+   "kb": 341.1,
+   "ramMb": 3.71
   },
   "lite": {
    "file": "houyi-bt-atk-lite.webp",
-   "w": 89,
-   "h": 117,
-   "kb": 88.0,
-   "ramMb": 0.99
-  }
+   "w": 124,
+   "h": 154,
+   "kb": 196.1,
+   "ramMb": 1.82
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_bt_hyp": {
   "id": "houyi_bt_hyp",
-  "srcRes": "314x420",
+  "srcRes": "840x1124",
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 14,
-  "rel": 0.583,
+  "impact": 12,
+  "rel": 0.5,
   "wpt": [
-   0.333,
-   -1.091
+   0.286,
+   -0.695
   ],
   "wf": [
-   0.86,
-   0.06
+   0.65,
+   0.38
   ],
-  "maxDiff": 42.37,
+  "maxDiff": 51.06,
   "fig": {
-   "top": 0.1375,
-   "foot": 0.9903,
-   "ax": 0.4662
+   "top": 0.0917,
+   "foot": 0.9914,
+   "ax": 0.5
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "TB",
   "ho": {
    "top": [
     [
-     4,
-     0.801,
-     0.07
-    ],
-    [
-     9,
-     0.875,
+     15,
+     0.437,
      0.05
-    ],
-    [
-     14,
-     0.91,
-     0.51
     ]
    ],
    "right": [
     [
-     14,
-     0.021,
+     7,
+     0.408,
+     0.42
+    ],
+    [
+     8,
+     0.387,
+     0.34
+    ],
+    [
+     9,
+     0.395,
+     0.2
+    ],
+    [
+     10,
+     0.383,
      0.1
+    ],
+    [
+     12,
+     0.343,
+     0.22
     ]
    ],
-   "col": "#fec974"
+   "col": "#fe9536"
   },
-  "q": 58,
-  "bodyPx": 147,
-  "budget": {
-   "kb": 166.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "q": 78,
+  "bodyPx": 198,
+  "bodyPxF": 197.93,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 300.5,
+   "ramMb": 3.71,
+   "kbPct": 117,
+   "ramPct": 100
   },
   "mob": {
    "file": "houyi-bt-hyp-mob.webp",
-   "w": 124,
-   "h": 172,
-   "kb": 146.8,
-   "ramMb": 2.03
+   "w": 177,
+   "h": 220,
+   "kb": 351.2,
+   "ramMb": 3.71
   },
   "lite": {
    "file": "houyi-bt-hyp-lite.webp",
-   "w": 87,
-   "h": 120,
-   "kb": 88.4,
-   "ramMb": 1.0
-  }
+   "w": 124,
+   "h": 154,
+   "kb": 185.3,
+   "ramMb": 1.82
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_bt_idle": {
   "id": "houyi_bt_idle",
@@ -16261,25 +16269,25 @@
  },
  "houyi_bt_sup": {
   "id": "houyi_bt_sup",
-  "srcRes": "314x420",
+  "srcRes": "840x1124",
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 16,
-  "rel": 0.667,
+  "impact": 12,
+  "rel": 0.5,
   "wpt": [
-   0.291,
-   -0.597
+   0.233,
+   -0.602
   ],
   "wf": [
-   0.82,
-   0.45
+   0.86,
+   0.47
   ],
-  "maxDiff": 66.66,
+  "maxDiff": 44.78,
   "fig": {
-   "top": 0.1024,
-   "foot": 0.9654,
-   "ax": 0.4968
+   "top": 0.0891,
+   "foot": 0.9914,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
@@ -16288,70 +16296,66 @@
   "ho": {
    "top": [
     [
-     15,
-     0.441,
-     0.05
-    ]
-   ],
-   "bottom": [
-    [
-     17,
-     0.079,
-     0.16
-    ]
-   ],
-   "left": [
-    [
-     16,
-     0.607,
-     0.45
+     5,
+     0.26,
+     1.0
     ],
     [
-     17,
-     0.775,
-     0.8
+     6,
+     0.236,
+     0.32
     ]
    ],
    "right": [
     [
-     15,
-     0.56,
-     0.11
+     8,
+     0.588,
+     0.06
     ],
     [
-     16,
-     0.506,
-     0.18
-    ],
-    [
-     17,
+     11,
      0.499,
-     0.18
+     0.07
+    ],
+    [
+     12,
+     0.517,
+     0.21
+    ],
+    [
+     13,
+     0.517,
+     0.19
     ]
    ],
-   "col": "#ffca66"
+   "col": "#ffc16d"
   },
-  "q": 58,
-  "bodyPx": 142,
-  "budget": {
-   "kb": 166.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "q": 75,
+  "bodyPx": 198,
+  "bodyPxF": 197.6,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 300.5,
+   "ramMb": 3.71,
+   "kbPct": 120,
+   "ramPct": 100
   },
   "mob": {
    "file": "houyi-bt-sup-mob.webp",
-   "w": 128,
-   "h": 165,
-   "kb": 157.8,
-   "ramMb": 2.01
+   "w": 177,
+   "h": 219,
+   "kb": 360.4,
+   "ramMb": 3.7
   },
   "lite": {
    "file": "houyi-bt-sup-lite.webp",
-   "w": 90,
-   "h": 115,
-   "kb": 88.5,
-   "ramMb": 0.99
-  }
+   "w": 124,
+   "h": 153,
+   "kb": 197.4,
+   "ramMb": 1.81
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_ti_atk": {
   "id": "houyi_ti_atk",
@@ -16584,145 +16588,86 @@
  },
  "houyi_ti_sup": {
   "id": "houyi_ti_sup",
-  "srcRes": "290x420",
+  "srcRes": "804x1168",
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 16,
-  "rel": 0.667,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   0.344,
-   -0.683
+   0.302,
+   -0.416
   ],
   "wf": [
-   0.9,
-   0.42
+   0.88,
+   0.61
   ],
-  "maxDiff": 62.29,
+  "maxDiff": 53.54,
   "fig": {
-   "top": 0.1558,
-   "foot": 0.9901,
-   "ax": 0.4983
+   "top": 0.0974,
+   "foot": 0.9908,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "TB",
   "ho": {
-   "top": [
-    [
-     5,
-     0.648,
-     0.1
-    ],
-    [
-     6,
-     0.63,
-     0.11
-    ],
-    [
-     8,
-     0.728,
-     0.23
-    ],
-    [
-     9,
-     0.706,
-     0.3
-    ],
-    [
-     10,
-     0.735,
-     0.24
-    ],
-    [
-     16,
-     0.512,
-     0.64
-    ],
-    [
-     17,
-     0.562,
-     1.0
-    ],
-    [
-     18,
-     0.785,
-     0.14
-    ]
-   ],
-   "left": [
-    [
-     16,
-     0.248,
-     0.15
-    ],
-    [
-     17,
-     0.445,
-     0.13
-    ]
-   ],
    "right": [
     [
-     3,
-     0.491,
-     0.37
-    ],
-    [
-     4,
-     0.487,
-     0.05
-    ],
-    [
-     7,
-     0.535,
-     0.07
-    ],
-    [
      8,
-     0.545,
-     0.25
+     0.634,
+     0.08
     ],
     [
      9,
-     0.49,
-     0.14
+     0.632,
+     0.18
     ],
     [
      10,
-     0.464,
-     0.07
+     0.616,
+     0.16
     ],
     [
-     16,
-     0.489,
-     0.43
+     11,
+     0.676,
+     0.18
+    ],
+    [
+     12,
+     0.652,
+     0.24
     ]
    ],
-   "col": "#ffc284"
+   "col": "#ffb362"
   },
-  "q": 58,
-  "bodyPx": 143,
-  "budget": {
-   "kb": 166.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "q": 81,
+  "bodyPx": 197,
+  "bodyPxF": 196.55,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 300.5,
+   "ramMb": 3.71,
+   "kbPct": 119,
+   "ramPct": 92
   },
   "mob": {
    "file": "houyi-ti-sup-mob.webp",
-   "w": 123,
-   "h": 172,
-   "kb": 156.7,
-   "ramMb": 2.02
+   "w": 163,
+   "h": 220,
+   "kb": 357.6,
+   "ramMb": 3.42
   },
   "lite": {
    "file": "houyi-ti-sup-lite.webp",
-   "w": 86,
-   "h": 120,
-   "kb": 87.8,
-   "ramMb": 0.98
-  }
+   "w": 114,
+   "h": 154,
+   "kb": 197.7,
+   "ramMb": 1.67
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "indra_bt_atk": {
   "id": "indra_bt_atk",
@@ -19744,11 +19689,11 @@
    0.3,
    0.07
   ],
-  "maxDiff": 39.86,
+  "maxDiff": 39.63,
   "fig": {
    "top": 0.1199,
    "foot": 0.9916,
-   "ax": 0.5136
+   "ax": 0.5128
   },
   "defects": [],
   "crop": null,
@@ -19756,22 +19701,22 @@
    "top": [
     [
      8,
-     0.318,
+     0.315,
      1.0
     ],
     [
      9,
-     0.317,
+     0.319,
      1.0
     ],
     [
      10,
-     0.31,
+     0.306,
      1.0
     ],
     [
      11,
-     0.32,
+     0.315,
      1.0
     ],
     [
@@ -19781,37 +19726,37 @@
     ],
     [
      13,
-     0.329,
+     0.33,
      1.0
     ],
     [
      14,
-     0.335,
+     0.336,
      1.0
     ],
     [
      15,
-     0.329,
-     1.0
-    ],
-    [
-     16,
-     0.328,
-     1.0
-    ],
-    [
-     17,
      0.332,
      1.0
     ],
     [
+     16,
+     0.332,
+     1.0
+    ],
+    [
+     17,
+     0.335,
+     1.0
+    ],
+    [
      18,
-     0.338,
+     0.337,
      1.0
     ],
     [
      19,
-     0.334,
+     0.33,
      1.0
     ],
     [
@@ -19821,40 +19766,40 @@
     ],
     [
      21,
-     0.333,
+     0.334,
      1.0
     ],
     [
      22,
-     0.321,
+     0.32,
      1.0
     ],
     [
      23,
-     0.31,
+     0.307,
      1.0
     ],
     [
      24,
      0.306,
-     0.7
+     0.68
     ]
    ],
    "left": [
     [
      1,
-     0.44,
-     0.07
+     0.439,
+     0.08
     ],
     [
      2,
-     0.45,
-     0.18
+     0.449,
+     0.2
     ],
     [
      3,
      0.442,
-     0.11
+     0.14
     ],
     [
      4,
@@ -19862,109 +19807,119 @@
      0.06
     ],
     [
+     5,
+     0.368,
+     0.05
+    ],
+    [
      7,
-     0.161,
+     0.162,
      0.05
     ],
     [
      8,
-     0.107,
+     0.108,
      0.06
     ],
     [
      9,
      0.073,
-     0.08
+     0.09
     ],
     [
      10,
-     0.067,
-     0.12
+     0.061,
+     0.13
     ],
     [
      11,
-     0.071,
-     0.36
+     0.075,
+     0.4
     ],
     [
      12,
-     0.082,
-     0.48
+     0.084,
+     0.47
     ],
     [
      13,
-     0.087,
-     0.51
+     0.091,
+     0.49
     ],
     [
      14,
      0.087,
-     0.54
-    ],
-    [
-     15,
-     0.087,
-     0.54
-    ],
-    [
-     16,
-     0.089,
-     0.52
-    ],
-    [
-     17,
-     0.09,
      0.53
     ],
     [
-     18,
-     0.091,
-     0.54
-    ],
-    [
-     19,
-     0.09,
-     0.51
-    ],
-    [
-     20,
+     15,
      0.088,
      0.53
     ],
     [
+     16,
+     0.091,
+     0.47
+    ],
+    [
+     17,
+     0.091,
+     0.51
+    ],
+    [
+     18,
+     0.093,
+     0.51
+    ],
+    [
+     19,
+     0.091,
+     0.48
+    ],
+    [
+     20,
+     0.092,
+     0.5
+    ],
+    [
      21,
-     0.09,
-     0.52
+     0.094,
+     0.49
     ],
     [
      22,
-     0.078,
-     0.46
+     0.08,
+     0.44
     ]
    ],
    "col": "#ffcf6d"
   },
-  "q": 46,
-  "bodyPx": 160,
-  "budget": {
-   "kb": 126.0,
-   "liveRam": 7.69,
-   "liveKb": 576.6
+  "q": 74,
+  "bodyPx": 192,
+  "bodyPxF": 191.77,
+  "v": 21,
+  "live": {
+   "key": "sup",
+   "kb": 240.4,
+   "ramMb": 2.71,
+   "kbPct": 119,
+   "ramPct": 90
   },
   "mob": {
    "file": "inti-ti-sup-mob.webp",
-   "w": 96,
-   "h": 183,
-   "kb": 128.8,
-   "ramMb": 1.68
+   "w": 116,
+   "h": 220,
+   "kb": 285.4,
+   "ramMb": 2.43
   },
   "lite": {
    "file": "inti-ti-sup-lite.webp",
-   "w": 67,
-   "h": 128,
-   "kb": 79.2,
-   "ramMb": 0.82
-  }
+   "w": 81,
+   "h": 154,
+   "kb": 158.6,
+   "ramMb": 1.19
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "jekyll_bt_atk": {
   "id": "jekyll_bt_atk",
