@@ -1,0 +1,322 @@
+{
+  "perun": {
+    "id": "perun",
+    "bodyRatioBt": 0.9789,
+    "bodyRatioTi": 0.9836,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.9907,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-perun-bt-idle-mob.webp",
+        "w": 134,
+        "h": 214,
+        "kb": 11.8,
+        "ramMb": 0.11
+      },
+      "lite": {
+        "file": "live-perun-bt-idle-lite.webp",
+        "w": 94,
+        "h": 150,
+        "kb": 5.9,
+        "ramMb": 0.05
+      }
+    }
+  },
+  "ishtar": {
+    "id": "ishtar",
+    "bodyRatioBt": 0.986,
+    "bodyRatioTi": 0.9883,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-ishtar-bt-idle-mob.webp",
+        "w": 99,
+        "h": 214,
+        "kb": 9.0,
+        "ramMb": 0.08
+      },
+      "lite": {
+        "file": "live-ishtar-bt-idle-lite.webp",
+        "w": 69,
+        "h": 150,
+        "kb": 4.9,
+        "ramMb": 0.04
+      }
+    }
+  },
+  "tyr": {
+    "id": "tyr",
+    "bodyRatioBt": 0.9834,
+    "bodyRatioTi": 0.9839,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-tyr-bt-idle-mob.webp",
+        "w": 120,
+        "h": 214,
+        "kb": 11.4,
+        "ramMb": 0.1
+      },
+      "lite": {
+        "file": "live-tyr-bt-idle-lite.webp",
+        "w": 84,
+        "h": 150,
+        "kb": 5.7,
+        "ramMb": 0.05
+      }
+    }
+  },
+  "kagutsuchi": {
+    "id": "kagutsuchi",
+    "bodyRatioBt": 0.9644,
+    "bodyRatioTi": 0.9692,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.0187,
+        "foot": 0.9907,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-kagutsuchi-bt-idle-mob.webp",
+        "w": 137,
+        "h": 214,
+        "kb": 11.2,
+        "ramMb": 0.11
+      },
+      "lite": {
+        "file": "live-kagutsuchi-bt-idle-lite.webp",
+        "w": 96,
+        "h": 150,
+        "kb": 5.9,
+        "ramMb": 0.05
+      }
+    }
+  },
+  "sedna": {
+    "id": "sedna",
+    "bodyRatioBt": 0.9691,
+    "bodyRatioTi": 0.9696,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.9907,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-sedna-bt-idle-mob.webp",
+        "w": 104,
+        "h": 214,
+        "kb": 10.5,
+        "ramMb": 0.08
+      },
+      "lite": {
+        "file": "live-sedna-bt-idle-lite.webp",
+        "w": 73,
+        "h": 150,
+        "kb": 5.6,
+        "ramMb": 0.04
+      }
+    }
+  },
+  "manannan": {
+    "id": "manannan",
+    "bodyRatioBt": 0.9847,
+    "bodyRatioTi": 0.9829,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-manannan-bt-idle-mob.webp",
+        "w": 115,
+        "h": 214,
+        "kb": 11.4,
+        "ramMb": 0.09
+      },
+      "lite": {
+        "file": "live-manannan-bt-idle-lite.webp",
+        "w": 80,
+        "h": 150,
+        "kb": 5.8,
+        "ramMb": 0.05
+      }
+    }
+  },
+  "gilgamesh": {
+    "id": "gilgamesh",
+    "bodyRatioBt": 0.9845,
+    "bodyRatioTi": 0.9845,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-gilgamesh-bt-idle-mob.webp",
+        "w": 131,
+        "h": 214,
+        "kb": 12.9,
+        "ramMb": 0.11
+      },
+      "lite": {
+        "file": "live-gilgamesh-bt-idle-lite.webp",
+        "w": 92,
+        "h": 150,
+        "kb": 6.8,
+        "ramMb": 0.05
+      }
+    }
+  },
+  "skadi": {
+    "id": "skadi",
+    "bodyRatioBt": 0.9863,
+    "bodyRatioTi": 0.9697,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-skadi-bt-idle-mob.webp",
+        "w": 101,
+        "h": 214,
+        "kb": 11.2,
+        "ramMb": 0.08
+      },
+      "lite": {
+        "file": "live-skadi-bt-idle-lite.webp",
+        "w": 71,
+        "h": 150,
+        "kb": 5.8,
+        "ramMb": 0.04
+      }
+    }
+  },
+  "izanami": {
+    "id": "izanami",
+    "bodyRatioBt": 0.9499,
+    "bodyRatioTi": 0.9509,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-izanami-bt-idle-mob.webp",
+        "w": 82,
+        "h": 214,
+        "kb": 8.6,
+        "ramMb": 0.07
+      },
+      "lite": {
+        "file": "live-izanami-bt-idle-lite.webp",
+        "w": 57,
+        "h": 150,
+        "kb": 4.7,
+        "ramMb": 0.03
+      }
+    }
+  },
+  "baron": {
+    "id": "baron",
+    "bodyRatioBt": 0.99,
+    "bodyRatioTi": 0.9886,
+    "conceptSheet": {
+      "frames": 1,
+      "cols": 1,
+      "rows": 1,
+      "fps": 1,
+      "impact": 0,
+      "rel": 0,
+      "fig": {
+        "top": 0.014,
+        "foot": 0.986,
+        "ax": 0.5
+      },
+      "mob": {
+        "file": "live-baron-bt-idle-mob.webp",
+        "w": 94,
+        "h": 214,
+        "kb": 8.3,
+        "ramMb": 0.08
+      },
+      "lite": {
+        "file": "live-baron-bt-idle-lite.webp",
+        "w": 66,
+        "h": 150,
+        "kb": 4.5,
+        "ramMb": 0.04
+      }
+    }
+  }
+}
