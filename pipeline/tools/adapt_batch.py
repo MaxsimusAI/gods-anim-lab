@@ -167,6 +167,13 @@ def matte_frame(im_rgb, session):
     # they used to be dropped unless the body mask caught them, so vines flickered between solid and dotted outlines.
     k_dark = np.clip((sat - 42.0) / 38.0, 0.0, 1.0)
     is_dark_floor = (a.mean(axis=2) < g.mean(axis=2) - 8.0) & (m < 0.35) & (sat < 42.0)
+    # 14.11 (Hel BT strike, Maxim «плохо вырезан фон»): Kling smoke = gray, unsaturated, a little brighter than the background;
+    # k_detail made it a translucent gray slab. Opt-in (KL_DESMOKE=1): outside the body mask, unsaturated mid-contrast pixels are
+    # background. Thin white hair strands are high-contrast and stay.
+    if os.environ.get("KL_DESMOKE") == "1":
+        smoke = (sat < 22.0) & (m < 0.35) & (diff_max < 80.0)
+        k_detail = np.where(smoke, 0.0, k_detail)
+        k_magic = np.where(smoke, 0.0, k_magic)
     k = np.where(is_dark_floor, 0.0, np.maximum(np.maximum(k_magic, k_detail), k_dark))
 
     margin_x = max(8.0, W * 0.035)

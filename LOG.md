@@ -142,3 +142,9 @@ See `remarks_ru.md` next to this file.
 - 14.11 night, Hel (god 6, «пойти пока дальше»): sources of all 8 published takes found (Maxim's tar + Kling history), all 8
   re-cut sharp (v40). New takes: super BT/TI published (v41, WATCH); BT ult haze removed (matting artifact, new
   `b3/haze_fix.py`); BT strike: 3 takes failed → near-misses as «Версия 2/3»; TI strike and TI ult retakes under review.
+- 14.11 (01:45) Maxim: «Титан хель - вариант 2 (только там плохо вырезан фон, есть белое мерцание). Аниме хель - вариант 1.
+  Делай следующие 10 богов» → Hel BT strike = take 1 of 14.11 (wide swing): re-cut with a new opt-in de-smoke matting step
+  (KL_DESMOKE=1 in adapt_batch: unsaturated mid-contrast pixels outside the body mask are background), `haze_fix.py --white`
+  (the white-hot core of the fire tinted to pale green), `floor_fix.py` (gray floor smoke). Hel TI ult = the 13.11 take (its
+  two 14.11 takes leave the stand). Next 10 gods: Amaterasu, Apollo, Brynhild, Van Helsing, Indra, Inti, Ra, Heimdall, Hou Yi,
+  Erlang Shen — Maxim lifted the one-god-at-a-time wait for these ten.
