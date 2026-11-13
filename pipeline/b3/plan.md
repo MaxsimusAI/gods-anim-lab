@@ -172,3 +172,16 @@ STATE: adapter v20 DONE (279). Next: b3/pub20.sh, shot3, commit v20, push
 v20 review: cleared stale overrides (except body_min/max) for 10 re-taken clips (backup work/impact_overrides.before_v20.json), re-adapting b3/clips_v20o.txt
 STATE: JS review fixes applied (left arena kept via F.newSheet/BR.isProposed; Inti beam; Hou Yi relDt + oldCut masks; Erlang/Brynhild from F.wp). adapter KeyError fixed (overrides w/o imp/k). dracula 6 metrics lost by concurrent runs -> re-adapted. manual wf for 7 clips (houyi*, agni_bt_sup, vh_bt_sup) re-adapting /tmp/a4.log. review round 2 agent running.
 STATE: v20 committed 1fd0ef7, pushed, live OK. Review round 2 fixes applied (Hou Yi sup no .5 snap, Agni flames atRaw, Inti aux sun ray, Erlang no neck eye, Brynhild ult from hand, left arena HEAD formulas). Open: Heimdall sup/ult richer, Ra boat, Brynhild atk leap, Lilith/Loki copyright decision, Lu Bu TI.
+
+## REDO PASS R1 (13.11 afternoon, new chat, PLAYBOOK v1): gods 1-5 kitsune athena artemis zeus demeter
+Adapter v21: per-animation budget (live_ref), action body = idle body (idle_body_px), frame-limit crop + solid_cut flag, skip forbidden, idles first.
+Retakes (26, prompts b3/p10.json via b3/p10.py, ids jobs_r1.json,): kitsune x8 (sources lost), athena bt_idle ti_idle bt_sup ti_sup (lost) + bt_atk (spear aimed sideways 1 s),
+artemis 6 actions (aim sideways + skips), zeus bt_sup ti_sup (turn side) bt_hyp ti_hyp (ghost body/legs), demeter bt_idle (static 16%) bt_atk (arc ring) bt_sup (small thorns).
+Kept + re-cut: artemis idles, zeus idles + bt_atk + ti_atk (skips removed), demeter ti x4 + bt_hyp, athena bt_hyp ti_atk ti_hyp.
+STATE: kitsune 8 submitted.
+STATE: +athena 5, artemis_bt 3 submitted (16). Left: artemis_ti 3, zeus 4, demeter_bt 3.
+STATE (13.11 ~14:40): ALL 26 R1 retakes submitted (jobs_r1.json). Next: poll query_tasks (3-4 at a time), download to b2/mp4 (old takes -> b3/prev/<clip>.v20.mp4), frames_h, strip review, overrides, adapt (idles first), wf, seq, notes, v21.
+STATE: 25/26 R1 takes downloaded (artemis_ti_atk still RUNNING at Kling). Review: see b3/review_r1.md
+STATE (~15:05): round 2 (prompts b3/p11.json): 7 submitted (kitsune_ti idle/atk, athena_bt idle/atk, demeter_bt_idle, zeus bt/ti hyp). Artemis: 'bird overhead' wording tested on 2 clips first (bt_atk, ti_hyp), other 4 after the check. dl1.sh keeps only the v20 take in prev -> round-1 takes of retaken clips are moved by hand to b3/prev/<clip>.r1.mp4 before download.
+STATE (~15:20): round 2: 9 downloaded+reviewed (review_r1.md); artemis bt_sup/bt_hyp/ti_atk/ti_sup r2 submitted. adapt_r1b running (10 clips).
+STATE (~15:50): ALL R1 clips on disk (26 + 17 round-2). Adapted v21: kitsune 8, athena 8, zeus 8, demeter 8, artemis idles. Left: artemis 6 actions (overrides set except bt_sup), wf for all actions (b3/wfview.py + b3/setwf.py), margins, stand, notes10, v21.

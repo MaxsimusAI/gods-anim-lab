@@ -722,34 +722,26 @@
     const shTi = getSheetForSlot(god.arenas.new_ti, sl);
     const ceilTxt = state.tier === 'mob' ? '≤180×220' : '≤126×154';
 
-    const sumPack = pack => {
-      let kb = 0, ram = 0;
-      const seen = new Set();
-      for (const s of ['idle', 'atk', 'sup', 'hyp']) {
-        const mapped = (pack.clipMap && pack.clipMap[s]) || s;
-        const sh = pack.sheets[mapped] && pack.sheets[mapped][state.tier];
-        if (sh && !seen.has(sh.src)) {
-          seen.add(sh.src);
-          kb += sh.kb || 0;
-          ram += sh.ramMb || 0;
-        }
-      }
-      return { kb: Math.round(kb), ram: ram.toFixed(1).replace('.', ',') };
+    // 13.11 Maxim (playbook L1/D9): weight is compared PER ANIMATION - the sheet of this slot against the live sheet the game
+    // uses for this slot (own sheet or the repeated one), never the god's total.
+    const num = v => String(v).replace('.', ',');
+    const body = sh => (sh && sh.fig && sh.h) ? Math.round((sh.fig.foot - sh.fig.top) * sh.h) : null;
+    const one = (sh, ref) => {
+      if (!sh) return '—';
+      const pct = (v, r) => (ref && r) ? ` (${Math.round(100 * v / r)}%)` : '';
+      const b = body(sh);
+      return `<b>${sh.w}×${sh.h}px</b>` + (b ? ` · тело ${b}px` : '') + ` · ${Math.round(sh.kb || 0)} КБ${pct(sh.kb, ref && ref.kb)} · ${num((sh.ramMb || 0).toFixed(1))} МБ${pct(sh.ramMb, ref && ref.ramMb)}`;
     };
-
-    const pLive = sumPack(god.arenas.live_bt);
-    const pBt = sumPack(god.arenas.new_bt);
-    const pTi = sumPack(god.arenas.new_ti);
-
     const liveTxt = god.isNewGod
-      ? `Live БТ: <b>новый бог</b>`
-      : `Live БТ (${sl}): <b>${shLive.w}×${shLive.h}px</b> (${pLive.kb} КБ · ${pLive.ram} МБ RAM)`;
+      ? `В игре: <b>новый бог</b>`
+      : `В игре (${sl}): ${one(shLive, null)}`;
+    const ref = god.isNewGod ? null : shLive;
 
     document.getElementById('metricsLine').innerHTML =
       `<span class="el-badge">${god.elementIcon} ${god.name} · ${god.roleRu}</span>` +
       `<span>${liveTxt}</span>` +
-      `<span>Новая БТ (${sl}, ${ceilTxt}): <b>${shBt.w}×${shBt.h}px</b> (${pBt.kb} КБ · ${pBt.ram} МБ)</span>` +
-      `<span>Titan Idols (${sl}, ${ceilTxt}): <b>${shTi.w}×${shTi.h}px</b> (${pTi.kb} КБ · ${pTi.ram} МБ)</span>` +
+      `<span>Новая БТ (${sl}, ${ceilTxt}): ${one(shBt, ref)}</span>` +
+      `<span>Titan Idols (${sl}, ${ceilTxt}): ${one(shTi, ref)}</span>` +
       `<span>Kling: <b>${god.videoSlotsReady}/8</b></span>`;
   }
 

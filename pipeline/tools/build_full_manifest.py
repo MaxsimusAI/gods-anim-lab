@@ -54,7 +54,9 @@ def head_aligned_fig(raw_fig, body_ratio):
 def pack_adapted_or_ref(cid, ref_key, body_ratio):
     if cid in adapt_m:
         c = adapt_m[cid]
-        aligned = head_aligned_fig(c["fig"], body_ratio)
+        # 13.11 (D14): the adapter already stores the HUMAN crown in fig.top (it applies the body ratio itself). Applying the
+        # ratio a second time here made every new god ~1/ratio (Kitsune 12%) taller than the live one on the stand.
+        aligned = {"top": c["fig"]["top"], "foot": c["fig"]["foot"], "ax": c["fig"]["ax"]}
         wpt = c.get("wpt") or [0.28, -0.76]
         out = {}
         sim_slot = {
@@ -512,7 +514,7 @@ NEW10_ORDER = ["perun", "ishtar", "tyr", "kagutsuchi", "sedna", "manannan", "gil
 gods_list = [build_existing_entry(gid) for gid in ordered_existing] + [build_new10_entry(gid) for gid in NEW10_ORDER]
 
 manifest = {
-    "updatedAt": "2026-11-12",
+    "updatedAt": __import__("time").strftime("%Y-%m-%d"),
     "existingCount": len(ordered_existing),
     "new10Count": len(NEW10_ORDER),
     "ceilingMob": "180x220",
@@ -524,7 +526,7 @@ manifest = {
 
 js_payload = "window.GODS_MANIFEST = " + json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + ";\n"
 
-for rel_dst in ("gods-data.js", os.path.join("assets", "gods-data.js")):
+for rel_dst in (os.path.join("assets", "gods-data.js"),):   # 13.11: the root copy was junk (T3)
     out_path = os.path.join(REPO, rel_dst)
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(js_payload)

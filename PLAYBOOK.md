@@ -1,7 +1,7 @@
 # Gods animation playbook (Kling → sprite sheets → stand) — the ONLY rule set
 
 Project: «Битва титанов. Сумерки богов» (BT) + its anime clone Titan Idols (TI). Owner: Maxim, game designer, not a programmer.
-This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 1, 13.11.2026.
+This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 2, 13.11.2026 (afternoon: redo of gods 1-5, site v21).
 
 **Read this whole file at the start of every session and again before EVERY batch, every cut and every publish.**
 The main failure so far: rules were remembered for 3 gods and forgotten on the 4th, the same mistakes went round in circles.
@@ -59,7 +59,12 @@ Never rely on memory of an earlier god — re-check against this file.
    Needs: `pip install --break-system-packages rembg onnxruntime scipy pillow numpy playwright && python3 -m playwright install chromium`, ffmpeg.
 3. Stand locally: `cd /home/claude/gods-anim-lab && python3 -m http.server 8765` (stop it when done; no hanging processes).
 4. Clip name = `<god>_<bt|ti>_<idle|atk|sup|hyp>`; sheet file = `<god>-<bt|ti>-<slot>-<mob|lite>.webp`.
-5. Kling input images: upload `tight/<god>_<style>_tight.png` with the Kling `file_upload` tool (ticket) via `b3/up.sh`;
+5. Working tools added 13.11 (v21), all in `pipeline/b3`: `strip2.py out n clips` (n frames per clip with frame numbers),
+   `fr.py out clip i0 i1 [step]` (a frame range), `wfview.py out clips` (release frame + 3 with a 10 % grid: READ wf there),
+   `setwf.py clip=x,y …` (writes wf to overrides AND metrics without re-cutting), `seqz.py` (= seq.py, full scale, central column:
+   use it for G4), `hcmp.py out gods` (stand heights live vs new, gate D14), `dl1.sh clip url` (download a finished Kling job,
+   keeps the v20 take as `b3/prev/<clip>.v20.mp4`; copy a later take to `<clip>.r1.mp4` by hand BEFORE downloading a retake).
+6. Kling input images: upload `tight/<god>_<style>_tight.png` with the Kling `file_upload` tool (ticket) via `b3/up.sh`;
    the resulting URLs go to `tight/urls.json` (never print them, never commit them).
 
 ## 4. Step A — analyse before spending credits
@@ -155,7 +160,13 @@ For every downloaded clip run `b3/strip.py` (7 frames) and, for doubtful ones, l
 ## 7. Step E — cutting (adapter)
 
 `b3/frames_h.sh <clips>` (frames at 420 px) then
-`KL_HERE=/home/claude/kl/work python3 tools/adapt_batch.py <clips…>` (2 workers, ~2 clips/min).
+`KL_HERE=/home/claude/kl/work python3 tools/adapt_batch.py <clips…>` (2 workers, ~1 clip/min at 420 px frames).
+Adapter v21 (13.11): budget PER ANIMATION against the matching live sheet (`live_ref`: own slot or the slot the game repeats);
+idles are cut first, every action of the same god-style takes the idle's stored body px (`idle_body_px`, L4); if the content
+does not fit 180×220 at that scale the window is cropped AROUND THE BODY (flag `crop`), and cutting solid body/weapon pixels
+gives the defect `solid_cut(x%)` (≤1 % = a fast tip, look at it; more = re-shoot compact); `body_small` if the body ends < 97 % of
+idle; `skip` raises an error (L6). Matting keeps dark saturated effects (dark-green vines no longer turn into dotted lines).
+Metrics carry `live: {key, kb, ramMb, kbPct, ramPct}` and `v: 21`.
 **Never run two adapter processes at once** — each rewrites `adapted_all_metrics.json` and the last one deletes the other's entries.
 After a run: number of metric entries must grow by exactly the number of new clips.
 
@@ -176,7 +187,8 @@ Overrides `work/impact_overrides.json` per clip:
 - [ ] `raw_edge_clip`: open the frames and check G1.4; the flag alone says nothing.
 - [ ] Body is whole in every frame (no missing body, ghost-transparent body, transparent legs, grey haze rectangles).
 - [ ] Body px of the sheet = the god's idle body px (L4). Smaller = reject (re-shoot with a compact motion), never accept.
-- [ ] Margins ≤ 3 px (`b3/margins2.py <god>`); size ≤ L2; god weight ≤ L1 (report any excess to Maxim with %).
+- [ ] Margins ≤ 3 px (`b3/margins2.py <god>`); size ≤ L2; weight per sheet ≤ L1: `live.kbPct` (file) and `live.ramPct` (RAM)
+      in the metrics; report RAM/KB above ~110 % to Maxim with the numbers.
 - [ ] Release frame = k and `wf` sits exactly on the effect origin.
 
 ## 8. Step F — game effects on the stand (`assets/fx2-stand.js`)
@@ -226,13 +238,29 @@ Overrides `work/impact_overrides.json` per clip:
 - Report to Maxim (Russian, short): what is published; per god what changed; WATCH list (clips you are not sure about, why);
   exceeded limits with numbers; what needs his decision; what is NOT done yet. Never hide an unfinished item.
 
-## 11. Current state (13.11.2026, site v20) — open work
+## 11. Current state (13.11.2026, site v21) — open work
+
+**Done in v21 (gods 1-5: Kitsune, Athena, Artemis, Zeus, Demeter — all 40 sheets re-cut with adapter v21):** D14 height bug found
+in the manifest (the body ratio was applied twice → new gods ~1/ratio taller): fixed, `hcmp.py` shows equal heights. Bodies of
+action sheets = idle (193-199 px, Demeter TI 178). Per-animation weight 63-100 % KB of live; RAM up to 117 % on some action sheets
+(live sheets of these slots are narrow). No skips. wf set by eye for all 30 action sheets. 39 Kling jobs, 1 170 credits (26 + 13 named retakes).
+Stand weight line now shows each animation vs its live sheet (%). Demeter BT/TI atk: new glowing grain projectile (new sheets only);
+Demeter hyp game effect now starts at wf (sheaf / staff gem, new sheets only); Demeter BT sup wf moved from the feet to the hands
+(Maxim 12.11: "effect from the feet"). Fresh-eyes review round 1 fixed: adapter takes the action body ONLY from the v21 idle
+(error if that idle is not cut yet; a body_min override can only raise it; all old body_min/body_max overrides deleted), `skip`
+is refused before the run starts, crop "B" and a negative `pad` get the soft edge, the root `gods-data.js` is no longer written.
+Edge exits left for Maxim (2nd attempt each): Kitsune TI sup tail tips out of the top ~0.5 s; Artemis bow upper limb at the top
+edge ~0.4-0.5 s (bt_hyp, ti_atk) and an "X" of string + trail in ti_atk.
+Open from this batch: Artemis aims 50-60° up, not vertical (Kling ignores "vertical" after 2 tries) — Maxim decides (accept /
+redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls" game part; Athena ult rays; Demeter sup game part
+(yellow bits, crooked stalks); Athena BT atk golden pillar visible during the return leap; T1 timing conversion for these gods
+(they are still in OLD_SIG, but sup/hyp release on the stand matched the sheets in the seqz check).
 
 **Defects to fix first (published with errors):**
 - D1 Ares: only 1 of 8 clips cut (`ares_ti_atk`); 7 slots still show the old static Gemini pictures; notes claim done. Cut all, check, fix notes.
 - D2 Body lost/ghosted in published sheets: Veles BT sup (fr 19-21 body gone), Koschei TI hyp (fr 7 only the egg), Kali TI hyp
   (fr 7 ghost), Poseidon BT sup (fr 11 transparent legs), Silent TI sup (fr 13-17 grey haze). Re-cut or re-shoot.
-- D3 `skip` still used in 19 sheets: apollo bt_hyp, ti_atk, ti_hyp; artemis bt_atk, bt_sup, bt_hyp, ti_atk, ti_sup, ti_hyp (10-17 frames cut);
+- (artemis + zeus done in v21) D3 `skip` still used in 19 sheets: apollo bt_hyp, ti_atk, ti_hyp; artemis bt_atk, bt_sup, bt_hyp, ti_atk, ti_sup, ti_hyp (10-17 frames cut);
   brynhild bt_atk, ti_hyp; erlang bt_sup, ti_sup, ti_hyp; heimdall bt_hyp; indra ti_hyp; zeus bt_atk, ti_atk, ti_hyp —
   remove skips, re-cut; where the clip is unusable without a skip, re-shoot.
 - D4 Jumps: Ra TI atk (frame 5→6), Surt BT atk (frame 12 is a blurred arc instead of the body).
@@ -244,11 +272,11 @@ Overrides `work/impact_overrides.json` per clip:
 - D8 Notes: Maxim's 04:00 remarks are missing in `todo` for ~30 gods (incl. Agni, Erlang, Hou Yi, Heimdall, Ra); 35 gods have a
   generic template in notes and balance ("visual only", "strikes in front of him", "weapon never leaves the frame" — false for some).
 - D9 Weight: the v20 numbers compared totals (4 new vs 2-3 live) — re-measure per animation (L1) and report only real per-sheet excess.
-- D10 Kitsune: no `wf` on any of its 6 action sheets.
+- (done v21) D10 Kitsune: no `wf` on any of its 6 action sheets.
 - D11 Idle too static by measurement: Llorona BT, Lilith TI, Demeter BT, Amaterasu BT, Hel BT (the last two had exactly this remark).
-- D13 L4 broken in v20: action sheets store the body 15-28 % smaller than idle (Hou Yi 142 vs 198 px). Measure every action sheet;
+- (gods 1-5 fixed in v21; other gods still open) D13 L4 broken in v20: action sheets store the body 15-28 % smaller than idle (Hou Yi 142 vs 198 px). Measure every action sheet;
   re-cut at idle body size where it still fits L1/L2, otherwise re-shoot with a compact motion. Never "keep smaller".
-- D14 Sharpness/height vs live (Kitsune example): live idle stores the body at ~243 px (frame 214×290), the new idle at ~149 px
+- (cause of the +12 % height fixed for ALL gods in v21: manifest; sharpness fixed only for gods 1-5) D14 Sharpness/height vs live (Kitsune example): live idle stores the body at ~243 px (frame 214×290), the new idle at ~149 px
   (frame 145×195) → upscaled ~1.6× on screen = blurry. Cause: the old budget split the TOTAL live weight over 4 sheets. Re-cut every
   sheet with the per-animation budget (L1) so the stored body ≈ live body px. The new goddess also shows ~12 % taller than live (crown point measured
   differently in `fig.top`). Gate: on the stand the new god's height = live height ±3 %, and stored body px is reported vs live.
@@ -303,3 +331,8 @@ Overrides `work/impact_overrides.json` per clip:
   blank shot only for firearms. Archers need not shoot in every skill. Balance notes on the stand (separate agent possible).
 - 13.11 Fresh-eyes check of all work; this playbook is the single rule set for new chats.
 - 13.11 Lu Bu TI: try the current art (halberd down in atk). Failing gods → one redraw list for Maxim.
+- 13.11 (14:21) Maxim allowed: Claude reads the uploaded input-image links and passes them to Kling (needed to start jobs).
+  They stay private: never printed in the chat, never committed.
+- 13.11 v21 lessons (technical, not new rules): "aim straight up / vertically" is ignored by Kling for archers (50-60° at best,
+  2 tries); an idle needs "shifts the whole weight from one leg to the other, sway large enough to be seen from far away" to pass
+  the 22 % gate; "lightning only on the fist and the staff, skin and robes keep their colours" stopped the ghost-white body.

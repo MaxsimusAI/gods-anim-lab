@@ -15405,10 +15405,34 @@ F.at(.3 + i * .015, () => { for (let k = 0; k < 3; k++)
 F.at(k * .03, () => F.shot({ x: fx + F.rnd(-12, 12), y: fy - 8 }, { x: q.x + F.rnd(-6, 6), y: q.y + F.rnd(-10, 10) }, .16, { trail: false, arc: -38, ease: 'ease-out', head: KE.mote('#ffe28a', 4.2), emit: KE.moteEmit('#f0d070', .45) })); });
 });
 };
+// 13.11 (v21) Maxim: "из неё летит маленькая программная точка - некрасиво, нужен нормальный снаряд". New sheets only (the sickle
+// blade sends a glowing seed straight up): a big glowing golden-green grain with a wheat trail, from the blade tip (F.wp).
+KE.grainHead = (r = 7) => (g, a) => {
+g.globalCompositeOperation = 'lighter';
+g.drawImage(TX.get('glow', '#c8f070'), -r * 3, -r * 3, r * 6, r * 6);
+g.globalCompositeOperation = 'source-over';
+g.rotate(a * 10);
+const gr = g.createLinearGradient(-r, 0, r * 1.3, 0);
+gr.addColorStop(0, '#9ac83a');
+gr.addColorStop(.55, '#f4e07a');
+gr.addColorStop(1, '#fffbe0');
+g.fillStyle = gr;
+g.beginPath();
+g.ellipse(0, 0, r * 1.3, r * .62, 0, 0, TAU);
+g.fill();
+g.strokeStyle = 'rgba(120,170,40,.9)';
+g.lineWidth = 1;
+g.beginPath();
+g.moveTo(-r * 1.1, 0);
+g.lineTo(r * 1.1, 0);
+g.stroke();
+};
+const demeterShootOld = shootA({ col: '#8fe36a', head: KE.thornHead(9), trailW: 5, trail: '#6fae3c', trailLife: .05, arc: -12, emit: emitOf('leaf', ['#6fae3c', '#a8d860', '#d8c060'], { p: .35, s0: 5.5, s1: 4, add: false }) });
+const demeterShootNew = shootA({ col: '#d8f070', head: KE.grainHead(7), trailW: 7, trail: '#a8d850', trailLife: .14, arc: -18, emit: emitOf('leaf', ['#8fd04a', '#c8e870', '#f0d870'], { p: .6, s0: 6, s1: 3, add: false }) });
 SIG.demeter = {
 motif: 'leaf', glyph: 'ke1wheat', curseGlyph: 'ke1thorn',
 a: {
-shoot: shootA({ col: '#8fe36a', head: KE.thornHead(9), trailW: 5, trail: '#6fae3c', trailLife: .05, arc: -12, emit: emitOf('leaf', ['#6fae3c', '#a8d860', '#d8c060'], { p: .35, s0: 5.5, s1: 4, add: false }) }),
+shoot(F, e) { return (F.newSheet('atk', e.u) ? demeterShootNew : demeterShootOld).call(this, F, e); },
 hit(F, e) {
 const p = F.tc(e.u, .45), f = F.feetOf(e.u);
 if (e.src === 'shot') {
@@ -15457,7 +15481,7 @@ F.sigil('ke1wheat', LAY.W / 2, LAY.py(150 + 80), 38, '#f0d070', { dur: .8, in: .
 const h0 = F.handle;
 F.handle = function (ev) { if (ev.type === 'drain')
 return KE.hunger(F, ev); return h0.call(this, ev); };
-const f0 = F.feetOf(F.u), from = { x: f0.x, y: f0.y - f0.h * .25 };
+const f0 = F.feetOf(F.u), from = F.newSheet('hyp') ? F.wp('h') : { x: f0.x, y: f0.y - f0.h * .25 };   // 13.11 v21: new sheets - from the glowing sheaf / staff gem (wf), old sheets unchanged
 e.targets.forEach((t, i) => F.shot(from, F.tc(t, .45), FLY_S + i * .035, { arc: -34 + (i - 2) * 9, ease: 'ease-in', trail: false,
 head: g => { g.globalCompositeOperation = 'lighter'; g.drawImage(TX.get('glow', '#f0d070'), -9, -9, 18, 18); g.drawImage(TX.get('star4', '#fff6d0'), -4, -4, 8, 8); },
 emit: (F2, x, y) => { if (F.rng() < .85)

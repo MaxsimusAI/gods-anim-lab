@@ -50,26 +50,44 @@ def get_body_ratio(clip_id):
 
 ram_mb = lambda w, h, n: round(w * h * n * 4 / 2**20, 2)
 
-# Maxim 12.11: a god's 4 new sheets together must weigh no more than his sheets in the live game
-# (both decoded RAM and file KB). 180x220 is only the absolute ceiling. A wide animation is stored smaller.
-BUDGET_K = float(os.environ.get("KL_BUDGET_K", "0.95"))
-SHARE = {"idle": 0.31, "atk": 0.23, "sup": 0.23, "hyp": 0.23}
+# Playbook L1 / T4 (13.11): weight is compared PER ANIMATION. Each new sheet is measured against the matching live sheet
+# (live idle for idle; the live sheet the slot uses in the game - own or via clipMap - for atk/sup/hyp), in KB and RAM.
+# Soft target: the WebP quality is stepped down to reach the live KB; the body is NEVER shrunk for it (L4).
 OVR_PATH = os.path.join(HERE, "impact_overrides.json")
 OVR = json.load(open(OVR_PATH, encoding="utf-8")) if os.path.exists(OVR_PATH) else {}
 
-def god_budget(clip_id):
+def live_ref(clip_id):
     gid, _, slot = clip_id.split("_")[:3]
     lm = LIVE_M.get(gid)
     if not lm:
         return None
-    ram = sum(v["mob"]["ramMb"] for v in lm["sheets"].values())
-    kb = sum(v["mob"]["kb"] for v in lm["sheets"].values())
-    sh = SHARE.get(slot, 0.23)
-    return {"px": ram * BUDGET_K * sh * 2**20 / (25 * 4), "kb": kb * BUDGET_K * sh, "liveRam": round(ram, 2), "liveKb": round(kb, 1)}
+    sh = lm["sheets"]
+    key = slot if slot in sh else lm.get("clipMap", {}).get(slot)
+    if key not in sh:
+        key = next((k for k in ("atk", "sup", "hyp") if k in sh), None) if slot != "idle" else None
+    if key not in sh:
+        return None
+    m = sh[key]["mob"]
+    return {"key": key, "w": m["w"], "h": m["h"], "kb": m["kb"], "ramMb": m["ramMb"]}
+
+def god_budget(clip_id):
+    r = live_ref(clip_id)
+    if not r:
+        return None
+    return {"px": float(r["w"] * r["h"]), "kb": float(r["kb"]), "liveRam": r["ramMb"], "liveKb": r["kb"], "key": r["key"]}
+
+def idle_body_px(clip_id):
+    """L4: stored body height (px) of this god-style's idle sheet; every action sheet is stored at the same body size."""
+    gid, st = clip_id.split("_")[:2]
+    try:
+        m = json.load(open(METRICS_JSON, encoding="utf-8")).get(f"{gid}_{st}_idle")
+    except Exception:
+        m = None
+    return float(m["bodyPxF"]) if m and m.get("bodyPxF") else (float(m["bodyPx"]) if m and m.get("v") == 21 else None)
 
 def save_sheet_budget(frames_rgba, path, kb_cap, q0=82):
     """Lower WebP quality step by step until the file fits kb_cap. Returns (bytes, quality)."""
-    for q in (q0, 76, 70, 64, 58, 52, 46):
+    for q in [x for x in (82, 76, 70, 64, 58, 52, 46) if x <= q0]:
         sz = save_sheet(frames_rgba, 5, 5, path, quality=q, alpha_quality=min(93, q + 12))
         if kb_cap is None or sz / 1024.0 <= kb_cap:
             return sz, q
@@ -145,8 +163,11 @@ def matte_frame(im_rgb, session):
     k_magic = np.clip((magic_sig - 20.0) / 50.0, 0.0, 1.0) * (a.max(axis=2) >= g.mean(axis=2) - 6.0)
     k_detail = np.clip((diff_max - 28.0) / 50.0, 0.0, 1.0) * (a.mean(axis=2) >= g.mean(axis=2) - 12.0)
 
-    is_dark_floor = (a.mean(axis=2) < g.mean(axis=2) - 8.0) & (m < 0.35)
-    k = np.where(is_dark_floor, 0.0, np.maximum(k_magic, k_detail))
+    # 13.11 (v21): dark but clearly coloured effect pixels (dark-green vines, dark-red smoke) are content, not floor shadow:
+    # they used to be dropped unless the body mask caught them, so vines flickered between solid and dotted outlines.
+    k_dark = np.clip((sat - 42.0) / 38.0, 0.0, 1.0)
+    is_dark_floor = (a.mean(axis=2) < g.mean(axis=2) - 8.0) & (m < 0.35) & (sat < 42.0)
+    k = np.where(is_dark_floor, 0.0, np.maximum(np.maximum(k_magic, k_detail), k_dark))
 
     margin_x = max(8.0, W * 0.035)
     body_x = 1.5
@@ -169,9 +190,9 @@ def select_25_indices(raw_files, clip_dir, is_idle=False, clip_id=None):
         n = len(raw_files); v0 = int(o.get("v0", 0)); v1 = int(o.get("v1", n - 1)); k = int(o["k"]); imp = int(o["imp"])
         # "skip": [[lo, hi], ...] video frames that must not be used (full-frame flashes, a weapon held outside the frame):
         # they are removed from the timeline and the rest is resampled evenly, so nothing freezes
+        if o.get("skip"):
+            raise SystemExit(f"{clip_id}: override 'skip' is FORBIDDEN (playbook L6) - remove it; re-shoot if the clip is unusable without it")
         bad = set()
-        for lo, hi in o.get("skip", []):
-            bad.update(range(int(lo), int(hi) + 1))
         pre = [x for x in range(v0, imp + 1) if x not in bad or x == imp]
         post = [x for x in range(imp, v1 + 1) if x not in bad or x == imp]
         a = [pre[int(round(t))] for t in np.linspace(0, len(pre) - 1, k + 1)]
@@ -388,27 +409,40 @@ def process_one_clip(task):
         _ww, _wh = wx1 - wx0, wy1 - wy0
         wx0 = max(0, int(wx0 - _pd.get("l", 0) * _ww)); wx1 = min(src_W, int(wx1 + _pd.get("r", 0) * _ww))
         wy0 = max(0, int(wy0 - _pd.get("t", 0) * _wh)); wy1 = min(src_H, int(wy1 + _pd.get("b", 0) * _wh))
-    # 12.11 Maxim: body quality is never traded for effects. If the window is so big (wide wings, long bolts) that the
-    # weight budget would store the body smaller than `body_min` px, the window is cropped around the body instead:
-    # the body keeps its size, the effect fades softly at the new edge (and the game continues it).
-    crop_edges = ""
-    _bm = OVR.get(clip_id, {}).get("body_min")
-    _bud0 = god_budget(clip_id)
-    if _bm and _bud0 and not is_idle:
-        a_max = _bud0["px"] / ((float(_bm) / human_h_src) ** 2)
-        if (wx1 - wx0) * (wy1 - wy0) > a_max:
-            min_w = min(wx1 - wx0, int((fig_x1 - fig_x0) * 1.10) + 2 * pad_src)
-            min_h = min(wy1 - wy0, int((fig_y1 - fig_y0) * 1.04) + 2 * pad_src)
-            tw = int(max(min_w, a_max / float(wy1 - wy0)))
-            if tw < (wx1 - wx0):
-                nx0 = int(round(fig_ax_src - tw / 2.0)); nx0 = max(wx0, min(nx0, wx1 - tw)); nx1 = nx0 + tw
-                if nx0 > wx0: crop_edges += "L"
-                if nx1 < wx1: crop_edges += "R"
-                wx0, wx1 = nx0, nx1
-            if (wx1 - wx0) * (wy1 - wy0) > a_max:
-                th = int(max(min_h, a_max / float(wx1 - wx0)))
-                if th < (wy1 - wy0):
-                    wy0 = wy1 - th; crop_edges += "T"
+        _neg_pad = "".join(e for e, k in (("L", "l"), ("R", "r"), ("T", "t"), ("B", "b")) if _pd.get(k, 0) < 0)
+    # L4 (13.11): one body scale for all slots. An action sheet is stored at the body size of the god's idle sheet.
+    # If the content window does not fit 180x220 at that scale, the window is cropped AROUND THE BODY (effects fade softly
+    # at the new edge and the game continues them); the body is never shrunk. If the crop would cut solid body/weapon
+    # pixels, the sheet is flagged `solid_cut` = defect -> the clip is re-shot with a compact motion.
+    crop_edges = _neg_pad if _pd else ""
+    solid_cut = 0.0
+    _bm = None
+    if not is_idle:
+        _ib = idle_body_px(clip_id)
+        if _ib is None:
+            raise RuntimeError(f"{clip_id}: the idle of this god-style is not cut with adapter v21 yet - cut the idle first (L4)")
+        _bm = max(_ib, float(OVR.get(clip_id, {}).get("body_min") or 0))
+    body_scale = (float(_bm) / human_h_src) if (_bm and not is_idle) else nom_scale
+    if not is_idle:
+        max_w = int(MAX_MOB_W / body_scale); max_h = int(MAX_MOB_H / body_scale)
+        if (wx1 - wx0) > max_w:
+            # keep the solid union if it fits, centred on it; otherwise centre on the body axis
+            cx = 0.5 * (sx0 + sx1) if (sx1 - sx0) + 2 * pad_src <= max_w else fig_ax_src
+            nx0 = int(round(cx - max_w / 2.0)); nx0 = max(wx0, min(nx0, wx1 - max_w)); nx1 = nx0 + max_w
+            if nx0 > wx0: crop_edges += "L"
+            if nx1 < wx1: crop_edges += "R"
+            wx0, wx1 = nx0, nx1
+        if (wy1 - wy0) > max_h:
+            ny1 = min(wy1, max(fig_y1 + pad_src, wy0 + max_h)); ny0 = ny1 - max_h
+            if ny0 > wy0: crop_edges += "T"
+            if ny1 < wy1: crop_edges += "B"
+            wy0, wy1 = ny0, ny1
+    if crop_edges:
+        tot = 0.0; out_px = 0.0
+        for fi in needed:
+            ms = mask_cache[fi] > 0.42
+            tot += float(ms.sum()); out_px += float(ms.sum() - ms[wy0:wy1, wx0:wx1].sum())
+        solid_cut = out_px / max(1.0, tot)
     win = (wx0, wy0, wx1, wy1)
     win_w, win_h = max(16, wx1 - wx0), max(16, wy1 - wy0)
 
@@ -431,6 +465,7 @@ def process_one_clip(task):
     if wx0 <= 1 or "L" in crop_edges: cut *= np.clip(xx / cw_x, 0.0, 1.0)[None, :]
     if wx1 >= src_W - 1 or "R" in crop_edges: cut *= np.clip((win_w - 1 - xx) / cw_x, 0.0, 1.0)[None, :]
     if wy0 <= 1 or "T" in crop_edges: cut *= np.clip(yy / cw_y, 0.0, 1.0)[:, None]
+    if "B" in crop_edges: cut *= np.clip((win_h - 1 - yy) / cw_y, 0.0, 1.0)[:, None]
 
     # Hand-off map (Maxim 27.10 / 12.11): where a baked effect is cut by the frame edge, the game continues it
     # with a programmatic effect. For every sheet frame record edge, position along the edge and strength.
@@ -470,16 +505,13 @@ def process_one_clip(task):
         sub[sub[..., 3] < 6] = 0
         arr[wy0:wy1, wx0:wx1] = sub
 
-    # STRICT HARD CEILING: w_mob <= 180, h_mob <= 220 ALWAYS!
+    # STRICT HARD CEILING: w_mob <= 180, h_mob <= 220 ALWAYS (L2). Idle: body up to 198 px inside the ceiling.
+    # Action: the idle body scale (L4); the window was already cropped to fit. No weight-driven shrinking (T4).
     bud = god_budget(clip_id)
     scale_mob = min(
-        TARGET_FIG_H_MOB / human_h_src,
+        body_scale,
         float(MAX_MOB_W) / float(win_w),
         float(MAX_MOB_H) / float(win_h),
-        (bud["px"] / float(win_w * win_h)) ** 0.5 if bud else 9.0,
-        # 13.11: optional ceiling for the stored body (px) - when an action would be stored bigger than the god's
-        # other actions and blow the KB budget at the lowest quality step
-        (float(OVR.get(clip_id, {}).get("body_max")) / human_h_src) if (OVR.get(clip_id, {}).get("body_max") and not is_idle) else 9.0,
     )
     w_mob = min(MAX_MOB_W, max(16, int(round(win_w * scale_mob))))
     h_mob = min(MAX_MOB_H, max(16, int(round(win_h * scale_mob))))
@@ -493,7 +525,7 @@ def process_one_clip(task):
     slug = clip_id.replace("_", "-")
     fn_mob = f"{slug}-mob.webp"
     fn_lite = f"{slug}-lite.webp"
-    sz_mob, q_mob = save_sheet_budget(fr_mob, os.path.join(REPO_SHEETS, fn_mob), bud["kb"] if bud else None, q0=82)
+    sz_mob, q_mob = save_sheet_budget(fr_mob, os.path.join(REPO_SHEETS, fn_mob), bud["kb"] if bud else None, q0=76)
     sz_lite, q_lite = save_sheet_budget(fr_lite, os.path.join(REPO_SHEETS, fn_lite), bud["kb"] * 0.55 if bud else None, q0=min(72, q_mob))
 
     fig_norm = {
@@ -514,6 +546,11 @@ def process_one_clip(task):
     wf = [round(float(_o["wf"][0]), 3), round(float(_o["wf"][1]), 3)] if "wf" in _o else \
          [round(min(1.0, max(0.0, fig_norm["ax"] + wpt[0] * _bh2 / _w2)), 3), round(min(1.0, max(0.0, fig_norm["foot"] + wpt[1] * _bh2 / _h2)), 3)]
     defects, max_diff = check_defects(fr_mob, is_idle, raw_edge_clipped=raw_edge_clipped)
+    if solid_cut > 0.004:
+        defects.append(f"solid_cut({solid_cut * 100:.1f}%)")
+    _body_f = (fig_norm["foot"] - fig_norm["top"]) * h_mob
+    if not is_idle and _bm and _body_f < 0.97 * float(_bm):
+        defects.append(f"body_small({_body_f:.0f}<{float(_bm):.0f})")
 
     strip_frames = [fr_mob[0], fr_mob[imp if not is_idle else 12], fr_mob[18]]
     sw = w_mob * 3 + 8
@@ -549,8 +586,9 @@ def process_one_clip(task):
         "defects": defects,
         "crop": crop_edges or None,
         "ho": ho or None,
-        "q": q_mob, "bodyPx": int(round((fig_norm["foot"] - fig_norm["top"]) * h_mob)),
-        "budget": ({"kb": round(bud["kb"], 1), "liveRam": bud["liveRam"], "liveKb": bud["liveKb"]} if bud else None),
+        "q": q_mob, "bodyPx": int(round(_body_f)), "bodyPxF": round(_body_f, 2), "v": 21,
+        "live": ({"key": bud["key"], "kb": bud["liveKb"], "ramMb": bud["liveRam"],
+                  "kbPct": round(100.0 * sz_mob / 1024.0 / bud["liveKb"]), "ramPct": round(100.0 * ram_mb(w_mob, h_mob, 25) / bud["liveRam"])} if bud else None),
         "mob": {"file": fn_mob, "w": w_mob, "h": h_mob, "kb": round(sz_mob / 1024.0, 1), "ramMb": ram_mb(w_mob, h_mob, 25)},
         "lite": {"file": fn_lite, "w": w_lite, "h": h_lite, "kb": round(sz_lite / 1024.0, 1), "ramMb": ram_mb(w_lite, h_lite, 25)},
     }
@@ -615,25 +653,33 @@ def main():
                 continue
             tasks.append((cname, cdir))
 
+    bad_skip = [c for c, _ in tasks if OVR.get(c, {}).get("skip")]
+    if bad_skip:
+        sys.exit(f"override 'skip' is FORBIDDEN (playbook L6), remove it first: {bad_skip}")
     print(f"Adapting {len(tasks)} clips (already cached: {len(existing)})...")
     t0 = time.time()
     new_strips = []
-    if tasks:
-        workers = min(2, max(1, len(tasks)))
+    for phase in (True, False):   # idles first: every action sheet takes the body size of its god's idle sheet (L4)
+        ph_tasks = [t for t in tasks if t[0].endswith("_idle") == phase]
+        if not ph_tasks:
+            continue
+        workers = min(2, max(1, len(ph_tasks)))
         with ProcessPoolExecutor(max_workers=workers, initializer=_init_worker) as ex:
-            futs = {ex.submit(process_one_clip, t): t[0] for t in tasks}
+            futs = {ex.submit(process_one_clip, t): t[0] for t in ph_tasks}
             done = 0
             for fut in as_completed(futs):
                 cid, info, sp = fut.result()
                 existing[cid] = info
                 new_strips.append((cid, sp))
                 done += 1
-                m = info["mob"]
+                m = info["mob"]; lv = info.get("live") or {}
                 flag = f" DEFECTS={info['defects']}" if info["defects"] else ""
-                print(f"  [{done}/{len(tasks)}] {cid:24s} -> mob {m['w']}x{m['h']} ({m['kb']}KB, {m['ramMb']}MB) diff={info['maxDiff']} wpt={info['wpt']}{flag}")
+                print(f"  [{done}/{len(ph_tasks)}] {cid:24s} -> mob {m['w']}x{m['h']} body {info['bodyPx']} q{info['q']} {m['kb']}KB ({lv.get('kbPct')}% of live {lv.get('key')}) RAM {lv.get('ramPct')}% crop={info['crop']}{flag}", flush=True)
                 if done % 8 == 0:
                     with open(METRICS_JSON, "w", encoding="utf-8") as f:
                         json.dump(dict(sorted(existing.items())), f, indent=2)
+        with open(METRICS_JSON, "w", encoding="utf-8") as f:
+            json.dump(dict(sorted(existing.items())), f, indent=2)
 
     with open(METRICS_JSON, "w", encoding="utf-8") as f:
         json.dump(dict(sorted(existing.items())), f, indent=2)
