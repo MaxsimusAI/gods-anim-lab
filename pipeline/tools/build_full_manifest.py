@@ -17,7 +17,11 @@ all52 = json.load(open(os.path.join(HERE, "all_52_gods_data.json"), encoding="ut
 new10 = json.load(open(os.path.join(HERE, "new_10_gods_data.json"), encoding="utf-8"))["gods"]
 live_m = json.load(open(os.path.join(HERE, "live_bt_metrics.json"), encoding="utf-8"))
 new10_m = json.load(open(os.path.join(HERE, "new_10_art_metrics.json"), encoding="utf-8"))
-adapt_m = json.load(open(os.path.join(HERE, "adapted_all_metrics.json"), encoding="utf-8"))
+# The site is built ONLY from published cuts (work/metrics_pub.json, updated by b3/pub1.sh per published clip).
+# adapted_all_metrics.json also holds fresh cuts that have not passed review yet - never build the site from it.
+_MP = os.path.join(HERE, "metrics_pub.json")
+if not os.path.exists(_MP): raise SystemExit("work/metrics_pub.json missing - the site must be built from published cuts only")
+adapt_m = json.load(open(_MP, encoding="utf-8"))
 KLING = json.load(open(os.path.join(HERE, "kling_done.json"), encoding="utf-8"))   # {"ver": n, "gods": {gid: {"notes": {slot: text}, "date": ..}}}
 adapt_m = {k: v for k, v in adapt_m.items() if k.split("_")[0] in KLING["gods"]}   # Gemini clips are no longer shown as ready
 SHEET_VER = KLING["ver"]

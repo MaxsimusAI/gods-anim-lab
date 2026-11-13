@@ -1,5 +1,6 @@
 #!/bin/bash
 # pub1.sh "<message>" clip [clip...] : publish ONE or a few reviewed clips to the stand right away (flow, PLAYBOOK §5/§9).
+# The site manifest is built from work/metrics_pub.json (published cuts), never from fresh unreviewed cuts.
 # Serialized with a lock (never two publishes at once). Bumps the sheet version, copies only these sheets, rebuilds the manifest,
 # syncs pipeline files, commits and pushes. Prints nothing secret.
 set -e
@@ -25,10 +26,18 @@ if c not in M:
 PY
   cp $K/work/gods-anim-lab-repo/assets/sheets/$s-mob.webp $K/work/gods-anim-lab-repo/assets/sheets/$s-lite.webp $R/assets/sheets/
 done
+# the site is built from PUBLISHED cuts only: copy the metrics of exactly these clips into metrics_pub.json
+python3 - "$@" <<PY
+import json,sys
+A=json.load(open('$K/work/adapted_all_metrics.json')); p='$K/work/metrics_pub.json'; P=json.load(open(p))
+for c in sys.argv[1:]: P[c]=A[c]
+json.dump(P,open(p,'w'),indent=1)
+PY
 cd $K && KL_HERE=$K/work KL_REPO=$R python3 tools/build_full_manifest.py | tail -1
+python3 $K/b3/sizecheck.py $R || { echo "SHEET SIZE MISMATCH - not committed"; exit 1; }
 sed -i -E "s/\?v=[0-9]+/?v=$V/g" $R/index.html
 cp $K/tools/adapt_batch.py $K/tools/build_full_manifest.py $R/pipeline/tools/
-cp $K/work/adapted_all_metrics.json $K/work/impact_overrides.json $K/work/kling_done.json $K/work/metrics_v20.json $R/pipeline/work/
+cp $K/work/adapted_all_metrics.json $K/work/impact_overrides.json $K/work/kling_done.json $K/work/metrics_v20.json $K/work/metrics_pub.json $R/pipeline/work/
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 rm -f $R/pipeline/b3/up.sh.bak
 cd $R

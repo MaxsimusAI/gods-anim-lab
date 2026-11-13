@@ -270,7 +270,11 @@ Overrides `work/impact_overrides.json` per clip:
 - Only gods listed in `kling_done.json` show new sheets.
 - Publish one or a few reviewed clips: `bash b3/pub1.sh "<msg>" <clip…>` — it locks, bumps the kling_done version, freezes
   yesterday's sheets and metrics (from commit 66ef083 = site v20) into `assets/sheets/v20/` and `work/metrics_v20.json` if
-  missing, copies the sheets, rebuilds the manifest, bumps `?v=`, syncs `pipeline/`, commits and pushes. By hand, the steps are:
+  missing, copies the sheets, rebuilds the manifest, bumps `?v=`, syncs `pipeline/`, commits and pushes.   The manifest is built from `work/metrics_pub.json` = metrics of PUBLISHED cuts only (pub1 copies in the listed clips);
+  `adapted_all_metrics.json` also holds fresh unreviewed cuts and must never feed the site (13.11 v22 bug: Kitsune/Artemis/
+  Zeus/Demeter sheets were declared with the new sizes while the old files were served — fixed in v23). `b3/sizecheck.py`
+  (declared frame size × 5 = real file size for every sheet of the redone gods) runs before every commit and stops on a mismatch.
+  By hand, the steps are:
 Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild the manifest
   (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`), bump `?v=` in index.html,
   check every new sheet is referenced by the manifest and every reference exists, commit (not the root `gods-data.js`,
