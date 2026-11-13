@@ -110,3 +110,13 @@ See `remarks_ru.md` next to this file.
   other local 12.11 sources were cut the same way: v31 «сейчас» Kitsune TI ult, Athena super BT/TI, Zeus super BT/TI; v32
   «вчера» Kitsune TI strike, BT super, BT ult. Frame IoU against the previous cuts 0.94-0.96 (same moments). Width +0-5 px
   (memory +0-3 %). The 13.11 takes and the idles need their source videos from Maxim's computer (bridge offline).
+- 13.11 (22:05) Maxim: «Давай пробовать тогда делать первую пятерку героев… Из того, что принято, остается, и там надо только
+  качество вот переделать… А где не принято было, там… анимации переделать вот со всеми новыми правилами.»
+- 13.11 (22:11) Maxim: «Это ты в 720 снимаешь, да? Максимально дешево, 3 секунды.» «Идеи подходят. Идеи я не смогу у каждого
+  прочитать, потому что 52 бога, по 4 анимации… ты сам себе пишешь на английский, сравнивая там вот со своими инструкциями.»
+  «Маску в ульте можно оставить… у других героев… это делать, как мы записали в правило. Но если ты кицуне полностью будешь
+  переделать ульту, то, конечно, маску тогда уже сразу можно вставлять в анимацию.» Medusa: «если ты будешь… полностью
+  переснимать анимацию там, где… программно используется картинка, то… надо сразу тогда сделать в анимации это. Если ты там
+  просто… четкость улучшили, оставив ту же самую анимацию… можно пока так оставить.»
+  → ideas no longer go to him for an answer (skill update proposed); E3 applies only to clips shot anew; Kitsune's mask and
+  Athena's BT Medusa stay programmatic while those protected takes are only re-cut.
