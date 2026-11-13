@@ -11206,50 +11206,69 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 4,
-  "rel": 0.167,
+  "impact": 9,
+  "rel": 0.375,
   "wpt": [
-   0.223,
+   0.224,
    -0.766
   ],
   "wf": [
-   0.75,
-   0.3
+   0.8,
+   0.77
   ],
-  "maxDiff": 79.96,
+  "maxDiff": 61.03,
   "fig": {
-   "top": 0.0884,
+   "top": 0.0892,
    "foot": 0.9912,
-   "ax": 0.5
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": "TB",
-  "ho": null,
-  "q": 60,
-  "bodyPx": 199,
-  "bodyPxF": 198.62,
+  "ho": {
+   "top": [
+    [
+     6,
+     0.723,
+     0.11
+    ],
+    [
+     17,
+     0.231,
+     0.08
+    ],
+    [
+     18,
+     0.255,
+     0.11
+    ]
+   ],
+   "col": "#ffd28e"
+  },
+  "q": 63,
+  "bodyPx": 198,
+  "bodyPxF": 198.44,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 229.8,
    "ramMb": 5.02,
-   "kbPct": 113,
+   "kbPct": 118,
    "ramPct": 74
   },
   "mob": {
    "file": "erlang-ti-atk-mob.webp",
    "w": 177,
    "h": 220,
-   "kb": 258.8,
+   "kb": 270.8,
    "ramMb": 3.71
   },
   "lite": {
    "file": "erlang-ti-atk-lite.webp",
    "w": 124,
    "h": 154,
-   "kb": 151.1,
+   "kb": 146.9,
    "ramMb": 1.82
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
