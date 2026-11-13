@@ -28,6 +28,21 @@ The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\k
   when that clip is shot; the game symbol is removed only once the clip carries it. Protected takes are not re-shot for it
   without his word.
 
+## 13.11 night — first five gods, round 4 (sharp cut everywhere; site v33-v36)
+
+- Accepted takes re-cut sharp: Kitsune BT atk/sup/hyp, TI hyp; Athena sup BT/TI, BT hyp; Zeus sup BT/TI, BT atk; the
+  published BT idles of Kitsune, Athena, Artemis, Zeus (sources found in the Kling history through the old chat).
+- 30 new clips shot (Kling 4.0, 3 s, 720p, first = last frame; 30 credits each); task ids: `pipeline/r4/kling_tasks_1311.json`.
+  Fresh-eyes verdicts: `kl/r4/rev/verdicts.md` (not in the repo). Published v36 (pass or WATCH): Kitsune TI idle/atk,
+  Athena TI idle/hyp, Artemis TI idle, BT/TI atk (retake 1), BT sup, Zeus TI idle, TI atk (retake 1), BT hyp, Demeter TI
+  idle, BT sup. Retakes running: Athena BT/TI atk, Zeus TI hyp, Artemis BT/TI hyp, Demeter BT idle, Demeter TI sup (new
+  idea: low row of shoots). The 4 BT idle re-shoots of Kitsune/Athena/Artemis/Zeus are alternatives (`kl/r4/alt/`), not used.
+- Waiting for Maxim: Demeter BT/TI atk and BT/TI hyp (limit of 12 clips per god reached), Kitsune TI sup (3rd take wider than
+  the frame), Artemis TI sup (translucent bow copies).
+- Lessons for prompts (section 7 table candidates): 'flares' on a weapon → a slash streak across the whole frame; 'lightning
+  runs along the staff' → a column out of the top; 'the light leaves the bow' → a flat arrow into the side edge, 'the arrow of
+  light vanishes in a flash right at the bow; nothing flies away' fixed it; 'grow to the waist' → thorns above the head.
+
 ## Next step
 
 1. Maxim looks at Kitsune, Athena, Zeus on the stand: are the re-cuts sharp enough; which take to keep in the three
