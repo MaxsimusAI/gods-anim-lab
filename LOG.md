@@ -148,3 +148,7 @@ See `remarks_ru.md` next to this file.
   (the white-hot core of the fire tinted to pale green), `floor_fix.py` (gray floor smoke). Hel TI ult = the 13.11 take (its
   two 14.11 takes leave the stand). Next 10 gods: Amaterasu, Apollo, Brynhild, Van Helsing, Indra, Inti, Ra, Heimdall, Hou Yi,
   Erlang Shen — Maxim lifted the one-god-at-a-time wait for these ten.
+- 14.11 (04:30) 10 gods: Erlang 5 re-cuts, Inti TI super (fit), Hou Yi 4 new takes published (v74). Erlang strike re-shoot
+  (Maxim's remark «spear cut on the return»): new idea — a short two-hand thrust diagonally down, spear kept in the frame.
+  Hou Yi TI strike/ult failed (flat aim into the right edge, fire across the frame) → retake with one change: aim diagonally
+  down (as in the BT super that passed).
