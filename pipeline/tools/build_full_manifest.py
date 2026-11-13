@@ -54,6 +54,11 @@ import re as _re
 if KLING["gods"] and not _prev_all: raise SystemExit("work/metrics_v20.json missing/empty - the 'вчера' view cannot be built")
 FIRST = {k for k in adapt_m if _re.fullmatch(r"[a-z]+_(bt|ti)_(idle|atk|sup|hyp)", k) and k.split("_")[0] in KLING["gods"] and k not in _prev_all}
 PREV_GODS = sorted({k.split("_")[0] for k in prev_m} | {k.split("_")[0] for k in FIRST})
+# 14.11 (Maxim 00:14): alternative takes per slot, shown as "версия 2, 3…" buttons under the skill buttons on the stand.
+# Sheets in assets/sheets/alt/, metrics in work/metrics_alt.json: {clip: [ {label, ver, mob, lite, fig, rel, impact, wpt, …} ]}.
+_am = os.path.join(HERE, "metrics_alt.json")
+alt_m = json.load(open(_am, encoding="utf-8")) if os.path.exists(_am) else {}
+alt_m = {k: v for k, v in alt_m.items() if k.split("_")[0] in KLING["gods"]}
 
 EL_RU = {"light": "Свет", "fire": "Огонь", "water": "Вода", "earth": "Земля", "dark": "Тьма"}
 EL_ICON = {"light": "⚡", "fire": "🔥", "water": "💧", "earth": "🌿", "dark": "🌑"}
@@ -153,6 +158,25 @@ def pack_adapted_or_ref(cid, ref_key, body_ratio, prev=False):
                 "kb": t["kb"], "ramMb": t["ramMb"],
             }
         return out, sim_slot, False
+
+
+def pack_alt(c):
+    """one alternative take -> (stand sheet pair, sim slot), same shape as pack_adapted_or_ref"""
+    aligned = {"top": c["fig"]["top"], "foot": c["fig"]["foot"], "ax": c["fig"]["ax"]}
+    wpt = c.get("wpt") or [0.28, -0.76]
+    sim_slot = {"cols": 5, "rows": 5, "frames": 25, "fig": aligned, "rel": c["rel"], "impact": c["impact"], "wpt": wpt,
+                "ho": c.get("ho"), "wf": c.get("wf"), "isVideo25": True}
+    out = {}
+    for tier in ("mob", "lite"):
+        t = c[tier]
+        lim = (180, 220) if tier == "mob" else (126, 154)
+        assert t["w"] <= lim[0] and t["h"] <= lim[1], f"Alt ceiling violated: {t['file']}"
+        assert os.path.exists(os.path.join(REPO, "assets", "sheets", "alt", t["file"])), f"alt sheet missing: {t['file']}"
+        out[tier] = {"src": f"assets/sheets/alt/{t['file']}?k={SHEET_VER}", "cols": 5, "rows": 5, "frames": 25,
+                     "w": t["w"], "h": t["h"], "sheetW": t["w"] * 5, "sheetH": t["h"] * 5, "kb": t["kb"], "ramMb": t["ramMb"],
+                     "fig": aligned, "rel": c["rel"], "impact": c["impact"], "wpt": wpt, "isStaticRef": False, "isVideo25": True}
+        sim_slot[tier] = {"file": f"alt/{t['file']}?k={SHEET_VER}", "w": t["w"], "h": t["h"], "kb": t["kb"], "ramMb": t["ramMb"]}
+    return out, sim_slot
 
 
 def build_balance_existing(g):
@@ -320,6 +344,19 @@ def build_existing_entry(gid):
         SIM_GOD_DATA_MAP[gid]["newTiPrev"] = {"slots": spt}
         prev_arenas = {"new_bt_prev": {"clipMap": {}, "sheets": pb}, "new_ti_prev": {"clipMap": {}, "sheets": pt}}
 
+    alt_arenas = {}
+    for st, key, gk in (("bt", "new_bt_alt", "newBtAlt"), ("ti", "new_ti_alt", "newTiAlt")):
+        per, sper = {}, {}
+        for sl in ("idle", "atk", "sup", "hyp"):
+            for e in alt_m.get(f"{gid}_{st}_{sl}", []):
+                o, so = pack_alt(e)
+                n = str(int(e["ver"].lstrip("v")))   # keyed by version number, so "Версия N" means take vN in both styles
+                assert int(n) >= 2 and n not in per.get(sl, {}), f"bad alt ver {gid}_{st}_{sl} {e['ver']}"
+                per.setdefault(sl, {})[n] = {"label": e.get("label", ""), "ver": e["ver"], "sheet": o}
+                sper.setdefault(sl, {})[n] = so
+        if per:
+            alt_arenas[key] = per
+            SIM_GOD_DATA_MAP[gid][gk] = sper
     live_pack = {
         "clipMap": lm.get("clipMap", {}),
         "sheets": lm["sheets"],
@@ -424,6 +461,7 @@ def build_existing_entry(gid):
             "new_bt": {"clipMap": {}, "sheets": bt_sheets},
             "new_ti": {"clipMap": {}, "sheets": ti_sheets},
             **prev_arenas,
+            **alt_arenas,
         },
         "hasPrev": bool(prev_arenas),
         "skills": skills_obj,

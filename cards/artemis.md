@@ -30,6 +30,10 @@ type: ranged (all enemies)
 idea: sinks onto one knee, the bow raised diagonally close to the body, three arrows of light on the string, a half draw and
   release; silver light runs along the limbs of the bow
 game_fx: three arrows split to the enemies from the bow
+remarks:
+  - 14.11 00:14 «Аниме Супер … несколько полупрозрачных луков сразу … Пометить надо, что исправить, но пойти пока дальше.»
+    TI sup (round-4 retake) shows several translucent bows at once, a bloom on the face and ghost streaks to the top right.
+    Fix later: one solid bow, light only along the limbs. On hold; the old clip stays «сейчас», the retake is stand version 2.
 ```
 
 ```

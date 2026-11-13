@@ -120,3 +120,19 @@ See `remarks_ru.md` next to this file.
   просто… четкость улучшили, оставив ту же самую анимацию… можно пока так оставить.»
   → ideas no longer go to him for an answer (skill update proposed); E3 applies only to clips shot anew; Kitsune's mask and
   Athena's BT Medusa stay programmatic while those protected takes are only re-cut.
+- 13.11 (22:15) Maxim: «некоторые у нас получились хорошо, поэтому у них мы только четкость поправим… каждого все равно не
+  надо переделывать, верно же я понимаю? Или ты у меня будешь спрашивать…» → accepted clips that pass the laws: sharp re-cut
+  only, no question per clip.
+- 13.11 (22:34) Maxim: «А как ты пишешь, что их исходные видео не сохранились, если они все видео, которые мы делали, лежат на
+  сайте Kling.ai? Там 886 файлов.» → the executor's claim was wrong; sources are looked up in the Kling task history (and the
+  task ids of the past chats) before anything is called lost. Four BT idles had already been re-shot (120 credits) — the
+  original takes were found, matched (IoU) and re-cut instead (v35). Task ids are now kept in pipeline/r4/kling_tasks_1311.json.
+
+## 14.11
+
+- 14.11 (00:14) Maxim: «под кнопками… ожидание, обычное умение, супер умение и ульта. Под ними можно делать доп. Кнопки типа…
+  версия 1, версия 2 там, и так далее» (about near-miss takes) → the stand shows «Версия 1» (published) and «Версия 2, 3…»
+  (near-miss retakes) under the slot buttons; the published «сейчас» does not change.
+  Demeter strike/ult retakes: «Пока не надо». Kitsune TI super (tails wider than the frame three times): «Пока не надо».
+  Artemis TI super (several translucent bows): «Пометить надо, что исправить, но пойти пока дальше.» → noted in her card and
+  on the stand; on hold. Next: the following gods.

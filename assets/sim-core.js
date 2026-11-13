@@ -12160,7 +12160,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
   }
 
   // Build isolated sheet tables per arena ('live_bt', 'new_bt', 'new_ti')
-  function buildArenaSheets(mode, godDataMap, lite, ver) {
+  function buildArenaSheets(mode, godDataMap, lite, ver, alt) {
     const T = buildBaseTables();
     const suf = lite ? 'lite' : 'mob';
 
@@ -12215,7 +12215,10 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
         // 13.11 old/new switch: ver 'prev' = the sheets published before the current redo (if the god has them)
         const pack = gdata && ((ver === 'prev' && gdata[gameKey + 'Prev']) || gdata[gameKey]);
         if (!pack || !pack.slots) continue;
-        const idleSlot = pack.slots.idle;
+        // 14.11 Maxim: "версия N" buttons - alt = {godId, slots: {slot: N}}; N >= 2 picks take vN of that slot of the selected god
+        // only (other gods on the field keep their published sheets), when this arena has that take
+        const altOf = (slot) => { if (!alt || alt.godId !== gid || !alt.slots) return null; const n = alt.slots[slot] | 0, L = gdata[gameKey + 'Alt'] && gdata[gameKey + 'Alt'][slot]; return n >= 2 && L && L[n] ? L[n] : null; };
+        const idleSlot = altOf('idle') || pack.slots.idle;
         if (!idleSlot) continue;
         const idleSz = lite ? idleSlot.lite : idleSlot.mob;
         const idleFig = Object.assign({ top: 0.07, foot: 0.97, ax: 0.5 }, idleSlot.fig || {});
@@ -12237,7 +12240,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
         };
 
         for (const slot of ['atk', 'sup', 'hyp']) {
-          const sl = pack.slots[slot] || idleSlot;
+          const sl = altOf(slot) || pack.slots[slot] || idleSlot;
           const sz = lite ? sl.lite : sl.mob;
           const actFig = Object.assign({}, idleFig, sl.fig || {});
           const kAct = v2k(actFig);
