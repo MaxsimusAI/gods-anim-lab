@@ -154,3 +154,4 @@ See `remarks_ru.md` next to this file.
   down (as in the BT super that passed).
 - 14.11 (05:05) 10 gods: v76 Indra TI super, Inti TI ult (smoke); v77 near-misses as «Версия 2» (Hou Yi TI ult, Erlang TI
   strike); v78 Erlang BT strike, Hou Yi TI strike. Van Helsing retakes failed twice → old takes stay, idea question to Maxim.
+- 14.11 (05:20) G4 stand check of the new clips' game effects: 1 PASS, 1 WATCH, 12 FAIL (code built to old timings) → next work block.

@@ -77,7 +77,27 @@ down, WATCH). «Версия 2»: Hou Yi TI ult (aim fixed, starburst at the rel
 (wind ring to the edges). Van Helsing TI strike / BT super / TI super: two takes each failed (flat aim into the edge; no
 magic, a vial from nowhere) → the old takes stay; ask Maxim for a new idea before more credits. Inti BT super keeps the old
 cut. Sources of all new takes saved: `Kling тест\workspace\mp4-zz-v76-10gods.tar` (+ SHA256SUMS).
-Open: Erlang TI strike retake 2 under review; G4 stand check of the new game effects running.
+Erlang TI strike take 2 published (v80, WATCH; frame 18 shaft lost by the matting redrawn with `kl/g7/shaft_fix.py`).
+G4 stand check of the game effects of the new clips (14.11 05:20, fresh-eyes, 14 clips): PASS Apollo BT atk; WATCH Hou Yi BT
+atk (a spiky ball instead of an arrow); FAIL — the code, not the clips (wf and release frames are right except Ra TI atk, fixed
+in the data: frame 13, (0.21, 0.42)):
+- Amaterasu BT atk: projectile starts at hair/chest (0.66, 0.36) instead of the mirror wf (0.25, 0.19); small ball; 2nd target
+  hit without a projectile. BT sup: needles leave 150 ms after the release (frame 11); damage before they arrive; thin rays.
+- Ra BT/TI sup (heal): nothing flies from the ankh / hand fire to the allies; all heals at 750 ms at once → visible stream
+  from wf at the release, heal on arrival.
+- Ra TI atk: ball leaves the forearm at frames 7–8 before the release; a winged symbol in empty air at frame 10.
+- Apollo BT hyp: a still fan of 6 small arrows hangs over the bow ~300 ms; hit = big white star with thin rays (A3).
+- Brynhild BT atk (melee): leap too slow (0.1→0.6 s), the thrust (frame 6) happens mid-air; land exactly on frame 6
+  (~200–250 ms leap), tip (0.08, 0.5); a ball with a line drops on an ally at 400–700 ms.
+- Hou Yi BT/TI sup: the clip shoots three arrows once (frame 13); the game sends 4 tiny arrows one by one at 650–1100 ms, after
+  the god is back at rest; damage before arrival → three arrows at once from wf at the release.
+- Hou Yi BT hyp: a row of small suns over the enemies' bars, star flash with rays and pale columns at the hit (Maxim's old
+  remark), baked fire cut by the right edge not continued.
+- Hou Yi TI atk: a star hangs at wf for 200 ms; the projectile is born 100 ms later at the shoulder (0.61, 0.28) → from wf
+  (0.92, 0.62) at frame 15.
+- Erlang BT atk (melee): leap and hit are right, but a translucent copy of Erlang stays at the start and turns into a gray
+  smoke column (~900 ms); a «bite» deals damage at 150 ms before any motion; unclear jaw symbol.
+Screens: /tmp/g4 (session only). Next: rebuild these game effects to the clips (T1 for these 7 gods), stand re-check.
 
 ## Next step
 
