@@ -13860,102 +13860,112 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 5,
-  "rel": 0.208,
+  "impact": 6,
+  "rel": 0.25,
   "wpt": [
-   0.209,
-   -0.889
+   0.184,
+   -0.873
   ],
   "wf": [
-   0.79,
-   0.19
+   0.12,
+   0.08
   ],
-  "maxDiff": 22.77,
+  "maxDiff": 73.66,
   "fig": {
-   "top": 0.0896,
+   "top": 0.0905,
    "foot": 0.9909,
    "ax": 0.5
   },
   "defects": [
-   "raw_edge_clip"
+   "raw_edge_clip",
+   "solid_cut(1.6%)"
   ],
-  "crop": "T",
+  "crop": "LRTB",
   "ho": {
    "top": [
     [
-     11,
-     0.794,
-     0.39
+     4,
+     0.751,
+     0.34
     ],
     [
-     12,
-     0.767,
-     0.61
+     5,
+     0.383,
+     1.0
     ],
     [
-     13,
-     0.725,
-     0.41
-    ],
-    [
-     14,
-     0.726,
+     6,
+     0.48,
      0.19
     ],
     [
-     15,
-     0.765,
-     0.09
-    ],
-    [
-     16,
-     0.731,
-     0.16
+     7,
+     0.073,
+     0.51
     ],
     [
      17,
-     0.746,
-     0.07
-    ],
-    [
-     18,
-     0.754,
-     0.05
-    ],
-    [
-     19,
-     0.75,
-     0.06
+     0.307,
+     0.23
     ]
    ],
-   "col": "#85fefc"
+   "left": [
+    [
+     7,
+     0.02,
+     0.1
+    ]
+   ],
+   "right": [
+    [
+     9,
+     0.641,
+     0.57
+    ],
+    [
+     10,
+     0.643,
+     0.74
+    ],
+    [
+     11,
+     0.641,
+     0.49
+    ],
+    [
+     12,
+     0.515,
+     0.13
+    ]
+   ],
+   "col": "#85fe84"
   },
   "q": 70,
   "bodyPx": 198,
-  "bodyPxF": 198.29,
+  "bodyPxF": 198.09,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 269.5,
    "ramMb": 2.85,
-   "kbPct": 120,
-   "ramPct": 105
+   "kbPct": 119,
+   "ramPct": 133
   },
   "mob": {
    "file": "hel-bt-atk-mob.webp",
-   "w": 143,
+   "w": 180,
    "h": 220,
-   "kb": 322.6,
-   "ramMb": 3.0
+   "kb": 317.3,
+   "ramMb": 3.78
   },
   "lite": {
    "file": "hel-bt-atk-lite.webp",
-   "w": 100,
+   "w": 126,
    "h": 154,
-   "kb": 177.0,
-   "ramMb": 1.47
+   "kb": 170.2,
+   "ramMb": 1.85
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
+  "prep": "sharp cut + desmoke + haze/floor/white fix 14.11 (Maxim chose take 1)"
  },
  "hel_bt_hyp": {
   "id": "hel_bt_hyp",
