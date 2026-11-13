@@ -98,3 +98,9 @@ See `remarks_ru.md` next to this file.
   an old speed shortcut); the Kling video is lower in contrast than the drawn art. Test cut: full frames + light unsharp mask +
   quality 70 = visibly crisper, file 130 % of live, memory unchanged. Asked him before changing anything (B2: file above live).
   → CHECK 18 already covers it ("softer than the live god"); no new rule.
+- 13.11 (21:33) Maxim: «давай прогони с 1 по 5 пункт. И вес файла может быть условно на 20% больше… Главное нам видеопамять
+  не раздуть». Test on Kitsune BT atk (same 12.11 take, same 25 moments, frame IoU 0.93): full-size frames, tone/contrast
+  matched 60 % of the way to the art (video median lightness 54 vs art 86), light NL-means denoise, unsharp after the
+  downscale, WebP with a weaker deblocking filter. Result 316 KB = 112 % of live, frame 177×220 (memory 113 % of live, +3 %
+  against the previous cut). A better matting model (BiRefNet) did not fit in the workspace memory (6 GB) — isnet kept.
+  Published as «сейчас» (v30) for his look; tools `pipeline/b3/sharp_prep.py`, `sharp_cut.py`.
