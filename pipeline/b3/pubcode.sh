@@ -25,7 +25,7 @@ for f in app.js assets/sim-core.js assets/fx2-stand.js assets/gods-data.js; do n
 cp $K/work/kling_done.json $R/pipeline/work/
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 cd $R
-git add -A -- assets index.html pipeline LOG.md STATE.md PATTERNS.md TOOLS.md cards remarks_ru.md
+git add -A -- assets index.html app.js styles.css pipeline LOG.md STATE.md PATTERNS.md TOOLS.md cards remarks_ru.md
 git diff --cached --name-only > $B/names.txt
 git diff --cached -U0 -- . ':(exclude)pipeline/b3/secret_patterns.txt' > $B/diff.txt
 M=$(grep -iE 'tok|urls|jobs_|secret|\.private|\.local' $B/names.txt | grep -v 'secret_patterns.txt' || true)

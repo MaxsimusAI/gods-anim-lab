@@ -36,6 +36,7 @@
     elFilter: 'all',
     godId: 'kitsune',
     tier: 'mob',
+    alt: {},      // 14.11 Maxim: near-miss takes per slot ("версия 2, 3…"); {slot: n}, n>=2 picks god.arenas[key+'_alt'][slot][n] (take vN); only with ver 'now'
     ver: 'now',   // 13.11 Maxim: middle + right arenas switch between 'prev' (yesterday's sheets) and 'now'
     speed: 1,
     paused: false,
@@ -97,9 +98,41 @@
   }
 
   // the pack an arena shows: the left arena (live game) always one version; the proposed arenas follow state.ver
+  function altTakes(god, slot) {
+    // alternative takes of this slot in both proposed arenas: [{label, n}] where n = 2, 3, … (version 1 = the published one)
+    const by = {};
+    for (const key of ['new_bt', 'new_ti']) {
+      const L = god && god.arenas[key + '_alt'] && god.arenas[key + '_alt'][slot];
+      if (L) for (const [n, e] of Object.entries(L)) (by[n] = by[n] || { n: +n, labels: [] }).labels.push((key === 'new_bt' ? 'Битва титанов: ' : 'Titan Idols: ') + e.label);
+    }
+    return Object.values(by).sort((a, b) => a.n - b.n);
+  }
+
   function packOf(god, key) {
     if (state.ver === 'prev' && key !== 'live_bt' && god.arenas[key + '_prev']) return god.arenas[key + '_prev'];
-    return god.arenas[key];
+    const base = god.arenas[key];
+    const altL = state.ver === 'now' && key !== 'live_bt' && god.arenas[key + '_alt'];
+    if (!altL) return base;
+    let pack = null;
+    for (const slot of Object.keys(state.alt)) {
+      const n = state.alt[slot] | 0, e = n >= 2 && altL[slot] && altL[slot][n];
+      if (!e) continue;
+      if (!pack) pack = Object.assign({}, base, { sheets: Object.assign({}, base.sheets) });
+      pack.sheets[slot] = e.sheet;
+    }
+    return pack || base;
+  }
+
+  function renderAltBar(god) {
+    const bar = document.getElementById('altBar');
+    if (!bar) return;
+    const slot = state.activeSlot, takes = state.ver === 'now' ? altTakes(god, slot) : [];
+    if (!takes.length) { bar.hidden = true; bar.innerHTML = ''; return; }
+    const cur = state.alt[slot] | 0 || 1;
+    bar.hidden = false;
+    bar.innerHTML = '<span class="alt-cap">Дубли:</span>' +
+      `<button class="alt-btn${cur === 1 ? ' active' : ''}" data-alt="1" type="button" title="Тот, что сейчас на стенде">Версия 1</button>` +
+      takes.map(t => `<button class="alt-btn${cur === t.n ? ' active' : ''}" data-alt="${t.n}" type="button" title="${t.labels.join(' · ').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')}">Версия ${t.n}</button>`).join('');
   }
 
   function getSheetForSlot(arenaPack, slot) {
@@ -484,7 +517,7 @@
 
       grid.appendChild(card);
 
-      const T = SIM.buildArenaSheets(cfg.key, simMap, lite, state.ver);
+      const T = SIM.buildArenaSheets(cfg.key, simMap, lite, state.ver, state.ver === 'now' ? { godId: state.godId, slots: state.alt } : null);
       const battleAppEl = card.querySelector('.battle-app');
       const battleArenaEl = card.querySelector('.battle-arena');
       const fxDomEl = card.querySelector('.arena-fxdom');
@@ -708,7 +741,7 @@
         a.tagEl.textContent = `⏳ Kling ещё не сделан · фигура ${sh.w}×${sh.h} px`;
         a.tagEl.classList.add('is-ref');
       } else {
-        a.tagEl.textContent = (a.key === 'live_bt' || a.id === 'live_bt' ? `В игре · ${sh.frames} кадров · ${sh.w}×${sh.h} px` : `🎬 ${state.ver === 'prev' && currentGod() && currentGod().hasPrev ? 'ВЧЕРА · ' : ''}Kling · ${sh.frames} кадров · ${sh.w}×${sh.h} px`);
+        a.tagEl.textContent = (a.key === 'live_bt' || a.id === 'live_bt' ? `В игре · ${sh.frames} кадров · ${sh.w}×${sh.h} px` : `🎬 ${state.ver === 'prev' && currentGod() && currentGod().hasPrev ? 'ВЧЕРА · ' : ''}${state.ver === 'now' && (state.alt[sl] | 0) >= 2 && currentGod() && currentGod().arenas[(a.key || a.id) + '_alt'] && currentGod().arenas[(a.key || a.id) + '_alt'][sl] && currentGod().arenas[(a.key || a.id) + '_alt'][sl][state.alt[sl]] ? 'ВЕРСИЯ ' + state.alt[sl] + ' · ' : ''}Kling · ${sh.frames} кадров · ${sh.w}×${sh.h} px`);
         a.tagEl.classList.remove('is-ref');
       }
 
@@ -759,7 +792,13 @@
 
     document.querySelectorAll('.skill-btn[data-slot]').forEach(btn => {
       btn.classList.toggle('active', btn.dataset.slot === state.activeSlot);
+      // 14.11: a badge on the slot button when this slot has near-miss takes ("версия 2, 3…")
+      const nAlt = state.ver === 'now' ? altTakes(god, btn.dataset.slot).length : 0;
+      let badge = btn.querySelector('.alt-count');
+      if (nAlt && !badge) { badge = document.createElement('span'); badge.className = 'alt-count'; btn.appendChild(badge); }
+      if (badge) { badge.hidden = !nAlt; badge.textContent = nAlt ? '+' + nAlt : ''; badge.title = nAlt ? 'Есть дубли: ' + nAlt + ' — выберите умение, кнопки «Версия» появятся ниже' : ''; }
     });
+    renderAltBar(god);
 
     const sk = god.skills[state.activeSlot] || god.skills.idle;
     document.getElementById('fxTitle').textContent = `Блок А — ${sk.title}`;
@@ -835,6 +874,7 @@
   function selectGod(godId) {
     const target = getAllGods().find(g => g.id === godId) || getAllGods()[0];
     if (!target) return;
+    if (state.godId !== target.id && Object.keys(state.alt).length) { state.alt = {}; buildArenasDom(); }
     state.godId = target.id;
     if (target.group !== state.group) {
       state.group = target.group;
@@ -929,9 +969,25 @@
         const g = currentGod();
         mountGodIntoArenas(g);
         renderMetrics(g);
+        renderControlsAndVerdicts(g);
         updateArenaHeadersAndNotes(g, state.activeSlot);
         if (state.activeSlot !== 'idle') triggerSkill(state.activeSlot, false);
       });
+    });
+
+    document.getElementById('altBar').addEventListener('click', (ev) => {
+      const btn = ev.target.closest('.alt-btn');
+      if (!btn) return;
+      const n = parseInt(btn.dataset.alt, 10) || 1, slot = state.activeSlot;
+      if ((state.alt[slot] | 0 || 1) === n) return;
+      if (n === 1) delete state.alt[slot]; else state.alt[slot] = n;
+      buildArenasDom();
+      const g = currentGod();
+      mountGodIntoArenas(g);
+      renderMetrics(g);
+      updateArenaHeadersAndNotes(g, slot);
+      renderControlsAndVerdicts(g);
+      if (slot !== 'idle') triggerSkill(slot, false);
     });
 
     document.querySelectorAll('.seg-btn[data-spd]').forEach(btn => {

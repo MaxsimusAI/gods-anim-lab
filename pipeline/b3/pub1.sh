@@ -78,7 +78,7 @@ cp $K/work/adapted_all_metrics.json $K/work/impact_overrides.json $K/work/kling_
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 rm -f $R/pipeline/b3/up.sh.bak
 cd $R
-git add -A -- assets index.html pipeline PLAYBOOK.md
+git add -A -- assets index.html app.js styles.css pipeline PLAYBOOK.md
 # secret scan on files, not pipes (grep -q + pipefail = SIGPIPE = silent pass); patterns live in b3/secret_patterns.txt,
 # which is excluded from the content scan so the scanner does not flag itself
 git diff --cached --name-only > $B/names.txt
