@@ -38,7 +38,7 @@
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt1"
  },
  "demeter_bt_hyp": {
   "imp": 29,
@@ -48,11 +48,11 @@
   "r4": true
  },
  "demeter_ti_atk": {
-  "imp": 33,
+  "imp": 29,
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt1"
  },
  "demeter_ti_sup": {
   "imp": 27,
@@ -932,11 +932,11 @@
   "r4": true
  },
  "artemis_bt_atk": {
-  "imp": 22,
+  "imp": 26,
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt1"
  },
  "artemis_ti_hyp": {
   "imp": 29,
@@ -946,11 +946,11 @@
   "r4": true
  },
  "artemis_ti_atk": {
-  "imp": 29,
+  "imp": 22,
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": "rt1"
  },
  "artemis_ti_sup": {
   "imp": 29,
