@@ -189,3 +189,45 @@ Nothing goes into the game repos or servers until Maxim says so. Balance changes
 - **Projectiles: draw the object, not a comet.** Apollo's game arrow is now shaft + broad head + fletching with fire
   only along the shaft (`K1.sunArrow`). Check projectiles in slow motion: `b3/seq.py out god slot n step 0.25 start_ms`.
 - Old sheets re-adapted with pad 2 px (13.11): all 136 sheets have <= 3 px empty margin (`b3/margins2.py`).
+
+## Added 13.11 (4) — Maxim's review of v17-v19 (04:00), binding
+
+- **The game effect follows the animation, never the other way round.** Do not bend/skip/re-time the baked clip to fit
+  the code's release time (skips made Ra TI and Agni TI attack flicker/jerk). Take the moment and the point where the
+  baked gesture really releases (hand, weapon tip, string) and start the game effect there, at that time.
+- **No visible cuts.** `skip` that removes frames makes a jerk/flicker that Maxim sees at once - do not use skip to hide
+  wind-ups or flashes any more; re-shoot instead. A weapon returning that looks clipped (Erlang spear) = re-adapt or re-shoot.
+- **Idle: never a figurine on a turntable** (Van Helsing TI - 4th time). Turning only through the feet stepping.
+  Idle must move clearly but calmly: not dancing (Agni TI), not frozen (Agni BT). Check with b3/motion.py AND look.
+- **The weapon in the god's hands must be used.** An archer's bow string really is drawn and released, the arrow
+  leaves from the bow toward its flight; nothing appears "from the top of the bow / from emptiness" (Hou Yi x3).
+  Abrupt crouch-and-stand or a string jerked back and forth = reject.
+- **Effect origin = the hand/weapon that makes the gesture**, not the neck or the shoulder (Erlang super).
+- **An effect that flies off and is cut by the frame edge is a reject** (Agni BT super: ring flies up-left and is cut);
+  the clean version is the one where the fire visibly leaves the hand (Agni TI super) and the game continues it.
+- **Game effects must be smooth and rich**: no jerky fire (Agni ult), no plain balls flying to the enemy (Inti atk),
+  no unclear symbols (Van Helsing ult crossbow sign). Heimdall sup/hyp and Ra ult (boat) game effects are "not wow".
+- **Supers need magic**, not just a plain pose (Van Helsing super, Ra super are "too simple").
+- **Sync before the hand**: nothing may fly before the hand that throws it is raised (Brynhild TI super); leaps must be
+  quick and on the hit, not sluggish (Brynhild attack).
+- Comments repeat: before publishing re-read ALL of Maxim's comments (this file), not only the latest.
+- Kling refuses prompts with trademarked names ("Mjolnir" -> copyright refusal, not charged). Use neutral names
+  ("Hammer Strike", "northern storm god") for Thor and similar.
+
+## Added 13.11 (5) — lessons from the rt7 batch (69 retakes)
+
+- **Melee in a tight canvas: weapon moves only vertically.** Prompts with "slash / swing / cross slash" produce wide
+  arcs and crescents that hit the frame edges and make the god turn side/back (Susanoo, Wukong, Kali, Thor, Silent,
+  Surt, Dutchman, Lu Bu - again and again). Use: raise straight up above the head -> chop straight down in front of the
+  centre of the body "like chopping wood", or thrust straight up; and always add "no arc-shaped or crescent light
+  trails, no sweeping slashes, no circles or rings anywhere, nothing glows on the ground".
+- **"Burst" makes a starburst.** Words like "burst of light/sparks" at a staff or hand gave star-shaped rays
+  (Quetzalcoatl, Koschei, Jekyll, Dracula). Use "smoke/feathers curl around it and rise straight up" instead.
+- **Heracles: never animate the lion skin as an aura** - Kling replaces his head with a lion head. Write "the lion
+  head on his shoulders never moves and never covers his face".
+- **Water/fire "around the body" hides the body** (Ao Guang orb sphere) -> "behind his back and beside him, his face
+  and chest stay visible".
+- **Background darkening comes from smoke** (Jekyll TI) -> "the vapor stays thin and close to the body".
+- Copyright refusals after the result is made (SENSITIVE_RESULT, refunded) repeat for the same art: Lilith BT (idle,
+  sup, hyp) and Loki TI (atk, sup) twice each. Rewording does not help - the art itself is the trigger. Ask Maxim.
+- Idle "clearly moving" threshold: silhouette motion (b3/mmask.py) >= ~22 %; 14-17 % reads as frozen.

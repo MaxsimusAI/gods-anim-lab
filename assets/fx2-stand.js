@@ -4194,6 +4194,9 @@ const r = kind === 'atk' ? (this.R.st && this.R.st.melee ? REL_MELEE : REL_SHOT)
 return q != null ? r * q / .5 : r;
 } const k = q != null ? q : f / Math.max(1, S.frames - 1); return S.t0 + S.dur * k; },
 relT(kind) { const S = this.sheetT && this.sheetT[kind]; return S ? S.t0 + S.dur * S.rel : (kind === 'atk' ? REL_MELEE : REL_SUP); },
+atRaw(dt, fn) { return Object.getPrototypeOf(this).at.call(this, dt, fn); },
+relDt(kind, def) { const S = this.sheetT && this.sheetT[kind]; return S ? Math.max(0, S.t0 + S.dur * S.rel - this.t) : def; },
+newSheet(kind, u = this.u) { const B = BR, L = kind === 'sup' ? B.SHEETS_SUP : kind === 'hyp' ? B.SHEETS_HYP : B.SHEETS_ATK; return !!(B.isProposed && u && (B.animOf(L, u.gu || u) || {}).isNewSheet); },
 });
 function drawDome(S, g, u) {
 const d = u.domeSt, b = boxOf(u), T = S.t, age = T - d.t0, inq = EASE['ease-out'](clamp(age / .35, 0, 1)), c = d.col;
@@ -7727,7 +7730,7 @@ hitAt = BR.REL_NEW[u.hid + ':' + kind];
 const A = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
 // 12.11 Maxim (batch 3): "first the game effect, then the baked burst". The old signatures launch their effect at .5 s
 // (written for the old sheets), the new sheet reached its release at .6 s. Bring the baked release to the script.
-if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && hitAt > .5 && BR.OLD_SIG && BR.OLD_SIG.has(u.hid))
+if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && hitAt > .5 && BR.OLD_SIG && BR.OLD_SIG.has(u.hid) && !(u.hid === 'houyi' && kind === 'sup'))
 hitAt = .5;
 let at = hitAt;
 if (A && A.rel && hitAt) {
@@ -8236,6 +8239,8 @@ return 0;
 function auxShot(act, e) {
 run(act, () => {
 const F = act.F, to = VUof(e.tgt), c = F.R.col || F.pal.c, proj = F.R.proj || (F.R.st && F.R.st.proj) || 'orb';
+if (F.R.auxFx && F.R.auxFx(F, e, to))
+return;
 F.at(e.windup || 0, () => { const from = F.wp('a'), p = F.tc(to, .42); F.shot(from, p, e.dur, { arc: -12, trailW: 2.6, col: c, trailCol: c, trailLife: .1, head: headOf(proj === 'arrow' ? 'arrow' : 'orb', c, F.pal.core, proj === 'arrow' ? 14 : 3.6) }); });
 });
 }
@@ -18572,14 +18577,16 @@ g.restore();
 g.drawImage(TX.get('glow', '#ffe0a0'), -r * .5, -r * .5, r, r);
 };
 function k2sevenFlames(F, u, t0, tIn, mouth) {
+// 13.11 Maxim: Agni ult fire "jerks" -> flicker frequencies and wobble cut 3-4x, the fire flows instead of shaking
 const A = [-90, -142, -38, 180, 0, 140, 40].map(d => d * Math.PI / 180);
-A.forEach((ang, i) => F.at(t0 + i * .035 - F.t, () => {
+const AT = F.newSheet('hyp', u) ? (d, f) => F.atRaw(d, f) : (d, f) => F.at(d, f);
+A.forEach((ang, i) => AT(t0 + i * .035 - F.t, () => {
 const st = F.t, end = tIn - st;
 F.obj(end + .1, (g, a) => {
 const b = boxOf(u), cx = b.x, cy = b.top + b.h * .5, rx = b.w * .66, ry = b.h * .5;
 const home = { x: cx + Math.cos(ang) * rx, y: cy + Math.sin(ang) * ry + (Math.sin(ang) > .5 ? -b.h * .05 : 0) }, m = mouth();
 const k = clamp((a - (end - .08)) / .1, 0, 1), x = lerp(home.x, m.x, EASE['ease-in'](k)), y = lerp(home.y, m.y, EASE['ease-in'](k));
-const grow = EASE['ease-out'](clamp(a / .14, 0, 1)), s = 30 * grow * (1 - .6 * k) * (1 + .1 * Math.sin(a * 37 + i));
+const CALM = BRG.isProposed, grow = EASE['ease-out'](clamp(a / .14, 0, 1)), s = 30 * grow * (1 - .6 * k) * (1 + (CALM ? .05 * Math.sin(a * 8 + i) : .1 * Math.sin(a * 37 + i)));
 if (s < 1)
 return;
 g.save();
@@ -18588,7 +18595,7 @@ g.globalCompositeOperation = 'lighter';
 g.globalAlpha = .5;
 g.drawImage(TX.get('glow', '#ff7a1a'), -s, -s * .9, s * 2, s * 1.8);
 g.globalAlpha = .95;
-g.rotate(Math.sin(a * 9 + i) * .12);
+g.rotate(CALM ? Math.sin(a * 4 + i) * .07 : Math.sin(a * 9 + i) * .12);
 g.drawImage(TX.get(k2T(i % 2 ? 'fl' : 'fl2'), '#ffa040'), -s * .45, -s * 1.0, s * .9, s * 1.25);
 g.restore();
 if (F.rng() < .25)
@@ -18614,7 +18621,7 @@ const at = u => ({ x: lerp(f0.x, ex, u), y: lerp(f0.y, ey, u) - Math.sin(Math.PI
 g.save();
 g.globalCompositeOperation = 'lighter';
 for (let i = 0; i <= 26; i++) {
-const u = i / 26, q = at(u), w = lerp(8, 40, u) * (1 + .1 * Math.sin(a * 29 + i));
+const u = i / 26, q = at(u), w = lerp(8, 40, u) * (1 + (BRG.isProposed ? .05 * Math.sin(a * 9 + i) : .1 * Math.sin(a * 29 + i)));
 g.globalAlpha = fade * (u < .05 ? .5 : 1) * .3;
 g.drawImage(TX.get('glow', '#ff5a10'), q.x - w, q.y - w * .8, w * 2, w * 1.6);
 if (u < .7) {
@@ -18623,11 +18630,11 @@ g.drawImage(TX.get('glow', '#ffd890'), q.x - w * .4, q.y - w * .35, w * .8, w * 
 }
 }
 for (let i = 0; i < 24; i++) {
-const u = ((i / 24) + a * 1.7) % 1, q = at(u), s = lerp(12, 46, u) * (1 + .18 * Math.sin(a * 37 + i * 1.9)), j = Math.sin(i * 7.3 + seed + a * 21) * s * .35;
+const CALM = BRG.isProposed, u = ((i / 24) + a * 1.7) % 1, q = at(u), s = lerp(12, 46, u) * (1 + (CALM ? .08 * Math.sin(a * 10 + i * 1.9) : .18 * Math.sin(a * 37 + i * 1.9))), j = Math.sin(i * 7.3 + seed + a * (CALM ? 7 : 21)) * s * (CALM ? .2 : .35);
 g.globalAlpha = fade * (u < .08 ? u / .08 : 1) * (.95 - .4 * u);
 g.save();
 g.translate(q.x + nx * j, q.y + ny * j);
-g.rotate(Math.sin(i * 3.1 + a * 17) * .35);
+g.rotate(CALM ? Math.sin(i * 3.1 + a * 6) * .18 : Math.sin(i * 3.1 + a * 17) * .35);
 g.drawImage(TX.get(k2T(i % 3 ? 'fl' : 'fl2'), K2RAMP[Math.min(3, Math.floor(u * 3.8))]), -s * .45, -s * .95, s * .9, s * 1.2);
 g.restore();
 }
@@ -21270,14 +21277,50 @@ g.fill();
 g.restore();
 });
 };
+function intiBeam(F, from, to, grow, life) {
+F.obj(life, (g, a) => {
+const A = from(), B = to(), k = EASE['ease-out'](clamp(a / grow, 0, 1)), al = a < life - .14 ? 1 : Math.max(0, (life - a) / .14), X = lerp(A.x, B.x, k), Y = lerp(A.y, B.y, k);
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+for (const [lw, c, kk] of [[10, '#ffb52a', .2], [4, '#ffcf3a', .65], [1.6, '#fff6d8', 1]]) {
+g.globalAlpha = al * kk;
+g.strokeStyle = c;
+g.lineWidth = lw;
+g.beginPath();
+g.moveTo(A.x, A.y);
+g.lineTo(X, Y);
+g.stroke();
+}
+g.globalAlpha = al;
+g.drawImage(TX.get('glow', '#ffcf3a'), A.x - 10, A.y - 10, 20, 20);
+g.drawImage(TX.get('glow', '#fff1c4'), X - 8, Y - 8, 16, 16);
+g.restore();
+if (F.rng() < .35 * al)
+F.p({ x: lerp(A.x, X, F.rng()), y: lerp(A.y, Y, F.rng()), vx: F.rnd(-12, 12), vy: -F.rnd(8, 26), life: .3, s0: 2.2, s1: .4, tex: 'ember', col: '#ffe08a' });
+}, 'top');
+}
 SIG.inti = {
 motif: 'holy', glyph: 'k1inti',
+// 13.11 Maxim: no plain balls -> on the new sheet the weak hit on the enemy is the same sun ray, at the real release
+auxFx(F, e, to) {
+if (!F.newSheet('atk'))
+return false;
+const u = F.u, tR = F.relDt('atk', e.windup || 0), arr = (e.windup || 0) + (e.dur || .3);
+F.at(tR, () => { const from = F.wp('a', u); F.flash(from.x, from.y, 12, '#ffcf3a', { dur: .16 }); intiBeam(F, () => F.wp('a', u), () => F.tc(to, .42), Math.max(.06, Math.min(.16, arr - tR)), Math.max(.12, arr - tR + .12)); });
+return true;
+},
 a: {
 cast(F, e) {
 const u = e.u;
 F.st.playAnim(u, 'atk', REL_SHOT);
 F.atkGlowNew(u);
 const h = K1.ev(F, x => x.type === 'heal' && x.u === e.tgt)[0], tH = h ? h.t : typeof FX2_EVENTS !== 'undefined' ? FX2_EVENTS.impact(F, e.tgt, T_WIND + T_HEAL) : T_WIND + T_HEAL;
+// 13.11 Maxim: a plain ball flying to the ally is not nice -> on the new sheet: one solid warm sun ray from the hand, at the real release
+if (F.newSheet('atk', u)) {
+const tR = F.relDt('atk', REL_SHOT), tgt = e.tgt;
+F.at(tR, () => { const from = F.wp('a'); F.flash(from.x, from.y, 16, '#ffcf3a', { dur: .2 }); intiBeam(F, () => F.wp('a', u), () => F.tc(tgt, .45), Math.max(.08, Math.min(.18, tH - F.t - .04)), Math.max(.12, tH - F.t + .12)); });
+} else
 F.at(REL_SHOT, () => { const from = F.wp('a'), to = F.tc(e.tgt, .45); F.flash(from.x, from.y, 16, '#ffcf3a', { dur: .2 }); F.shot(from, to, Math.max(.12, tH - REL_SHOT), { arc: -38, trailW: 5, col: '#ffcf3a', trailCol: '#ffe08a', coreCol: '#fff1c4', trailLife: .16, head: K1.intiHead, emit: emitOf('ember', ['#ffe08a', '#ffcf3a'], { p: .55 }) }); });
 },
 heal(F, e) {
@@ -22035,19 +22078,21 @@ g.arc(0, 0, r, 0, TAU);
 g.fill();
 g.restore();
 };
+const oldCut = (kind, fn) => { const c = cutSheet(kind, fn); return function (F) { if (F.newSheet(kind)) { const u = F.u; if (u && u.mask && u.mask.kind === kind) u.mask = null; return; } return c.call(this, F); }; };
 SIG.houyi = {
 motif: 'embers', glyph: 'sun',
 a: {
-update: cutSheet('atk', f => f >= 7 && f <= 18 ? [[.85, .335, .16, .09, .55]] : null),
+update: oldCut('atk', f => f >= 7 && f <= 18 ? [[.85, .335, .16, .09, .55]] : null),
 shoot(F, e) {
 const u = e.u;
 F.st.playAnim(u, 'atk', REL_SHOT);
 F.atkGlowNew(u);
-F.at(REL_SHOT - .17, () => { const w = F.wp('a'); F.sunDisc(w.x, w.y, 5, { col: '#ffb24a', dur: .22, in: .1, rays: 10, spin: 2 }); });
-F.at(REL_SHOT, () => {
+const NA = F.newSheet('atk', u), tR = NA ? F.relDt('atk', REL_SHOT) : REL_SHOT; // 13.11 Maxim: the game arrow leaves at the real release of the baked string
+F.at(NA ? Math.max(0, tR - .05) : tR - .17, () => { const w = F.wp('a'); F.sunDisc(w.x, w.y, 5, { col: '#ffb24a', dur: .22, in: .1, rays: 10, spin: 2 }); });
+F.at(tR, () => {
 const from = F.wp('a'), to = F.tc(e.tgt, .42);
 F.flash(from.x, from.y, 16, '#ffb24a', { dur: .18 });
-dart(F, from, to, T_WIND + T_FLY - REL_SHOT, { col: '#ff9a2a', tail: 34, w: 2.6, arc: -14, head: fireArrow(24, 5), emit: emberEmit(.8) });
+dart(F, from, to, NA ? Math.max(.12, T_WIND + T_FLY - tR) : T_WIND + T_FLY - tR, { col: '#ff9a2a', tail: 34, w: 2.6, arc: -14, head: fireArrow(24, 5), emit: emberEmit(.8) });
 });
 },
 hit(F, e) {
@@ -22060,10 +22105,11 @@ sunPop(F, p.x, p.y, 1);
 },
 s: {
 col: '#ffb24a',
-update: cutSheet('sup', f => f >= 2 && f <= 18 ? [[.85, .37, .16, .085, .55]] : null),
+update: oldCut('sup', f => f >= 2 && f <= 18 ? [[.85, .37, .16, .085, .55]] : null),
 sup(F, e) {
 F.supDrawn = true;
-e.targets.forEach((t, i) => F.at(i * .13, () => {
+const d0 = F.newSheet('sup') ? F.relDt('sup', 0) : 0; // 13.11 Maxim: arrows leave with the real release of the bow
+e.targets.forEach((t, i) => F.at(d0 + i * .13, () => {
 const from = F.wp('s'), to = F.tc(t, .45);
 F.flash(from.x, from.y, 14, '#ffb24a', { dur: .15 });
 dart(F, from, to, FLY_S, { col: '#ff9a2a', tail: 34, w: 2.6, arc: -10, head: fireArrow(24, 0), emit: emberEmit(.8) });
@@ -22079,7 +22125,8 @@ sunPop(F, p.x, p.y, 1.25);
 },
 h: {
 col: '#ffb24a',
-update: cutSheet('hyp', f => f >= 1 && f <= 11 ? [[.5, .11, .62, .2, .8], [.12, .44, .15, .18, .6], [.9, .48, .09, .08, .6], [.27, .335, .09, .045, .5], [.89, .38, .1, .07, .5]] : null),
+// 13.11: new hyp takes (bow drawn and released) - the old frame masks would cut the new sheet, so they stay only for the old one
+update: oldCut('hyp', f => f >= 1 && f <= 11 ? [[.5, .11, .62, .2, .8], [.12, .44, .15, .18, .6], [.9, .48, .09, .08, .6], [.27, .335, .09, .045, .5], [.89, .38, .1, .07, .5]] : null),
 anticip(F, u, k, rel, e) {
 const t = e.targets[0];
 if (!t)
@@ -22099,7 +22146,7 @@ return; const d = .06 + Math.abs(i - bi) * .035, aa = a - d; if (aa <= 0)
 return; const al = Math.min(1, aa / .12) * (a > .85 ? Math.max(0, (1.2 - a) / .35) : 1); smallSun(g, s.x, s.y, s.r * (1 + .08 * Math.sin(a * 9 + i)), al, a, i); });
 });
 F.at(.08, () => F.sunDisc(B.x, B.y, B.r, { col: '#ffb24a', dur: .58, in: .2, rays: 14, spin: .8 }));
-const shotAt = REL_SUP - .07, fly = .1, fall = T_SUP - shotAt - fly, to = F.tc(t, .45);
+const NH = F.newSheet('hyp', u), shotAt = NH ? Math.max(.2, F.relDt('hyp', REL_SUP) - .01) : REL_SUP - .07, fly = .1, fall = NH ? Math.max(.12, T_SUP - shotAt - fly) : T_SUP - shotAt - fly, to = F.tc(t, .45);
 F.at(shotAt, () => { const from = F.wp('h'); F.flash(from.x, from.y, 24, '#ffb24a', { dur: .22 }); dart(F, from, { x: B.x, y: B.y }, fly, { col: '#ffb24a', tail: 46, w: 3, head: fireArrow(30, 0), emit: emberEmit(.9) }); });
 F.at(shotAt + fly, () => {
 F.flash(B.x, B.y, 40, '#fff1c4', { dur: .22 });
@@ -32631,9 +32678,14 @@ F.hit1(p.x, p.y, { col: BR.c, core: BR.core, s: .6, mn: 3, motif: 'holy' });
 },
 s: {
 col: BR.c, noCharge: true,
-anticip(F, u, kind, rel) { nlSpearUp(F, u, rel + .08); },
+anticip(F, u, kind, rel) {
+// 13.11 Maxim: nothing may fly before the hand is raised (TI) -> on the new sheet the spear is baked in the hand: no drawn spear,
+// only a short gather at the sheet weapon point just before the real release
+if (F.newSheet('sup', u)) { const tR = F.relDt('sup', rel); F.at(Math.max(0, tR - .22), () => nlGather(F, F.wp('s', u), .22, BR.c, 9, 28)); return; }
+nlSpearUp(F, u, rel + .08);
+},
 sup(F, e) {
-const u = F.u, tip = brTip(u, 1);
+const u = F.u, NS = F.newSheet('sup', u), tip = NS ? F.wp('s', u) : brTip(u, 1);
 F.flash(tip.x, tip.y, 30, BR.c, { dur: .25 });
 nlRays(F, tip.x, tip.y, { n: 10, L: 34, col: '#ffe08a' });
 const sh = nlEvs(F, 'shield', x => x.on);
@@ -32641,7 +32693,7 @@ F.allies().filter(t => t.alive && t !== u).forEach((t, i) => { const arr = (sh.f
 const mk = nlEv(F, 'mark', x => x.tone === 'good') || nlEv(F, 'status', x => x.up);
 if (mk) {
 const t = mk.u;
-nlAt(F, mk.t - .26, () => { const f = F.feetOf(t); nlThrowPlant(F, brTip(u, 1), { x: f.x - f.w * .22, y: f.y + 4 }, .24, { arc: -70, stay: .9, L: 72 }); });
+nlAt(F, mk.t - .26, () => { const f = F.feetOf(t); nlThrowPlant(F, NS ? F.wp('s', u) : brTip(u, 1), { x: f.x - f.w * .22, y: f.y + 4 }, .24, { arc: -70, stay: .9, L: 72 }); });
 }
 F.supDrawn = true;
 },
@@ -32650,9 +32702,12 @@ superHit() { },
 h: {
 col: BR.c, noCharge: true,
 anticip(F, u, kind, rel) {
+F.at(.16, () => nlsigil(F, 'nl_ring', BR.c));
+// 13.11 Maxim: nothing flies before the hand is raised -> on the new sheet no drawn spear from the start; the gather and the
+// streak to the sky leave from the sheet weapon point at the real release
+if (F.newSheet('hyp', u)) { const tR = F.relDt('hyp', rel); F.at(Math.max(0, tR - .22), () => nlGather(F, F.wp('h', u), .22, BR.c, 9, 28)); F.at(tR, () => nlSkyUp(F, F.wp('h', u), BR.c, .18)); return; }
 nlSpearUp(F, u, rel + .08);
 F.at(.26, () => nlSkyUp(F, brTip(u, 1), BR.c, .18));
-F.at(.16, () => nlsigil(F, 'nl_ring', BR.c));
 },
 ult(F, e) {
 const me = F.u, mo = nlEv(F, 'morph'), fallen = mo ? mo.u : null, ki = nlEv(F, 'kill');
@@ -32900,7 +32955,9 @@ anticip(F, u, kind, rel, e) {
 // streak continues it from the same point at that moment, then the big stake falls on the target.
 const NSh = BRG.isProposed && u && (BRG.animOf(BRG.SHEETS_HYP, u.gu || u) || {}).isNewSheet, T0h = NSh ? BRG.REL_NEW['vanhelsing:hyp'] : .1;
 F.at(T0h, () => nlSkyUp(F, NSh ? F.wp('h') : vhW(u), '#e8f0ff', .2, g => { g.rotate(0); nlBolt(g, 1.7); }));
-F.at(NSh ? T0h : .2, () => nlsigil(F, 'nl_xbow', '#e8f0ff'));
+// 13.11 Maxim: the crossbow sign above the arena is unclear -> removed on the new sheet (the ult itself carries the meaning)
+if (!NSh)
+F.at(.2, () => nlsigil(F, 'nl_xbow', '#e8f0ff'));
 const t = e.targets[0], T = (nlEv(F, 'hit', x => x.src === 'hyper') || { t: T_SUP }).t;
 if (t)
 nlAt(F, NSh ? T0h + .05 : .46, () => nlStakeFall(F, t, Math.max(.12, T - F.t)));
@@ -33590,9 +33647,9 @@ catch (err) {
 return null;
 }
 }
-function erEyeBeam(F, u, t, grow, hold) {
+function erEyeBeam(F, u, t, grow, hold, from) {
 F.obj(grow + hold, (g, a) => {
-const A = erEye(u), B = F.tc(t, .42), k = EASE['ease-in'](clamp(a / grow, 0, 1)), al = a < grow ? 1 : Math.max(0, 1 - (a - grow) / hold), X = lerp(A.x, B.x, k), Y = lerp(A.y, B.y, k);
+const A = from ? from() : erEye(u), B = F.tc(t, .42), k = EASE['ease-in'](clamp(a / grow, 0, 1)), al = a < grow ? 1 : Math.max(0, 1 - (a - grow) / hold), X = lerp(A.x, B.x, k), Y = lerp(A.y, B.y, k);
 g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'round';
@@ -33672,13 +33729,18 @@ F.mo(b.x + sg * b.w * .46, b.top + b.h * .45, 'ash', 3, .7, { smoke: '#8a8aa0' }
 },
 s: {
 col: ER.eye, noCharge: true,
-anticip(F, u, kind, rel) { nlEyeOpen(F, u, rel + .45, { open: .3 }); nlGather(F, erEye(u), rel, ER.eye, 7, 20); },
+anticip(F, u, kind, rel) {
+if (F.newSheet('sup', u)) { const tR = F.relDt('sup', rel); F.at(Math.max(0, tR - .22), () => nlGather(F, F.wp('s', u), .22, ER.eye, 7, 20)); return; }
+nlEyeOpen(F, u, rel + .45, { open: .3 }); nlGather(F, erEye(u), rel, ER.eye, 7, 20);
+},
 sup(F, e) {
 const t = e.targets[0];
 if (!t)
 return;
 const T = (nlEv(F, 'hit', x => x.src === 'super') || { t: T_SUP }).t, b0 = boxOf(t);
-nlAt(F, Math.max(F.t, T - .14), () => erEyeBeam(F, F.u, t, Math.max(.06, T - F.t), .2));
+// 13.11 Maxim: the super must start from the hand (the baked gesture), not from the neck -> sheet weapon point wf
+const fromHand = F.newSheet('sup') ? () => F.wp('s', F.u) : null;
+nlAt(F, Math.max(F.t, T - .14), () => erEyeBeam(F, F.u, t, Math.max(.06, T - F.t), .2, fromHand));
 nlImpact(F, t, T, () => {
 const b = boxOf(t), p = F.tc(t, .42);
 F.flash(p.x, p.y, 40, ER.eye, { dur: .3 });
