@@ -41018,38 +41018,44 @@
    -0.62
   ],
   "wf": [
-   0.482,
-   0.422
+   0.477,
+   0.42
   ],
-  "maxDiff": 18.63,
+  "maxDiff": 18.57,
   "fig": {
-   "top": 0.0789,
-   "foot": 0.9816,
-   "ax": 0.4824
+   "top": 0.0705,
+   "foot": 0.9911,
+   "ax": 0.4775
   },
   "defects": [],
+  "crop": null,
   "ho": null,
-  "q": 58,
-  "bodyPx": 164,
-  "budget": {
-   "kb": 124.5,
-   "liveRam": 7.08,
-   "liveKb": 422.6
+  "q": 90,
+  "bodyPx": 198,
+  "bodyPxF": 197.93,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 261.1,
+   "ramMb": 4.7,
+   "kbPct": 117,
+   "ramPct": 62
   },
   "mob": {
    "file": "vanhelsing-bt-idle-mob.webp",
-   "w": 120,
-   "h": 182,
-   "kb": 100.7,
-   "ramMb": 2.08
+   "w": 142,
+   "h": 215,
+   "kb": 306.7,
+   "ramMb": 2.91
   },
   "lite": {
    "file": "vanhelsing-bt-idle-lite.webp",
-   "w": 84,
-   "h": 127,
-   "kb": 60.1,
-   "ramMb": 1.02
-  }
+   "w": 99,
+   "h": 150,
+   "kb": 171.5,
+   "ramMb": 1.42
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "vanhelsing_bt_sup": {
   "id": "vanhelsing_bt_sup",
@@ -41282,7 +41288,7 @@
  },
  "vanhelsing_ti_idle": {
   "id": "vanhelsing_ti_idle",
-  "srcRes": "302x420",
+  "srcRes": "820x1140",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -41296,36 +41302,41 @@
    0.528,
    0.387
   ],
-  "maxDiff": 36.38,
+  "maxDiff": 33.84,
   "fig": {
-   "top": 0.0187,
-   "foot": 0.9868,
-   "ax": 0.5282
+   "top": 0.0188,
+   "foot": 0.9873,
+   "ax": 0.5285
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
-  "bodyPx": 177,
-  "budget": {
-   "kb": 124.5,
-   "liveRam": 7.08,
-   "liveKb": 422.6
+  "q": 90,
+  "bodyPx": 198,
+  "bodyPxF": 197.57,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 261.1,
+   "ramMb": 4.7,
+   "kbPct": 120,
+   "ramPct": 55
   },
   "mob": {
    "file": "vanhelsing-ti-idle-mob.webp",
-   "w": 120,
-   "h": 183,
-   "kb": 117.3,
-   "ramMb": 2.09
+   "w": 133,
+   "h": 204,
+   "kb": 312.8,
+   "ramMb": 2.59
   },
   "lite": {
    "file": "vanhelsing-ti-idle-lite.webp",
-   "w": 84,
-   "h": 128,
-   "kb": 66.2,
-   "ramMb": 1.03
-  }
+   "w": 93,
+   "h": 143,
+   "kb": 171.2,
+   "ramMb": 1.27
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "vanhelsing_ti_sup": {
   "id": "vanhelsing_ti_sup",
