@@ -39,3 +39,13 @@ All 6: no sideways shot at allies anymore, no skips. Edge/X/angle -> Maxim decid
 - kitsune_ti_idle RETAKE #3: static again (feet 0.6 %, hips 1.7 %).
 - kitsune_bt_idle RETAKE: end freeze ~0.75 s (reviewer). artemis_bt_idle RETAKE: two ~0.4 s freezes (reviewer).
 - athena_ti_idle RETAKE: glued feet + mid freeze (reviewer). athena_bt_idle OK (reviewer).
+
+## R2 actions, fresh-eyes reviewer 13.11 ~16:45 (rv/rev2/verdicts.md): 16/16 RETAKE
+Main causes: tails/robes/bow/fan/flame cut by edges for 10-43 frames (tight canvas + hops/wide stances), Artemis arm fully
+stretched and aiming ~flat right in all 6 (Kling ignores "close to the body"), crescents/rings/lens flares/body glow in Demeter,
+Zeus TI atk background brightening. Nothing published from this set.
+
+## 13.11 ~17:00 idle retakes (rv/rev4) and Zeus retakes (rv/rev3)
+- artemis_bt_idle OK. kitsune_bt_idle WATCH: ~0.5 s near-still seam (was 0.75 s). athena_ti_idle RETAKE: spear lifted, tip cut 6 fr.
+- kitsune_ti_idle RETAKE: full spin (back ~0.4 s), tails cut 8 fr. Zeus bt_atk/bt_hyp/ti_hyp RETAKE (blue ground, bolts across, white-out, tilted staff, step to camera).
+- R3 (compact, tight canvas kept) sent: 21 clips (16 actions + 3 Zeus + 2 idles), ids in jobs_r4.json (private).

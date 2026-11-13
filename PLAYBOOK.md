@@ -113,8 +113,9 @@ Copyright refusal of the prompt (trademarked names like "Mjolnir") is not charge
 ```
 Fixed camera, the flat gray background stays exactly the same color and brightness the whole time, no camera movement, no camera shake, no zoom.
 <Short visual description of the god> keeps the same size (never steps toward or away from the camera) and faces the viewer most of the time;
-the whole body moves: <2-3 body moves: steps / turns / crouches / hop>. The whole body, the raised hand and the weapon stay inside the
-frame all the time: a raised hand goes no higher than the top of <the weapon / the head>, a hop is small. <Skill name / "Basic attack" / "Idle">.
+the whole body moves: <2-3 body moves: small side steps / hip and torso turns / crouch / kneel>. Everything stays inside the frame all
+the time: no jumps, no floating, no spinning around, steps only to the side and never toward the camera; the feet, the head, the hands
+and the weapon never leave the frame; a raised hand goes no higher than <the head>. <Skill name / "Basic attack" / "Idle">.
 <Weapon rule for this god>. <Timeline: what happens in the first third of a second / first second, the release, the recovery>.
 Then <effect> fades and <he/she> returns to the starting pose.
 No arc-shaped or crescent light trails, no sweeping slashes, no circles or rings anywhere, nothing glows on the ground.
@@ -128,17 +129,18 @@ edges of the frame. Nothing is aimed flat horizontally into the left or right ed
 
 **Motion rules for prompts:**
 - **The WHOLE body moves in every clip** (Maxim 13.11 15:34: "only the arm bends, the rest is a static picture — bad"):
-  legs step and the feet move, hips and torso turn, knees bend, crouch, short hop or a little float in the air, a turn or a
-  spin with the feet stepping — all allowed and wanted. Name 2-3 body moves in every action prompt, not only the arm/weapon.
-  Feet glued to one spot for the whole clip = defect (G1.10). Not everyone must jump or spin — vary the ideas per god.
-- Never a figurine on a turntable (the body rotates while the feet stay glued). Turning and spinning are allowed when the feet
-  step with the turn ("steps and turns around once on the spot"). Back to the viewer only for a moment.
+  legs step and the feet move, hips and torso turn, knees bend, crouch, kneel — wanted. Name 2-3 body moves in every action
+  prompt, not only the arm/weapon. Feet glued to one spot for the whole clip = defect (G1.10). [13.11 ~16:50, tight canvas kept:
+  in ACTION clips NO hops, NO floating, NO spinning around — they took tails, bows, capes and heads out of the frame for 0.5-2 s.
+  Maxim allows them in principle; on the tight canvas they do not fit.]
+- Never a figurine on a turntable (the body rotates while the feet stay glued). Turns of hips/torso with stepping feet; a full spin
+  only in an idle and only if nothing leaves the frame. Back to the viewer only for a moment.
 - Same size all the time: no step or lunge toward/away from the camera (the god must not become a giant when leaping to the
-  enemies). Steps to the side, turns, crouches, small hops are fine — they do not change the size.
+  enemies). Steps to the side, turns, crouches are fine — they do not change the size.
 - **Timing:** wind-up SHORT — basic: first third of a second; super/ult: first second; then a long relaxed recovery.
 - **Melee (tight canvas): the weapon moves only vertically** — "raises the <weapon> straight up above the head, then chops straight
   down in front of the centre of the body like chopping wood" or "thrusts straight up". Never "slash/swing/cross slash/sweep".
-  The BODY still moves with the blow: a step to the side, the hips turn, the knees bend, a small hop into the chop.
+  The BODY still moves with the blow: a step to the side, the hips turn, the knees bend into the chop.
 - **Weapon never at full arm's length** to the side or above the head; a staff at most a little above the head; or kneel.
   Staffs/torches: "the staff stays upright the whole time, never tilts, swings or lies horizontally".
 - **Aim direction is free** (Maxim 13.11 15:34, replaces "never aim sideways / aim up"): the god also stands at the top of the
@@ -274,11 +276,15 @@ Overrides `work/impact_overrides.json` per clip:
   `adapted_all_metrics.json` also holds fresh unreviewed cuts and must never feed the site (13.11 v22 bug: Kitsune/Artemis/
   Zeus/Demeter sheets were declared with the new sizes while the old files were served — fixed in v23). `b3/sizecheck.py`
   (declared frame size × 5 = real file size for every sheet of the redone gods) runs before every commit and stops on a mismatch.
-  By hand, the steps are:
-Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild the manifest
-  (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`), bump `?v=` in index.html,
-  check every new sheet is referenced by the manifest and every reference exists, commit (not the root `gods-data.js`,
-  no tokens/urls), push, verify the live site serves the new `?v=` and loads without errors.
+  pub1 refuses before writing anything when a clip has no v21 metrics, no sheet, is a take/rejected, or its god is not in
+  kling_done; on a later failure it restores kling_done / metrics_pub / the repo tree. It commits only assets, index.html,
+  pipeline, PLAYBOOK.md, app.js; scans the staged diff for secret-like content; waits until the live site serves the new `?v=`.
+  By hand (only if pub1 cannot be used), the steps are: copy sheets (no `*take*`, `*rejected*`, no extra underscores); copy the
+  clip's metrics from `adapted_all_metrics.json` into `metrics_pub.json`; rebuild the manifest
+  (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`); run `b3/sizecheck.py` (every manifest
+  `src` exists and its size = sheetW×sheetH, incl. v20 packs and static refs); bump `?v=` in index.html; commit (not the root
+  `gods-data.js`, no tokens/urls); push; verify the live site serves the new `?v=` and loads without errors.
+- "вчера" for a clip published for the first time after v20 shows the old reference/static sheet (builder `FIRST` set).
 
 ## 10. Step H — fresh-eyes check and report
 
@@ -289,7 +295,14 @@ Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild 
 - Report to Maxim (Russian, short): what is published; per god what changed; WATCH list (clips you are not sure about, why);
   exceeded limits with numbers; what needs his decision; what is NOT done yet. Never hide an unfinished item.
 
-## 11. Current state (13.11.2026, site v21) — open work
+## 11. Current state (13.11.2026, site v23+) — open work
+
+**v22-v23 (13.11 afternoon):** Athena BT idle R2 published (+ BT actions re-cut to its height). v22 built the site from fresh
+UNPUBLISHED cuts (Kitsune/Artemis/Zeus/Demeter declared new sizes on old files) → v23 builds from `work/metrics_pub.json` only,
+`b3/sizecheck.py` gate, pub1 hardened (pipefail, prechecks, restore, live-version wait). Old defect found: Agni TI atk and Indra
+BT hyp/sup, TI idle/sup — metrics never matched the served files (since v20); w/h corrected in metrics_pub and metrics_v20, but
+fig/wf/rel/kb of these 5 are still from another cut → re-cut and publish them together when these gods are redone (D15).
+R2 actions 16/16 + Zeus retakes 3/3 rejected (edges, aim, glow); Maxim kept the tight canvas → R3 compact prompts sent (21 jobs).
 
 **Done in v21 (gods 1-5: Kitsune, Athena, Artemis, Zeus, Demeter — all 40 sheets re-cut with adapter v21):** D14 height bug found
 in the manifest (the body ratio was applied twice → new gods ~1/ratio taller): fixed, `hcmp.py` shows equal heights. Bodies of
@@ -404,3 +417,12 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
   a second is NOT allowed — G1.4 tightened from ~0.3 s to ≤ ~0.2 s, template line "raised hand no higher than the top of the
   weapon / head, a hop is small". Cause: the tight canvas has little headroom and the R2 prompts asked for hops / raised arms
   without a height limit.
+- 13.11 (~16:50) After 16/16 R2 actions and 3/3 Zeus retakes were rejected (edge exits of tails/bow/fan/flame/cape for 0.5-2 s,
+  Artemis arm stretched and aiming ~flat right, rings/crescents/lens flares/body glow, background tint) Maxim chose: KEEP the
+  tight canvas (L3), make the moves compact. Rule for ACTION clips (idles keep their own rules): steps only to the side and small,
+  crouch / kneel, torso and hip turns; NO jumps, NO floating, NO spinning around; never a step toward the camera; tails, cape,
+  sleeves stay folded close to the body; the weapon stays close (bow tilted ~45° up in front of the chest, elbows tucked,
+  half draw; staff exactly vertical); baked effects are SMALL and leave or fade at once near the weapon (no columns, beams or
+  bolts lingering at an edge) — the game effect continues from wf; light only on the effect, never on the face/body/background.
+  Template sentence: "Everything stays inside the frame all the time: no jumps, no floating, no spinning around, steps only to
+  the side and never toward the camera; the feet, the head, the hands and the weapon never leave the frame."

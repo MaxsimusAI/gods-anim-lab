@@ -1,11 +1,37 @@
 #!/bin/bash
 # pub1.sh "<message>" clip [clip...] : publish ONE or a few reviewed clips to the stand right away (flow, PLAYBOOK §5/§9).
 # The site manifest is built from work/metrics_pub.json (published cuts), never from fresh unreviewed cuts.
-# Serialized with a lock (never two publishes at once). Bumps the sheet version, copies only these sheets, rebuilds the manifest,
-# syncs pipeline files, commits and pushes. Prints nothing secret.
-set -e
+# Serialized with a lock (never two publishes at once). Checks everything BEFORE writing; on any later failure it restores
+# kling_done.json, metrics_pub.json and the repo working tree. Bumps the sheet version, copies only these sheets, rebuilds the
+# manifest, runs sizecheck, syncs pipeline files, commits only known paths, scans the staged diff for secrets, pushes and
+# waits until the live site serves the new ?v=. Prints nothing secret.
+set -eo pipefail
 exec 9>/tmp/gods-pub.lock; flock 9
-MSG="$1"; shift; K=/home/claude/kl; R=/home/claude/gods-anim-lab
+MSG="$1"; shift; K=/home/claude/kl; R=/home/claude/gods-anim-lab; W=$K/work/gods-anim-lab-repo/assets/sheets
+[ $# -ge 1 ] || { echo "usage: pub1.sh \"msg\" clip..."; exit 1; }
+
+# 1. checks before any write
+python3 - "$@" <<PY
+import json,os,sys
+A=json.load(open('$K/work/adapted_all_metrics.json')); G=json.load(open('$K/work/kling_done.json'))['gods']; bad=[]
+for c in sys.argv[1:]:
+    s=c.replace('_','-')
+    if 'take' in c or 'rejected' in c: bad.append(c+': take/rejected')
+    if c not in A: bad.append(c+': no metrics (not cut)')
+    elif A[c].get('v')!=21: bad.append(c+': metrics not v21')
+    if c.split('_')[0] not in G: bad.append(c+': god not in kling_done (would not show)')
+    for t in ('mob','lite'):
+        if not os.path.exists(f'$W/{s}-{t}.webp'): bad.append(f'{c}: no {t} sheet')
+if bad: print('REFUSED:', '; '.join(bad)); sys.exit(1)
+PY
+[ -z "$(git -C $R status --porcelain -- assets index.html)" ] || { echo "REFUSED: uncommitted changes under assets/ or index.html"; exit 1; }
+
+# 2. backups + restore on failure
+B=$(mktemp -d); cp $K/work/kling_done.json $K/work/metrics_pub.json $B/
+restore() { cp $B/kling_done.json $B/metrics_pub.json $K/work/; git -C $R checkout -q -- assets index.html pipeline 2>/dev/null || true
+            git -C $R clean -qfd -- assets/sheets 2>/dev/null || true; echo "FAILED - restored, nothing published"; }
+trap restore ERR
+
 V=$(python3 - <<PY
 import json; p='$K/work/kling_done.json'; d=json.load(open(p)); d['ver']=int(d['ver'])+1
 json.dump(d,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=1); print(d['ver'])
@@ -24,7 +50,7 @@ if c not in M:
     old=json.loads(subprocess.run(['git','-C','$R','show','66ef083:pipeline/work/adapted_all_metrics.json'],capture_output=True,text=True).stdout)
     if c in old: M[c]=old[c]; json.dump(M,open(p,'w'),indent=1)
 PY
-  cp $K/work/gods-anim-lab-repo/assets/sheets/$s-mob.webp $K/work/gods-anim-lab-repo/assets/sheets/$s-lite.webp $R/assets/sheets/
+  cp $W/$s-mob.webp $W/$s-lite.webp $R/assets/sheets/
 done
 # the site is built from PUBLISHED cuts only: copy the metrics of exactly these clips into metrics_pub.json
 python3 - "$@" <<PY
@@ -34,18 +60,25 @@ for c in sys.argv[1:]: P[c]=A[c]
 json.dump(P,open(p,'w'),indent=1)
 PY
 cd $K && KL_HERE=$K/work KL_REPO=$R python3 tools/build_full_manifest.py | tail -1
-python3 $K/b3/sizecheck.py $R || { echo "SHEET SIZE MISMATCH - not committed"; exit 1; }
+python3 $K/b3/sizecheck.py $R
 sed -i -E "s/\?v=[0-9]+/?v=$V/g" $R/index.html
+for f in app.js assets/sim-core.js assets/fx2-stand.js assets/gods-data.js; do node -e "new Function(require('fs').readFileSync('$R/$f','utf8'))"; done
 cp $K/tools/adapt_batch.py $K/tools/build_full_manifest.py $R/pipeline/tools/
 cp $K/work/adapted_all_metrics.json $K/work/impact_overrides.json $K/work/kling_done.json $K/work/metrics_v20.json $K/work/metrics_pub.json $R/pipeline/work/
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 rm -f $R/pipeline/b3/up.sh.bak
 cd $R
-if git diff --cached --quiet && git status --porcelain | grep -qE "tok|urls|jobs_"; then echo "SECRET-LIKE FILE STAGED"; exit 1; fi
-git add -A
+git add -A -- assets index.html pipeline PLAYBOOK.md app.js
+if git diff --cached --name-only | grep -qiE "tok|urls|jobs_|secret|\.private|\.local"; then echo "SECRET-LIKE FILE STAGED"; false; fi
+if git diff --cached -U0 | grep -E '^\+' | grep -qiE "klingai\.com|kcdn|x-kcdn-pid|ticket=|access_token|privaterelay"; then echo "SECRET-LIKE CONTENT STAGED"; false; fi
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -q -m "v$V: $MSG
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
 Claude-Session: https://claude.ai/code/session_01TwtrTMgVuTY1biwfC6EyG2"
-git -c push.negotiate=true push -q origin HEAD 2>&1 | tail -1
-echo "published v$V: $*"
+trap - ERR
+git -c push.negotiate=true push -q origin HEAD || { echo "PUSH FAILED - committed locally as v$V, not live"; exit 1; }
+for i in $(seq 1 12); do
+  got=$(curl -s -m 20 "https://maxsimusai.github.io/gods-anim-lab/index.html?nc=$RANDOM$i" | grep -o '?v=[0-9]*' | head -1 || true)
+  [ "$got" = "?v=$V" ] && { echo "published v$V (live): $*"; exit 0; }; sleep 20
+done
+echo "pushed v$V but the live site still serves $got after 4 min - check GitHub Pages"; exit 1

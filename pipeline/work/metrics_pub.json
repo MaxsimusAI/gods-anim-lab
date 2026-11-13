@@ -5624,14 +5624,14 @@
    -0.62
   ],
   "wf": [
-   0.5,
+   0.508,
    0.416
   ],
-  "maxDiff": 21.71,
+  "maxDiff": 36.4,
   "fig": {
    "top": 0.0652,
    "foot": 0.9896,
-   "ax": 0.5
+   "ax": 0.5077
   },
   "defects": [],
   "crop": null,
@@ -5644,21 +5644,21 @@
    "key": "idle",
    "kb": 323.9,
    "ramMb": 3.93,
-   "kbPct": 75,
+   "kbPct": 73,
    "ramPct": 56
   },
   "mob": {
    "file": "artemis-bt-idle-mob.webp",
    "w": 108,
    "h": 214,
-   "kb": 242.4,
+   "kb": 237.7,
    "ramMb": 2.2
   },
   "lite": {
    "file": "artemis-bt-idle-lite.webp",
    "w": 76,
    "h": 150,
-   "kb": 131.0,
+   "kb": 128.7,
    "ramMb": 1.09
   }
  },
@@ -21964,42 +21964,42 @@
    -0.62
   ],
   "wf": [
-   0.533,
-   0.447
+   0.516,
+   0.446
   ],
-  "maxDiff": 39.28,
+  "maxDiff": 44.73,
   "fig": {
-   "top": 0.1128,
-   "foot": 0.992,
-   "ax": 0.5331
+   "top": 0.1146,
+   "foot": 0.9867,
+   "ax": 0.5157
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 76,
-  "bodyPx": 193,
-  "bodyPxF": 193.42,
+  "bodyPx": 192,
+  "bodyPxF": 191.86,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 445.3,
    "ramMb": 5.92,
-   "kbPct": 87,
-   "ramPct": 54
+   "kbPct": 83,
+   "ramPct": 59
   },
   "mob": {
    "file": "kitsune-bt-idle-mob.webp",
-   "w": 151,
+   "w": 167,
    "h": 220,
-   "kb": 387.8,
-   "ramMb": 3.17
+   "kb": 369.5,
+   "ramMb": 3.5
   },
   "lite": {
    "file": "kitsune-bt-idle-lite.webp",
-   "w": 106,
+   "w": 117,
    "h": 154,
-   "kb": 200.8,
-   "ramMb": 1.56
+   "kb": 191.2,
+   "ramMb": 1.72
   }
  },
  "kitsune_bt_sup": {

@@ -78,8 +78,8 @@
   function warmGodAssets(god) {
     if (!god) return;
     for (const tier of ['mob', 'lite']) {
-      for (const aKey of (state.ver === 'prev' ? ['live_bt', 'new_bt_prev', 'new_ti_prev'] : ['live_bt', 'new_bt', 'new_ti'])) {
-        const pack = god.arenas[aKey];
+      for (const aKey of ['live_bt', 'new_bt', 'new_ti']) {
+        const pack = packOf(god, aKey);   // "вчера" falls back to the current pack when a god has no yesterday sheet
         if (!pack || !pack.sheets) continue;
         for (const sl of ['idle', 'atk', 'sup', 'hyp']) {
           const sh = pack.sheets[sl] && pack.sheets[sl][tier];

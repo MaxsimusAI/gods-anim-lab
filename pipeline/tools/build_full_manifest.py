@@ -46,8 +46,12 @@ def _changed(k, v):   # the frozen sheet differs from the current one (by file b
         if not os.path.exists(b) or open(a, "rb").read() != open(b, "rb").read():
             return True
     return False
+_prev_all = set(prev_m)
 prev_m = {k: v for k, v in prev_m.items() if _changed(k, v)}
-PREV_GODS = sorted({k.split("_")[0] for k in prev_m})
+# clips published for the first time after v20 (no sheet "yesterday"): in "вчера" they show what the stand showed then
+# (the reference / static sheet), and their god counts as changed
+FIRST = {k for k in adapt_m if k.split("_")[0] in KLING["gods"] and k not in _prev_all and "take" not in k and "rejected" not in k} if _prev_all else set()
+PREV_GODS = sorted({k.split("_")[0] for k in prev_m} | {k.split("_")[0] for k in FIRST})
 
 EL_RU = {"light": "Свет", "fire": "Огонь", "water": "Вода", "earth": "Земля", "dark": "Тьма"}
 EL_ICON = {"light": "⚡", "fire": "🔥", "water": "💧", "earth": "🌿", "dark": "🌑"}
@@ -79,6 +83,8 @@ def head_aligned_fig(raw_fig, body_ratio):
 
 def pack_adapted_or_ref(cid, ref_key, body_ratio, prev=False):
     src_m, sub = (prev_m, PREV_DIR + "/") if (prev and cid in prev_m) else (adapt_m, "")
+    if prev and cid in FIRST:
+        src_m = {}   # no "yesterday" sheet: fall through to the reference sheet below
     if cid in src_m:
         c = src_m[cid]
         # 13.11 (D14): the adapter already stores the HUMAN crown in fig.top (it applies the body ratio itself). Applying the

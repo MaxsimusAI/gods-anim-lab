@@ -5624,42 +5624,42 @@
       -0.62
     ],
     "wf": [
-      0.51,
-      0.415
+      0.508,
+      0.416
     ],
-    "maxDiff": 35.9,
+    "maxDiff": 36.4,
     "fig": {
-      "top": 0.0627,
+      "top": 0.0652,
       "foot": 0.9896,
-      "ax": 0.5101
+      "ax": 0.5077
     },
     "defects": [],
     "crop": null,
     "ho": null,
     "q": 76,
     "bodyPx": 198,
-    "bodyPxF": 198.36,
+    "bodyPxF": 197.82,
     "v": 21,
     "live": {
       "key": "idle",
       "kb": 323.9,
       "ramMb": 3.93,
-      "kbPct": 74,
-      "ramPct": 58
+      "kbPct": 73,
+      "ramPct": 56
     },
     "mob": {
       "file": "artemis-bt-idle-mob.webp",
-      "w": 111,
+      "w": 108,
       "h": 214,
-      "kb": 239.4,
-      "ramMb": 2.27
+      "kb": 237.7,
+      "ramMb": 2.2
     },
     "lite": {
       "file": "artemis-bt-idle-lite.webp",
-      "w": 78,
+      "w": 76,
       "h": 150,
-      "kb": 129.8,
-      "ramMb": 1.12
+      "kb": 128.7,
+      "ramMb": 1.09
     }
   },
   "artemis_bt_sup": {
@@ -21931,42 +21931,42 @@
       -0.62
     ],
     "wf": [
-      0.551,
-      0.45
+      0.516,
+      0.446
     ],
-    "maxDiff": 46.85,
+    "maxDiff": 44.73,
     "fig": {
-      "top": 0.1175,
-      "foot": 0.992,
-      "ax": 0.5509
+      "top": 0.1146,
+      "foot": 0.9867,
+      "ax": 0.5157
     },
     "defects": [],
     "crop": null,
     "ho": null,
     "q": 76,
     "bodyPx": 192,
-    "bodyPxF": 192.39,
+    "bodyPxF": 191.86,
     "v": 21,
     "live": {
       "key": "idle",
       "kb": 445.3,
       "ramMb": 5.92,
-      "kbPct": 87,
-      "ramPct": 55
+      "kbPct": 83,
+      "ramPct": 59
     },
     "mob": {
       "file": "kitsune-bt-idle-mob.webp",
-      "w": 155,
+      "w": 167,
       "h": 220,
-      "kb": 386.7,
-      "ramMb": 3.25
+      "kb": 369.5,
+      "ramMb": 3.5
     },
     "lite": {
       "file": "kitsune-bt-idle-lite.webp",
-      "w": 108,
+      "w": 117,
       "h": 154,
-      "kb": 201.4,
-      "ramMb": 1.59
+      "kb": 191.2,
+      "ramMb": 1.72
     }
   },
   "kitsune_bt_sup": {
