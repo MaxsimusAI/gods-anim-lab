@@ -90,7 +90,7 @@ if [ "${N:-0}" != "0" ]; then echo "SECRET-LIKE CONTENT STAGED ($N lines)"; fals
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -q -m "v$V: $MSG
 
 Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01TwtrTMgVuTY1biwfC6EyG2"
+Claude-Session: https://claude.ai/code/session_01TwtrTNviSUXmZDB6NkZCAw"
 trap - ERR INT TERM HUP
 git -c push.negotiate=true push -q origin HEAD || { echo "PUSH FAILED - committed locally as v$V, not live"; exit 1; }
 for i in $(seq 1 8); do
