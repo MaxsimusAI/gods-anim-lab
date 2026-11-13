@@ -21036,25 +21036,25 @@
  },
  "kitsune_bt_hyp": {
   "id": "kitsune_bt_hyp",
-  "srcRes": "304x420",
+  "srcRes": "812x1120",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 9,
   "rel": 0.375,
   "wpt": [
-   -0.252,
-   -1.065
+   -0.253,
+   -1.052
   ],
   "wf": [
    0.27,
    0.08
   ],
-  "maxDiff": 48.4,
+  "maxDiff": 54.83,
   "fig": {
-   "top": 0.1359,
-   "foot": 0.9922,
-   "ax": 0.5663
+   "top": 0.125,
+   "foot": 0.9911,
+   "ax": 0.567
   },
   "defects": [
    "raw_edge_clip"
@@ -21064,92 +21064,93 @@
    "top": [
     [
      9,
-     0.251,
-     0.7
+     0.254,
+     0.74
     ],
     [
      10,
-     0.247,
-     0.89
+     0.256,
+     0.81
     ],
     [
      11,
-     0.247,
-     0.95
+     0.244,
+     0.84
     ],
     [
      12,
-     0.226,
-     0.58
+     0.222,
+     0.53
     ],
     [
      13,
-     0.238,
-     0.6
+     0.245,
+     0.5
     ],
     [
      14,
      0.247,
-     0.63
+     0.56
     ],
     [
      15,
-     0.244,
-     0.58
+     0.242,
+     0.54
     ],
     [
      16,
-     0.238,
-     0.53
+     0.244,
+     0.56
     ],
     [
      17,
-     0.241,
-     0.5
+     0.245,
+     0.54
     ],
     [
      18,
-     0.251,
-     0.38
+     0.248,
+     0.49
     ],
     [
      19,
-     0.259,
-     0.27
+     0.254,
+     0.4
     ],
     [
      20,
-     0.267,
-     0.16
+     0.271,
+     0.25
     ]
    ],
-   "col": "#85ccff"
+   "col": "#91cfff"
   },
-  "q": 58,
-  "bodyPx": 188,
-  "bodyPxF": 188.39,
+  "q": 62,
+  "bodyPx": 191,
+  "bodyPxF": 190.54,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 83,
-   "ramPct": 103
+   "kbPct": 114,
+   "ramPct": 104
   },
   "mob": {
    "file": "kitsune-bt-hyp-mob.webp",
-   "w": 160,
+   "w": 162,
    "h": 220,
-   "kb": 233.1,
-   "ramMb": 3.36
+   "kb": 321.6,
+   "ramMb": 3.4
   },
   "lite": {
    "file": "kitsune-bt-hyp-lite.webp",
-   "w": 112,
+   "w": 113,
    "h": 154,
-   "kb": 138.7,
-   "ramMb": 1.64
-  }
+   "kb": 177.3,
+   "ramMb": 1.66
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_bt_idle": {
   "id": "kitsune_bt_idle",
@@ -21194,25 +21195,25 @@
  },
  "kitsune_bt_sup": {
   "id": "kitsune_bt_sup",
-  "srcRes": "304x420",
+  "srcRes": "812x1120",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 9,
   "rel": 0.375,
   "wpt": [
-   0.003,
-   -1.167
+   -0.019,
+   -1.17
   ],
   "wf": [
    0.5,
    0.04
   ],
-  "maxDiff": 66.31,
+  "maxDiff": 72.85,
   "fig": {
-   "top": 0.1736,
-   "foot": 0.9756,
-   "ax": 0.4967
+   "top": 0.1755,
+   "foot": 0.9735,
+   "ax": 0.5203
   },
   "defects": [
    "raw_edge_clip"
@@ -21222,136 +21223,155 @@
    "top": [
     [
      10,
-     0.433,
-     0.36
+     0.497,
+     1.0
     ],
     [
      11,
-     0.479,
-     0.41
+     0.476,
+     0.59
     ],
     [
      12,
-     0.492,
-     0.54
+     0.491,
+     0.59
     ],
     [
      13,
-     0.509,
-     0.21
+     0.511,
+     0.7
     ],
     [
      14,
-     0.497,
-     0.3
+     0.502,
+     0.42
     ],
     [
      15,
-     0.506,
-     0.17
+     0.511,
+     0.38
     ]
    ],
-   "col": "#5dfff9"
+   "col": "#6dfffb"
   },
-  "q": 58,
+  "q": 66,
   "bodyPx": 176,
-  "bodyPxF": 176.44,
+  "bodyPxF": 175.56,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 69,
+   "kbPct": 115,
    "ramPct": 105
   },
   "mob": {
    "file": "kitsune-bt-sup-mob.webp",
    "w": 163,
    "h": 220,
-   "kb": 194.1,
+   "kb": 337.0,
    "ramMb": 3.42
   },
   "lite": {
    "file": "kitsune-bt-sup-lite.webp",
    "w": 114,
    "h": 154,
-   "kb": 113.1,
+   "kb": 184.0,
    "ramMb": 1.67
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + hue to sky blue (hue_fix.py)"
  },
  "kitsune_ti_atk": {
   "id": "kitsune_ti_atk",
-  "srcRes": "290x420",
+  "srcRes": "804x1164",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 5,
   "rel": 0.208,
   "wpt": [
-   0.215,
-   -0.74
+   0.213,
+   -0.731
   ],
   "wf": [
    0.78,
    0.36
   ],
-  "maxDiff": 39.97,
+  "maxDiff": 40.36,
   "fig": {
-   "top": 0.1382,
-   "foot": 0.9923,
-   "ax": 0.5216
+   "top": 0.1272,
+   "foot": 0.9916,
+   "ax": 0.5234
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": {
+   "top": [
+    [
+     17,
+     0.228,
+     0.09
+    ],
+    [
+     21,
+     0.377,
+     0.07
+    ]
+   ],
    "left": [
     [
      14,
-     0.19,
-     0.15
+     0.185,
+     0.14
     ]
    ],
    "right": [
     [
      5,
-     0.345,
-     0.41
+     0.338,
+     0.48
     ],
     [
      6,
-     0.327,
-     0.15
+     0.32,
+     0.18
+    ],
+    [
+     7,
+     0.289,
+     0.07
     ]
    ],
-   "col": "#82c9ff"
+   "col": "#82c8ff"
   },
-  "q": 70,
-  "bodyPx": 188,
-  "bodyPxF": 187.9,
+  "q": 81,
+  "bodyPx": 190,
+  "bodyPxF": 190.17,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 90,
-   "ramPct": 100
+   "kbPct": 118,
+   "ramPct": 101
   },
   "mob": {
    "file": "kitsune-ti-atk-mob.webp",
-   "w": 156,
+   "w": 158,
    "h": 220,
-   "kb": 253.4,
-   "ramMb": 3.27
+   "kb": 332.8,
+   "ramMb": 3.31
   },
   "lite": {
    "file": "kitsune-ti-atk-lite.webp",
-   "w": 109,
+   "w": 111,
    "h": 154,
-   "kb": 150.7,
-   "ramMb": 1.6
-  }
+   "kb": 183.4,
+   "ramMb": 1.63
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_ti_hyp": {
   "id": "kitsune_ti_hyp",
