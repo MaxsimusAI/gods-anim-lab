@@ -4,25 +4,28 @@ Site: https://maxsimusai.github.io/gods-anim-lab/ (v26, 13.11.2026). Rules: skil
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
+## Done 13.11 evening (site v27-v28, no credits)
+
+The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\kling\kitsune\v2\`, `…\scratch\kling\athena\`,
+`Kling тест\workspace\mp4-s-z.tar`) and matched to the v20 sheets frame by frame. Nine takes were re-cut whole with
+`{"fit": true}` (same 25 moments; a fresh-eyes reviewer compared all frames; figure 196-215 px instead of 130-160):
+- now «сейчас» (protected, he preferred them): Kitsune BT atk (208 px), Kitsune TI hyp (196), Athena sup BT (215) and TI (199),
+  Zeus sup BT (205) and TI (197). The 13.11 takes of these slots left the site; «вчера» shows the soft 12.11 sheet.
+- under «вчера» (13.11 take stays «сейчас», he picks by looking): Kitsune TI atk (206), BT sup (197, fire hue shifted to
+  sky blue as on 12.11), BT hyp (210).
+- Memory above live: Kitsune BT atk 110 %, BT sup 105 %, BT hyp 103 %, Athena sup BT 114 %, TI 111 %, Zeus TI sup 121 %
+  (file size 75-96 % of live). Game effects unchanged; origins `wf` set by eye.
+
 ## Next step
 
-1. **Find the 12.11 source videos of gods 1-5** (no credits): the tars in Maxim's `Kling тест\workspace` (`mp4-*.tar`),
-   `b3/prev/<clip>.v20.mp4` of the 13.11 workspace, the scratch folder of the 12.11 chat on his computer
-   (`…\scratch\kling\<god>\v2\`, files like `kitsune_bt_atk_r5.mp4` and `jobs_v2.json` with the Kling generation ids),
-   then the Kling task history by those ids. Folder access on his computer needs his word.
-2. **Re-cut the 12.11 takes named in the table below as large as they fit the frame** (the "fits at" numbers in the cells)
-   and put them on the stand. Where Maxim already preferred the 12.11 take (Kitsune BT atk, Kitsune TI hyp, Athena sup) it
-   becomes «сейчас» at once — the soft 12.11 sheet stays under «вчера» for comparison, the 13.11 take he rejected leaves
-   the site — and he is asked only whether it is sharp enough. For the other re-cut takes the 13.11 take stays «сейчас»
-   and the re-cut 12.11 take goes under «вчера»: he picks per clip by looking (skill P7). A take not found → keep the published sheet, tell him;
-   re-shooting it needs his word. The cutter needs one small change first (`TOOLS.md`, "Protected takes"): today it crops an
-   action around the body when it does not fit at the idle's scale.
-3. **New clips, ONE god at a time** — only the clips marked `re-shoot (…)` below: Kitsune, Athena, then Artemis, Zeus,
+1. Maxim looks at Kitsune, Athena, Zeus on the stand: are the re-cuts sharp enough; which take to keep in the three
+   «вчера / сейчас» pairs; proposal 1 of the skill only after that.
+2. **New clips, ONE god at a time** — only the clips marked `re-shoot (…)` below: Kitsune, Athena, then Artemis, Zeus,
    Demeter. Idea lines to Maxim first (skill, section 5 step 4). No credits on the next god before he has answered on the
    previous one (skill, section 1). Pilot rule promised to Maxim (report of 13.11): if he accepts fewer than two thirds of
    the new clips of Kitsune and Athena at first showing — stop and correct section 7 of the skill with his «да»; no new bans.
-4. Then the other gods, those with open remarks first. For every clip in the list "Other gods" check that the sheet on the
-   site is still the take Maxim saw on that date before calling it protected.
+3. Then the other gods, those with open remarks first. For every clip in the list "Other gods" check that the sheet on the
+   site is still the take Maxim saw on that date before calling it protected; soft strikes are re-cut the same way.
 
 ## Gods 1-5 — per slot
 
