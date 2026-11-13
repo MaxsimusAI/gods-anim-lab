@@ -46,12 +46,20 @@ idea: shield brought to the centre and presented, rays come out of it
 remarks:
   - 12.11 «не совсем в центре идёт, и настолько яркие вспышки лучше не делать… лучи дёшево выглядят, камушки под ногами дёшево» (game effect — open)
   - 13.11 «щит сдвигает как бы к центру, из него выходят лучи. Окей, это круто»
+  - 13.11 20:48 Maxim's idea for the ult: Medusa on the shield in the clip, nothing from her eyes, then no game Medusa picture.
+    This take is protected: a new BT take with Medusa is shot only on his word and then goes under the switch next to it
 ```
 
 ```
 clip: athena_ti_hyp
 status: re-shoot (Maxim named it)
+type: ranged (petrify all enemies)
+idea (13.11 evening, to Maxim before credits): the BT idea he called «круто» — the shield brought to the centre and presented —
+  plus his own idea: Medusa's face appears ON the shield face and glows green-gold; nothing shoots from her eyes toward the
+  viewer. Legs: a step of the shield-side foot to the centre and a slight crouch, weight back on the recovery
+game_fx: the enemies turn to stone; the game no longer draws its translucent Medusa picture once the clip carries it
 remarks:
+  - 13.11 20:48 «прям на щите вот появилась медуза… не надо, чтобы у нее из глаз что-то стреляло»
   - 13.11 «у аниме версии какое-то нереальное дергание… Почему у аниме версии какое-то непонятное дергание есть?»
 note: the jerk meter of `sheet_motion.py` did NOT flag this sheet (1.4) — jerks are judged by eye at game speed
 ```

@@ -6,7 +6,7 @@ IDEA. Recipes and questions — never bans on a means.
 ## Checks
 
 One question per thing Maxim saw; "yes" always means the defect is there. The fresh-eyes reviewer asks 1-22 for every new
-clip of every god (skill, gate G2) and 23-32 on the stand (gate G4), and all of them for the published clips of a god when
+clip of every god (skill, gate G2) and 23-35 on the stand (gate G4), and all of them for the published clips of a god when
 his turn comes. In brackets: where and when he saw it.
 
 **Action clips**
@@ -48,6 +48,12 @@ his turn comes. In brackets: where and when he saw it.
 30. Is it unclear who does what to whom (leap / projectile / something flies to the allies)? (13.11)
 31. Does the new god differ in height from the live one, or one style from the other? (12.11, 13.11)
 32. Does anything on the stand cover the gods (health bars)? (12.11)
+33. Is a translucent copy of a god drawn — doubles, after-images, ghosts? (Kitsune super and ult, 13.11 «выглядит ужасно…
+    ни в каких героях не применять»)
+34. Does the game draw a line, beam or bloom that the clip does not have, before its projectiles fly? (Kitsune super, 13.11
+    «тонкая линия здесь не нужна»)
+35. Does the game draw a symbol (mask, Medusa, moon, ears of wheat, name glyph) that the clip could carry itself? Then the
+    symbol goes into the idea of the clip and the game stops drawing it once the clip has it. (13.11)
 
 ## Ideas Maxim proposed or praised
 
@@ -70,6 +76,9 @@ his turn comes. In brackets: where and when he saw it.
 | a staff goes at most a little above the head, or the god crouches with it | Inti | 12.11 |
 | bow held close to the body, the arm not stretched, slightly up to the side | archers | 13.11 |
 | turning, spinning, crouching, a little hop — when it suits the god | all | 13.11 |
+| the god's symbol appears in the clip itself instead of a game picture: Kitsune's fox mask in the ult; Medusa's face appears ON
+  Athena's shield in the ult (nothing shoots from its eyes toward the viewer); Artemis's moon above her; Demeter's ears of wheat
+  in her ult | Kitsune, Athena, Artemis, Demeter | 13.11 «встраивать прям в анимацию. И тогда программно их не надо уже показывать» |
 
 ## Phrases from prompts whose clips were accepted
 

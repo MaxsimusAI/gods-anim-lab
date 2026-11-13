@@ -1,6 +1,6 @@
 # State of the gods animation work
 
-Site: https://maxsimusai.github.io/gods-anim-lab/ (v26, 13.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
+Site: https://maxsimusai.github.io/gods-anim-lab/ (v29, 13.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
@@ -15,6 +15,18 @@ The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\k
   sky blue as on 12.11), BT hyp (210).
 - Memory above live: Kitsune BT atk 110 %, BT sup 105 %, BT hyp 103 %, Athena sup BT 114 %, TI 111 %, Zeus TI sup 121 %
   (file size 75-96 % of live). Game effects unchanged; origins `wf` set by eye.
+
+## Done 13.11 late evening (site v29, no credits) — Maxim's remarks of 20:48
+
+- Kitsune super, game effect: the line above the frame is gone, the fox-fires start at the tips of the tails.
+- Kitsune ult, game effect: the fires are born at the fan / hand point.
+- No translucent copy of any god on the new arenas (decoy doubles, after-images, the grey copy at home during a leap,
+  Raijin's "brother", Hades's and Wukong's doubles, the rising spectral copy).
+  The live arena is unchanged; the decoy mechanic is unchanged (only the picture).
+- Symbols the game draws that the clip could carry (PATTERNS check 35): Kitsune's mask (ult), Athena's Medusa (ult — on the
+  shield, nothing shoots from the eyes), Artemis's moon, Demeter's ears of wheat (ult). Each is put into the idea of the clip
+  when that clip is shot; the game symbol is removed only once the clip carries it. Protected takes are not re-shot for it
+  without his word.
 
 ## Next step
 
@@ -39,9 +51,9 @@ stores the strikes of these gods at 184-202 px; the 13.11 idles are 200-215 px.
 | clip | BT | TI | Maxim's words (date) / what to do |
 |---|---|---|---|
 | kitsune idle | published v24 — waits for his look (WATCH ~0.5 s almost still at the seam) | published — waits for his look | TI retake failed twice (glued feet) |
-| kitsune atk | 12.11 take **protected**, re-cut needed (fits at 207; was 154) | 12.11 take: re-cut (fits at 201; was 159), switch, waits for his look (his «окей, хоть какое-то движение есть» about the 13.11 take is not acceptance) | 13.11 about BT: «Во вчерашней версии она сильно двигалась… маску вперёд выставляла. И это окей, это нормально было»; the 13.11 take: «еле-еле рукой двигает и всё». TI 13.11 take: «хоть какое-то ещё движение есть» |
-| kitsune sup | 12.11 take (his own idea): re-cut (fits at 192; was 148), switch, waits for his look | re-shoot (a gate fails: the tails opened wider than the frame twice) — a new idea first | 12.11 idea: crouch, tails into one bundle, beam through the top, the game continues it — «офигенно». Game part "5 little balls" unclear — game effect open |
-| kitsune hyp | 12.11 take: re-cut (fits at 206; was 160), switch, waits for his look | 12.11 take **protected**, re-cut needed (fits at 193; was 158) | 13.11: TI «Лисья свадьба» yesterday «прикольно двигалась… ногу поднимала, и всё двигалось, всё тело»; the 13.11 takes: «ноги статичные, просто веером немножко машет», BT «ещё хуже» |
+| kitsune atk | 12.11 take **protected**, re-cut (208 px), «сейчас» — 13.11 20:48 «Титан-версия обычный удар окей» | 13.11 take «сейчас»: «аниме-версия плохо» (20:48, «это я новые еще смотрю»); 12.11 take re-cut (206) under «вчера» — waits for his look; if rejected too → re-shoot (Maxim named it) | 13.11 about BT: «Во вчерашней версии она сильно двигалась… маску вперёд выставляла. И это окей, это нормально было» |
+| kitsune sup | 12.11 take (his own idea): re-cut (197), under «вчера» next to the 13.11 take — waits for his look | re-shoot (a gate fails: the tails opened wider than the frame twice) — a new idea first | 12.11 idea «офигенно». Game effect: 13.11 20:48 «тонкая линия здесь не нужна», balls straight from the tail tips → done v29 |
+| kitsune hyp | 13.11 take «сейчас», 12.11 take re-cut (210) under «вчера»; 20:48 «Лисья свадьба в целом окей» — ask which of the pair | 12.11 take **protected**, re-cut (196), «сейчас»; 20:48 «в целом окей» | Game fires from the fan (v29). Mask: he would rather have it in the clip — re-shoot of a protected take only on his word |
 | athena idle | published v22 — waits for his look | re-shoot (a gate fails: glued feet, spear above the top — the reviewer of 13.11); Kling refused one retake | he has not spoken about it: name it to him before the re-shoot |
 | athena atk | re-shoot (Maxim named it) | re-shoot (Maxim named it); the site shows the 12.11 take | 12.11: lunge too abrupt, she grows and looks like a giant at the enemy; TI jerks. 13.11 BT: «прыгает рядом к врагу, всё статичное, только правая рука чуть-чуть вверх дёргается… и копьё загорается. Это не похоже вообще на удар» |
 | athena sup | 12.11 take **protected**, re-cut needed (fits at 211; was 159) | 12.11 take **protected**, re-cut needed (fits at 194; was 148) | 12.11: «Супер, прикольно, мне нравится, щит подсвечивается, кайфово выглядит» (his words name the super, not the style → both styles go under the switch). 13.11 re-shot → «какой-то луч непонятный… раньше из середины разбрасывала щиты на союзников, и это логично было». Game effect must start at the shield centre |

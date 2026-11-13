@@ -3452,6 +3452,8 @@ onHit: o.onEach ? (x, y) => o.onEach(x, y) : null
 });
 }
 after(u, o = {}) {
+if (BR.isProposed)
+return;   // 13.11 Maxim: translucent copies of a god look awful - never for any hero on the new arenas (the live arena stays as the game is)
 const F = this.st.frameOf(u);
 if (!F)
 return;
@@ -6968,6 +6970,8 @@ this.finHaze(hb.x, hb.top + hb.h, hb.w, hb.h, m);
 return { tA, tB, tC, k };
 }
 finGhost(t) {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const F = this.st.frameOf(t);
 if (!F)
 return;
@@ -8452,7 +8456,7 @@ g.drawImage(TX.get('flame', '#dff6ff', true), wx - 3.5, wy - 9, 7, 12);
 }
 g.restore();
 }
-else {
+else if (!BR.isProposed) {   // 13.11 Maxim: translucent copies of a god look awful - never on the new arenas, for any hero; the live arena keeps what the game draws
 const F = frameOf(v);
 if (!F)
 continue;
@@ -8702,6 +8706,8 @@ FinalFX.prototype.fieldSigil = function (glyph, o = {}) { NewFX.prototype.fieldS
 NewFX.prototype.legacyMove = function () { return false; };
 NewFX.prototype.hgRoll = function () { };
 FinalFX.prototype.finGhost = function (t, hb) {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const F = this.st.frameOf(t);
 if (!F)
 return;
@@ -12278,6 +12284,8 @@ g.stroke();
 };
 const H_CR = '#ff3b2f', H_FIRE = ['#fff0d8', '#ffb07a', '#ff5a2a', '#c8201a', '#5a0806'], H_VI = '#b06bff', H_VFIRE = ['#e8c0ff', '#c070ff', '#9040e0', '#5a1aa8', '#1a0630'];
 const kdDouble = (F, u, t, dur, o = {}) => {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const im = imOk('art/f0/' + u.id + '.webp');
 if (!im)
 return;
@@ -15737,6 +15745,8 @@ g.restore();
 F.at(out, () => o.onHit && o.onHit(to.x, to.y));
 });
 KE.double = (F, keys, o = {}) => {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const im = imOk('art/f0/wukong.webp');
 if (!im || !keys.length)
 return;
@@ -24763,6 +24773,8 @@ o.onHit(to.x, to.y);
 });
 };
 KW.ghost = (F, u, o = {}) => {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const im = imOk('art/f0/' + u.id + '.webp');
 if (!im)
 return;
@@ -31232,7 +31244,7 @@ g.restore();
 }
 });
 }
-function nfDecoyX(F, u, i) { const fr = F.st.frameOf(u), b = boxOf(u); const w = fr ? fr.w : b.w; return b.x + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * w * .46 * u.sc * (u.msc || 1); }
+function nfDecoyX(F, u, i) { const fr = F.st.frameOf(u), b = boxOf(u); const w = fr ? fr.w : b.w; return b.x + (i % 2 ? 1 : -1) * Math.ceil(i / 2) * w * (BR.isProposed ? .12 : .46) * u.sc * (u.msc || 1); }   // 13.11: no translucent doubles any more - the fox-fire burst stays close to her body
 function nfFoxDecoys(F) {
 nfEv(F, v => v.type === 'decoy').forEach(ev => { F.at(Math.max(0, ev.t - F.t) + .01, () => { const b = boxOf(ev.u); for (let i = 1; i <= (ev.n || 1); i++)
 F.at(i * .05, () => nfFoxBurst(F, nfDecoyX(F, ev.u, i), b.top + b.h * .45, 1.05, { leaf: true })); }); });
@@ -31325,11 +31337,11 @@ const P = nfPt(F, 's'), sides = [nfPt(F, 'a'), nfPt(F, 'r')];
 const fr0 = BR.isProposed && F.st.frameOf ? F.st.frameOf(F.st.focus) : null, A0 = fr0 && fr0.atk ? BR.animOf(BR.SHEETS_SUP, F.st.focus.gu) : null;
 const tp = A0 && A0.ho && A0.ho.top && A0.ho.top.length >= 3 ? A0.ho.top : null;
 if (tp) {
-const bx = fr0.x + fr0.w * tp.reduce((q, v) => q + v[1], 0) / tp.length, by0 = fr0.y + fr0.h * .07, by1 = fr0.y - Math.min(30, fr0.h * .3), O = { x: bx, y: by1 };
-F.beam(bx, by0, bx, by1, { col: '#6ec8ff', core: '#e8f8ff', w: 3, dur: .5, grow: .05 });
-F.flash(bx, by1, 8, '#7fd0ff', { dur: .2, k: .5 });
+// 13.11 Maxim: no thin line above the frame - the fox-fires fly straight from the tip of the tails (top of the sheet)
+const bx = fr0.x + fr0.w * tp.reduce((q, v) => q + v[1], 0) / tp.length, by0 = fr0.y + fr0.h * .05, O = { x: bx, y: by0 };
+F.flash(bx, by0, 8, '#7fd0ff', { dur: .2, k: .5 });
 for (let i = 0; i < 7; i++)
-F.at(i * .05, () => F.p({ x: bx + F.rnd(-2, 2), y: by1 + F.rnd(-2, 2), vx: F.rnd(-22, 22), vy: F.rnd(-30, -8), ay: -20, drag: 2, life: F.rnd(.25, .4), s0: F.rnd(5, 8), s1: 1.5, tex: nfTx.tongue(), ramp: NF_FOX, hot: true }));
+F.at(i * .05, () => F.p({ x: bx + F.rnd(-3, 3), y: by0 + F.rnd(-2, 2), vx: F.rnd(-22, 22), vy: F.rnd(-30, -8), ay: -20, drag: 2, life: F.rnd(.25, .4), s0: F.rnd(5, 8), s1: 1.5, tex: nfTx.tongue(), ramp: NF_FOX, hot: true }));
 e.targets.forEach(t => nfFoxShot(F, O, F.tc(t, .42), FLY_S + .01, { arc: -14, wob: 6, r: 10, ts: 1.15, ease: 'linear', onHit: (x, y) => nfFoxBurst(F, x, y, .9) }));
 return;
 }
@@ -31347,9 +31359,10 @@ for (let i = 0; i < N; i++) {
 if (BR.isProposed) {
 // 12.11 Maxim: the fox-fires must be born where the baked flame is (raised hand / top edge of the sheet), not at the chest
 const ang = Math.PI * (.12 + .76 * (i / (N - 1))), hp = F.wp('h');
-const rx = Math.min(20, b0.w * .3), ry = 12;
+// 13.11 Maxim (anime version): the fires must come out of the fan itself - born in a tight arc around the marked point
+const rx = Math.min(10, b0.w * .15), ry = 7;
 const x = hp.x + Math.cos(Math.PI - ang) * rx;
-const y = Math.min(hp.y, b0.top + 6) - 4 - Math.sin(ang) * ry;
+const y = hp.y - 2 - Math.sin(ang) * ry;
 L.push({ x, y, d: Math.max(.05, (rel || .6) - .22) + i * .02 });
 } else {
 const x = 22 + i * (LAY.W - 44) / (N - 1);
@@ -35980,6 +35993,8 @@ for (let i = 0; i < (o.leaves ?? 8); i++)
 F.at(F.rnd(0, dur * .6), () => F.p({ x: dir > 0 ? F.rnd(-10, 60) : F.rnd(LAY.W - 60, LAY.W + 10), y: y + F.rnd(-.5, .5) * H, vx: dir * F.rnd(380, 560), vy: F.rnd(-40, 30), drag: .6, life: F.rnd(.55, .8), s0: F.rnd(5, 8), s1: F.rnd(4, 6), tex: 'leaf', col: F.pick(['#6fbf5a', '#9fe08a', '#c8e8a0']), add: false, rot: F.rnd(0, 6), vr: F.rnd(-14, 14), sway: 6, sf: 7 }));
 },
 brother(F, u, dur, o = {}) {
+if (BR.isProposed)
+return;   // 13.11 Maxim: no translucent copies of a god on the new arenas, for any hero
 const st = F.st, col = o.col || '#7fe0a0';
 F.obj(dur, (g, a) => {
 const Fr = st.frameOf(u);

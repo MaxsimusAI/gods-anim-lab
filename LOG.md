@@ -67,3 +67,28 @@ See `remarks_ru.md` next to this file.
   bolts lingering at an edge) — the game effect continues from wf; light only on the effect, never on the face/body/background.
   Template sentence: "Everything stays inside the frame all the time: no jumps, no floating, no spinning around, steps only to
   the side and never toward the camera; the feet, the head, the hands and the weapon never leave the frame."
+
+## 13.11 evening (after the re-cuts of v27-v28)
+
+- 13.11 (20:48) Maxim on Kitsune: «Титан-версия обычный удар окей, аниме-версия плохо. Э, это я новые еще смотрю.»
+  «9 хвостов. Программные эффекты плохо, потому что появляется какая-то тонкая линия, и из тонкой линии летят вот шарики во
+  врагов. Хотя сразу из кончика хвоста как раз шарики и могут полететь. Тонкая линия здесь не нужна.»
+  «Лисья свадьба в целом окей. Не нравится только то, что наверное, у аниме-версии а, как будто не совсем из прямо веера
+  вылетает. Ну, хотя не уверен.»
+  «Вот это разделение у 9 хвостов. И, по-моему, еще у лисьей свадьбы есть, когда вот типа полупрозрачные копии у богов
+  появляются. Это выглядит ужасно. От этого надо отказаться и ни в каких героях не применять. Это не связано с анимациями,
+  это связано с программными эффектами.»
+  «когда у лисьей свадьбы… гиперудар применяется, появляется какая-то маска и еще название сверху… эту же маску мы можем
+  внутри анимации прям рисовать. И не надо ее делать программной, потому что программная хуже… То же самое у Афины…
+  полупрозрачная… картинка медузы появляется. Но если бы это было в виде анимации, э, прям на щите вот появилась медуза…
+  Просто ей сказать, что не надо, чтобы у нее из глаз что-то стреляло… у Артемиды Луна появляется над ней… у Диметры… у
+  гиперудара у нее остались старые колосья программного эффекта ржи, хотя они могли бы уже быть в анимации… Это надо в
+  правила записать. Там, где можно, какие-то вот наши простые символы, которые программные мы используем, или еще что-то,
+  встраивать прям в анимацию. И тогда программно их не надо уже показывать. Делать следующего бога.»
+  → CLIP: `cards/kitsune.md` (BT atk accepted; TI atk 13.11 take «плохо»; hyp «в целом окей»; super game effect; mask).
+  → Game effects fixed the same evening (site v29): the super's fox-fires start at the tips of the tails, no line above the
+  frame; the ult's fires are born at the fan / hand point; on the new arenas no translucent copy of any god is drawn any more
+  (decoy doubles, after-images, the grey copy left at home during a leap, Raijin's "brother",
+  Hades's and Wukong's doubles, the rising spectral copy); the live arena is unchanged.
+  → CHECK: `PATTERNS.md` 33-35. IDEA: symbols baked into the clip (Kitsune mask, Medusa on Athena's shield, Artemis's moon,
+  Demeter's ears of wheat). Rules: proposed as a skill update (two new lines, E2 and E3).
