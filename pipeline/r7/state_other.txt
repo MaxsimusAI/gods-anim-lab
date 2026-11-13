@@ -1,0 +1,35 @@
+| demeter hyp | published (same take as 12.11) — waits for his look; a 13.11 retake was rejected before publishing (the sickle vanishes) | published (same take as 12.11) — waits for his look; a 13.11 retake was rejected (the staff tilts) | not judged by Maxim yet |
+
+## Other gods — clips Maxim called fine (verify take, then protected); game effects stay open where noted
+
+- Heimdall: idle, atk, sup, hyp (13.11 04:00 «окей»). Game effects of sup/hyp «не вау».
+- Indra: idle, atk, sup, hyp (13.11 04:00 «окей… даже на удивление»). Strikes are stored at 141-159 px with an idle of 202 —
+  re-cut needed (soft), not a re-shoot.
+- Inti: idle, atk, sup, hyp (13.11 04:00). Game ball of atk «не очень»; hyp may be too bright — look in a fight.
+  TI sup is flagged "body still" by the meter — he accepted it, it stays.
+- Ra: idle; BT atk; hyp. sup «простоватая» → re-shoot (Maxim named it): needs magic. TI atk jerks → re-shoot. Game boat of hyp poor.
+- Erlang: idle; sup; hyp. atk: spear cut on the return → re-shoot. Game effect of sup starts at the neck/shoulder → fix.
+- Agni: BT atk; TI sup («из руки 3 огня» — flagged "body still" by the meter, he accepted it, it stays); hyp clip «кайфово».
+  BT sup ring flies off and is cut → re-shoot; TI atk flickers → re-shoot; idle: BT «вообще не двигается», TI «слишком
+  танцует»; game fire of hyp jerks.
+- Brynhild: idle; sup (12.11 «прикольно»); hyp. atk sluggish, leap not on the hit; TI sup things fly before the hand is raised.
+- Hou Yi: idle. atk/sup/hyp: bow not used, effect from emptiness, jerks → re-shoot (he may also do something other than shooting).
+- Van Helsing: BT hyp «более-менее» → waits for his look (lukewarm words are not acceptance). TI idle turns like a figurine (4th time) → re-shoot; shot effect; sup needs magic; unclear symbol.
+- Apollo: sup (12.11 «в целом неплохо»). Idle arm jerk, atk bow far to the side, hyp jerks and bursts to every edge → re-shoot.
+- Amaterasu: hyp («выход из грота окей»). Idle boring (only the head), atk/sup boring, no effects → re-shoot.
+  fixed code time (OLD_SIG 0.5 s snap, anticip squeeze). Convert every god to `F.newSheet` + `F.relDt` + `F.wp`.
+- T2 Melee leap with new sheets is enabled only for Brynhild; check Surt, Susanoo, Thor, Lu Bu, Ares and every melee god.
+- T4 Adapter budget: today it splits the god's TOTAL live weight over 4 sheets (shares 31/23/23/23 %) → sheets too small, blurry.
+  Change to a per-animation budget: each sheet ≈ its matching live sheet (soft), body at idle size (L4).
+- T3 Repo: 198 unused `ref-*` files (1.7 MB); stray `*_take1_rejected` entries in metrics; root `gods-data.js` is junk.
+
+**Maxim's open remarks (not done):**
+- Heimdall: super and ult game effects "not wow" — make them rich.
+- Ra: TI attack jerks; super too simple; ult game effect (boat) bad.
+- Brynhild: attack leap sluggish and not on the hit.
+- Inti: ult maybe too bright (check).
+- Van Helsing: super too simple, no magic (TI: only a blue glow at the hand); shot effect; bottle must look like a bottle.
+- Kitsune: anime super; "5 little balls" in BT; tails/fan exits. Athena: ult rays cheap, stones under feet.
+- Demeter, Hel supers: remarks of 12.11 (no link, yellow bits, effect from the feet) — verify fixed.
+- WATCH (best take kept, Maxim to look): Wukong TI atk (ring lines), Susanoo TI atk, Dracula TI atk (cape), Sting TI hyp (fire left),
+  Kali sup (BT+TI), Susanoo sup, Heracles BT hyp (lion hood over the face), Hecate BT idle, Lucifer BT hyp (rings), Loki TI hyp (ground ring).
