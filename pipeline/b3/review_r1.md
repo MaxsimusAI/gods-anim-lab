@@ -31,3 +31,11 @@ artemis_bt_hyp WATCH: kneel turns 3/4 (not back) in frames 1-3; bow upper limb a
 artemis_ti_atk WATCH: aims ~55 deg up-right; bow upper limb at the top edge ~0.5 s (frames 4-15); string + arrow trail form an "X" frames 12-15
 artemis_ti_sup WATCH: ~40 deg up-right, flattest of the six
 All 6: no sideways shot at allies anymore, no skips. Edge/X/angle -> Maxim decides together with the archer question (todo on the stand).
+
+## R2 (13.11 16:10) video gate, own look + legs/edges
+- zeus_bt_atk RETAKE: raised hand cut by the top edge ~0.75 s (Maxim 16:04, G1.4).
+- zeus_bt_hyp RETAKE: jump, head+fist out of the top ~0.6 s, size jump on landing (G1.4, G1.11).
+- zeus_ti_hyp RETAKE: jump, head out of the top ~0.6 s, back to viewer under a burst (G1.4, G1.1).
+- kitsune_ti_idle RETAKE #3: static again (feet 0.6 %, hips 1.7 %).
+- kitsune_bt_idle RETAKE: end freeze ~0.75 s (reviewer). artemis_bt_idle RETAKE: two ~0.4 s freezes (reviewer).
+- athena_ti_idle RETAKE: glued feet + mid freeze (reviewer). athena_bt_idle OK (reviewer).

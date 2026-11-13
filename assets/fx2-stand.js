@@ -4196,6 +4196,9 @@ return q != null ? r * q / .5 : r;
 relT(kind) { const S = this.sheetT && this.sheetT[kind]; return S ? S.t0 + S.dur * S.rel : (kind === 'atk' ? REL_MELEE : REL_SUP); },
 atRaw(dt, fn) { return Object.getPrototypeOf(this).at.call(this, dt, fn); },
 relDt(kind, def) { const S = this.sheetT && this.sheetT[kind]; return S ? Math.max(0, S.t0 + S.dur * S.rel - this.t) : def; },
+// 13.11 old/new switch: today(kind) = a new sheet that is NOT yesterday's copy. Effects changed during a redo pass are gated with
+// F.today(...) so that the "вчера" button shows yesterday's sheet WITH yesterday's effects (PLAYBOOK §8).
+today(kind, u = this.u) { const B = BR, L = kind === 'sup' ? B.SHEETS_SUP : kind === 'hyp' ? B.SHEETS_HYP : B.SHEETS_ATK, A = B.isProposed && u ? (B.animOf(L, u.gu || u) || {}) : {}; return !!(A.isNewSheet && !A.isPrevSheet); },
 newSheet(kind, u = this.u) { const B = BR, L = kind === 'sup' ? B.SHEETS_SUP : kind === 'hyp' ? B.SHEETS_HYP : B.SHEETS_ATK; return !!(B.isProposed && u && (B.animOf(L, u.gu || u) || {}).isNewSheet); },
 });
 function drawDome(S, g, u) {
@@ -15432,7 +15435,7 @@ const demeterShootNew = shootA({ col: '#d8f070', head: KE.grainHead(7), trailW: 
 SIG.demeter = {
 motif: 'leaf', glyph: 'ke1wheat', curseGlyph: 'ke1thorn',
 a: {
-shoot(F, e) { return (F.newSheet('atk', e.u) ? demeterShootNew : demeterShootOld).call(this, F, e); },
+shoot(F, e) { return (F.today('atk', e.u) ? demeterShootNew : demeterShootOld).call(this, F, e); },
 hit(F, e) {
 const p = F.tc(e.u, .45), f = F.feetOf(e.u);
 if (e.src === 'shot') {
@@ -15481,7 +15484,7 @@ F.sigil('ke1wheat', LAY.W / 2, LAY.py(150 + 80), 38, '#f0d070', { dur: .8, in: .
 const h0 = F.handle;
 F.handle = function (ev) { if (ev.type === 'drain')
 return KE.hunger(F, ev); return h0.call(this, ev); };
-const f0 = F.feetOf(F.u), from = F.newSheet('hyp') ? F.wp('h') : { x: f0.x, y: f0.y - f0.h * .25 };   // 13.11 v21: new sheets - from the glowing sheaf / staff gem (wf), old sheets unchanged
+const f0 = F.feetOf(F.u), from = F.today('hyp') ? F.wp('h') : { x: f0.x, y: f0.y - f0.h * .25 };   // 13.11 v21: new sheets - from the glowing sheaf / staff gem (wf), old sheets unchanged
 e.targets.forEach((t, i) => F.shot(from, F.tc(t, .45), FLY_S + i * .035, { arc: -34 + (i - 2) * 9, ease: 'ease-in', trail: false,
 head: g => { g.globalCompositeOperation = 'lighter'; g.drawImage(TX.get('glow', '#f0d070'), -9, -9, 18, 18); g.drawImage(TX.get('star4', '#fff6d0'), -4, -4, 8, 8); },
 emit: (F2, x, y) => { if (F.rng() < .85)

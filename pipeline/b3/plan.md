@@ -185,3 +185,7 @@ STATE: 25/26 R1 takes downloaded (artemis_ti_atk still RUNNING at Kling). Review
 STATE (~15:05): round 2 (prompts b3/p11.json): 7 submitted (kitsune_ti idle/atk, athena_bt idle/atk, demeter_bt_idle, zeus bt/ti hyp). Artemis: 'bird overhead' wording tested on 2 clips first (bt_atk, ti_hyp), other 4 after the check. dl1.sh keeps only the v20 take in prev -> round-1 takes of retaken clips are moved by hand to b3/prev/<clip>.r1.mp4 before download.
 STATE (~15:20): round 2: 9 downloaded+reviewed (review_r1.md); artemis bt_sup/bt_hyp/ti_atk/ti_sup r2 submitted. adapt_r1b running (10 clips).
 STATE (~15:50): ALL R1 clips on disk (26 + 17 round-2). Adapted v21: kitsune 8, athena 8, zeus 8, demeter 8, artemis idles. Left: artemis 6 actions (overrides set except bt_sup), wf for all actions (b3/wfview.py + b3/setwf.py), margins, stand, notes10, v21.
+R2 (15:45): 27 retakes p12.json, ids jobs_r2.json. 9 submitted.
+R2: 18/27 submitted.
+R2: ALL 27 submitted (jobs_r2.json); v21 takes saved as b3/prev/<clip>.v21.mp4; download with b3/dl2.sh
+r2b kitsune_ti_idle: AQ.. (2nd take, glued feet 0.6%)

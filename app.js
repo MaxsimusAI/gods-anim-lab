@@ -36,6 +36,7 @@
     elFilter: 'all',
     godId: 'kitsune',
     tier: 'mob',
+    ver: 'now',   // 13.11 Maxim: middle + right arenas switch between 'prev' (yesterday's sheets) and 'now'
     speed: 1,
     paused: false,
     activeSlot: 'idle',
@@ -77,7 +78,7 @@
   function warmGodAssets(god) {
     if (!god) return;
     for (const tier of ['mob', 'lite']) {
-      for (const aKey of ['live_bt', 'new_bt', 'new_ti']) {
+      for (const aKey of (state.ver === 'prev' ? ['live_bt', 'new_bt_prev', 'new_ti_prev'] : ['live_bt', 'new_bt', 'new_ti'])) {
         const pack = god.arenas[aKey];
         if (!pack || !pack.sheets) continue;
         for (const sl of ['idle', 'atk', 'sup', 'hyp']) {
@@ -93,6 +94,12 @@
     if (val >= 1e6) return (val / 1e6).toFixed(1).replace('.', ',') + 'M';
     if (val >= 1e3) return Math.round(val / 1e3) + 'K';
     return String(Math.round(val));
+  }
+
+  // the pack an arena shows: the left arena (live game) always one version; the proposed arenas follow state.ver
+  function packOf(god, key) {
+    if (state.ver === 'prev' && key !== 'live_bt' && god.arenas[key + '_prev']) return god.arenas[key + '_prev'];
+    return god.arenas[key];
   }
 
   function getSheetForSlot(arenaPack, slot) {
@@ -477,7 +484,7 @@
 
       grid.appendChild(card);
 
-      const T = SIM.buildArenaSheets(cfg.key, simMap, lite);
+      const T = SIM.buildArenaSheets(cfg.key, simMap, lite, state.ver);
       const battleAppEl = card.querySelector('.battle-app');
       const battleArenaEl = card.querySelector('.battle-arena');
       const fxDomEl = card.querySelector('.arena-fxdom');
@@ -601,7 +608,7 @@
       }
       clearFloatingDom(a);
       a.animClock = 0;
-      a.pack = god.arenas[a.key];
+      a.pack = packOf(god, a.key);
 
       const isHiddenLive = (a.key === 'live_bt' && !!god.isNewGod);
       a.newGodBannerEl.hidden = !isHiddenLive;
@@ -701,7 +708,7 @@
         a.tagEl.textContent = `⏳ Kling ещё не сделан · фигура ${sh.w}×${sh.h} px`;
         a.tagEl.classList.add('is-ref');
       } else {
-        a.tagEl.textContent = (a.key === 'live_bt' || a.id === 'live_bt' ? `В игре · ${sh.frames} кадров · ${sh.w}×${sh.h} px` : `🎬 Kling · ${sh.frames} кадров · ${sh.w}×${sh.h} px`);
+        a.tagEl.textContent = (a.key === 'live_bt' || a.id === 'live_bt' ? `В игре · ${sh.frames} кадров · ${sh.w}×${sh.h} px` : `🎬 ${state.ver === 'prev' && currentGod() && currentGod().hasPrev ? 'ВЧЕРА · ' : ''}Kling · ${sh.frames} кадров · ${sh.w}×${sh.h} px`);
         a.tagEl.classList.remove('is-ref');
       }
 
@@ -718,8 +725,8 @@
   function renderMetrics(god) {
     const sl = state.activeSlot || 'idle';
     const shLive = getSheetForSlot(god.arenas.live_bt, sl);
-    const shBt = getSheetForSlot(god.arenas.new_bt, sl);
-    const shTi = getSheetForSlot(god.arenas.new_ti, sl);
+    const shBt = getSheetForSlot(packOf(god, 'new_bt'), sl);
+    const shTi = getSheetForSlot(packOf(god, 'new_ti'), sl);
     const ceilTxt = state.tier === 'mob' ? '≤180×220' : '≤126×154';
 
     // 13.11 Maxim (playbook L1/D9): weight is compared PER ANIMATION - the sheet of this slot against the live sheet the game
@@ -904,6 +911,20 @@
         if (state.tier === btn.dataset.tier) return;
         state.tier = btn.dataset.tier;
         document.querySelectorAll('.seg-btn[data-tier]').forEach(b => b.classList.toggle('active', b.dataset.tier === state.tier));
+        buildArenasDom();
+        const g = currentGod();
+        mountGodIntoArenas(g);
+        renderMetrics(g);
+        updateArenaHeadersAndNotes(g, state.activeSlot);
+        if (state.activeSlot !== 'idle') triggerSkill(state.activeSlot, false);
+      });
+    });
+
+    document.querySelectorAll('.seg-btn[data-ver]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        if (state.ver === btn.dataset.ver) return;
+        state.ver = btn.dataset.ver;
+        document.querySelectorAll('.seg-btn[data-ver]').forEach(b => b.classList.toggle('active', b.dataset.ver === state.ver));
         buildArenasDom();
         const g = currentGod();
         mountGodIntoArenas(g);

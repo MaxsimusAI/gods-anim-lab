@@ -12160,7 +12160,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
   }
 
   // Build isolated sheet tables per arena ('live_bt', 'new_bt', 'new_ti')
-  function buildArenaSheets(mode, godDataMap, lite) {
+  function buildArenaSheets(mode, godDataMap, lite, ver) {
     const T = buildBaseTables();
     const suf = lite ? 'lite' : 'mob';
 
@@ -12212,7 +12212,8 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
     if (mode === 'new_bt' || mode === 'new_ti') {
       const gameKey = mode === 'new_bt' ? 'newBt' : 'newTi';
       for (const [gid, gdata] of Object.entries(godDataMap || {})) {
-        const pack = gdata && gdata[gameKey];
+        // 13.11 old/new switch: ver 'prev' = the sheets published before the current redo (if the god has them)
+        const pack = gdata && ((ver === 'prev' && gdata[gameKey + 'Prev']) || gdata[gameKey]);
         if (!pack || !pack.slots) continue;
         const idleSlot = pack.slots.idle;
         if (!idleSlot) continue;
@@ -12231,6 +12232,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
             dur: (idleSlot.frames || 1) > 1 ? 2.65 : 3.0,
             fig: idleFig,
             isNewSheet: (idleSlot.frames || 1) > 1,
+            isPrevSheet: ver === 'prev' && !!(gdata[gameKey + 'Prev']),
           }
         };
 
@@ -12262,6 +12264,7 @@ war:         { cols: 7, rows: 7, frames: 49, w: 448, h: 252, top: 0.179, foot: 0
             ho: isReal25 && sl.ho ? sl.ho : null,
           wf: isReal25 && sl.wf ? sl.wf : null,
             isNewSheet: isReal25,
+            isPrevSheet: ver === 'prev' && !!(gdata[gameKey + 'Prev']),   // 13.11: yesterday's sheet -> yesterday's effects (F.today)
           };
         }
         T.SHEETS_V2[gid] = v2Entry;

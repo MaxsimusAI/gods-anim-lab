@@ -22,6 +22,28 @@ KLING = json.load(open(os.path.join(HERE, "kling_done.json"), encoding="utf-8"))
 adapt_m = {k: v for k, v in adapt_m.items() if k.split("_")[0] in KLING["gods"]}   # Gemini clips are no longer shown as ready
 SHEET_VER = KLING["ver"]
 refs_m = json.load(open(os.path.join(HERE, "ref_sheets_metrics.json"), encoding="utf-8"))
+# 13.11 (Maxim 15:36): old/new switch in the proposed arenas. "Вчера" = the sheets published before the current redo pass
+# (frozen copies in assets/sheets/<PREV_DIR>/, their metrics in work/metrics_<PREV_DIR>.json). Only gods whose sheets changed
+# since then get a "prev" pack; for every other god "вчера" = "сейчас".
+PREV_DIR = "v20"
+_pm = os.path.join(HERE, f"metrics_{PREV_DIR}.json")
+_pd = os.path.join(REPO, "assets", "sheets", PREV_DIR)
+if os.path.isdir(_pd) and os.listdir(_pd) and not os.path.exists(_pm):
+    raise SystemExit(f"assets/sheets/{PREV_DIR}/ exists but work/metrics_{PREV_DIR}.json is missing - the old/new switch would silently go empty")
+prev_m = json.load(open(_pm, encoding="utf-8")) if os.path.exists(_pm) else {}
+def _changed(k, v):   # the frozen sheet differs from the current one (by file bytes, both tiers)
+    cur = adapt_m.get(k)
+    if not cur or "take" in k or "rejected" in k or k.split("_")[0] not in KLING["gods"]:
+        return False
+    for t in ("mob", "lite"):
+        a = os.path.join(_pd, v[t]["file"]); b = os.path.join(REPO, "assets", "sheets", cur[t]["file"])
+        if not os.path.exists(a):
+            return False
+        if not os.path.exists(b) or open(a, "rb").read() != open(b, "rb").read():
+            return True
+    return False
+prev_m = {k: v for k, v in prev_m.items() if _changed(k, v)}
+PREV_GODS = sorted({k.split("_")[0] for k in prev_m})
 
 EL_RU = {"light": "Свет", "fire": "Огонь", "water": "Вода", "earth": "Земля", "dark": "Тьма"}
 EL_ICON = {"light": "⚡", "fire": "🔥", "water": "💧", "earth": "🌿", "dark": "🌑"}
@@ -51,9 +73,10 @@ def head_aligned_fig(raw_fig, body_ratio):
     return {"top": human_top, "foot": foot, "ax": raw_fig["ax"]}
 
 
-def pack_adapted_or_ref(cid, ref_key, body_ratio):
-    if cid in adapt_m:
-        c = adapt_m[cid]
+def pack_adapted_or_ref(cid, ref_key, body_ratio, prev=False):
+    src_m, sub = (prev_m, PREV_DIR + "/") if (prev and cid in prev_m) else (adapt_m, "")
+    if cid in src_m:
+        c = src_m[cid]
         # 13.11 (D14): the adapter already stores the HUMAN crown in fig.top (it applies the body ratio itself). Applying the
         # ratio a second time here made every new god ~1/ratio (Kitsune 12%) taller than the live one on the stand.
         aligned = {"top": c["fig"]["top"], "foot": c["fig"]["foot"], "ax": c["fig"]["ax"]}
@@ -75,7 +98,7 @@ def pack_adapted_or_ref(cid, ref_key, body_ratio):
             else:
                 assert t["w"] <= 126 and t["h"] <= 154, f"Lite ceiling violated on {cid}: {t['w']}x{t['h']}"
             out[tier] = {
-                "src": f"assets/sheets/{t['file']}?k={SHEET_VER}",
+                "src": f"assets/sheets/{sub}{t['file']}?k={SHEET_VER}",
                 "cols": 5, "rows": 5, "frames": 25,
                 "w": t["w"], "h": t["h"],
                 "sheetW": t["w"] * 5, "sheetH": t["h"] * 5,
@@ -88,7 +111,7 @@ def pack_adapted_or_ref(cid, ref_key, body_ratio):
                 "isVideo25": True,
             }
             sim_slot[tier] = {
-                "file": f"{t['file']}?k={SHEET_VER}",
+                "file": f"{sub}{t['file']}?k={SHEET_VER}",
                 "w": t["w"], "h": t["h"],
                 "kb": t["kb"], "ramMb": t["ramMb"],
             }
@@ -275,6 +298,15 @@ def build_existing_entry(gid):
         "newBt": {"slots": sim_bt_slots},
         "newTi": {"slots": sim_ti_slots},
     }
+    prev_arenas = {}
+    if gid in PREV_GODS:
+        pb, pt, spb, spt = {}, {}, {}, {}
+        for sl in ("idle", "atk", "sup", "hyp"):
+            pb[sl], spb[sl], _ = pack_adapted_or_ref(f"{gid}_bt_{sl}", f"{gid}_bt", br_bt, prev=True)
+            pt[sl], spt[sl], _ = pack_adapted_or_ref(f"{gid}_ti_{sl}", f"{gid}_ti", br_ti, prev=True)
+        SIM_GOD_DATA_MAP[gid]["newBtPrev"] = {"slots": spb}
+        SIM_GOD_DATA_MAP[gid]["newTiPrev"] = {"slots": spt}
+        prev_arenas = {"new_bt_prev": {"clipMap": {}, "sheets": pb}, "new_ti_prev": {"clipMap": {}, "sheets": pt}}
 
     live_pack = {
         "clipMap": lm.get("clipMap", {}),
@@ -379,7 +411,9 @@ def build_existing_entry(gid):
             "live_bt": live_pack,
             "new_bt": {"clipMap": {}, "sheets": bt_sheets},
             "new_ti": {"clipMap": {}, "sheets": ti_sheets},
+            **prev_arenas,
         },
+        "hasPrev": bool(prev_arenas),
         "skills": skills_obj,
         "balance": build_balance_existing(g),
     }
@@ -522,6 +556,8 @@ manifest = {
     "totalVideoClipsReady": sum(g["videoSlotsReady"] for g in gods_list),
     "gods": gods_list,
     "simGodDataMap": SIM_GOD_DATA_MAP,
+    "prevDir": PREV_DIR,
+    "prevGods": PREV_GODS,
 }
 
 js_payload = "window.GODS_MANIFEST = " + json.dumps(manifest, ensure_ascii=False, separators=(",", ":")) + ";\n"
@@ -534,5 +570,6 @@ for rel_dst in (os.path.join("assets", "gods-data.js"),):   # 13.11: the root co
 sz_kb = round(len(js_payload.encode("utf-8")) / 1024.0, 1)
 print(
     f"Built gods-data.js ({sz_kb} KB): {len(ordered_existing)} existing + {len(NEW10_ORDER)} new10 = {len(gods_list)} gods, "
-    f"QA-verified 25-frame clips={manifest['totalVideoClipsReady']}. 100% mob<=180x220 & lite<=126x154 verified!"
+    f"QA-verified 25-frame clips={manifest['totalVideoClipsReady']}. 100% mob<=180x220 & lite<=126x154 verified! "
+    f"prev ({PREV_DIR}) packs: {PREV_GODS} ({len(prev_m)} sheets)"
 )

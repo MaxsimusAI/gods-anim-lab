@@ -1,8 +1,8 @@
 # Gods animation playbook (Kling → sprite sheets → stand) — the ONLY rule set
 
 Project: «Битва титанов. Сумерки богов» (BT) + its anime clone Titan Idols (TI). Owner: Maxim, game designer, not a programmer.
-This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 3, 13.11.2026 15:40 (whole body moves,
-free aim direction, clip-by-clip flow with old/new switch on the stand).
+This file replaces every older rule list (old KLING_RULES versions are cancelled). Version 3.1, 13.11.2026 16:10 (whole body moves,
+free aim direction, clip-by-clip flow with old/new switch on the stand; no camera shake; body/weapon out of the frame only for a split second).
 
 **Where a rule here contradicts another one, the NEWER entry of section 12 wins — and the contradiction must be removed from the
 section where it sits the same day.** (13.11: "feet planted on the same spot" stood in the prompt template and in 3 rules, made
@@ -111,9 +111,10 @@ Copyright refusal of the prompt (trademarked names like "Mjolnir") is not charge
 
 **Prompt template (keep every sentence; fill <…>):**
 ```
-Fixed camera, the flat gray background stays exactly the same color and brightness the whole time, no camera movement, no zoom.
+Fixed camera, the flat gray background stays exactly the same color and brightness the whole time, no camera movement, no camera shake, no zoom.
 <Short visual description of the god> keeps the same size (never steps toward or away from the camera) and faces the viewer most of the time;
-the whole body moves: <2-3 body moves: steps / turns / crouches / hop>. <Skill name / "Basic attack" / "Idle">.
+the whole body moves: <2-3 body moves: steps / turns / crouches / hop>. The whole body, the raised hand and the weapon stay inside the
+frame all the time: a raised hand goes no higher than the top of <the weapon / the head>, a hop is small. <Skill name / "Basic attack" / "Idle">.
 <Weapon rule for this god>. <Timeline: what happens in the first third of a second / first second, the release, the recovery>.
 Then <effect> fades and <he/she> returns to the starting pose.
 No arc-shaped or crescent light trails, no sweeping slashes, no circles or rings anywhere, nothing glows on the ground.
@@ -178,8 +179,13 @@ For every downloaded clip run `b3/strip.py` (7 frames) and, for doubtful ones, l
       the meter cannot see a body that only bends at the elbow. Weapon arm never fully stretched out.
 - [ ] G1.2 No forbidden light (L7), background never brightens/darkens.
 - [ ] G1.3 Nothing aimed flat horizontally into a side edge (slightly up to the side is fine); weapon moves as prompted (melee vertical).
-- [ ] G1.4 Edges: a FAST exit of a tip for ≤ ~0.3 s is fine; a slow or long exit (half a sword for half a second,
-      a fan slowly leaving, a weapon held outside) = reject. An effect that flies off and is cut without a game continuation = reject.
+- [ ] G1.4 Edges (Maxim 13.11 16:04): the body, a hand, the head or the weapon may leave the frame ONLY for a split second during a
+      sharp move (≤ ~0.2 s = ≤ 5 video frames at 24 fps). Half a second (a raised hand cut by the top edge, a hop with the head
+      out, half a sword, a fan slowly leaving, a weapon held outside) = reject, even if everything else is good. Check it on a dense
+      grid (every 3rd frame; `b3/edges2.py` counts edge frames incl. effects — LOOK which part is outside). An effect that flies
+      off and is cut without a game continuation = reject.
+- [ ] G1.11 Camera (Maxim 13.11 16:04): no camera shake, jolt, zoom or jump in size — the feet line and the figure size stay steady
+      from frame to frame (a landing or a strike must not shake the picture). Any shake = reject.
 - [ ] G1.5 No arcs/crescents/rings across the frame, no burst in all directions to every edge.
 - [ ] G1.6 Idle: `b3/mmask.py <clip>` silhouette motion ≥ ~22 % (14-17 % reads frozen) AND visually alive the whole loop
       (`b3/motion.py`: no part of the loop below ~1 except start/end). Not dancing.
@@ -237,6 +243,8 @@ Overrides `work/impact_overrides.json` per clip:
   "5 little balls", pebbles under feet, unclear symbols, tiny wisps around the god.
 - Rich and smooth: wow but soft (L7); no jerky flicker; one clear read per skill — what flew where and what it did.
 - Melee basics leap to the enemy and back (stand `BR.LEAP_NEW`); check that the leap is enabled for every melee god with a new sheet.
+- A game effect changed during a redo must not change "вчера": gate it with `F.today(kind, u)` (a new sheet that is not
+  yesterday's frozen copy, `!A.isPrevSheet`), not with `F.newSheet` — `F.newSheet` is also true on yesterday's sheets.
 
 **Stand gate G4 (every action slot of every god, BT row + TI row):**
 `python3 b3/seq.py out.jpg <god> <slot> [n] [step_ms] [speed]` — LOOK at it.
@@ -260,7 +268,10 @@ Overrides `work/impact_overrides.json` per clip:
   The left arena (live game) always has one version (L8). A clip goes live on the stand as "сейчас" as soon as it passed its
   review — the other slots of the god keep their previous sheet. Until a slot is redone, "сейчас" = "вчера".
 - Only gods listed in `kling_done.json` show new sheets.
-- Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild the manifest
+- Publish one or a few reviewed clips: `bash b3/pub1.sh "<msg>" <clip…>` — it locks, bumps the kling_done version, freezes
+  yesterday's sheets and metrics (from commit 66ef083 = site v20) into `assets/sheets/v20/` and `work/metrics_v20.json` if
+  missing, copies the sheets, rebuilds the manifest, bumps `?v=`, syncs `pipeline/`, commits and pushes. By hand, the steps are:
+Publish: copy sheets (no `*take*`, `*rejected*`, no extra underscores), rebuild the manifest
   (`KL_HERE=… KL_REPO=/home/claude/gods-anim-lab python3 tools/build_full_manifest.py`), bump `?v=` in index.html,
   check every new sheet is referenced by the manifest and every reference exists, commit (not the root `gods-data.js`,
   no tokens/urls), push, verify the live site serves the new `?v=` and loads without errors.
@@ -286,7 +297,7 @@ Demeter hyp game effect now starts at wf (sheaf / staff gem, new sheets only); D
 (error if that idle is not cut yet; a body_min override can only raise it; all old body_min/body_max overrides deleted), `skip`
 is refused before the run starts, crop "B" and a negative `pad` get the soft edge, the root `gods-data.js` is no longer written.
 Edge exits left for Maxim (2nd attempt each): Kitsune TI sup tail tips out of the top ~0.5 s; Artemis bow upper limb at the top
-edge ~0.4-0.5 s (bt_hyp, ti_atk) and an "X" of string + trail in ti_atk.
+edge ~0.4-0.5 s (bt_hyp, ti_atk) and an "X" of string + trail in ti_atk. [13.11 16:04: ~0.5 s exits are now rejects (G1.4).]
 Open from this batch: Artemis aims 50-60° up, not vertical (Kling ignores "vertical" after 2 tries) — Maxim decides (accept /
 redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls" game part; Athena ult rays; Demeter sup game part
 (yellow bits, crooked stalks); Athena BT atk golden pillar visible during the return leap; T1 timing conversion for these gods
@@ -384,3 +395,8 @@ redraw art with the bow raised / other actions); Kitsune BT sup "5 little balls"
   clip (not the whole pack) → no objections → straight onto the site; nothing waits for a pack. Packs of 5 for sending are fine.
   Stand: in the middle and right arenas two buttons per slot — "as yesterday" and "as now"; the left arena keeps one version.
   If rules contradict each other — re-read all rules, add everything discussed, change the rules that caused the error.
+- 13.11 (16:04) Maxim: (1) no camera shake — written as G1.11 and "no camera shake" in the template. (2) A part of the body or the
+  weapon out of the frame is allowed only for a split second in a sharp move; Zeus's raised hand cut by the top edge for about half
+  a second is NOT allowed — G1.4 tightened from ~0.3 s to ≤ ~0.2 s, template line "raised hand no higher than the top of the
+  weapon / head, a hop is small". Cause: the tight canvas has little headroom and the R2 prompts asked for hops / raised arms
+  without a height limit.
