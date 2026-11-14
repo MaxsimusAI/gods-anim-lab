@@ -10831,42 +10831,42 @@
    -0.62
   ],
   "wf": [
-   0.502,
+   0.485,
    0.393
   ],
-  "maxDiff": 25.4,
+  "maxDiff": 15.91,
   "fig": {
-   "top": 0.0266,
+   "top": 0.0275,
    "foot": 0.9898,
-   "ax": 0.5022
+   "ax": 0.4854
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 87,
+  "q": 88,
   "bodyPx": 198,
-  "bodyPxF": 198.42,
+  "bodyPxF": 198.23,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 244.3,
    "ramMb": 6.03,
-   "kbPct": 117,
+   "kbPct": 120,
    "ramPct": 47
   },
   "mob": {
    "file": "dracula-ti-idle-mob.webp",
-   "w": 144,
+   "w": 143,
    "h": 206,
-   "kb": 285.3,
-   "ramMb": 2.83
+   "kb": 292.2,
+   "ramMb": 2.81
   },
   "lite": {
    "file": "dracula-ti-idle-lite.webp",
-   "w": 101,
+   "w": 100,
    "h": 144,
-   "kb": 158.8,
-   "ramMb": 1.39
+   "kb": 159.9,
+   "ramMb": 1.37
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -12710,42 +12710,42 @@
    -0.62
   ],
   "wf": [
-   0.459,
-   0.419
+   0.505,
+   0.428
   ],
-  "maxDiff": 38.37,
+  "maxDiff": 36.79,
   "fig": {
-   "top": 0.0686,
-   "foot": 0.9903,
-   "ax": 0.459
+   "top": 0.0831,
+   "foot": 0.9905,
+   "ax": 0.5054
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.17,
+  "bodyPxF": 197.81,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 351.6,
    "ramMb": 5.18,
-   "kbPct": 96,
-   "ramPct": 40
+   "kbPct": 99,
+   "ramPct": 49
   },
   "mob": {
    "file": "hecate-ti-idle-mob.webp",
-   "w": 101,
-   "h": 215,
-   "kb": 337.0,
-   "ramMb": 2.07
+   "w": 123,
+   "h": 218,
+   "kb": 348.3,
+   "ramMb": 2.56
   },
   "lite": {
    "file": "hecate-ti-idle-lite.webp",
-   "w": 71,
-   "h": 150,
-   "kb": 196.3,
-   "ramMb": 1.02
+   "w": 86,
+   "h": 153,
+   "kb": 208.4,
+   "ramMb": 1.25
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -22416,42 +22416,42 @@
    -0.62
   ],
   "wf": [
-   0.496,
-   0.429
+   0.493,
+   0.428
   ],
-  "maxDiff": 30.99,
+  "maxDiff": 19.8,
   "fig": {
-   "top": 0.0844,
-   "foot": 0.991,
-   "ax": 0.4962
+   "top": 0.0843,
+   "foot": 0.99,
+   "ax": 0.4931
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.64,
+  "bodyPxF": 198.35,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 419.4,
    "ramMb": 5.65,
-   "kbPct": 91,
+   "kbPct": 86,
    "ramPct": 53
   },
   "mob": {
    "file": "kali-ti-idle-mob.webp",
-   "w": 144,
-   "h": 218,
-   "kb": 379.9,
-   "ramMb": 2.99
+   "w": 142,
+   "h": 219,
+   "kb": 360.0,
+   "ramMb": 2.97
   },
   "lite": {
    "file": "kali-ti-idle-lite.webp",
-   "w": 101,
+   "w": 99,
    "h": 153,
-   "kb": 232.7,
-   "ramMb": 1.47
+   "kb": 215.8,
+   "ramMb": 1.44
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -24368,42 +24368,42 @@
    -0.62
   ],
   "wf": [
-   0.525,
-   0.452
+   0.491,
+   0.453
   ],
-  "maxDiff": 29.25,
+  "maxDiff": 24.09,
   "fig": {
-   "top": 0.1235,
-   "foot": 0.9871,
-   "ax": 0.5253
+   "top": 0.124,
+   "foot": 0.991,
+   "ax": 0.4909
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 91,
-  "bodyPx": 190,
-  "bodyPxF": 189.99,
+  "q": 90,
+  "bodyPx": 191,
+  "bodyPxF": 190.74,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 334.2,
    "ramMb": 5.69,
-   "kbPct": 120,
+   "kbPct": 117,
    "ramPct": 53
   },
   "mob": {
    "file": "koschei-ti-idle-mob.webp",
-   "w": 143,
+   "w": 145,
    "h": 220,
-   "kb": 399.4,
-   "ramMb": 3.0
+   "kb": 391.7,
+   "ramMb": 3.04
   },
   "lite": {
    "file": "koschei-ti-idle-lite.webp",
-   "w": 100,
+   "w": 102,
    "h": 154,
-   "kb": 217.0,
-   "ramMb": 1.47
+   "kb": 218.8,
+   "ramMb": 1.5
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -24787,42 +24787,42 @@
    -0.62
   ],
   "wf": [
-   0.465,
-   0.396
+   0.444,
+   0.397
   ],
-  "maxDiff": 23.53,
+  "maxDiff": 28.72,
   "fig": {
-   "top": 0.0328,
-   "foot": 0.9883,
-   "ax": 0.465
+   "top": 0.0338,
+   "foot": 0.9901,
+   "ax": 0.4443
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 88,
   "bodyPx": 198,
-  "bodyPxF": 197.79,
+  "bodyPxF": 197.95,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 282.3,
    "ramMb": 4.04,
-   "kbPct": 117,
-   "ramPct": 52
+   "kbPct": 119,
+   "ramPct": 55
   },
   "mob": {
    "file": "lilith-ti-idle-mob.webp",
-   "w": 107,
+   "w": 112,
    "h": 207,
-   "kb": 331.4,
-   "ramMb": 2.11
+   "kb": 337.0,
+   "ramMb": 2.21
   },
   "lite": {
    "file": "lilith-ti-idle-lite.webp",
-   "w": 75,
+   "w": 78,
    "h": 145,
-   "kb": 183.7,
-   "ramMb": 1.04
+   "kb": 186.0,
+   "ramMb": 1.08
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -27721,42 +27721,42 @@
    -0.62
   ],
   "wf": [
-   0.505,
-   0.403
+   0.513,
+   0.405
   ],
-  "maxDiff": 28.87,
+  "maxDiff": 25.7,
   "fig": {
-   "top": 0.0451,
-   "foot": 0.9877,
-   "ax": 0.5046
+   "top": 0.0453,
+   "foot": 0.9908,
+   "ax": 0.5128
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.95,
+  "bodyPxF": 197.61,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 382.2,
    "ramMb": 6.29,
-   "kbPct": 101,
-   "ramPct": 45
+   "kbPct": 102,
+   "ramPct": 48
   },
   "mob": {
    "file": "lucifer-ti-idle-mob.webp",
-   "w": 141,
-   "h": 210,
-   "kb": 384.6,
-   "ramMb": 2.82
+   "w": 151,
+   "h": 209,
+   "kb": 388.4,
+   "ramMb": 3.01
   },
   "lite": {
    "file": "lucifer-ti-idle-lite.webp",
-   "w": 99,
-   "h": 147,
-   "kb": 224.4,
-   "ramMb": 1.39
+   "w": 106,
+   "h": 146,
+   "kb": 228.9,
+   "ramMb": 1.48
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -29422,44 +29422,42 @@
    -0.62
   ],
   "wf": [
-   0.448,
-   0.429
+   0.511,
+   0.396
   ],
-  "maxDiff": 26.12,
+  "maxDiff": 16.22,
   "fig": {
-   "top": 0.0916,
-   "foot": 0.9803,
-   "ax": 0.4483
+   "top": 0.0322,
+   "foot": 0.9908,
+   "ax": 0.5113
   },
-  "defects": [
-   "raw_edge_clip"
-  ],
+  "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
-  "bodyPx": 196,
-  "bodyPxF": 195.51,
+  "bodyPx": 198,
+  "bodyPxF": 198.43,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 321.3,
    "ramMb": 4.76,
-   "kbPct": 101,
-   "ramPct": 55
+   "kbPct": 94,
+   "ramPct": 49
   },
   "mob": {
    "file": "nightmare-ti-idle-mob.webp",
-   "w": 124,
-   "h": 220,
-   "kb": 323.8,
-   "ramMb": 2.6
+   "w": 118,
+   "h": 207,
+   "kb": 302.4,
+   "ramMb": 2.33
   },
   "lite": {
    "file": "nightmare-ti-idle-lite.webp",
-   "w": 87,
-   "h": 154,
-   "kb": 193.3,
-   "ramMb": 1.28
+   "w": 83,
+   "h": 145,
+   "kb": 182.8,
+   "ramMb": 1.15
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -36806,42 +36804,42 @@
    -0.62
   ],
   "wf": [
-   0.464,
-   0.385
+   0.499,
+   0.389
   ],
-  "maxDiff": 31.56,
+  "maxDiff": 20.53,
   "fig": {
-   "top": 0.0236,
-   "foot": 0.9754,
-   "ax": 0.4637
+   "top": 0.0209,
+   "foot": 0.9906,
+   "ax": 0.4992
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.97,
+  "bodyPxF": 197.82,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 387.7,
    "ramMb": 5.39,
-   "kbPct": 87,
-   "ramPct": 56
+   "kbPct": 92,
+   "ramPct": 51
   },
   "mob": {
    "file": "shango-ti-idle-mob.webp",
-   "w": 153,
-   "h": 208,
-   "kb": 336.2,
-   "ramMb": 3.03
+   "w": 142,
+   "h": 204,
+   "kb": 358.2,
+   "ramMb": 2.76
   },
   "lite": {
    "file": "shango-ti-idle-lite.webp",
-   "w": 107,
-   "h": 146,
-   "kb": 201.4,
-   "ramMb": 1.49
+   "w": 99,
+   "h": 143,
+   "kb": 210.2,
+   "ramMb": 1.35
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },

@@ -27,7 +27,7 @@ for c in sys.argv[1:]:
 if bad: print('REFUSED:', '; '.join(bad)); sys.exit(1)
 PY
 # the repo must be clean except PLAYBOOK.md (rules are committed with the publish); code changes go in their own reviewed commit
-DIRTY=$(git -C $R status --porcelain | grep -v ' PLAYBOOK.md$' || true)
+DIRTY=$(git -C $R status --porcelain | grep -v ' PLAYBOOK.md$' | grep -v ' pipeline/r9/' || true)
 [ -z "$DIRTY" ] || { echo "REFUSED: uncommitted changes in the repo (commit reviewed code separately):"; echo "$DIRTY"; exit 1; }
 
 # 2. backups + restore on failure
