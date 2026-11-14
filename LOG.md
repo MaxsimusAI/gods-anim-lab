@@ -165,6 +165,6 @@ See `remarks_ru.md` next to this file.
 - 14.11 (13:43-21:00) the 36 remaining gods: 276 clips re-cut sharp and published (v83-v106), one fresh-eyes reviewer per
   god (old vs new on gray and magenta; laws of the skill). Result: 55 PASS, 102 WATCH, 117 FAIL — ledger in
   `pipeline/r8/ledger.json`, Russian remarks per slot on the stand. New takes only where Maxim had named the clip (Agni: both
-  idles, TI strike, BT super; 5 clips, BT idle needed a second take) plus one Anansi BT ult; 240 credits. A Kling call for
+  idles, TI strike, BT super; 5 clips, BT idle needed a second take) plus one Anansi BT ult; 180 credits (6 clips). A Kling call for
   two more Anansi clips he had not judged was refused by the session's permission check → no credits are spent on clips
   Maxim has not seen without his word. Cutter fixes: white cores, second small-frame mask, dark-body rescue per clip.

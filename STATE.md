@@ -113,7 +113,7 @@ Maxim: «в первую очередь сначала ты проверяешь
 - Old sheet kept (the re-cut is worse or not clean): blackbeard_ti_hyp, llorona_bt_hyp, silent_ti_atk, silent_ti_sup,
   susanoo_ti_atk, thor_bt_sup; see
   the ledger for the repair cuts under review at the end of the day.
-- New takes (240 credits, ids `pipeline/r8/kling_tasks_1411b.json`, prompts `pipeline/r8/`): Agni TI idle (PASS), TI strike
+- New takes (180 credits: 6 clips, ids `pipeline/r8/kling_tasks_1411b.json`, prompts `pipeline/r8/`): Agni TI idle (PASS), TI strike
   (WATCH), BT super "three flames from the hand" (WATCH), BT idle retake 2 (PASS; take 1 failed) — all four were named by
   Maxim; Anansi BT ult (WATCH). Sources: `Kling тест\workspace\mp4-zzz-v103-r8.tar`.
 - No other re-shoots were sent: Maxim has not judged these gods, so the 118 FAIL clips wait for his word (one take each =
