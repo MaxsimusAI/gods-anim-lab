@@ -5850,5 +5850,8 @@
  },
  "kali_bt_idle": {
   "darkbody": 18
+ },
+ "veles_ti_idle": {
+  "darkbody": 22
  }
 }

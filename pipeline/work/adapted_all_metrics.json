@@ -22665,51 +22665,51 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 12,
-  "rel": 0.5,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   0.036,
-   -0.35
+   -0.099,
+   -0.629
   ],
   "wf": [
-   0.596,
-   0.695
+   0.39,
+   0.424
   ],
-  "maxDiff": 19.22,
+  "maxDiff": 32.15,
   "fig": {
-   "top": 0.1428,
-   "foot": 0.9916,
-   "ax": 0.5482
+   "top": 0.089,
+   "foot": 0.991,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "LRTB",
   "ho": null,
-  "q": 87,
-  "bodyPx": 187,
-  "bodyPxF": 186.74,
+  "q": 82,
+  "bodyPx": 198,
+  "bodyPxF": 198.44,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 252.7,
    "ramMb": 5.49,
    "kbPct": 118,
-   "ramPct": 54
+   "ramPct": 69
   },
   "mob": {
    "file": "kali-ti-atk-mob.webp",
-   "w": 141,
+   "w": 180,
    "h": 220,
-   "kb": 297.7,
-   "ramMb": 2.96
+   "kb": 298.6,
+   "ramMb": 3.78
   },
   "lite": {
    "file": "kali-ti-atk-lite.webp",
-   "w": 99,
+   "w": 126,
    "h": 154,
-   "kb": 163.8,
-   "ramMb": 1.45
+   "kb": 164.9,
+   "ramMb": 1.85
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -41002,41 +41002,41 @@
   ],
   "wf": [
    0.495,
-   0.415
+   0.419
   ],
-  "maxDiff": 24.64,
+  "maxDiff": 15.86,
   "fig": {
-   "top": 0.0695,
-   "foot": 0.9785,
-   "ax": 0.4953
+   "top": 0.0684,
+   "foot": 0.9906,
+   "ax": 0.4948
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.16,
+  "bodyPxF": 198.27,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 369.7,
    "ramMb": 5.55,
-   "kbPct": 110,
-   "ramPct": 54
+   "kbPct": 105,
+   "ramPct": 55
   },
   "mob": {
    "file": "susanoo-bt-idle-mob.webp",
-   "w": 143,
-   "h": 218,
-   "kb": 405.6,
-   "ramMb": 2.97
+   "w": 150,
+   "h": 215,
+   "kb": 389.6,
+   "ramMb": 3.08
   },
   "lite": {
    "file": "susanoo-bt-idle-lite.webp",
-   "w": 100,
-   "h": 153,
-   "kb": 228.2,
-   "ramMb": 1.46
+   "w": 105,
+   "h": 150,
+   "kb": 220.7,
+   "ramMb": 1.5
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -41598,42 +41598,42 @@
    -0.62
   ],
   "wf": [
-   0.533,
-   0.39
+   0.492,
+   0.396
   ],
-  "maxDiff": 35.8,
+  "maxDiff": 32.33,
   "fig": {
-   "top": 0.0319,
-   "foot": 0.9751,
-   "ax": 0.5333
+   "top": 0.0314,
+   "foot": 0.9899,
+   "ax": 0.4922
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.07,
+  "bodyPxF": 198.41,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 369.7,
    "ramMb": 5.55,
-   "kbPct": 100,
-   "ramPct": 54
+   "kbPct": 102,
+   "ramPct": 48
   },
   "mob": {
    "file": "susanoo-ti-idle-mob.webp",
-   "w": 151,
-   "h": 210,
-   "kb": 369.3,
-   "ramMb": 3.02
+   "w": 135,
+   "h": 207,
+   "kb": 377.4,
+   "ramMb": 2.67
   },
   "lite": {
    "file": "susanoo-ti-idle-lite.webp",
-   "w": 106,
-   "h": 147,
-   "kb": 218.0,
-   "ramMb": 1.49
+   "w": 94,
+   "h": 145,
+   "kb": 219.2,
+   "ramMb": 1.3
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -42708,42 +42708,42 @@
    -0.62
   ],
   "wf": [
-   0.463,
-   0.391
+   0.446,
+   0.393
   ],
-  "maxDiff": 33.66,
+  "maxDiff": 24.09,
   "fig": {
-   "top": 0.028,
-   "foot": 0.9828,
-   "ax": 0.4631
+   "top": 0.0282,
+   "foot": 0.9888,
+   "ax": 0.4461
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 197.64,
+  "bodyPxF": 197.88,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 338.4,
    "ramMb": 5.46,
-   "kbPct": 109,
-   "ramPct": 58
+   "kbPct": 113,
+   "ramPct": 56
   },
   "mob": {
    "file": "thor-ti-idle-mob.webp",
-   "w": 159,
-   "h": 207,
-   "kb": 367.6,
-   "ramMb": 3.14
+   "w": 156,
+   "h": 206,
+   "kb": 383.2,
+   "ramMb": 3.06
   },
   "lite": {
    "file": "thor-ti-idle-lite.webp",
-   "w": 111,
-   "h": 145,
-   "kb": 213.3,
-   "ramMb": 1.53
+   "w": 109,
+   "h": 144,
+   "kb": 217.4,
+   "ramMb": 1.5
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -44252,42 +44252,42 @@
    -0.62
   ],
   "wf": [
-   0.508,
-   0.384
+   0.498,
+   0.388
   ],
-  "maxDiff": 28.34,
+  "maxDiff": 21.03,
   "fig": {
-   "top": 0.0191,
-   "foot": 0.9806,
-   "ax": 0.5079
+   "top": 0.0184,
+   "foot": 0.9898,
+   "ax": 0.4977
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.07,
+  "bodyPxF": 198.17,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 398.2,
    "ramMb": 5.84,
-   "kbPct": 85,
-   "ramPct": 40
+   "kbPct": 87,
+   "ramPct": 42
   },
   "mob": {
    "file": "veles-ti-idle-mob.webp",
-   "w": 120,
-   "h": 206,
-   "kb": 340.4,
-   "ramMb": 2.36
+   "w": 125,
+   "h": 204,
+   "kb": 346.8,
+   "ramMb": 2.43
   },
   "lite": {
    "file": "veles-ti-idle-lite.webp",
-   "w": 84,
-   "h": 144,
-   "kb": 193.2,
-   "ramMb": 1.15
+   "w": 88,
+   "h": 143,
+   "kb": 201.4,
+   "ramMb": 1.2
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -46768,42 +46768,42 @@
    -0.62
   ],
   "wf": [
-   0.44,
-   0.396
+   0.455,
+   0.41
   ],
-  "maxDiff": 41.02,
+  "maxDiff": 26.86,
   "fig": {
-   "top": 0.0367,
-   "foot": 0.9818,
-   "ax": 0.4402
+   "top": 0.0544,
+   "foot": 0.991,
+   "ax": 0.4549
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 91,
+  "q": 88,
   "bodyPx": 198,
-  "bodyPxF": 197.53,
+  "bodyPxF": 197.62,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 364.7,
    "ramMb": 4.1,
-   "kbPct": 120,
-   "ramPct": 68
+   "kbPct": 117,
+   "ramPct": 70
   },
   "mob": {
    "file": "zeus-ti-idle-mob.webp",
-   "w": 140,
-   "h": 209,
-   "kb": 437.0,
-   "ramMb": 2.79
+   "w": 143,
+   "h": 211,
+   "kb": 427.5,
+   "ramMb": 2.88
   },
   "lite": {
    "file": "zeus-ti-idle-lite.webp",
-   "w": 98,
-   "h": 146,
-   "kb": 239.6,
-   "ramMb": 1.36
+   "w": 100,
+   "h": 148,
+   "kb": 234.9,
+   "ramMb": 1.41
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
