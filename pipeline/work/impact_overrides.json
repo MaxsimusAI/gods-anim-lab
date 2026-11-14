@@ -5912,11 +5912,17 @@
  },
  "kali_ti_hyp": {
   "model2": "u2net",
-  "desmoke": 2
+  "desmoke": 2,
+  "wf": [
+   0.11,
+   0.71
+  ],
+  "rel_by_eye": 13
  },
  "lubu_bt_atk": {
-  "model2": "u2net",
-  "darkbody": 22
+  "darkbody": 22,
+  "desmoke": 1,
+  "bg": "robust"
  },
  "nightmare_ti_sup": {
   "wf": [
@@ -5990,10 +5996,17 @@
   "rel_by_eye": 12
  },
  "hecate_ti_sup": {
-  "darkbody": 22
+  "darkbody": 22,
+  "desmoke": 1,
+  "bg": "robust"
  },
  "llorona_ti_sup": {
-  "darkbody": 22
+  "darkbody": 22,
+  "wf": [
+   0.5,
+   0.37
+  ],
+  "rel_by_eye": 9
  },
  "kali_ti_atk": {
   "wf": [
@@ -6034,6 +6047,30 @@
   "wf": [
    0.94,
    0.09
+  ],
+  "rel_by_eye": 14
+ },
+ "thor_bt_hyp": {
+  "model2": "u2net",
+  "darkbody": 22,
+  "desmoke": 2,
+  "wf": [
+   0.64,
+   0.85
+  ],
+  "rel_by_eye": 15
+ },
+ "thor_ti_sup": {
+  "wf": [
+   0.78,
+   0.88
+  ],
+  "rel_by_eye": 11
+ },
+ "thor_ti_hyp": {
+  "wf": [
+   0.8,
+   0.86
   ],
   "rel_by_eye": 14
  }

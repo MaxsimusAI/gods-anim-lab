@@ -146,6 +146,14 @@ def bg_profile(a):
     top_g = np.median(np.concatenate([top_l, top_r], axis=1), axis=(0, 1))
     bot_l = a[max(0, H - 2 - int(H * 0.06)):H - 2, 2:min(2 + bw, W)]
     bot_g = np.median(bot_l, axis=(0, 1))
+    if os.environ.get("KL_BGROBUST") == "1":
+        # 15.11 (Lu Bu BT strike, Hecate TI super): at the release frame a fire arc or a ground burst covers some corners, the
+        # background estimate takes the effect's colour and the whole real background is kept as an opaque gray rectangle.
+        # Opt-in (override "bg": "robust"): of the four corner patches, the grayest one (lowest saturation) is the background.
+        bot_r = a[max(0, H - 2 - int(H * 0.06)):H - 2, max(0, W - 2 - bw):W - 2]
+        cs = [np.median(x, axis=(0, 1)) for x in (top_l, top_r, bot_l, bot_r)]
+        best = min(cs, key=lambda c: float(c.max() - c.min()))
+        top_g = bot_g = best
     ys = np.linspace(0, 1, H, dtype=np.float32)[:, None, None]
     return top_g[None, None, :] * (1.0 - ys) + bot_g[None, None, :] * ys
 
