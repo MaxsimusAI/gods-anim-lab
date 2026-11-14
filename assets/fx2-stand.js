@@ -7758,7 +7758,7 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
 // r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
 // before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
-Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45, 'atlas:sup': .45, 'atlas:hyp': .45 });
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45, 'atlas:sup': .45, 'atlas:hyp': .45, 'vanhelsing:hyp': .45, 'erlang:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -33769,6 +33769,17 @@ F.mo(p.x, p.y, 'shadow', 7, 1, { col: '#e8f0ff', smoke: '#1a1020' });
 h: {
 col: VH.c, noCharge: true,
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Van Helsing ult: «плохой программный эффект»): today's sheets - no tiny streak into the sky, no giant stake
+// picture from above, no rays. One read: on the release frame a big holy bolt leaves the tip of the crossbow (wf) in the pale blue
+// of the clip, flies in an arc to the victim and stays in him for a moment - the hit lands when it arrives.
+const t9 = e.targets[0];
+if (t9)
+r9Link(F, u, 'h', [t9], (from, to, fly) => { F._vh9 = Math.atan2(to.y - from.y, to.x - from.x);
+r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc: (to.x < from.x ? 1 : -1) * 24, tail: .6, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
+head: (g, a, k, R) => { g.globalAlpha = .8; g.drawImage(TX.get('glow', '#9fbcff'), -R * 2.4, -R * 1.5, R * 4.2, R * 3); g.globalAlpha = .75; g.strokeStyle = '#dfe8ff'; g.lineWidth = 4.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-6, 0); g.stroke(); g.globalAlpha = 1; nlBolt(g, 2.5); } }); }, { exp: .45, ty: .45 });
+return;
+}
 // 13.11 Maxim: "damage flies before the shot". On the new sheet the stake leaves upward in the clip; the game's sky
 // streak continues it from the same point at that moment, then the big stake falls on the target.
 const NSh = BRG.isProposed && u && (BRG.animOf(BRG.SHEETS_HYP, u.gu || u) || {}).isNewSheet, T0h = NSh ? BRG.REL_NEW['vanhelsing:hyp'] : .1;
@@ -33781,6 +33792,18 @@ if (t)
 nlAt(F, NSh ? T0h + .05 : .46, () => nlStakeFall(F, t, Math.max(.12, T - F.t)));
 },
 ult(F) { F.hypDrawn = true; },
+hit(F, e) {
+if (e.src !== 'hyper' || !F.today('hyp'))
+return 'default';
+const p = F.tc(e.u, .45), f = F.feetOf(e.u), ang = F._vh9 ?? -Math.PI / 2;
+F.flash(p.x, p.y, 28, '#9fbcff', { dur: .36, k: 1.4, grow: true });
+F.hit2(p.x, p.y, { col: '#e8f0ff', core: '#ffffff', s: .9, mn: 6, motif: 'holy' });
+F.burst(p.x, p.y, { n: 12, tex: 'shard', col: ['#d8bc8c', '#b08e60', '#8a6a44'], v0: 80, v1: 220, s0: 5, s1: 2.5, l0: .35, l1: .6, ay: 560, add: false, stretch: 0, vr: 14 });
+F.burst(p.x, p.y, { n: 10, tex: 'star4', col: ['#f4f8ff', '#bfd4ff'], v0: 60, v1: 170, s0: 5, s1: 1, l0: .3, l1: .5, drag: 2.6, stretch: 0 });
+F.decal(f.x, f.y, f.w * .7, '#cfe0ff', { cracks: 8, dur: 1.2 });
+// the bolt stays in the victim for a moment
+F.obj(.5, (g, a) => { g.translate(p.x - Math.cos(ang) * 10, p.y - Math.sin(ang) * 10); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalAlpha = a > .3 ? 1 - (a - .3) / .2 : 1; nlBolt(g, 2.5); });
+},
 },
 };
 const nlStakeFall = FX4.wrapHelper("wooden-stake", (F, t, dur) => {
@@ -34573,6 +34596,16 @@ F.supDrawn = true;
 h: {
 col: ER.c, noCharge: true,
 anticip(F, u) {
+if (F.today('hyp', u) && !erCopied(F)) {
+// r9 Block 4b (14.11 Maxim, Erlang ult: «не понятно что летит. Слишком резко и не заметно»): today's sheets, his own strike (no enemy super to
+// repeat) - no eye, no sigil, no instant cuts. One read: on the release frame the white-blue whirl that the clip gathers on the spear
+// tip (wf) unwinds from it in a wide ribbon of wind to every enemy; the cuts and the damage come when the ribbon arrives.
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+F._er9 = true;
+r9Link(F, u, 'h', row, (from, to, fly, t, i) => r9Stream(F, from, to, fly, { col: '#86b2ff', core: '#ffffff', w: 10.5, coreK: .8, arc: (i - (n - 1) / 2) * 8 + (i % 2 ? 12 : -12), wob: 9, tail: .75, drain: .16, tex: 'smoke', ramp: ['#c8dcff', '#a4c4ff', '#86b2ff'], ts: 2.8, n: 10, speed: 1.2,
+emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-24, 24), vy: F.rnd(-24, 24), drag: 2.4, life: F.rnd(.22, .4), s0: F.rnd(2.4, 3.8), s1: .5, tex: 'star4', col: F.pick(['#ffffff', '#c8dcff', '#86b2ff']) }); } }), { exp: .45, gap: .012, ty: .45 });
+return;
+}
 const hs = nlEvs(F, 'hit', x => x.src === 'hyper');
 nlEyeOpen(F, u, hs.length ? hs[0].t + .1 : 1.5, { big: 8, open: .3 });
 F.at(.14, () => nlsigil(F, 'nl_eye3', ER.eye));
@@ -34597,6 +34630,10 @@ F.burst(p.x, p.y, { n: 10, col: [c, '#fff3c4'], v0: 60, v1: 170, s0: 2.6, l0: .1
 F.at(.06, () => F.stream(p, erHalo(F.u), .3, { col: c, n: 5, w: 2.8, spread: .08, wobble: 8 }));
 },
 ult(F, e) {
+if (F._er9) {
+F.hypDrawn = true;
+return;
+}
 const u = F.u, hs = nlEvs(F, 'hit', x => x.src === 'hyper'), cp = erCopied(F);
 if (cp) {
 const c = G.HEROES[cp] ? G.HEROES[cp].fx : ER.eye, gl = SIG[cp] && SIG[cp].glyph, h = erEye(u), P = nlSignPt(F, 34);
@@ -34632,6 +34669,7 @@ return 'default';
 const p = F.tc(e.u, .45), f = F.feetOf(e.u);
 for (let i = -1; i <= 1; i++)
 F.cut(p.x + i * 8, p.y + i * 3, { col: '#dfe8ff', core: '#ffffff', L: i ? 42 : 56, ang: -.7, w: 4.8, sparkN: 4 });
+if (!F._er9)
 nlRays(F, p.x, p.y, { n: 8, L: 32, col: ER.eye });
 F.hit2(p.x, p.y, { col: ER.c, core: '#ffffff', feet: f, s: .7, mn: 4, motif: 'holy', cracks: 3 });
 },

@@ -164,16 +164,16 @@
   "what": "today's sheets: no leap (both clips strike the ground in place); ghost fire runs from the weapon (wf) on the release frame to the target; anchor-on-chain throw and anchor icon at the hit removed"
  },
  "erlang_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.62 M/R: BT release f8@500, ribbons 510-790, damage 805; TI release f9@562, ribbons land 860, damage 870",
   "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets, his own strike (no enemy super to repeat; the copy branch is untouched): eye, sigil, instant cuts and rays removed. On the release frame the white-blue whirl gathered on the spear tip (wf) unwinds in a wide ribbon of wind to every enemy (r9Stream w 10.5 with sparks); cuts + damage when the ribbon arrives. Release expected .45 s"
  },
  "erlang_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.62 M/R: BT release f8@500, ribbons 510-790, damage 805; TI release f9@562, ribbons land 860, damage 870",
   "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets, his own strike (no enemy super to repeat; the copy branch is untouched): eye, sigil, instant cuts and rays removed. On the release frame the white-blue whirl gathered on the spear tip (wf) unwinds in a wide ribbon of wind to every enemy (r9Stream w 10.5 with sparks); cuts + damage when the ribbon arrives. Release expected .45 s"
  },
  "hecate_bt_hyp": {
   "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
@@ -554,10 +554,10 @@
   "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
  },
  "vanhelsing_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.9 M, 0.7 M/R: release f9@562, bolt in flight 570-865, damage 875 (both arenas)",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets (same code for the TI sheet): tiny streak into the sky, giant stake picture from above and rays removed. On the release frame a big holy bolt (wooden shaft, white fletching, pale blue glow and trail - r9Orb with the bolt as its head) leaves the crossbow tip (wf), flies in an arc to the victim; hit on arrival (holy hit, wood splinters), the bolt stays in the victim for .5 s. Release expected .45 s (BR.REL_TODAY over REL_NEW .5)"
  },
  "vanhelsing_ti_atk": {
   "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
