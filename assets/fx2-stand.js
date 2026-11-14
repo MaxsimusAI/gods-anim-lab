@@ -5687,6 +5687,11 @@ return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr
 const r9Link = (F, u, kind, targets, draw, o = {}) => {
 const K = kind === 's' ? 'sup' : kind === 'h' ? 'hyp' : 'atk', exp = o.exp ?? (kind === 'a' ? REL_SHOT : BR.OLD_SIG.has(u.hid) ? .5 : REL_SUP), tR = F.relDt(K, exp), tHit = o.tHit ?? T_SUP;
 const T = [...new Set(targets || [])].filter(t => t && t.alive && t !== u);
+// the sheet picture is loaded lazily by the first frameOf() call, and that call still returns nothing: ask for it now so that
+// the point of the weapon (wf) is known on the release frame even at the very first cast
+if (F.st && F.st.frameOf)
+for (const d of [0, .06, .2])
+F.at(d, () => F.st.frameOf(u));
 const room = Math.max(.03, tHit - tR - .01), gap = T.length > 1 ? Math.min(o.gap ?? 0, Math.max(0, room - Math.min(o.min ?? .14, room)) / (T.length - 1)) : 0;
 F.at(tR, () => { const from = F.wp(kind, u); T.forEach((t, i) => { const d = gap * i; F.at(d, () => draw(from, F.tc(t, o.ty ?? .45), room - d, t, i)); }); });
 return tR;
@@ -5882,6 +5887,67 @@ g.restore();
 if (o.emit && a < dur * .7) {
 const q = P[Math.floor(F.rnd(0, N))];
 o.emit(q[0], q[1]);
+}
+}, o.layer);
+};
+// r9Fp (Block 4b): a point of the sheet frame that is on screen (px, py = fractions of the frame, like wf) in arena coordinates - for an
+// effect that the clip cuts at a frame edge (Raijin ult: the lightning column leaves through the top) and the game continues from there.
+const r9Fp = (F, u, kind, px, py) => {
+const fr = BR.isProposed && u && u.gu && F.st && F.st.frameOf ? F.st.frameOf(u) : null;
+if (!fr || !fr.atk)
+return F.wp(kind, u);
+const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - px : px;
+return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + py * fr.h - u.feet) * k0, h: boxOf(u).h };
+};
+// r9Bolt (Block 4b): one thick living lightning that GROWS from a point to a target in `fly` seconds (the tip is seen travelling), stays
+// for `hold` and fades - a jagged path built once (no flicker), soft glow + coloured body + white core, a few short forks, sparks at
+// the tip. o: col, core, w, rough, forks, hold, fade, onHit, layer.
+const r9Bolt = (F, from, to, fly, o = {}) => {
+const col = o.col || '#6fc0ff', core = o.core || '#ffffff', w = o.w ?? 4.5, hold = o.hold ?? .1, fade = o.fade ?? .22, rough = o.rough ?? .17, lv = {};
+const sub = (a, b, lvl) => { if (!lvl)
+return [a]; const L = Math.hypot(b.x - a.x, b.y - a.y) || 1, off = (F.rng() - .5) * L * rough, m = { x: (a.x + b.x) / 2 - (b.y - a.y) / L * off, y: (a.y + b.y) / 2 + (b.x - a.x) / L * off }; return sub(a, m, lvl - 1).concat(sub(m, b, lvl - 1)); };
+const P = sub(from, to, 4).concat([to]), n = P.length - 1, forks = [];
+for (let i = 0; i < (o.forks ?? 2); i++) {
+const j = 3 + Math.floor(F.rng() * (n - 6)), a = P[j], d = P[j + 1], ang = Math.atan2(d.y - a.y, d.x - a.x) + (F.rng() < .5 ? -1 : 1) * F.rnd(.45, .85), L = F.rnd(14, 28), e = { x: a.x + Math.cos(ang) * L, y: a.y + Math.sin(ang) * L };
+forks.push({ j, pts: sub(a, e, 2).concat([e]) });
+}
+let done = false;
+return F.obj(fly + hold + fade, (g, a) => {
+const k = clamp(a / fly, 0, 1), dq = clamp((a - fly - hold) / fade, 0, 1), al = (1 - dq) * (.9 + .1 * Math.sin(a * 38)), m = k * n, mi = Math.min(n - 1, Math.floor(m)), f = m - mi;
+const tip = k >= 1 ? P[n] : { x: lerp(P[mi].x, P[mi + 1].x, f), y: lerp(P[mi].y, P[mi + 1].y, f) };
+const line = (pts, wk) => { for (const [lw, cc, aa] of [[3.4, col, .16], [1.5, col, .6], [.55, core, .95]]) {
+g.globalAlpha = aa * al;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, w * lw * wk * (1 - dq * .5));
+g.beginPath();
+g.moveTo(pts[0].x, pts[0].y);
+for (let i = 1; i < pts.length; i++)
+g.lineTo(pts[i].x, pts[i].y);
+g.stroke();
+} };
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+g.lineJoin = 'round';
+line(P.slice(0, mi + 1).concat([tip]), 1);
+for (const b of forks)
+if (m > b.j + 1)
+line(b.pts.slice(0, Math.max(2, Math.ceil(clamp((m - b.j - 1) / 3, 0, 1) * b.pts.length))), .5);
+if (dq <= 0) {
+const s = w * (a < fly ? 4.2 : 3.2);
+g.globalAlpha = .7 * al;
+g.drawImage(TX.get('glow', col), tip.x - s, tip.y - s, s * 2, s * 2);
+g.globalAlpha = .8 * al;
+g.drawImage(TX.get('glow', core), tip.x - s * .4, tip.y - s * .4, s * .8, s * .8);
+}
+g.restore();
+if (a < fly)
+for (let i = r9Rate(F, lv, o.spark ?? 40); i > 0; i--)
+F.p({ x: tip.x, y: tip.y, vx: F.rnd(-60, 60), vy: F.rnd(-60, 60), drag: 3, life: F.rnd(.14, .28), s0: F.rnd(2, 3.2), s1: .4, tex: 'ember', col: F.pick([col, core]), stretch: .05 });
+if (a >= fly && !done) {
+done = true;
+if (o.onHit)
+o.onHit(to.x, to.y);
 }
 }, o.layer);
 };
@@ -7675,7 +7741,7 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
 // r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
 // before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
-Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45 });
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -23823,8 +23889,23 @@ KW.bolt(F, { x: a.x, y: a.y - 4 }, b, .012, { arc: (b.x < a.x ? 1 : -1) * 22, th
 },
 s: {
 col: PO.c,
-anticip(F, u) { const a = F.feetOf(u); F.at(.42, () => kwSurge(F, { x: a.x, y: a.y - 6 }, { x: LAY.W / 2, y: LAY.eF(14) }, .3, { w: 124 })); },
+anticip(F, u, kind, rel, e) {
+if (F.today('sup', u)) {
+// r9 Block 4b (14.11 Maxim, Poseidon super: «плохая связь анимации и программного эффекта. Программный эффект плохой»): today's sheets - no
+// surge blob, no wave pictures. One read: on the release frame the column of sea water that the clip raises through the top edge
+// pours from that point in a jet to every enemy (thicker to the outer ones - they take more) and crashes on them with the damage.
+const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 's', row, (from, to, fly, t, i) => { const far = i === 0 || i === n - 1;
+r9Stream(F, r9Fp(F, u, 's', .5, .06), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#f0fffc', '#9af0e8', '#48d0cc'], ts: 2.1, n: 8, speed: 1.6,
+emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 160, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#e4fffb', '#9af0e8', '#48d0cc']) }); } }); }, { gap: .012, ty: .5 });
+return;
+}
+const a = F.feetOf(u); F.at(.42, () => kwSurge(F, { x: a.x, y: a.y - 6 }, { x: LAY.W / 2, y: LAY.eF(14) }, .3, { w: 124 })); },
 sup(F, e) {
+if (F.today('sup')) {
+F.supDrawn = true;
+return;
+}
 const yb = LAY.eF(7);
 F.at(.1, () => { KW.crown(F, LAY.W / 2, yb, 110, { tex: 'crown2', col: PO.cr, dur: .5, n: 8, sy: 1.1 }); KW.foam(F, LAY.W / 2, yb - 10, 4, 1.2); for (const dir of [-1, 1]) {
 if (OBJ('o_wave'))
@@ -37268,7 +37349,15 @@ F.w2kb = null;
 },
 h: {
 col: W2RJ, noCharge: true,
-anticip(F, u, kind, rel) {
+anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Raijin ult: «плохая связь анимации и программного эффекта. Программный эффект плохой»): today's sheets - no drawn
+// drum ring, no brother, no sigil, no clouds, no leaves. One read: on the release frame the column of blue lightning that the clip
+// sends up through the top edge forks from that point to every enemy; the bolts are seen growing and land with the damage.
+const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot);
+r9Link(F, u, 'h', row, (from, to, fly, t) => r9Bolt(F, r9Fp(F, u, 'h', .5, .05), to, fly, { col: '#5fb8ff', core: '#f2fbff', w: 4.6, hold: .06, fade: .17 }), { exp: .45, gap: .012, ty: .48 });
+return;
+}
 F.w2drums = W2.drums(F, u, 1.45, { beats: [.14, .22, .3, .38, .46, .52].map((t, i) => ({ t, i: (i * 3) % 8 })).concat([{ t: rel, i: -1 }]) });
 W2.brother(F, u, .9, { col: '#7fe0a0', k: .32, k2: .55, dx: -.42 });
 F.at(.28, () => w2sigil(F, 'w2tomoe', W2RJ, 40, { spin: 2 }));
@@ -37276,6 +37365,8 @@ F.at(.16, () => F.foes().forEach(t => { const b = boxOf(t); W2.cloud(F, b.x - 24
 },
 ult(F, e) {
 F.hypDrawn = true;
+if (F.today('hyp'))
+return;
 const D = F.w2drums || W2.drumGeo(F.u), row = (e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot);
 {
 const p = W2.drumPos(D, 1);

@@ -398,16 +398,16 @@
   "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
  },
  "poseidon_bt_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage"
  },
  "poseidon_ti_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage"
  },
  "ra_bt_atk": {
   "checked": "fseq ra atk: BT D=1.7",
@@ -422,10 +422,10 @@
   "what": "sheet plays 1.25 s (was 0.77 s)"
  },
  "raijin_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast"
  },
  "raijin_bt_sup": {
   "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
@@ -434,10 +434,10 @@
   "what": "sheet plays 1.5 s (was 1.11 / 0.85 s); the lightning lands after the release frame with the damage"
  },
  "raijin_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast"
  },
  "raijin_ti_sup": {
   "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
