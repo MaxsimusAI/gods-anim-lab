@@ -5922,7 +5922,12 @@
  "lubu_bt_atk": {
   "darkbody": 22,
   "desmoke": 1,
-  "bg": "robust"
+  "bg": "robust",
+  "wf": [
+   0.05,
+   0.74
+  ],
+  "rel_by_eye": 11
  },
  "nightmare_ti_sup": {
   "wf": [
@@ -5998,7 +6003,12 @@
  "hecate_ti_sup": {
   "darkbody": 22,
   "desmoke": 1,
-  "bg": "robust"
+  "bg": "robust",
+  "wf": [
+   0.67,
+   0.94
+  ],
+  "rel_by_eye": 9
  },
  "llorona_ti_sup": {
   "darkbody": 22,
