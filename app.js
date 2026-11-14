@@ -1169,8 +1169,6 @@
       const ev = SIM.triggerSlot(a.B, a.focusUnit, slot);
       handleSimEvents(a, ev);
     }
-    // r9: the auto-repeat waits for the held script as well
-    state.autoWait += Math.max(0, ...state.arenas.map(a => a.hold || 0));
   }
 
   function selectGod(godId) {
@@ -1428,6 +1426,26 @@
     return dt - h;
   }
 
+  // r9: auto-repeat and showcase keep the intervals they always had (the three arenas restart together, the left arena's cadence is
+  // untouched) - with one exception. A new arena that held its script (BR.hold) has had holdTotal seconds less of it than the left
+  // arena. If such an arena is still in the middle of its action when the interval ends (sheet on screen, effects alive or hits
+  // pending), the next trigger waits until that arena has had the full interval of script time: at most holdTotal seconds more.
+  // overdue = seconds since the interval ended. Returns the seconds still owed (0 = trigger now).
+  function heldOwed(overdue) {
+    let owe = 0;
+    for (const a of state.arenas) {
+      const o = (a.holdTotal || 0) - overdue;
+      if (!(o > owe) || !a.B || !a.focusUnit) continue;
+      const u = a.focusUnit;
+      let busy = !!(u.fig && [...u.fig.querySelectorAll('.atk')].some(el => el._active)) || (a.B.pending || []).some(p => p && p.src === u && !p.always);
+      if (!busy && a.fx2 && a.fx2.stats) {
+        try { const st = a.fx2.stats(); busy = st.parts + st.objs + st.later > 0; } catch (_) {}
+      }
+      if (busy) owe = o;
+    }
+    return owe;
+  }
+
   function tick(nowMs) {
     const rawDt = Math.min(0.05, Math.max(0, (nowMs - lastFrameMs) / 1000));
     lastFrameMs = nowMs;
@@ -1471,7 +1489,7 @@
     if (dt > 0) {
       if (state.showcaseMode) {
         state.showcaseWait -= dt;
-        if (state.showcaseWait <= 0) {
+        if (state.showcaseWait <= 0 && !(heldOwed(-state.showcaseWait) > 0)) {
           const seq = ['atk', 'sup', 'hyp'];
           state.showcaseIdx = (state.showcaseIdx + 1) % seq.length;
           const nextSlot = seq[state.showcaseIdx];
@@ -1480,7 +1498,7 @@
         }
       } else if (state.autoCycle && state.activeSlot !== 'idle') {
         state.autoWait -= dt;
-        if (state.autoWait <= 0) {
+        if (state.autoWait <= 0 && !(heldOwed(-state.autoWait) > 0)) {
           triggerSkill(state.activeSlot, false);
         }
       }

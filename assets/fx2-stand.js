@@ -5659,12 +5659,36 @@ const SIG = {};
 // basic of these gods is played from the god's place. The sheet's release frame is put `fly` seconds before the sim's hit,
 // `launch(from, to, fly)` draws the projectile from the weapon point (wf) to the target; no leap (see ev()).
 BR.NOLEAP_NEW = new Set(['shiva', 'surt', 'llorona', 'dutchman', 'wukong']);
+// r9: by-eye corrections of today's sheets. They are keyed by the sheet FILE (its name without the tier and the cache key) and guarded
+// by the metrics the sheet had when it was looked at (m = "impact|wf.x|wf.y"): a re-cut or a new take changes the metrics or the
+// file name, the correction is dropped and the sheet falls back to its own metrics until somebody looks at it again.
+const r9Fix = (T, A) => { if (!A || !A.isNewSheet || A.isPrevSheet)
+return null; const r = T[String(A.src || '').replace(/^.*\//, '').replace(/-(mob|lite)\.\w+(\?.*)?$/, '')]; return r && r.m === A.impact + '|' + (A.wf ? A.wf.join('|') : '') ? r : null; };
+// R9_REL: release frames measured by eye where the metric frame is wrong (Artemis: the arrow is still on the string at the metric frame)
+const R9_REL = { 'artemis-bt-atk': { f: 8, m: '5|0.699|0.512' }, 'artemis-ti-atk': { f: 7, m: '5|0.825|0.305' }, 'artemis-bt-sup': { f: 13, m: '9|0.763|0.368' }, 'artemis-ti-sup': { f: 12, m: '9|0.864|0.274' } };
+// R9_PT: a point of the sheet frame (fractions of the frame, like wf) where the owner wants the effect to start while wf marks another
+// baked effect. Sekhmet BT super: wf is the fire of the staff, the clip breathes fire from the mouth («огонь из рта»).
+const R9_PT = { 'sekhmet-bt-sup': { p: [.52, .14], m: '14|0.299|0.426' } };
+// R9_STAY: a strike sheet with a second baked swing after the release frame - the god who leapt to the enemy stays there until
+// frame f (the end of that swing) and only then leaps back. Heimdall TI strike: release f3, second swing f8-f10.
+const R9_STAY = { 'heimdall-ti-atk': { f: 11, m: '3|0.35|0.1' } };
+const r9Wp = (F, kind, u = F.u) => {
+const A = BR.isProposed && u && u.gu ? BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) : null, r = r9Fix(R9_PT, A), fr = r && F.st && F.st.frameOf ? F.st.frameOf(u) : null;
+if (!fr || !fr.atk)
+return F.wp(kind, u);
+const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - r.p[0] : r.p[0];
+return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + r.p[1] * fr.h - u.feet) * k0, h: boxOf(u).h };
+};
 // r9Link (14.11 Maxim: «нет связи между анимацией умения и уроном»): on the release frame of today's sheet something visibly leaves
 // the weapon (wf) and reaches every target when the sim deals the damage. draw(from, to, fly, target, i) draws one projectile.
+// The flight of EVERY target ends .01 s before the damage (tHit): o.min (wished minimum flight) and o.gap (stagger between targets)
+// are wishes that yield when the release frame is too close to the damage - the stagger is squeezed first, then the flight is
+// shortened. A projectile never lands after its hit.
 const r9Link = (F, u, kind, targets, draw, o = {}) => {
 const K = kind === 's' ? 'sup' : kind === 'h' ? 'hyp' : 'atk', exp = o.exp ?? (kind === 'a' ? REL_SHOT : BR.OLD_SIG.has(u.hid) ? .5 : REL_SUP), tR = F.relDt(K, exp), tHit = o.tHit ?? T_SUP;
 const T = [...new Set(targets || [])].filter(t => t && t.alive && t !== u);
-F.at(tR, () => { const from = F.wp(kind, u); T.forEach((t, i) => { const d = (o.gap ?? 0) * i; F.at(d, () => draw(from, F.tc(t, o.ty ?? .45), Math.max(o.min ?? .14, tHit - tR - d - .01), t, i)); }); });
+const room = Math.max(.03, tHit - tR - .01), gap = T.length > 1 ? Math.min(o.gap ?? 0, Math.max(0, room - Math.min(o.min ?? .14, room)) / (T.length - 1)) : 0;
+F.at(tR, () => { const from = F.wp(kind, u); T.forEach((t, i) => { const d = gap * i; F.at(d, () => draw(from, F.tc(t, o.ty ?? .45), room - d, t, i)); }); });
 return tR;
 };
 // r9Staff: Wukong's staff grows from the hand (a moving point) to the target in `out` seconds, holds and shrinks back: a red pole with
@@ -5720,8 +5744,11 @@ g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'butt';
 const al = (1 - dq * .6) * (o.a ?? 1), ck = o.coreK ?? .9, lk = o.line ?? 1;
+// the very start: the stream is still a short stub at the origin, and in a fan of streams all the stubs lie on one another - additive
+// sprites and head glows there add up to a white blob that reads as a flash. sk fades the head glow, the sprites and the core in.
+const sk = clamp(k1 / .6, 0, 1);
 if (lk > 0)
-for (const [lw, cc, aa] of [[2.6, col, .16 * lk], [1.25, col, .5 * lk], [.42, core, ck * lk]])
+for (const [lw, cc, aa] of [[2.6, col, .16 * lk], [1.25, col, .5 * lk], [.42, core, ck * lk * (.35 + .65 * sk)]])
 for (let i = 0; i < N; i++) {
 const t = (i + .5) / N, tp = (.3 + .7 * t) * (1 + .12 * Math.sin(a * 22 + i * 1.7));
 g.globalAlpha = aa * al * (.45 + .55 * t);
@@ -5740,15 +5767,15 @@ const edge = Math.min(1, u / .15, (1 - u) / .15);
 g.save();
 g.translate(p.x, p.y);
 g.rotate(Math.atan2(q.y - p.y, q.x - p.x) + Math.PI / 2);
-g.globalAlpha = .8 * al * edge;
+g.globalAlpha = .8 * al * edge * sk;
 g.drawImage(TX.get(o.tex, o.ramp ? o.ramp[Math.min(o.ramp.length - 1, Math.floor(u * o.ramp.length))] : col), -s * .5, -s * .7, s, s * 1.3);
 g.restore();
 }
 }
 const h = P[N];
-g.globalAlpha = .5 * al;
+g.globalAlpha = .5 * al * sk * sk;
 g.drawImage(TX.get('glow', col), h.x - w * 2.2, h.y - w * 2.2, w * 4.4, w * 4.4);
-g.globalAlpha = ck * .8 * al;
+g.globalAlpha = ck * .8 * al * sk * sk;
 g.drawImage(TX.get('glow', core), h.x - w, h.y - w, w * 2, w * 2);
 g.restore();
 if (o.emit && dq <= 0)
@@ -6429,7 +6456,7 @@ if (this.t <= m.tB) {
 m.tB = Math.max(m.tB, this.t + .18);
 m.tC = m.tB + m.backHaze + m.back;
 }
-if (e.kind === 'multiHit' && ++m.superHits > 1 && this.st.contactImpact)
+if (e.kind === 'multiHit' && (++m.superHits > 1 || this.today('sup', m.u)) && this.st.contactImpact)   // r9: today's sheets - from the first hit (the rest of the sheet is stretched over the series, see contactImpact)
 this.st.contactImpact(m.u, 'sup');
 }
 if (/^(lunge|shoot|cast|super|hyper)$/.test(e.type) && e.u && e.u.focus && !e.u.sil && !this.R.noLight) {
@@ -7539,9 +7566,12 @@ const OLD = new Set(["agni", "amaterasu", "anansi", "anubis", "aoguang", "apollo
 BR.OLD_SIG = OLD;
 BR.boltSync = u => !!(BR.isProposed && u && u.gu && (BR.animOf(BR.SHEETS_ATK, u.gu) || {}).isNewSheet);
 BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill release time of the NEW sheets (s after the cast starts)
-BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };   // Shango super: the lightning is instant - the release frame lands with the bolts and the damage
+// r9, today's sheets only: the time (s after the cast starts) at which the script expects the release frame of the skill.
+// Sting ult: the kick (release frame) lands when the sim deals the first hit. Shango super: the lightning is instant - the release
+// frame lands with the bolts and the damage.
+BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
-BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
+BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
@@ -7557,9 +7587,8 @@ const REL_FIX = {
 'isis:sup': 9,
 'varuna:sup': 17,
 };
-// r9: release frames of today's sheets measured by eye where the metrics are wrong (the arrow is still on the string at the metric frame)
-const R9_REL = { 'artemis:bt:atk': 8, 'artemis:ti:atk': 7, 'artemis:bt:sup': 13, 'artemis:ti:sup': 12 };
-const relTrue = (gu, kind, A) => { if (BR.isProposed && A && A.isNewSheet) { const f9 = A.isPrevSheet ? null : R9_REL[gu.hid + ':' + (/-ti-/.test(A.src || '') ? 'ti' : 'bt') + ':' + kind]; return f9 != null ? f9 / Math.max(1, (A.frames || 25) - 1) : A.rel; } const k = (BR.figKey ? BR.figKey(gu) : gu.hid) + ':' + kind, f = REL_FIX[k] ?? REL_FIX[gu.hid + ':' + kind]; return f != null ? f / Math.max(1, (A.frames || 25) - 1) : A.rel; };
+// r9: today's sheets - the by-eye release frame (R9_REL) while the sheet is still the one that was looked at, else the metric
+const relTrue = (gu, kind, A) => { if (BR.isProposed && A && A.isNewSheet) { const r9 = r9Fix(R9_REL, A); return r9 ? r9.f / Math.max(1, (A.frames || 25) - 1) : A.rel; } const k = (BR.figKey ? BR.figKey(gu) : gu.hid) + ':' + kind, f = REL_FIX[k] ?? REL_FIX[gu.hid + ':' + kind]; return f != null ? f / Math.max(1, (A.frames || 25) - 1) : A.rel; };
 class VU {
 constructor(gu, rs) {
 this.gu = gu;
@@ -7940,18 +7969,38 @@ if (!act || act.k !== (kind === 'sup' ? 's' : 'a') || u !== this.focus || act.F.
 return;
 if (BR.isProposed && act.F.today(kind, u)) {
 // r9 (14.11 Maxim, Wukong / Lu Bu: «непонятное дерганье»): the stand's sprites carry _kind / _startT (not _owner / _start), so every
-// hit of a series restarted the sheet from frame 0. Today's sheets: a sheet that still plays is left alone; a finished one is
-// replayed from just before its release frame.
+// hit of a series restarted the sheet from frame 0. Today's sheets:
+// - a sheet that still plays is never restarted. If the series ends a little later than the sheet (up to .45 s), the rest of the
+//   sheet is stretched once so that its last frame comes with the last hit - no jump back, no idle pose in the middle of the series;
+// - a finished sheet is not restarted either when the series ends within .45 s after it; only for a longer series it is played
+//   again from just before its release frame, at the floor speed of the first play (super: replayRelease, never the old fast speed).
 const find9 = () => u.gu.fig && [...u.gu.fig.querySelectorAll('.atk')].find(x => x.style.display === 'block' && x._kind === kind && x._A);
-if (find9())
+const S9 = act.F.sheetT && act.F.sheetT[kind], P9 = ((BR.B && BR.B.pending) || []).filter(p => p && p.src === u.gu && !p.always && Number.isFinite(p.t) && p.t > 0 && p.t < 2 && (!p.trace || act.actionId == null || p.trace.actionId === act.actionId));
+const left9 = P9.length ? Math.max(...P9.map(p => p.t)) : 0, end9 = S9 ? S9.t0 + S9.dur : NaN, over9 = this.t + left9 - end9;   // over9: how long the series outlives the sheet
+const now9 = find9();
+if (now9) {
+const q = S9 ? (this.t - S9.t0) / S9.dur : NaN;
+if (S9 && !S9.stretched && q > 0 && q < .98 && over9 > 0 && over9 <= .45 && Number.isFinite(now9._startT)) {
+const d2 = (left9 + .03) / (1 - q);
+now9._startT += q * (now9._dur - d2);
+now9._dur = d2;
+S9.t0 = this.t - q * d2;
+S9.dur = d2;
+S9.stretched = true;
+}
 return;
-if (kind === 'sup')
-play(u.gu, kind, REL_SUP);
-else
+}
+if (Number.isFinite(over9) && over9 <= .45)
+return;
+if (kind === 'sup') {
+if (!this.replayRelease(u, kind, .12))
+return;
+} else {
 this.playAnim(u, kind, REL_MELEE);
 const el9 = find9(), r9 = el9 ? relTrue(u.gu, kind, el9._A) : NaN;
 if (el9 && Number.isFinite(r9) && Number.isFinite(el9._startT))
 el9._startT -= clamp(r9 - .1, 0, .9) * el9._dur;
+}
 return;
 }
 const current = () => u.gu.fig && [...u.gu.fig.querySelectorAll('.atk')].find(x => x.style.display === 'block' && x._kind === kind && x._owner === u.gu && x._A);
@@ -8273,6 +8322,16 @@ if ((t === 'lunge' || leapShot) && lTgt && lTgt !== act.vu && act.F.finLeap && !
 run(act, () => act.F.finLeap(act.vu, lTgt, act.F.t + (leapNew ? act.leapAt : leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42),
 // r9 (14.11 Maxim, Brynhild: «бьет раньше чем оказывается рядом»): the leap of a basic that was a shot is fast (~.24 s) and ends on the strike
 leapNew && act.F.today('atk', act.vu) ? { lead: Math.max(.03, act.leapAt - .31) } : undefined));
+if (k === 'a' && BR.isProposed) {   // r9: today's sheet with a second baked swing (R9_STAY) - the leap back waits for the end of that swing
+const r9 = r9Fix(R9_STAY, BR.animOf(BR.SHEETS_ATK, gu)), S9 = r9 && act.F.sheetT && act.F.sheetT.atk, m9 = act.vu._leapMotion;
+if (S9 && m9 && m9.kind === 'leap' && m9.owner === act.F && !m9.cancelled) {
+const tB = S9.t0 + S9.dur * r9.f / Math.max(1, S9.frames - 1);
+if (tB > m9.tB) {
+m9.tC += tB - m9.tB;
+m9.tB = tB;
+}
+}
+}
 if (!act.played)
 play(gu, k === 'a' ? 'atk' : k === 's' ? 'sup' : 'hyp', k === 'a' ? act.melee ? REL_MELEE : REL_SHOT : REL_SUP);
 if (k === 'a' && t !== 'lunge')
@@ -18242,12 +18301,13 @@ return 'default';
 s: {
 col: '#ff5a2a', healCol: '#ffd08a',
 // r9 (14.11 Maxim: «огонь из рта в анимации, а программный эффект из ног»): today's sheets - on the release frame streams of fire
-// leave the mouth (wf) and reach every enemy when the damage lands; no fire along the ground from the feet
+// leave the mouth and reach every enemy when the damage lands; no fire along the ground from the feet. The mouth: wf on the TI sheet;
+// on the BT sheet wf is the staff fire, so the mouth point of that sheet is taken from R9_PT (r9Wp)
 anticip(F, u, k, rel, e) {
 if (!F.today('sup', u))
 return;
 const tR = F.relDt('sup', .5), fly = Math.max(.16, T_SUP - tR - .02);
-F.at(tR, () => F.foes().forEach((t, i) => r9Stream(F, F.wp('s', u), F.tc(t, .5), fly, { from: () => F.wp('s', u), col: '#ff5a2a', core: '#ffe2a0', coreK: .5, line: .45, w: 5, arc: (i - 2) * 5, wob: 4, hold: .14, drain: .2, tex: 'flame', ramp: ['#ffe2a0', '#ffb04a', '#ff6a2a', '#e03a14'], ts: 4.4, n: 13, speed: 1.8,
+F.at(tR, () => F.foes().forEach((t, i) => r9Stream(F, r9Wp(F, 's', u), F.tc(t, .5), fly, { from: () => r9Wp(F, 's', u), col: '#ff5a2a', core: '#ffe2a0', coreK: .5, line: .45, w: 5, arc: (i - 2) * 5, wob: 4, hold: .14, drain: .2, tex: 'flame', ramp: ['#ffe2a0', '#ffb04a', '#ff6a2a', '#e03a14'], ts: 4.4, n: 13, speed: 1.8,
 emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: -F.rnd(10, 60), drag: 1.5, life: F.rnd(.25, .45), s0: F.rnd(6, 10), s1: 1.5, tex: 'flame', col: '#ff8a3a', hot: true, a0: .8 }); } })));
 },
 sup(F, e) {
@@ -24010,12 +24070,30 @@ if (u.atk)
 u.atk.cut = 14;
 if (F.today('hyp', u)) {
 // r9 (14.11 Maxim «большая картинка существа не нужна», «плохо синхронизирован»): today's sheets - no creature, no pearl sigil.
-// At the release frame water jets leave the weapon (wf) and reach every target exactly when the damage lands.
-const tR = F.relDt('hyp', .5), T = (e.targets || []).filter(t => t && t.alive);
+// The ult is a summon (its only target is the god himself): it deals no damage, the dragon it calls strikes later - the first hit comes
+// about a second after the release frame. On the release frame water gathers on the weapon (wf) and stays there as a whirl; when the
+// sim starts a strike of the dragon (a pending hit of the pet), the whirl pours out as a jet from wf and reaches that victim exactly
+// when the damage lands. Nothing is aimed at the god himself.
+const tR = F.relDt('hyp', .5), seen = new Set(), orb = kwWhirlHead(8);
+let held = true;
 F.at(Math.max(0, tR - .2), () => KW.drops(F, F.wp('h', u).x, F.wp('h', u).y, 6, { r: 10, v0: 30, v1: 90, spread: 1.2 }));
-F.at(tR, () => { const m = F.wp('h', u); kwSwirl(F, m, 18, .3);
-T.forEach((t, i) => { const fly = Math.max(.14, (KW.until(F, t) ?? T_SUP - tR) - .01);
-KW.bolt(F, m, F.tc(t, .42), fly, { arc: (i - (T.length - 1) / 2) * 9, thick: 8, maxLen: 70, jetCol: AO.c, jetK: .8, life: .2, head: kwWhirlHead(11), emit: kwHelix }); }); });
+F.at(tR, () => { kwSwirl(F, F.wp('h', u), 18, .3);
+F.obj(5, (g, a) => { if (!held)
+return; const p = F.wp('h', u), k = Math.min(1, a / .2) * (1 + .08 * Math.sin(a * 7)); g.translate(p.x, p.y); g.scale(k, k); orb(g, a); });
+const watch = n => { for (const p of (BR.B && BR.B.pending) || []) {
+if (!p || seen.has(p) || !p.src || !p.src.pet || p.src.owner !== u.gu || !p.tgt || p.tgt === u.gu || !Number.isFinite(p.t) || p.t < .06)
+continue;
+seen.add(p);
+const t = F.st.units.find(v => v.gu === p.tgt);
+if (!t || t === u || !t.alive)
+continue;
+const m = F.wp('h', u);
+held = false;
+kwSwirl(F, m, 14, .22);
+KW.bolt(F, m, F.tc(t, .42), Math.max(.06, p.t - .01), { arc: 12, thick: 8, maxLen: 70, jetCol: AO.c, jetK: .8, life: .2, head: kwWhirlHead(11), emit: kwHelix });
+} if (n > 0)
+F.at(.04, () => watch(n - 1)); };
+watch(150); });
 return;
 }
 const b = boxOf(u), src = 'art/cr-' + u.hid + '.webp', pb = { x: b.x - b.w * .62, f: b.feet, h: b.h * .7 };
@@ -31327,6 +31405,9 @@ return;
 t.homeF = { x: b0.x, top: b0.top, w: b0.w, h: b0.h };
 F.burst(b0.x, b0.feet - 3, { n: 6, tex: 'smoke', col: ['#6a5a50', '#4a4038'], v0: 30, v1: 80, a0: Math.PI * 1.05, a1: Math.PI * 1.95, s0: 7, s1: 14, l0: .35, l1: .6, add: false, alpha: .5, stretch: 0, drag: 3 });
 F.motions.push({ kind: 'pull', u: t, t0: F.t, dur: pullD, dx: m.x + m.w * .2 - b0.x, dy: m.top + m.h * .34 - b0.feet, k: kk });
+// the sim's push throws him back about .37 s after the kick. If it never comes (the series was cut, the victim fell earlier), he is
+// released on a timeout 1 s after the kick instead of staying next to the god.
+F.at(Math.max(0, tK - tHook) + 1, () => { if (t.homeF && !F.motions.some(x => x.u === t && x.kind === 'push')) F.finPush(t, .3); });
 });
 F.at(tK, () => {
 const b = boxOf(t), p = { x: b.x, y: b.top + b.h * .62 };

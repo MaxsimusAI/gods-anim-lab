@@ -122,17 +122,30 @@ Overrides `work/impact_overrides.json` per clip:
   the sprites play (`scriptDt` in `tick` / `stepManual`): the whole script (effects, leap, pending hits, numbers) runs `lag` later, order
   intact. Strikes whose release frame is too early even at the slowest playback start their sheet later (`wait`, idle pose until then).
   Tables: `BR.REL_TODAY` (expected release time per skill, e.g. Sting ult kick, Shango super bolts), `BR.REL6_TODAY` (OLD_SIG skills
-  launched by `sup()` / `ult()` at .6 s keep the release at .6 s), `R9_REL` (release frame by eye where the metric frame is wrong),
-  `BR.NOLEAP_NEW` (melee basics played from the place).
+  launched by `sup()` / `ult()` at .6 s keep the release at .6 s), `BR.NOLEAP_NEW` (melee basics played from the place).
+  By-eye corrections of a sheet are keyed by the sheet FILE (`artemis-bt-atk`) and guarded by the metrics the sheet had when it was
+  looked at (`m: "impact|wf.x|wf.y"`, helper `r9Fix`): after a re-cut or a new take the correction is dropped and the sheet's own
+  metrics are used - look at the new sheet and write a new entry. Tables: `R9_REL` (release frame where the metric frame is wrong),
+  `R9_PT` (a frame point to start an effect from when `wf` marks another baked effect: Sekhmet BT super - the mouth; use `r9Wp`),
+  `R9_STAY` (a strike with a second baked swing: the god stays at the enemy until frame f - Heimdall TI).
+  Auto-repeat and showcase keep their old intervals (all three arenas restart together); only while a new arena that held its script
+  is still in its action when the interval ends, the next trigger waits until that arena has had the full interval of script time
+  (at most its hold; `heldOwed` in `app.js`).
 - **r9 helpers (defined right after `const SIG = {}`, usable in every signature):** `r9Stand(F, e, fly, launch)` - a melee basic from the
   place with a projectile from `wf`; `r9Link(F, u, kind, targets, draw, o)` - on the release frame something leaves `wf` and reaches each
-  target when the sim deals the damage; `r9Stream` (smooth tapered stream, moving origin / target, optional flowing sprites), `r9Fire`
+  target .01 s before the sim deals the damage (`o.min` / `o.gap` are wishes: the stagger is squeezed and the flight shortened rather
+  than let a projectile land after its hit); `r9Stream` (smooth tapered stream, moving origin / target, optional flowing sprites), `r9Fire`
   (stream of fire in a colour ramp), `r9Staff` (Wukong's staff); `F.st.replayRelease(u, kind, lead)` - play the sheet again so that its
-  release frame comes `lead` s from now (a hit long after the cast, Lu Bu ult). On the stand `contactImpact` no longer restarts a sheet
-  that is still playing.
+  release frame comes `lead` s from now (a hit long after the cast, Lu Bu ult). On the stand `contactImpact` never restarts a sheet
+  that is still playing; when a hit series ends up to .45 s after the sheet, the rest of the sheet is stretched to the last hit (no
+  restart, no idle pose inside the series); only a longer series replays a finished sheet, at the floor speed.
 - **r9 tools (`pipeline/r9/tools/`, server on :8766):** `fseq.py` (deterministic frame series: paused page + `stepManual`; prints sheet
   duration, release, hold, hit times, console errors), `survey.py` (timing table of all gods x slots, no pictures), `relview.py` /
-  `sheetview.py` (release frame with `wf`, any frame range of a sheet), `led.py` (update `pipeline/r9/fx_ledger.json`).
+  `sheetview.py` (release frame with `wf`, any frame range of a sheet), `led.py` (update `pipeline/r9/fx_ledger.json`),
+  `fsb.py` (batch `fseq`: several jobs in one browser, x/y crop), `arr.py` (numbers only: when every `F.slashWave` / `F.obj` of the
+  action starts and ends against the sim's hits - proves "arrives before the damage"), `ftrace.py` (numbers only: sheet frame of the
+  focus god step by step in all three arenas, leap away / back times, hits - shows restarts and jumps), `dbg.py` (evaluate an
+  expression in the page after a trigger).
 
 **What to look at for the stand gate (the gate itself is G4 of the skill; every action slot, BT row + TI row):**
 `python3 b3/seq.py out.jpg <god> <slot> [n] [step_ms] [speed]` — LOOK at it.
