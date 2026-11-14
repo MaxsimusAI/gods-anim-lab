@@ -37,3 +37,16 @@ idea: he crouches, lifts the staff with both hands to chest height, lightning ru
   the ground — a ring of crackling lightning at the foot of the staff, the knees take the blow
 game_fx: bolts from the sky onto every enemy at the strike frame; nothing leaves the clip through an edge
 ```
+
+## Re-shoots of 14.11 (Maxim marked «переснять»)
+
+```
+clip: zeus_ti_idle
+status: re-shoot (Maxim named it 14.11); take 1 sent 14.11 night
+type: idle
+idea: Idle, slow and alive for the whole clip: he shifts his whole weight from one leg to the other and back, a sway large enough to be seen from far away, his hips and shoulders following; his chest rises and falls with calm breathing; the blue cape and the white robe sway after the body, his beard and hair move, his free hand opens and closes, a soft blue light flickers in the crystal of the staff. The staff stays planted on the ground. He keeps exactly the same angle to the viewer as in the first frame for the whole clip, and ends exactly in the pose of the first frame.
+remarks:
+  - 14.11 «переснять» (no comment)
+takes: 1 (14.11 night) — waits for the gates
+prompt: pipeline/r9/zeus_ti_idle.txt
+```
