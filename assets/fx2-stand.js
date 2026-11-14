@@ -5668,7 +5668,10 @@ return null; const r = T[String(A.src || '').replace(/^.*\//, '').replace(/-(mob
 const R9_REL = { 'artemis-bt-atk': { f: 8, m: '5|0.699|0.512' }, 'artemis-ti-atk': { f: 7, m: '5|0.825|0.305' }, 'artemis-bt-sup': { f: 13, m: '9|0.763|0.368' }, 'artemis-ti-sup': { f: 12, m: '9|0.864|0.274' } };
 // R9_PT: a point of the sheet frame (fractions of the frame, like wf) where the owner wants the effect to start while wf marks another
 // baked effect. Sekhmet BT super: wf is the fire of the staff, the clip breathes fire from the mouth («огонь из рта»).
-const R9_PT = { 'sekhmet-bt-sup': { p: [.52, .14], m: '14|0.299|0.426' } };
+const R9_PT = { 'sekhmet-bt-sup': { p: [.52, .14], m: '14|0.299|0.426' },
+// Block 4b. Llorona BT ult: wf is the splash at her chest, the clip holds the blue water flame in the hand at the left. Llorona TI
+// super: wf is the side of the water curtain at knee height, the game continues the curtain from its crest above her head.
+'llorona-bt-hyp': { p: [.2, .2], m: '14|0.569|0.48' }, 'llorona-ti-sup': { p: [.5, .07], m: '10|0.815|0.599' } };
 // R9_STAY: a strike sheet with a second baked swing after the release frame - the god who leapt to the enemy stays there until
 // frame f (the end of that swing) and only then leaps back. Heimdall TI strike: release f3, second swing f8-f10.
 const R9_STAY = { 'heimdall-ti-atk': { f: 11, m: '3|0.35|0.1' } };
@@ -7741,7 +7744,7 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
 // r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
 // before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
-Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45 });
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -23896,7 +23899,7 @@ if (F.today('sup', u)) {
 // pours from that point in a jet to every enemy (thicker to the outer ones - they take more) and crashes on them with the damage.
 const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot), n = row.length;
 r9Link(F, u, 's', row, (from, to, fly, t, i) => { const far = i === 0 || i === n - 1;
-r9Stream(F, r9Fp(F, u, 's', .5, .06), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#f0fffc', '#9af0e8', '#48d0cc'], ts: 2.1, n: 8, speed: 1.6,
+r9Stream(F, r9Fp(F, u, 's', .5, .06), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#7fe0d8', '#48c8c4', '#2fa8a8'], ts: 3, n: 12, speed: 1.2,
 emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 160, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#e4fffb', '#9af0e8', '#48d0cc']) }); } }); }, { gap: .012, ty: .5 });
 return;
 }
@@ -37386,6 +37389,8 @@ return 'default'; W2.zapHit(F, F.tc(e.u, .48), 1.05); },
 const W2LL = '#d8ecff';
 const w2llHand = F => W2.pt(F, [.22, -.5], 's');
 const w2llHead = F => W2.pt(F, [-.02, -.84], 'h');
+// r9 Block 4b: Llorona's ghostly water of today's clips - a pale blue stream with white foam (r9Stream options)
+W2.ll9 = o => Object.assign({ col: '#7fc0f0', core: '#f2faff', coreK: .5, wob: 6, tail: .82, drain: .2, tex: 'smoke', ramp: ['#9fd0f4', '#7fbcee', '#5fa4e0'], ts: 3, n: 12, speed: 1.2 }, o);
 NEWSTYLE.llorona = { el: 'water', role: 'warrior', weapon: 'claw', melee: true, twin: false, proj: 'water', col: W2LL, glyph: 'w2tear' };
 SIG.llorona = {
 motif: 'water', glyph: 'w2tear',
@@ -37409,9 +37414,23 @@ return 'default'; W2.touch(F, F.tc(e.u, .42)); },
 },
 s: {
 col: W2LL, noCharge: true,
-anticip(F, u, kind, rel) { const h = w2llHead(F); W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 8); W2.gather(F, h, rel, { col: W2LL, n: 8, r: 20, tex: 'smoke', cols: ['#dff0fa'], add: false, a0: .5, s0: 8, k: .6 }); },
+anticip(F, u, kind, rel) {
+if (F.today('sup', u)) {
+// r9 Block 4b (14.11 Maxim, Llorona super / ult: «плохой программный эффект»): today's sheets - no tear drops, no thin wail arcs, no sigil.
+// Super (all enemies attack only her): on the release frame the ghostly water of the clip flows from her hand / lantern (wf) to every
+// enemy and winds around him - he is tied to her.
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 's', row, (from, to, fly, t, i) => {
+r9Stream(F, r9Wp(F, 's', u), to, fly, W2.ll9({ w: 9, arc: (i - (n - 1) / 2) * -8 }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#7fc0f0', core: '#f2faff', w: 4.6, dur: .65, turns: 1.7 }));
+}, { exp: .45, gap: .014, ty: .42 });
+return;
+}
+const h = w2llHead(F); W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 8); W2.gather(F, h, rel, { col: W2LL, n: 8, r: 20, tex: 'smoke', cols: ['#dff0fa'], add: false, a0: .5, s0: 8, k: .6 }); },
 sup(F, e) {
 F.supDrawn = true;
+if (F.today('sup'))
+return;
 const h = w2llHead(F);
 W2.wail(F, h, { n: 3, gap: .07, dur: .32, r: Math.abs(h.y - (LAY.eFeet - LAY.eRow * .45)) / .82 });
 W2.tears(F, { x: h.x, y: h.y + 6 }, .5, 6);
@@ -37422,6 +37441,17 @@ return 'default'; W2.terror(F, e.u); return 'default'; },
 h: {
 col: W2LL, noCharge: true,
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b: ult (the most dangerous enemy is dragged under water) - on the release frame one thick stream of the clip's water leaves
+// her hand (wf), reaches the victim, winds around him, and the water closes over him (stun + drowning)
+const t9 = e.targets[0];
+if (t9)
+r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
+r9Stream(F, r9Wp(F, 'h', u), to, fly, W2.ll9({ w: 14, arc: (to.x < from.x ? 1 : -1) * 24, emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 150, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#f2faff', '#bfe2fa', '#7fc0f0']) }); } }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#6ab6ee', core: '#f2faff', w: 7.5, dur: .95, turns: 2.5 }));
+}, { exp: .45, ty: .45 });
+return;
+}
 const h = w2llHead(F);
 W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 10);
 F.at(.3, () => w2sigil(F, 'w2tear', W2LL, 40));

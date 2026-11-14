@@ -314,16 +314,16 @@
   "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s"
  },
  "llorona_bt_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s"
  },
  "llorona_ti_atk": {
   "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
@@ -332,16 +332,16 @@
   "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s"
  },
  "llorona_ti_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s"
  },
  "loki_bt_hyp": {
   "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
