@@ -15,7 +15,10 @@ if art != 'none':
     m0 = np.asarray(remove(Image.fromarray(f0), session=new_session('isnet-general-use'), only_mask=True)) > 220
     l0 = cv2.cvtColor(f0, cv2.COLOR_RGB2LAB).astype(np.float32)[m0]
     qs = np.linspace(0.01, 0.99, 50)
-    lut = np.interp(np.arange(256), np.quantile(l0[:, 0], qs), np.quantile(la[:, 0], qs))
+    # anchors 0->0 and 255->255: without them everything brighter than the body's own 99 % (white-hot flash cores, lightning)
+    # was clamped to the art's 99 % lightness and came out flat dull gray (found on Blackbeard's shots, 14.11)
+    qv = np.maximum.accumulate(np.concatenate([[0.0], np.quantile(l0[:, 0], qs), [255.0]]) + np.arange(52) * 1e-3)
+    lut = np.interp(np.arange(256), qv, np.concatenate([[0.0], np.quantile(la[:, 0], qs), [255.0]]))
     lut = 0.6 * lut + 0.4 * np.arange(256)   # 60 % of the way to the art: no hard jumps
     sat = [1 + 0.6 * (float(np.clip(la[:, c].std() / max(l0[:, c].std(), 1e-3), 1.0, 1.25)) - 1) for c in (1, 2)]
     print('lightness 10/50/90 % video', [round(float(np.quantile(l0[:, 0], q))) for q in (.1, .5, .9)],
