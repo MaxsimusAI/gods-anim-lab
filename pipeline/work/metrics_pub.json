@@ -353,42 +353,42 @@
    -0.62
   ],
   "wf": [
-   0.515,
-   0.463
+   0.569,
+   0.465
   ],
-  "maxDiff": 33.15,
+  "maxDiff": 38.69,
   "fig": {
-   "top": 0.1389,
-   "foot": 0.9911,
-   "ax": 0.5147
+   "top": 0.1442,
+   "foot": 0.9896,
+   "ax": 0.569
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
-  "bodyPx": 187,
-  "bodyPxF": 187.48,
+  "bodyPx": 186,
+  "bodyPxF": 185.99,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 317.0,
    "ramMb": 3.46,
-   "kbPct": 106,
-   "ramPct": 59
+   "kbPct": 103,
+   "ramPct": 67
   },
   "mob": {
    "file": "agni-bt-idle-mob.webp",
-   "w": 97,
+   "w": 110,
    "h": 220,
-   "kb": 334.7,
-   "ramMb": 2.04
+   "kb": 327.3,
+   "ramMb": 2.31
   },
   "lite": {
    "file": "agni-bt-idle-lite.webp",
-   "w": 68,
+   "w": 77,
    "h": 154,
-   "kb": 191.8,
-   "ramMb": 1.0
+   "kb": 194.4,
+   "ramMb": 1.13
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
