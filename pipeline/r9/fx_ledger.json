@@ -19,16 +19,16 @@
   "what": ""
  },
  "anansi_bt_sup": {
-  "checked": "",
+  "checked": "fseq anansi sup: BT release f16@1001, orb 1120-1380, hits 1265; TI release f15@938, hits 1195 ms",
   "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.75 / 0.8 s); orbs leave the hand after the release frame and the web lands with the damage"
  },
  "anansi_ti_sup": {
-  "checked": "",
+  "checked": "fseq anansi sup: BT release f16@1001, orb 1120-1380, hits 1265; TI release f15@938, hits 1195 ms",
   "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.75 / 0.8 s); orbs leave the hand after the release frame and the web lands with the damage"
  },
  "aoguang_bt_hyp": {
   "checked": "fseq aoguang hyp: no creature 580-1490 ms, swirl at the release (f12/f13)",
@@ -115,28 +115,28 @@
   "what": ""
  },
  "blackbeard_bt_hyp": {
-  "checked": "",
+  "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): Jolly Roger sigil and beard smoke removed; one read - on the release frame ghostly teal boarding chains with hooks shoot from the hand (wf) to every enemy, bite when the control lands, pull taut and fade"
  },
  "blackbeard_ti_hyp": {
-  "checked": "",
+  "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): Jolly Roger sigil and beard smoke removed; one read - on the release frame ghostly teal boarding chains with hooks shoot from the hand (wf) to every enemy, bite when the control lands, pull taut and fade"
  },
  "brynhild_bt_atk": {
-  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms",
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms | fseq brynhild atk 0.62 scale 600-1080 ms",
   "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
   "status": "done",
-  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage"
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage | no ball / line on an ally seen"
  },
  "brynhild_ti_atk": {
-  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms",
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms | fseq brynhild atk 0.62 scale 600-1080 ms",
   "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
   "status": "done",
-  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage"
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage | no ball / line on an ally seen"
  },
  "demeter_bt_hyp": {
   "checked": "fseq demeter hyp: only the clip wheat; shots 840, damage 815 ms, wither 970",
@@ -205,16 +205,16 @@
   "what": "today's sheets: ghost warriors, soul picture, hourglass and field sigil removed; at the release soul wisps fly from wf to the allies, then the resurrection"
  },
  "heracles_bt_hyp": {
-  "checked": "",
+  "checked": "fseq heracles hyp: BT release f13@813, wave 810-970, damage 965; TI release f11@687, damage 840 ms",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): lion sigil, pebble gathering and the club arc at the enemy removed; one read - on the release frame a golden shock wave leaves the club / fist (wf), flies to the victim and lands with the damage and the quake"
  },
  "heracles_ti_hyp": {
-  "checked": "",
+  "checked": "fseq heracles hyp: BT release f13@813, wave 810-970, damage 965; TI release f11@687, damage 840 ms",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): lion sigil, pebble gathering and the club arc at the enemy removed; one read - on the release frame a golden shock wave leaves the club / fist (wf), flies to the victim and lands with the damage and the quake"
  },
  "horseman_bt_atk": {
   "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
@@ -223,16 +223,16 @@
   "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
  },
  "horseman_bt_hyp": {
-  "checked": "",
+  "checked": "fseq horseman hyp: release f9@600, whip 570-850 from the god to the arc, damage 755 ms as the arc passes",
   "remark": "Нет связи между анимацией умения и уроном",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: the reaping arc is swung on a whip of fire from the hand (wf) starting at the release frame; lantern icon over the god removed"
  },
  "horseman_bt_sup": {
-  "checked": "",
+  "checked": "fseq horseman sup: BT release f12@750, clots 760-1090, ignite ~1200; TI release f7@584, clots 760-980",
   "remark": "Нет связи между анимацией умения и уроном",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)"
  },
  "horseman_ti_atk": {
   "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
@@ -241,16 +241,16 @@
   "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
  },
  "horseman_ti_hyp": {
-  "checked": "",
+  "checked": "fseq horseman hyp: release f9@600, whip 570-850 from the god to the arc, damage 755 ms as the arc passes",
   "remark": "Нет связи между анимацией умения и уроном",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: the reaping arc is swung on a whip of fire from the hand (wf) starting at the release frame; lantern icon over the god removed"
  },
  "horseman_ti_sup": {
-  "checked": "",
+  "checked": "fseq horseman sup: BT release f12@750, clots 760-1090, ignite ~1200; TI release f7@584, clots 760-980",
   "remark": "Нет связи между анимацией умения и уроном",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)"
  },
  "inti_bt_atk": {
   "checked": "fseq inti atk: release f12@625 ms, projectile 710-980, hit 950 ms",
@@ -265,10 +265,10 @@
   "what": "sheet plays 1.25 s (was 0.77 s); ray leaves the staff at the release, damage after the flight"
  },
  "kali_bt_hyp": {
-  "checked": "",
+  "checked": "fseq kali hyp: BT release f17@1062, slashes + damage 1325 ms",
   "remark": "Слишком резко дергается в анимации. Плохие прогрманные эффекты, опять не понятно кто кого бьет",
-  "status": "not done",
-  "what": ""
+  "status": "partly",
+  "what": "sheet plays 1.5 s (was 0.71 s) - the jerk is gone; slashes land after the release frame. Effect itself not redesigned (Block 4: still unclear who hits whom)"
  },
  "kali_bt_sup": {
   "checked": "",
@@ -277,10 +277,10 @@
   "what": ""
  },
  "kali_ti_hyp": {
-  "checked": "",
+  "checked": "fseq kali hyp row R",
   "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
   "status": "not done",
-  "what": ""
+  "what": "only Block 1 timing (release f11@687, damage 938 ms); Block 4 redesign not started"
  },
  "kali_ti_sup": {
   "checked": "",
@@ -337,28 +337,28 @@
   "what": ""
  },
  "loki_bt_hyp": {
-  "checked": "",
+  "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms",
   "remark": "Нет связи программного эффекта и урона",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame green fire streams leave the hand (wf) to every enemy and arrive with the damage; doubles and field sigil removed"
  },
  "loki_ti_hyp": {
-  "checked": "",
+  "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms",
   "remark": "Нет связи программного эффекта и урона",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame green fire streams leave the hand (wf) to every enemy and arrive with the damage; doubles and field sigil removed"
  },
  "lubu_bt_hyp": {
-  "checked": "",
+  "checked": "fseq lubu hyp from 4450 ms: sheet f9..f20, fire leaves at ~4850 (f14), damage 5035 ms",
   "remark": "Нет связи програмнного эффекта с анимацией и уроном",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: glyph over the god removed; the ult strikes the row 4 s after the cast - 0.5 s before that late hit the strike of the sheet is played again (STG.replayRelease) and fire leaves the halberd (wf) to every enemy, arriving with the damage"
  },
  "lubu_bt_sup": {
-  "checked": "",
+  "checked": "numbers only (survey: D 1.5, release 750 ms, hits 913 / 1988 ms) - not looked at in a frame series",
   "remark": "Слишком быстро дергается в анимации",
-  "status": "not done",
-  "what": ""
+  "status": "partly",
+  "what": "sheet plays 1.5 s (was 1.2 s); the multi-hit series no longer restarts the sheet from frame 0 on the stand (same contactImpact fix as Wukong)"
  },
  "lucifer_bt_hyp": {
   "checked": "",
@@ -421,10 +421,10 @@
   "what": ""
  },
  "raijin_bt_sup": {
-  "checked": "",
+  "checked": "numbers only (survey) - not looked at in a frame series",
   "remark": "Слишком дерганная анимация?",
-  "status": "not done",
-  "what": ""
+  "status": "partly",
+  "what": "sheet plays 1.5 s (was 1.11 / 0.85 s)"
  },
  "raijin_ti_hyp": {
   "checked": "",
@@ -433,10 +433,10 @@
   "what": ""
  },
  "raijin_ti_sup": {
-  "checked": "",
+  "checked": "numbers only (survey) - not looked at in a frame series",
   "remark": "Слишком дерганная анимация?",
-  "status": "not done",
-  "what": ""
+  "status": "partly",
+  "what": "sheet plays 1.5 s (was 1.11 / 0.85 s)"
  },
  "sekhmet_bt_sup": {
   "checked": "fseq sekhmet sup: BT release f14@874, streams 970-1150, damage 1135; TI release f15@938, damage 1195 ms; close look at 0.9",
@@ -475,10 +475,10 @@
   "what": ""
  },
  "shiva_bt_sup": {
-  "checked": "",
+  "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
   "remark": "нет связи между анимацией и нанесением урона",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame a stream of fire leaves the trident (wf), reaches the target with the first hit and holds through the hit series"
  },
  "shiva_ti_atk": {
   "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
@@ -493,34 +493,34 @@
   "what": ""
  },
  "shiva_ti_sup": {
-  "checked": "",
+  "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
   "remark": "нет связи между анимацией и нанесением урона",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame a stream of fire leaves the trident (wf), reaches the target with the first hit and holds through the hit series"
  },
  "silent_bt_hyp": {
-  "checked": "",
+  "checked": "fseq silent hyp: BT release f15@938, wave 990-1060, damage 1090; TI release f16@1001, damage 1160 ms",
   "remark": "Плохая связь анимации и программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: sigil with eyes over the god and dash smoke removed; on the release frame a red blade wave leaves the sword (wf) and reaches the victim with the damage, then the cleave"
  },
  "silent_ti_hyp": {
-  "checked": "",
+  "checked": "fseq silent hyp: BT release f15@938, wave 990-1060, damage 1090; TI release f16@1001, damage 1160 ms",
   "remark": "Плохая связь анимации и программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: sigil with eyes over the god and dash smoke removed; on the release frame a red blade wave leaves the sword (wf) and reaches the victim with the damage, then the cleave"
  },
  "sting_bt_hyp": {
-  "checked": "",
+  "checked": "fseq sting hyp: chain 200-480, pull 600, release f11@740 + hit 755, hit 930, boom 1115, enemy back by 1460 ms (BT); TI release f13@813, hits 835/1005/1195",
   "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: chain flies from the hand (wf) to the strongest enemy at the start, pulls him to the god during the wind-up, the release frame (the kick in the new clip) lands with the sim's first hit (REL_TODAY sting:hyp = 0.74 s), then second hit, seal explosion with the last hit, enemy thrown back. The current sheets have no kick yet - the sequence is tied to the release frame, so the new clip drops in"
  },
  "sting_ti_hyp": {
-  "checked": "",
+  "checked": "fseq sting hyp: chain 200-480, pull 600, release f11@740 + hit 755, hit 930, boom 1115, enemy back by 1460 ms (BT); TI release f13@813, hits 835/1005/1195",
   "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: chain flies from the hand (wf) to the strongest enemy at the start, pulls him to the god during the wind-up, the release frame (the kick in the new clip) lands with the sim's first hit (REL_TODAY sting:hyp = 0.74 s), then second hit, seal explosion with the last hit, enemy thrown back. The current sheets have no kick yet - the sequence is tied to the release frame, so the new clip drops in"
  },
  "surt_bt_atk": {
   "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",
@@ -595,40 +595,40 @@
   "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
  },
  "wukong_bt_atk": {
-  "checked": "",
+  "checked": "fseq wukong atk: BT release f15@781, staff 820-980, hit 945; TI release f12@625, hit 785 ms",
   "remark": "Непонятное дерганье в анимации и нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: sheet 1.25 s (was 0.64 / 0.8 s); on the release frame a red-and-gold staff visibly grows from the hands (wf) to the target and lands with the damage (was a faint grey line 0.12 s before the gesture)"
  },
  "wukong_bt_hyp": {
-  "checked": "",
+  "checked": "fseq wukong hyp: BT release f17@1062, staffs + hits 1325-1575; TI release f12@750, hits from 1010 ms",
   "remark": "нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no doubles, no cloud sigil; before every hit of the chain the staff grows from the hands (wf) to that enemy"
  },
  "wukong_bt_sup": {
-  "checked": "",
+  "checked": "fseq wukong sup: staffs at each hit 1320-1840 (BT) / 1135-1655 (TI); frames run f17..f23 without jumping to f0",
   "remark": "нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: before every hit the staff grows from the hands (wf) to that enemy; the stand no longer restarts the sheet from frame 0 on every hit of the series (contactImpact fix) - a finished sheet is replayed from just before its release"
  },
  "wukong_ti_atk": {
-  "checked": "",
+  "checked": "fseq wukong atk: BT release f15@781, staff 820-980, hit 945; TI release f12@625, hit 785 ms",
   "remark": "нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: sheet 1.25 s (was 0.64 / 0.8 s); on the release frame a red-and-gold staff visibly grows from the hands (wf) to the target and lands with the damage (was a faint grey line 0.12 s before the gesture)"
  },
  "wukong_ti_hyp": {
-  "checked": "",
+  "checked": "fseq wukong hyp: BT release f17@1062, staffs + hits 1325-1575; TI release f12@750, hits from 1010 ms",
   "remark": "нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no doubles, no cloud sigil; before every hit of the chain the staff grows from the hands (wf) to that enemy"
  },
  "wukong_ti_sup": {
-  "checked": "",
+  "checked": "fseq wukong sup: staffs at each hit 1320-1840 (BT) / 1135-1655 (TI); frames run f17..f23 without jumping to f0",
   "remark": "нет связи с программным эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: before every hit the staff grows from the hands (wf) to that enemy; the stand no longer restarts the sheet from frame 0 on every hit of the series (contactImpact fix) - a finished sheet is replayed from just before its release"
  },
  "zeus_ti_atk": {
   "checked": "fseq zeus atk R: f5@700 ms bolt from the hand, hit 710 ms",
