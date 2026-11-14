@@ -154,6 +154,15 @@ def matte_frame(im_rgb, session):
     H, W, _ = a.shape
     g = bg_profile(a)
     m = np.asarray(remove(im_rgb, session=session, only_mask=True)).astype(np.float32) / 255.0
+    # 14.11 (Kali's belly, Ao Guang's robe): on full-size frames the mask model drops flat body areas whose colour is close to
+    # the gray background; on a small frame (420 px high, as the cuts before the sharp cut used) it keeps them. The small
+    # mask, eroded so that it never touches the outline, is added to the full-size one: the edge stays sharp, the inside solid.
+    if os.environ.get("KL_MASK2", "1") == "1" and H > 600:
+        from scipy import ndimage as _ni2
+        _sm = im_rgb.resize((max(2, int(round(W * 420.0 / H))), 420), Image.LANCZOS)
+        _m2 = np.asarray(remove(_sm, session=session, only_mask=True).resize((W, H), Image.BILINEAR)).astype(np.float32) / 255.0
+        _er = max(3, int(H * 0.006))
+        m = np.maximum(m, _ni2.grey_erosion(_m2, size=(2 * _er + 1, 2 * _er + 1)))
 
     sat = a.max(axis=2) - a.min(axis=2)
     bright = np.maximum(a.max(axis=2) - g.max(axis=2), 0.0)

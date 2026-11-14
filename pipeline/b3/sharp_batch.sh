@@ -5,7 +5,8 @@ set -e
 K=/home/claude/kl
 for c in "$@"; do
   # at most two cuts at a time on this machine (three or more run out of memory: BrokenProcessPool, 14.11)
-  slot=""; while [ -z "$slot" ]; do for i in 0 1; do exec 8>/tmp/slot.$i.lock; if flock -n 8; then slot=$i; break; fi; done; [ -z "$slot" ] && sleep 3; done
+  slot=""; for i in 0 1; do exec 8>/tmp/slot.$i.lock; if flock -n 8; then slot=$i; break; fi; done
+  if [ -z "$slot" ]; then slot=$((RANDOM % 2)); exec 8>/tmp/slot.$slot.lock; flock 8; fi   # blocking wait: a polling waiter starved (14.11)
   g=${c%%_*}; st=$(echo $c | cut -d_ -f2); d=/tmp/sc/$c; rm -rf $d; mkdir -p $d/raw $d/frames_all/$c $d/gods-anim-lab-repo/assets/sheets
   flock /tmp/am.lock cp $K/work/{live_bt_metrics,new_10_art_metrics,impact_overrides,adapted_all_metrics}.json $d/
   ffmpeg -v error -y -i $K/b2/mp4/$c.mp4 $d/raw/f_%03d.png
