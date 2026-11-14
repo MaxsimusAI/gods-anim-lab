@@ -1,6 +1,6 @@
 # State of the gods animation work
 
-Site: https://maxsimusai.github.io/gods-anim-lab/ (v29, 13.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
+Site: https://maxsimusai.github.io/gods-anim-lab/ (v106, 14.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
@@ -99,16 +99,42 @@ in the data: frame 13, (0.21, 0.42)):
   smoke column (~900 ms); a «bite» deals damage at 150 ms before any motion; unclear jaw symbol.
 Screens: /tmp/g4 (session only). Next: rebuild these game effects to the clips (T1 for these 7 gods), stand re-check.
 
+## 14.11 day — the remaining 36 gods: existing takes first (Maxim 13:43; site v83-v106)
+
+Maxim: «в первую очередь сначала ты проверяешь то, что уже сделано было в Клинге, и стараешься это доработать… если умение
+хорошее, и там не хватало нам четкости, то ты сначала четкость восстанавливаешь».
+- All 276 existing clips of the 36 gods (Agni … Wukong; Lilith TI only, Loki and Lu Bu BT only) re-cut sharp from their
+  source videos: the 25 moments pinned first (`b3/pin_moments.py`), whole window at the largest scale that fits (`fit`).
+  Strike frames grew from about 165-200 px high to 220. Published per god after a fresh-eyes review (old vs new on gray and
+  on magenta). Ares: 7 slots that showed static pictures now play their Kling takes.
+- Per-clip verdicts of the fresh-eyes reviewers: `pipeline/r8/ledger.json` (clip → cut status, TAKE PASS/WATCH/FAIL,
+  reason, re-shoot idea): 55 PASS, 102 WATCH, 117 FAIL (static legs / frozen body under an effect is the main reason).
+  The same in Russian per god and slot is on the stand (`todo`, `pipeline/r8/todo_ru_*.json`).
+- Old sheet kept (the re-cut is worse or not clean): blackbeard_ti_hyp, llorona_bt_hyp, silent_ti_atk, silent_ti_sup; see
+  the ledger for the repair cuts under review at the end of the day.
+- New takes (240 credits, ids `pipeline/r8/kling_tasks_1411b.json`, prompts `pipeline/r8/`): Agni TI idle (PASS), TI strike
+  (WATCH), BT super "three flames from the hand" (WATCH), BT idle retake 2 (PASS; take 1 failed) — all four were named by
+  Maxim; Anansi BT ult (WATCH). Sources: `Kling тест\workspace\mp4-zzz-v103-r8.tar`.
+- No other re-shoots were sent: Maxim has not judged these gods, so the 117 FAIL clips wait for his word (one take each =
+  about 3 500 credits).
+- Cutter fixes found by the reviewers (all in `tools/adapt_batch.py`, `b3/sharp_prep.py`, `b3/sharp_batch.sh`):
+  white flash cores of BT clips came out gray (tone LUT clamped above the body's 99 %) → fixed 15:43; flat body areas the
+  colour of the background (Kali's belly, Ao Guang's robe, Lucifer's cape lining) dropped on full-size frames → second
+  small-frame mask (KL_MASK2, on by default); see-through dark limbs → dark-body rescue, per clip only (`"darkbody": true`;
+  as a default it turned dark haze into slabs); at most two cuts at a time (memory); metrics copied under the lock.
+  NOT yet applied to gods 1-16: their BT sharp cuts of 13-14.11 were made with the old tone step (gray flash cores) and
+  without the second mask — re-cut them from the same sources (no credits) and compare before publishing.
+- Memory: many action sheets are now 100-130 % of the live sheet of their slot in RAM (frame up to 180×220 at the idle's
+  scale); numbers per clip in `pipeline/work/metrics_pub.json` (`live.ramPct`). Report to Maxim; his word decides.
+
 ## Next step
 
-1. Maxim looks at Kitsune, Athena, Zeus on the stand: are the re-cuts sharp enough; which take to keep in the three
-   «вчера / сейчас» pairs; proposal 1 of the skill only after that.
-2. **New clips, ONE god at a time** — only the clips marked `re-shoot (…)` below: Kitsune, Athena, then Artemis, Zeus,
-   Demeter. Idea lines to Maxim first (skill, section 5 step 4). No credits on the next god before he has answered on the
-   previous one (skill, section 1). Pilot rule promised to Maxim (report of 13.11): if he accepts fewer than two thirds of
-   the new clips of Kitsune and Athena at first showing — stop and correct section 7 of the skill with his «да»; no new bans.
-3. Then the other gods, those with open remarks first. For every clip in the list "Other gods" check that the sheet on the
-   site is still the take Maxim saw on that date before calling it protected; soft strikes are re-cut the same way.
+1. Maxim looks at the 36 gods on the stand (sharp re-cuts, «вчера / сейчас»), and at the new Agni and Anansi takes.
+2. His word on the re-shoots: the 117 FAIL clips of `pipeline/r8/ledger.json` (ideas are written there). One god at a
+   time unless he says otherwise; prompts by the skill's grammar (`pipeline/r8/mk.py` builds them).
+3. Re-cut the BT sheets of gods 1-16 with the fixed tone step and the second mask (no credits), compare, publish.
+4. Still open from the night: the game effects of the 10 gods' new clips (G4 list above), Hel / Kitsune / Artemis / Demeter
+   items waiting for Maxim.
 
 ## Gods 1-5 — per slot
 

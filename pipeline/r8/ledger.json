@@ -1,0 +1,1658 @@
+{
+ "agni_bt_idle": [
+  "new take (retake 2) published v89",
+  "PASS",
+  "weight shift with a heel lift, calm; rests ~0.4 s in two poses",
+  ""
+ ],
+ "agni_ti_idle": [
+  "new take published v85",
+  "PASS",
+  "one slow weight shift, calm (was: dances)",
+  ""
+ ],
+ "agni_bt_atk": [
+  "OK",
+  "PASS",
+  "protected (Maxim)",
+  ""
+ ],
+ "agni_ti_atk": [
+  "new take published v85",
+  "WATCH",
+  "no white frame, steady column, deep lunge; shawl cut by the right edge ~10 frames, face hidden 3 frames, pop 7-8",
+  ""
+ ],
+ "agni_bt_sup": [
+  "new take published v85",
+  "WATCH",
+  "three flames from the hand, legs act, nothing leaves sideways; flames return to the chest, cover the face 1 frame",
+  ""
+ ],
+ "agni_ti_sup": [
+  "OK",
+  "PASS",
+  "protected (Maxim)",
+  ""
+ ],
+ "agni_bt_hyp": [
+  "OK",
+  "PASS",
+  "protected (Maxim)",
+  ""
+ ],
+ "agni_ti_hyp": [
+  "OK (blue slab at frame 9 removed)",
+  "PASS",
+  "protected (Maxim)",
+  ""
+ ],
+ "anansi_bt_idle": [
+  "OK",
+  "WATCH",
+  "frames 15-24 almost still",
+  ""
+ ],
+ "anansi_ti_idle": [
+  "OK",
+  "WATCH",
+  "body and legs a statue, only sash and glints move",
+  ""
+ ],
+ "anansi_bt_atk": [
+  "OK",
+  "FAIL",
+  "legs static all 25 frames, only arms swing; arms smear 9,11,15-16",
+  "step into the cross-cut: foot forward, knees bend, weight back on release"
+ ],
+ "anansi_ti_atk": [
+  "OK",
+  "WATCH",
+  "arms overhead 12-16, hands cut by the top, daggers invisible",
+  ""
+ ],
+ "anansi_bt_sup": [
+  "OK",
+  "FAIL",
+  "legs a statue; head hidden by fire ball at 16; sickles vanish 15-17",
+  "crouch, golden web woven between the sickles, rise"
+ ],
+ "anansi_ti_sup": [
+  "OK",
+  "WATCH",
+  "finale repeats the atk finale; daggers vanish 5-9, 12-14",
+  ""
+ ],
+ "anansi_bt_hyp": [
+  "new take published v85 (leg matting fixed)",
+  "WATCH",
+  "whole body acts, kneel, orb; loops touch the side edges 8 frames, face behind the orb 4 frames, sickles unused",
+  ""
+ ],
+ "anansi_ti_hyp": [
+  "OK",
+  "FAIL",
+  "legs a statue, one arm, frozen hold 8-12; rays from behind the back",
+  "same idea as BT: kneel, threads raked into an orb between the daggers"
+ ],
+ "aoguang_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "aoguang_ti_idle": [
+  "OK",
+  "WATCH",
+  "frames 20-24 freeze (~0.4 s)",
+  ""
+ ],
+ "aoguang_bt_atk": [
+  "OK",
+  "FAIL",
+  "head and feet 0 px, only the forearm lifts the pearl",
+  "pull the pearl to the chest sinking on bent knees, step and thrust it out, water breaks on the pearl"
+ ],
+ "aoguang_ti_atk": [
+  "OK",
+  "FAIL",
+  "lens flare/starburst on the staff 14-17, pose jump 13-14 (the move itself is the best of this god)",
+  "same twirl and slam, ending in a tight splash at the staff head, knee dip"
+ ],
+ "aoguang_bt_sup": [
+  "repair cut published v93",
+  "FAIL",
+  "frozen statue; water dragon comes from the floor and the left edge",
+  "wide sweep of the pearl arm low to high with a knee bend, the dragon uncoils out of the pearl"
+ ],
+ "aoguang_ti_sup": [
+  "repair cut published v93",
+  "FAIL",
+  "frozen statue; serpent from below the frame covers half the body 8-15",
+  "stir the staff in a circle with a weight shift, the serpent pours out of the staff orb beside him"
+ ],
+ "aoguang_bt_hyp": [
+  "repair cut published v93",
+  "FAIL",
+  "frame 12 white-out with a lens streak; pose snaps 4-5, 17-18",
+  "gather the pearl to the chest and push up-forward on bending knees, azure dragon spirals out of the pearl"
+ ],
+ "aoguang_ti_hyp": [
+  "OK",
+  "FAIL",
+  "staff orb covers the face 7-18; frozen hold 9-17",
+  "staff beside the face, strike the ground at his side with a knee bend, dragon rises out of the orb above the shoulder"
+ ],
+ "aphrodite_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "aphrodite_ti_idle": [
+  "OK",
+  "WATCH",
+  "feet re-plant twice per loop - borderline dance",
+  ""
+ ],
+ "aphrodite_bt_atk": [
+  "OK",
+  "WATCH",
+  "good blown kiss, legs still; loose sparkles at the right 6-15",
+  ""
+ ],
+ "aphrodite_ti_atk": [
+  "OK",
+  "FAIL",
+  "not a strike: frozen body in a pink aura, petals to all edges, staff unused",
+  "a throw: step onto the front foot, swing the staff from the hip, the heart forms on the pearl and pops off"
+ ],
+ "aphrodite_bt_sup": [
+  "OK",
+  "FAIL",
+  "petals to all four edges 13-22; hips to feet under a pink veil; legs statue",
+  "knee bend and rise lifting the shell in both hands, one compact pink ring rises from the shell and fades"
+ ],
+ "aphrodite_ti_sup": [
+  "OK",
+  "FAIL",
+  "whole body 0 px, only a forearm; ribbon into the left and top edge; staff unused",
+  "plant the staff with a small step and a hip shift, one ribbon winds up the shaft into the pearl"
+ ],
+ "aphrodite_bt_hyp": [
+  "OK",
+  "FAIL",
+  "petals/splashes to all edges 8-19; foam cut by bottom and sides; head behind the pearl 13-14",
+  "shallow curtsy, scoop the shell up rising on the toes, the pearl lifts as a narrow column, low foam ring"
+ ],
+ "aphrodite_ti_hyp": [
+  "OK",
+  "FAIL",
+  "body does not move at all; starburst on the staff 16-19; sparkles to all edges",
+  "sweep the staff low with a step and a knee bend, raise it straightening, foam follows the tip, bubble leaves straight up"
+ ],
+ "ares_bt_idle": [
+  "first cut, published v87",
+  "WATCH",
+  "one turn with the shield, snap back 16-18, almost still 19-24",
+  ""
+ ],
+ "ares_ti_idle": [
+  "first cut, published v87",
+  "WATCH",
+  "very large side-to-side prowl, feet slide",
+  ""
+ ],
+ "ares_bt_atk": [
+  "first cut, published v87 (legs fixed)",
+  "FAIL",
+  "head hidden by a flame slab at 15; three unrelated beats; pose pops 13-16, 17-18",
+  "one clean spear thrust: pull back on a bent rear knee, step and drive the spearhead forward-down, fire streak on the spearhead"
+ ],
+ "ares_ti_atk": [
+  "OK",
+  "WATCH",
+  "4-5 cuts in 10 frames without in-betweens - may stutter",
+  ""
+ ],
+ "ares_bt_sup": [
+  "first cut, published v87",
+  "FAIL",
+  "pose pop 10-11, frozen 12-17, no cry gesture, knees never bend",
+  "a real cry: swing the shield arm open, stomp with a knee bend, chest and helmet up in a roar, fire ring once from the shield rim"
+ ],
+ "ares_ti_sup": [
+  "first cut, published v87 (cape fixed)",
+  "WATCH",
+  "reads as a war cry, legs work; flame horns on the head 10-18, red floor oval, pose snap 8-9",
+  ""
+ ],
+ "ares_bt_hyp": [
+  "first cut, published v87",
+  "FAIL",
+  "body is a block of fire 9-16, helmet shrinks, pose pop 7-8, frozen 9-16, spear at arm's length on the left edge",
+  "armour keeps its colour, the fire goes on the gear: beat the spear shaft against the shield with a knee dip, spearhead and shield rim catch fire"
+ ],
+ "ares_ti_hyp": [
+  "first cut, published v87 (breastplate fixed)",
+  "WATCH",
+  "crossed blades then a roar in a fire aura, legs work; pose pop 7-8, aura and sword tip on both side edges 9-19",
+  ""
+ ],
+ "atlas_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "atlas_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "atlas_bt_atk": [
+  "OK",
+  "PASS",
+  "real globe slam, legs work",
+  ""
+ ],
+ "atlas_ti_atk": [
+  "repair cut published v93",
+  "FAIL",
+  "15-17 torso turns into a headless back view, shoulder shield vanishes, pops back at 18",
+  "end the slash swinging the sword back down in front into the rest pose, face and shield in view"
+ ],
+ "atlas_bt_sup": [
+  "OK",
+  "FAIL",
+  "legs a statue all 25 frames; face behind the globe 7-16; far poorer than TI",
+  "sink into a braced half-squat, hoist the globe onto one shoulder beside the head, push up while the aura flares"
+ ],
+ "atlas_ti_sup": [
+  "OK",
+  "FAIL",
+  "globe held overhead at full arm's length 10-19, hands cut by the top 7 frames",
+  "raise the globe only to chest/chin height so globe and hands stay in the frame while the dome grows"
+ ],
+ "atlas_bt_hyp": [
+  "OK",
+  "WATCH",
+  "legs only shift 2-3 px; head hidden 10-11 by a second globe",
+  ""
+ ],
+ "atlas_ti_hyp": [
+  "OK",
+  "WATCH",
+  "face behind the forearm 8 frames; loose sparkle dust 14-19",
+  ""
+ ],
+ "blackbeard_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "blackbeard_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "blackbeard_bt_atk": [
+  "OK after the white-core fix",
+  "FAIL",
+  "head and shoulder buried in flash/cloud/gray smoke 9-13; boots identical all 25 frames",
+  "half-step onto the front foot, pistol levelled beside the face line, compact cyan flash, smoke rises away from the head, rock back on bent knees"
+ ],
+ "blackbeard_ti_atk": [
+  "repair cut published v90",
+  "FAIL",
+  "torso and head covered 9-12; blast streams across the chest into the right edge; jump 8-9",
+  "fire the blunderbuss from the hip so the flash is born on the muzzle and stays there, rock back half a step, face in view"
+ ],
+ "blackbeard_bt_sup": [
+  "repair cut published v93 (white cores)",
+  "WATCH",
+  "reads as a two-pistol volley; lower body a statue; face under gray haze 10-17",
+  ""
+ ],
+ "blackbeard_ti_sup": [
+  "OK (hole at 8 and head at 12 as in old)",
+  "WATCH",
+  "stream into the right edge 1 frame; loose cyan specks 8-17",
+  ""
+ ],
+ "blackbeard_bt_hyp": [
+  "repair cut published v93 (white cores)",
+  "FAIL",
+  "left arm missing at 15, blurred smear 17-20, pistol pops back at 21",
+  "light the fuse and lob the bomb underhand in a short arc, arm follows through low and in view"
+ ],
+ "blackbeard_ti_hyp": [
+  "BAD (upper arm hole at frame 14 even after the repair cut) - old sheet kept",
+  "FAIL",
+  "pose jumps 11-12, 13-14; raised arm blinks see-through",
+  "bomb lifted to chest height and pushed up/forward at an even pace on bending knees, smoke in a narrow column"
+ ],
+ "dracula_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "dracula_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "dracula_bt_atk": [
+  "OK",
+  "WATCH",
+  "legs almost a statue; cane vanishes 6-15; face covered by the blood column at 12",
+  ""
+ ],
+ "dracula_ti_atk": [
+  "OK",
+  "WATCH",
+  "blades leave the top 5-9; cape a see-through ghost at 12; white-hot slash bars 10-11; cape cut by the right border 13-17",
+  ""
+ ],
+ "dracula_bt_sup": [
+  "OK",
+  "WATCH",
+  "opened cape dissolves into haze 13-15",
+  ""
+ ],
+ "dracula_ti_sup": [
+  "repair cut published v90",
+  "FAIL",
+  "legs, hips, head a statue all 25 frames; sword at full arm's length toward the right edge 4-18",
+  "the whole body throws the cape open: step, weight onto the front leg, shoulders and head turn with the arm, the swarm bursts from the cape upward"
+ ],
+ "dracula_bt_hyp": [
+  "OK (restores cane and pillar)",
+  "PASS",
+  "deep bow with bent knees, effect on the cane",
+  ""
+ ],
+ "dracula_ti_hyp": [
+  "OK",
+  "FAIL",
+  "sword at full arm's length toward the right edge 12 frames; head never moves; twin of TI super",
+  "inward gesture: cross both blades before the chest and bow, straighten as the red aura climbs, swords inside the frame"
+ ],
+ "dutchman_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "dutchman_ti_idle": [
+  "repair cut published v90",
+  "WATCH",
+  "frozen 19-24 and 0-1 (a third of the loop)",
+  ""
+ ],
+ "dutchman_bt_atk": [
+  "OK",
+  "WATCH",
+  "boots nailed; figure under the green column at 10",
+  ""
+ ],
+ "dutchman_ti_atk": [
+  "OK",
+  "WATCH",
+  "fists and pommel out through the top 6-10; boots nailed",
+  ""
+ ],
+ "dutchman_bt_sup": [
+  "OK",
+  "WATCH",
+  "only the left forearm moves (fits 'Dead calm')",
+  ""
+ ],
+ "dutchman_ti_sup": [
+  "OK (better than old)",
+  "WATCH",
+  "body frozen except the left forearm; thighs see-through 8-14 as in old",
+  ""
+ ],
+ "dutchman_bt_hyp": [
+  "repair cut published v90",
+  "FAIL",
+  "sail flashes one frame, loose black spar; only the left arm moves; ship unreadable",
+  "heave the anchor and drive it down with a step while the bow and torn sail rise behind his shoulders inside the frame"
+ ],
+ "dutchman_ti_hyp": [
+  "OK (better than old)",
+  "FAIL",
+  "head, hat, chest 35-50% opaque 10-12; sleeve translucent 9-15 (both cuts)",
+  "pull the planted sword free and sweep it up with a half-step back as the sail unfurls behind him, body opaque"
+ ],
+ "hecate_bt_idle": [
+  "OK",
+  "WATCH",
+  "head and torso swing to a 3/4 profile with open mouth 5-11",
+  ""
+ ],
+ "hecate_ti_idle": [
+  "repair cut published v90",
+  "PASS",
+  "",
+  ""
+ ],
+ "hecate_bt_atk": [
+  "OK (torch shaft see-through 11-17 as in old)",
+  "WATCH",
+  "one arm lifts a torch, legs almost still; poorer than TI",
+  ""
+ ],
+ "hecate_ti_atk": [
+  "repair cut published v90",
+  "WATCH",
+  "good strike with a step; staff hidden in the flame 10-12, held at arm's length 11-16",
+  ""
+ ],
+ "hecate_bt_sup": [
+  "OK (not worse than old)",
+  "FAIL",
+  "whole body a statue; orbs born in front of the chest, not on the torches",
+  "half-step with bent knees, sweep one torch across the body pulling three seal-flames out of the torch fire"
+ ],
+ "hecate_ti_sup": [
+  "repair cut published v90",
+  "FAIL",
+  "whole body a statue; ribbons fill 2/3 of the frame 9-11; floor glow cut by the bottom",
+  "wide stance, spin the staff once and stamp its butt with bent knees, three seal-orbs out of the crystal head"
+ ],
+ "hecate_bt_hyp": [
+  "OK (not worse than old)",
+  "FAIL",
+  "whole body a statue; looks like the BT super",
+  "plant a foot forward, slight crouch, cross the two torches before the chest so an X of flame ignites, pull them apart rising"
+ ],
+ "hecate_ti_hyp": [
+  "repair cut published v90",
+  "FAIL",
+  "whole body a statue; white flash at 14; beam into the left edge 15-20",
+  "step out of the crossed-leg pose, draw the staff back with a hip twist and lunge, three moon-faces flare out of the crystal"
+ ],
+ "heracles_bt_idle": [
+  "OK",
+  "WATCH",
+  "motion only in 2-10, 11-24 almost still",
+  ""
+ ],
+ "heracles_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "heracles_bt_atk": [
+  "OK (gray-blue slab behind the figure 14-22 as in old)",
+  "FAIL",
+  "legs a statue all 25 frames; only the right arm lifts the club and sets it down at his own feet",
+  "step forward, swing the club over the shoulder in an arc and bring it down in front with a knee bend, gold flash on the club head"
+ ],
+ "heracles_ti_atk": [
+  "OK (club shaft see-through 8, 9, 12 as in old)",
+  "FAIL",
+  "club head outside the frame 5-12 (8 frames), held over the head",
+  "wind the club back to the shoulder with a half-step and bring it down diagonally in front, whole club in the frame"
+ ],
+ "heracles_bt_sup": [
+  "OK",
+  "WATCH",
+  "legs planted, club stands upright by itself 5-20, thin effect",
+  ""
+ ],
+ "heracles_ti_sup": [
+  "OK",
+  "FAIL",
+  "starburst rays 5-11, 16-17; full-height white light pillar 13-15, glow to all four edges",
+  "pull the lion skin around the shoulders with a short stomp, a soft golden rim runs over skin and body"
+ ],
+ "heracles_bt_hyp": [
+  "OK",
+  "FAIL (borderline)",
+  "hero's face absent 7-15: club in front of it, then a frontal lion face in its place",
+  "face open the whole time: side-on overhead arc of the club from behind the shoulder"
+ ],
+ "heracles_ti_hyp": [
+  "OK",
+  "FAIL (low confidence)",
+  "club never moves; pose held 9-18 with only dust; reads as a buff roar, repeats the TI super",
+  "two-hand overhead smash of the club into the ground with a crouch, gold dust low from the club head"
+ ],
+ "horseman_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "horseman_ti_idle": [
+  "OK (thigh spot as in old)",
+  "WATCH",
+  "boots never move, torso shifts 2 px",
+  ""
+ ],
+ "horseman_bt_atk": [
+  "OK",
+  "FAIL",
+  "legs and torso a statue all 25 frames, only the free arm moves; 0-3 frozen",
+  "step out, sink into the knees winding the flaming pumpkin back, hurl it overhand with the weight rolling onto the front leg"
+ ],
+ "horseman_ti_atk": [
+  "OK",
+  "FAIL",
+  "pose jump 15-16; crossbow never aimed or fired, loses its shape, cut by the left border 16-20; legs a statue",
+  "plant a step, raise the crossbow to aim, a flaming bolt ignites on the crossbow, fire with a recoil through the knees"
+ ],
+ "horseman_bt_sup": [
+  "repair cut published v93",
+  "FAIL",
+  "body not solid; legs buried in fire 8-17; fire carpet spans the full width to the edges",
+  "keep the stomping march, fire as a low ring hugging the boots plus one narrow flame trail off the pumpkin"
+ ],
+ "horseman_ti_sup": [
+  "OK",
+  "WATCH",
+  "legs act only in the hop-stomp 2-4; second half a chain of small pumpkins",
+  ""
+ ],
+ "horseman_bt_hyp": [
+  "OK",
+  "FAIL",
+  "8-14 loose mini-pumpkins around the god 13-22; flames reach the top and left edges; pose jump 4-5",
+  "the blaze climbs smoothly from the pumpkin down the coat as he widens his stance, embers attached to the flames"
+ ],
+ "horseman_ti_hyp": [
+  "repair cut published v93",
+  "WATCH",
+  "legs a statue, one held pose 6-18 while only fire moves",
+  ""
+ ],
+ "jekyll_bt_idle": [
+  "OK",
+  "WATCH",
+  "near-freeze ~6 frames at the seam",
+  ""
+ ],
+ "jekyll_ti_idle": [
+  "OK",
+  "WATCH",
+  "near-freeze at the seam",
+  ""
+ ],
+ "jekyll_bt_atk": [
+  "OK",
+  "FAIL",
+  "legs a statue all 25 frames, left hand in the pocket; cane lifted and planted at his own feet - not a strike",
+  "step into the blow with a bent front knee, diagonal cane slash across the body with a green trail, step back"
+ ],
+ "jekyll_ti_atk": [
+  "cut pending",
+  "not reviewed yet",
+  "",
+  ""
+ ],
+ "jekyll_bt_sup": [
+  "OK (coat back panel hole 10-21 as in old)",
+  "WATCH",
+  "feet nailed, one arm and the head move, no Hyde appears, flask vanishes at 14",
+  ""
+ ],
+ "jekyll_ti_sup": [
+  "OK (better than old)",
+  "WATCH",
+  "feet nailed; head turns fully into Hyde 7-17; green cloud ~68% of the frame 12-18",
+  ""
+ ],
+ "jekyll_bt_hyp": [
+  "repair cut published v95",
+  "FAIL",
+  "aura covers 3/4 of the frame to the edges 10-17, white lightning; face becomes a green skull; no smash, only a scream",
+  "hunch and swell into Hyde, deep crouch, slam the cane or both fists into the ground, low green ring at the feet"
+ ],
+ "jekyll_ti_hyp": [
+  "repair cut published v95",
+  "FAIL",
+  "wide green pillar covers 70-83% of the frame, cut by the top 9-17, near-white core; no smash; pose snap 8-9",
+  "Hyde half does the smash: crouch, the big arm comes down in a hammer blow, green burst low around the fist"
+ ],
+ "kali_bt_idle": [
+  "repair cut published v94",
+  "PASS",
+  "",
+  ""
+ ],
+ "kali_ti_idle": [
+  "repair cut published v94",
+  "WATCH",
+  "stance narrows and widens, feet look like sliding",
+  ""
+ ],
+ "kali_bt_atk": [
+  "repair cut published v94",
+  "WATCH",
+  "blade shrinks to a stub 9-11, down-slash is a one-frame jump 11-12",
+  ""
+ ],
+ "kali_ti_atk": [
+  "cut pending",
+  "not reviewed yet",
+  "",
+  ""
+ ],
+ "kali_bt_sup": [
+  "repair cut published v94",
+  "WATCH",
+  "top third of the blade above the top edge 10-13, fast pose jumps 8-10, face hidden 14-15",
+  ""
+ ],
+ "kali_ti_sup": [
+  "repair cut published v94",
+  "WATCH",
+  "feet planted all clip, ring trail cut by the left edge 7-8",
+  ""
+ ],
+ "kali_bt_hyp": [
+  "repair cut published v94",
+  "WATCH",
+  "sword straight up, 3/4 of the blade above the top edge 5 frames",
+  ""
+ ],
+ "kali_ti_hyp": [
+  "repair cut published v94",
+  "FAIL",
+  "whole blade outside the top edge 9 frames, pose frozen 10-16, pop 8-9, no strike at all",
+  "rise from the crouch into a low whirling sweep, sword around her at waist-to-chest height with red flames, one wide slash"
+ ],
+ "koschei_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "koschei_ti_idle": [
+  "OK (staff head vanishes 4-19 as in old)",
+  "FAIL",
+  "staff cage and spike vanish 4-19 and pop back; body still 9 frames in a row: one stance change, then stop",
+  "one slow unbroken breathing sway, weight from leg to leg, staff planted, caged crystal softly pulsing"
+ ],
+ "koschei_bt_atk": [
+  "OK",
+  "PASS",
+  "real wind-up, thrust with flame on the skull staff",
+  ""
+ ],
+ "koschei_ti_atk": [
+  "OK",
+  "FAIL",
+  "body identical in all 25 frames, only the crystal glows; visible loop seam 22-24",
+  "draw the staff back on the rear leg, lean forward and jab the crystal, dark-green flare at the jab"
+ ],
+ "koschei_bt_sup": [
+  "OK (lilac haze slab behind the legs 7-20 as in old)",
+  "FAIL",
+  "body frozen, only the water moves, and it starts on the ground, not the staff; full-width water floor 10-20",
+  "lift the staff and drive its foot into the ground with a knee bend, dead water wells up and climbs the staff"
+ ],
+ "koschei_ti_sup": [
+  "OK (haze slab 3-20, robe see-through 12-17 as in old)",
+  "FAIL",
+  "body frozen; coils fully cover it below the chest 8-12",
+  "same staff-strike move as BT with a thinner ribbon of water that leaves the body readable"
+ ],
+ "koschei_bt_hyp": [
+  "OK",
+  "WATCH",
+  "legs a statue, only the left arm rises; dome snaps on and off",
+  ""
+ ],
+ "koschei_ti_hyp": [
+  "OK (body now present at frame 7, still see-through 6-8)",
+  "FAIL",
+  "body frozen with no gesture; the egg hides the face 2-8 and green-washes the figure 9-18",
+  "lift the egg high with a small step back and bent knees, a thin egg-shaped shell closes around him, face readable"
+ ],
+ "loki_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "loki_bt_atk": [
+  "OK",
+  "FAIL",
+  "legs a statue all 25 frames; arms-only X-cuts on the spot; hands smear 8, 11, 13; close to the super",
+  "one committed dagger lunge: step into a low crouch, both blades cut across at the bottom of the step"
+ ],
+ "loki_bt_sup": [
+  "OK (gray patch inside the fire arc at frame 9 as in old)",
+  "WATCH",
+  "costume and face drift 7-16, fast snap upright 16-18",
+  ""
+ ],
+ "loki_bt_hyp": [
+  "OK",
+  "FAIL (borderline)",
+  "head completely hidden by a fireball 17-18; a flame shape like an after-image of the arm 9-11",
+  "keep the green guise rising from the feet, finish with the hand sweeping the flame at chest height, face visible"
+ ],
+ "llorona_bt_idle": [
+  "repair cut published v95",
+  "PASS",
+  "",
+  ""
+ ],
+ "llorona_ti_idle": [
+  "OK",
+  "FAIL",
+  "frames 20-24 and 0-2 identical (8 of 25): the sway stops dead",
+  "one slow continuous hip-to-hip weight shift with a gently swinging lantern for the whole clip"
+ ],
+ "llorona_bt_atk": [
+  "OK",
+  "WATCH",
+  "ghost blade appears whole in one frame, a second blade pops up from nothing at 15",
+  ""
+ ],
+ "llorona_ti_atk": [
+  "OK",
+  "WATCH",
+  "mist coils round her own legs 9-14 - reads like a self-aura; resembles the ult",
+  ""
+ ],
+ "llorona_bt_sup": [
+  "OK",
+  "PASS",
+  "best clip: weeps, throws the head back, spreads the arms",
+  ""
+ ],
+ "llorona_ti_sup": [
+  "OK",
+  "WATCH",
+  "water column fills the whole frame 8-13 while the body barely acts",
+  ""
+ ],
+ "llorona_bt_hyp": [
+  "BAD minor (lower gown see-through 14-15 even after the repair cut) - old sheet kept",
+  "WATCH (borderline FAIL)",
+  "body a statue, only the right forearm lifts; 0-9 a still figure with water rising",
+  ""
+ ],
+ "llorona_ti_hyp": [
+  "OK",
+  "WATCH",
+  "stands while water climbs into a water gown; legs only step apart and back",
+  ""
+ ],
+ "lucifer_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "lucifer_ti_idle": [
+  "repair cut published v97",
+  "WATCH",
+  "7 frozen frames at the seam, holds, hard starts",
+  ""
+ ],
+ "lucifer_bt_atk": [
+  "OK",
+  "WATCH",
+  "staff head vanishes into the flame 9-14; white blob over the chest at 13; feet nailed",
+  ""
+ ],
+ "lucifer_ti_atk": [
+  "repair cut published v97",
+  "WATCH",
+  "flame lit and only held on the palm 12-21, no release; looks like the TI super",
+  ""
+ ],
+ "lucifer_bt_sup": [
+  "OK",
+  "FAIL",
+  "only the left forearm moves for all 25 frames; does not read as one very heavy hit",
+  "the star-headed staff does the hit: lift it with a dip of the body and bring it down in one heavy blow, wings folding"
+ ],
+ "lucifer_ti_sup": [
+  "repair cut published v97",
+  "WATCH",
+  "star gone 16-24 so the loop does not close; legs static",
+  ""
+ ],
+ "lucifer_bt_hyp": [
+  "OK (not worse than old)",
+  "FAIL",
+  "opaque gray floor disc 6-12 almost as wide as the frame, cut flat by the bottom, pops to thin rings at 13",
+  "keep the rising spiral but start it from the staff star, nothing drawn on the ground"
+ ],
+ "lucifer_ti_hyp": [
+  "repair cut published v97",
+  "WATCH",
+  "ribbons fill the frame to the side edges 8-18; loose black feathers; legs static",
+  ""
+ ],
+ "lubu_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "lubu_bt_atk": [
+  "OK",
+  "FAIL",
+  "head unreadable 9 frames (behind crossed forearms, then the red tassel); a second rod appears overhead; three one-frame pose jumps; half the halberd above the top 9-12; blade never pointed down",
+  "face and plumes visible, swing the halberd over the shoulder, step on a bent knee and chop diagonally so the blade ends pointed down, red fire on the blade"
+ ],
+ "lubu_bt_sup": [
+  "OK (teal haze slab behind the figure 8-12 as in old)",
+  "WATCH",
+  "lively stomp and roar; halberd only carried; pop 9-10; floor glow cut by the bottom",
+  ""
+ ],
+ "lubu_bt_hyp": [
+  "OK (better than old)",
+  "WATCH",
+  "legs almost a statue, halberd only stands and burns; 11-17 look like the super",
+  ""
+ ],
+ "nightmare_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "nightmare_ti_idle": [
+  "OK",
+  "WATCH",
+  "torso twists to frontal with sliding hooves, sickle thins to a line 8-13, uneven tempo",
+  ""
+ ],
+ "nightmare_bt_atk": [
+  "OK",
+  "WATCH",
+  "real lantern swing; lantern held at arm's length by the left edge 11-21; boots planted",
+  ""
+ ],
+ "nightmare_ti_atk": [
+  "OK",
+  "FAIL",
+  "legs and body frozen; hand already raised, cloud just blooms; no wind-up/release; sickle unused",
+  "draw the free hand back sinking on the haunches, step a hoof forward and thrust the palm out, dark puff born on the palm"
+ ],
+ "nightmare_bt_sup": [
+  "OK",
+  "FAIL",
+  "statue; haze rises from the floor, not the lantern/scythe; body under a purple veil 8-20; haze cut at the top",
+  "lift the hourglass lantern to the chest and sway it like a cradle, haze pouring from the lantern itself"
+ ],
+ "nightmare_ti_sup": [
+  "OK (better than old)",
+  "FAIL",
+  "statue; opaque smoke hides the body 6-14; fills the frame to both sides",
+  "slow lulling wave of the free hand with a hoof-to-hoof sway, thin haze ribbon from the fingers beside the body"
+ ],
+ "nightmare_bt_hyp": [
+  "OK",
+  "FAIL",
+  "statue; coils born at the floor; body covered 9-16; eye lens streak 5-11",
+  "one heavy two-handed scythe sweep with a step forward, dark smoke crescent born on the blade"
+ ],
+ "nightmare_ti_hyp": [
+  "OK",
+  "FAIL",
+  "statue; coils born at the floor; body half covered 11-18; eye lens streak 4-10",
+  "rear up on the hind legs and slam down with a sickle slash, claw-shaped smoke trail on the blade"
+ ],
+ "mictlan_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "mictlan_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "mictlan_bt_atk": [
+  "OK (old see-through staff now solid)",
+  "WATCH",
+  "staff raise and slam; staff skull leaves the top 5 frames; feet planted",
+  ""
+ ],
+ "mictlan_ti_atk": [
+  "OK",
+  "FAIL (borderline)",
+  "no release: orb lifted 8-9, frozen hold 10-17; feet identical; blue floor patch 4-18",
+  "one step forward with a bent knee and a snap thrust of the flaming skull-orb from the chest, then recoil"
+ ],
+ "mictlan_bt_sup": [
+  "OK",
+  "FAIL",
+  "body frozen all 25 frames; ghosts rise from the floor, not the staff; a ghost covers the face 15-17",
+  "drive the staff butt into the ground with a short crouch, ghost skulls pour from the staff's skull head beside the body"
+ ],
+ "mictlan_ti_sup": [
+  "OK",
+  "FAIL",
+  "body frozen; smoke veils ~70% of the body 7-14",
+  "swing the orb arm overhead with a weight shift onto the back leg, skulls streaming up out of the orb only"
+ ],
+ "mictlan_bt_hyp": [
+  "OK",
+  "FAIL",
+  "body frozen all 25 frames (the only defect; clean spiral)",
+  "sweep the staff in a full circle around himself with a step and a knee bend, the staff head drawing the spiral"
+ ],
+ "mictlan_ti_hyp": [
+  "OK",
+  "FAIL",
+  "body frozen; ~80% veiled 8-17; floor glow cut by the bottom; looks like the TI super",
+  "crouch then rise throwing both arms open, rings unwinding from the orb, narrower than the cloak, no floor glow"
+ ],
+ "poseidon_bt_idle": [
+  "OK (trident now solid)",
+  "PASS",
+  "",
+  ""
+ ],
+ "poseidon_ti_idle": [
+  "OK",
+  "WATCH",
+  "thin water coil on the shaft 3-18 looks like the start of the strike",
+  ""
+ ],
+ "poseidon_bt_atk": [
+  "OK (pink haze slab 14-17 as in old)",
+  "FAIL",
+  "legs and body a statue all 25 frames; no wind-up or release, only a glowing trident",
+  "swing the trident back with a step of the rear foot, lunge and thrust it forward-down, water bursting off the prongs"
+ ],
+ "poseidon_ti_atk": [
+  "OK (new red floor smear at frame 7)",
+  "WATCH",
+  "small starburst and flare streaks 10-13, 15-16",
+  ""
+ ],
+ "poseidon_bt_sup": [
+  "OK (far better than old; see-through leg area at frame 8)",
+  "WATCH",
+  "lower body under the water cascade 7-11; trident unused",
+  ""
+ ],
+ "poseidon_ti_sup": [
+  "OK",
+  "WATCH",
+  "legs a statue, only the left arm moves; ribbons touch both side borders 10-13",
+  ""
+ ],
+ "poseidon_bt_hyp": [
+  "OK (rectangular pink-gray slab 10-21 as in old)",
+  "WATCH",
+  "skin turns green-cyan 12-18; legs nearly static",
+  ""
+ ],
+ "poseidon_ti_hyp": [
+  "OK (rectangular slab 8-21 as in old)",
+  "FAIL",
+  "legs a statue, arm-only slam, same move as the TI strike; skin bleached 10-19",
+  "lift the trident with both hands, drop into a deep crouch driving the butt into the ground, ring of cracks/water along the floor"
+ ],
+ "persephone_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "persephone_ti_idle": [
+  "OK",
+  "WATCH",
+  "whole body turns 3/4 to front, feet slide together and back; much bigger than the BT idle",
+  ""
+ ],
+ "persephone_bt_atk": [
+  "OK",
+  "WATCH",
+  "arm lifts the glowing fruit, flame exits the top; legs a statue under the gown; weak as a strike",
+  ""
+ ],
+ "persephone_ti_atk": [
+  "OK",
+  "FAIL",
+  "legs and arm frozen, only the head tilts; a pose with a glowing fruit, no wind-up/release",
+  "pull the pomegranate back to the hip with a knee bend, thrust it forward-up on a short step, pink burst on the fruit at the release"
+ ],
+ "persephone_bt_sup": [
+  "OK",
+  "WATCH",
+  "body a statue while vines/petals act; floor ring cut by the bottom edge",
+  ""
+ ],
+ "persephone_ti_sup": [
+  "OK",
+  "WATCH",
+  "body a statue, legs rooted by vines (stillness fits); tiny loop pop",
+  ""
+ ],
+ "persephone_bt_hyp": [
+  "OK",
+  "WATCH",
+  "best take: arm, head, wreath act; legs static; full-height pink pillar 10-15",
+  ""
+ ],
+ "persephone_ti_hyp": [
+  "OK (gray haze slab 4-20 and pink floor pool as in old)",
+  "FAIL",
+  "statue body; glow lights the whole backdrop, floor pool, eye-flare streak 9-19; far poorer than BT",
+  "step forward with a knee bend and lift the pomegranate to head height as in BT, dark ribbons from the fruit coil tightly around her"
+ ],
+ "raijin_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "raijin_ti_idle": [
+  "OK",
+  "WATCH",
+  "torso swings 3/4 to front while the feet glide without lifting",
+  ""
+ ],
+ "raijin_bt_atk": [
+  "OK",
+  "WATCH",
+  "good drum strike, but feet/shins identical all 25 frames; glow block and floor glow patch 11-17",
+  ""
+ ],
+ "raijin_ti_atk": [
+  "OK",
+  "FAIL",
+  "face hidden 6-9 behind the hammers, then a white column on the face 10-16; column born on the head, not the hammers",
+  "head up and visible, a hammer strikes the hip drum, lightning on the hammer heads with a short bolt rising from the hammer"
+ ],
+ "raijin_bt_sup": [
+  "OK",
+  "WATCH",
+  "arms flick wide/chest every frame 9-14 (strobe risk); legs a statue",
+  ""
+ ],
+ "raijin_ti_sup": [
+  "OK",
+  "WATCH",
+  "frame 13 smear with translucent arm trails; hammer hand swaps every frame 8-12",
+  ""
+ ],
+ "raijin_bt_hyp": [
+  "OK",
+  "FAIL",
+  "white pillar top to bottom through the body 14-20, ghost body at 14, floor splash cut by the bottom; face unseen 9-19",
+  "after the crouch a drum roll with all six drums lit, arcs jumping between the drums behind his head, face visible"
+ ],
+ "raijin_ti_hyp": [
+  "OK",
+  "FAIL",
+  "white pillar top to bottom through the body and face 14-20, body washed pale; resembles the TI strike",
+  "strike the two hammers together overhead: a crown of short bolts born on the hammer heads leaving through the top"
+ ],
+ "lilith_ti_idle": [
+  "better than old (staff shaft solid; crystal cage still translucent in most frames)",
+  "FAIL",
+  "frames 19-24 + 0-6 are one frozen picture; a single small sway 7-18, then stop",
+  "one continuous slow breath with the weight drifting hip to hip through the whole loop, hair and hem moving, crystal pulsing"
+ ],
+ "lilith_ti_atk": [
+  "better than old (crystal cage still translucent)",
+  "FAIL",
+  "legs and hips a statue all 25 frames; only one forearm moves; staff unused; tiny glow",
+  "shift the weight onto the front leg and flick the staff forward, a larger crimson spark born on the crystal and released"
+ ],
+ "lilith_ti_sup": [
+  "better than old (crystal cage still translucent)",
+  "FAIL",
+  "whole body frozen, only the light changes; cross-shaped star flare on the crystal 10-17",
+  "plant the staff with a small step and a knee dip, lift the free arm as the aura climbs from the crystal, soft glow"
+ ],
+ "lilith_ti_hyp": [
+  "better than old (crystal cage still translucent)",
+  "WATCH",
+  "good smoke spiral; legs static, smoke flat-cut at the top 12-17, cloud fills the frame width 9-14",
+  ""
+ ],
+ "quetzalcoatl_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "quetzalcoatl_ti_idle": [
+  "OK (old see-through cape lining repaired)",
+  "WATCH",
+  "upper body swivels ~60 degrees as one block on a still coil",
+  ""
+ ],
+ "quetzalcoatl_bt_atk": [
+  "OK",
+  "WATCH",
+  "one small weight shift only; staff head buried in the spiral 10-13; reads as charging",
+  ""
+ ],
+ "quetzalcoatl_ti_atk": [
+  "OK (effect and hand the old cut erased are back)",
+  "FAIL",
+  "statue body, one arm lifts an opaque feather block hiding hand and forearm 8-13; no wind-up/release; club unused",
+  "wind the club back and cut forward with a real coil sway, a short green gust tearing off the blade"
+ ],
+ "quetzalcoatl_bt_sup": [
+  "OK (gray haze halo 6-12 as in old)",
+  "FAIL",
+  "god motionless 0-9, tornado born on the floor, torso and face covered 12-16, loose feather bits",
+  "drive the whirl himself with a step and a wide circling staff sweep, feathers streaming off the staff head beside him"
+ ],
+ "quetzalcoatl_ti_sup": [
+  "OK (old missing cape restored)",
+  "FAIL",
+  "cape wider than at the start 2-21 and cut straight by the left edge 14 frames; god motionless; tornado from the floor",
+  "one arm-and-club whirl with a coil sway throws the feather wind off the hand, cape close to the body"
+ ],
+ "quetzalcoatl_bt_hyp": [
+  "OK (old sun-core holes repaired)",
+  "WATCH",
+  "only the free arm acts, legs near-static; sun small, contained, not blinding",
+  ""
+ ],
+ "quetzalcoatl_ti_hyp": [
+  "OK (old cape holes repaired)",
+  "WATCH",
+  "light ball half cut by the top edge 8-12; same palm-lift idea as the TI strike",
+  ""
+ ],
+ "shango_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "shango_ti_idle": [
+  "OK",
+  "WATCH",
+  "near-still hold at the seam; one-frame pink flash on the blade at 5",
+  ""
+ ],
+ "shango_bt_atk": [
+  "OK",
+  "FAIL",
+  "axe out of the frame 7-10 and unseen 13-17; white beam through the body top to bottom 12-13; legs a statue",
+  "side-on diagonal chop with a step, blade inside the frame throughout, lightning only on the blade"
+ ],
+ "shango_ti_atk": [
+  "OK",
+  "FAIL (borderline)",
+  "strike and recoil poses alternate on single frames 8-14 - a strobe; lightning stays on the axe",
+  "one continuous chop, or two with a real 3-4 frame recoil between them"
+ ],
+ "shango_bt_sup": [
+  "OK",
+  "FAIL",
+  "three bolts fan to the top edge, floor flash to the bottom and sides 12-16, bolt over the face; axe above the frame 6-11",
+  "keep the crouch-slam, lift the axe only to shoulder height, three short bolts off the blade to head height"
+ ],
+ "shango_ti_sup": [
+  "OK",
+  "FAIL",
+  "one-frame flip to a back view 4-5 and back 8-9; red haze slab with sky bolts fills the right half into the right edge 9-17",
+  "stay facing the viewer: horizontal sweep, then the axe driven down by the front foot, three short bolts off the blade"
+ ],
+ "shango_bt_hyp": [
+  "OK",
+  "FAIL",
+  "axe above the frame 10 frames; bolt through head and body top to bottom 5-10; legs never move",
+  "axe kept in front of the chest, a stomp with a widening stance, six short lightning pulses on the blades"
+ ],
+ "shango_ti_hyp": [
+  "OK",
+  "FAIL",
+  "torso flips to a back view 7-8 and back 13-14 on unmoving legs; bolt through face and body 2-7",
+  "stay front-facing with the head clear: a stomp and a diagonal raise of the axe, six pulses on the blade"
+ ],
+ "sekhmet_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "sekhmet_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "sekhmet_bt_atk": [
+  "OK (old ghost sistrum now solid)",
+  "FAIL",
+  "only the right arm moves; legs, hips, torso frozen all 25 frames",
+  "step forward on the slit leg with bent knees during the sistrum sweep, weight onto the front foot on the release"
+ ],
+ "sekhmet_ti_atk": [
+  "OK",
+  "FAIL",
+  "legs frozen; lens-flare streak and bright core over half the face 14-16",
+  "keep the fire circle, add a half-step and a hip twist into the release, compact fireball without a flare streak"
+ ],
+ "sekhmet_bt_sup": [
+  "OK",
+  "WATCH",
+  "feet planted, face unreadable 9-18, glow pool on the bottom edge; upper body works well",
+  ""
+ ],
+ "sekhmet_ti_sup": [
+  "OK",
+  "WATCH",
+  "legs static, head reads as a flame 9-17, skin washed pale gold",
+  ""
+ ],
+ "sekhmet_bt_hyp": [
+  "OK",
+  "FAIL",
+  "body is a frozen picture all 25 frames; only the fire/halo layer plays; sistrum unused",
+  "raise the sistrum overhead with a knee dip, then drive it down as the red wave rises"
+ ],
+ "sekhmet_ti_hyp": [
+  "OK",
+  "FAIL",
+  "frozen figure; red eye-flare streak 4-19; haze slab 12-22; legs hidden 5-14",
+  "sweep the sistrum down and rise onto the toes as the fire climbs, eyes glowing without a streak"
+ ],
+ "silent_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "silent_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "silent_bt_atk": [
+  "OK",
+  "FAIL",
+  "cleaver leaves the top edge 7 frames, held overhead unseen 8-12; edge-on blade looks like a gold stick 16-19",
+  "wind the cleaver back over one shoulder, blade face to camera and fully in frame, chop down in front with a knee bend"
+ ],
+ "silent_ti_atk": [
+  "BAD (gray slabs 11-12, stray line 13) - old sheet kept",
+  "FAIL",
+  "legs a statue all 25 frames; white-cored slash spans the whole frame 10-12; dead tail 13-24",
+  "step forward and drop the greatsword in one heavy overhead-to-ground chop, short red trail hugging the blade"
+ ],
+ "silent_bt_sup": [
+  "OK (old haze mostly gone)",
+  "WATCH",
+  "red aura reads as a buff, but legs planted and the body barely moves",
+  ""
+ ],
+ "silent_ti_sup": [
+  "BAD (haze slabs 9-18, body see-through, floor puddle) - old sheet kept",
+  "FAIL",
+  "haze slabs and feet flash, pose jumps 9-10, 14-15",
+  "keep the sword planted, stamp one foot and brace while a tight red aura climbs his solid body, no ground flash"
+ ],
+ "silent_bt_hyp": [
+  "OK",
+  "FAIL",
+  "cleaver out of the top edge 7 frames; head lost in the arm ring 10-11; legs planted all clip",
+  "lift the cleaver two-handed only to head height in front of the chest, drive it down into a deep knee bend"
+ ],
+ "silent_ti_hyp": [
+  "OK",
+  "WATCH",
+  "good slam with a knee bend; face hidden 8-16 by the hilt then a red column; white pop at the feet at 15",
+  ""
+ ],
+ "shiva_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "shiva_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "shiva_bt_atk": [
+  "OK",
+  "WATCH",
+  "trident points at the viewer, invisible 7-13, reads as a fireball at the chest; one-frame snaps 13-14, 15-16",
+  ""
+ ],
+ "shiva_ti_atk": [
+  "OK",
+  "FAIL",
+  "chest starburst 9-11 reaches both side edges, loose embers; legs a statue all 25 frames",
+  "sideways trident lunge with a step of the front leg, weapon in profile, fire only along the prongs"
+ ],
+ "shiva_bt_sup": [
+  "OK",
+  "PASS",
+  "stamping fire dance with knee lifts; fire spiral stays in the frame",
+  ""
+ ],
+ "shiva_ti_sup": [
+  "BAD (gray slab at lower right 17-18, new) - old sheet kept",
+  "WATCH",
+  "blue skin washes to pale pink 12-18; one-frame knee pops",
+  ""
+ ],
+ "shiva_bt_hyp": [
+  "OK",
+  "WATCH",
+  "legs identical all 25 frames, only the left arm moves; flame aura veils the body 9-18",
+  ""
+ ],
+ "shiva_ti_hyp": [
+  "OK",
+  "FAIL",
+  "hand jumps brow to open palm in one frame 11-12; 12-22 is the idle pose under an aura; legs a statue",
+  "keep two fingers on the brow while the eye fires, brace with a knee bend, lower the hand over several frames"
+ ],
+ "surt_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "surt_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "surt_bt_atk": [
+  "OK",
+  "FAIL",
+  "frame 12 body a blurred smear; jump 11-12-13; legs a statue; 13-24 dead; blade/trail exits the right edge 8-11",
+  "keep the overhead chop, spread the down-swing over 3-4 clear frames with a step and bent knees, sword inside the frame"
+ ],
+ "surt_ti_atk": [
+  "OK",
+  "FAIL",
+  "head absent in held frames 7-10, blurred blob at 11 (the idea is the praised raise-stab-eruption; legs crouch well)",
+  "same idea with the hilt lifted beside the head at shoulder height so the face stays visible before the stab"
+ ],
+ "surt_bt_sup": [
+  "OK",
+  "FAIL",
+  "legs identical in all 25 frames; sword only lifted a little and lowered, no hit; face behind the fists 8-15",
+  "step forward, raise the blazing sword at his side to head height, drive it into the ground with bent knees, small eruption"
+ ],
+ "surt_ti_sup": [
+  "OK",
+  "FAIL",
+  "face covered by the blade 8-9 and by a fire ball 10-15; sword held vertical overhead 7-15; slash only 16-18",
+  "charge the sword diagonally over the shoulder (face clear), then a heavy downward slash over 4-5 frames"
+ ],
+ "surt_bt_hyp": [
+  "BAD (pale haze patch right of the legs at frame 7, new) - old sheet kept",
+  "FAIL",
+  "head gone 8-17, legs static",
+  "keep the body-ablaze idea with the sword planted or held low so the horned head stays in view, wide knee-bent stance"
+ ],
+ "surt_ti_hyp": [
+  "OK",
+  "WATCH",
+  "aura pops in one frame (11), glow reaches both side edges 11-14, pink haze 15-19",
+  ""
+ ],
+ "sting_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "sting_ti_idle": [
+  "OK",
+  "WATCH",
+  "chest and hips swivel ~60 degrees over planted feet - may read as a mannequin twist",
+  ""
+ ],
+ "sting_bt_atk": [
+  "OK",
+  "FAIL",
+  "legs a statue all 25 frames; snap turn to profile 12-13 and back 16-17; face hidden 13-16",
+  "one flowing front-facing throw: weight rocks onto the rear leg as the chained kunai whip back, lunge on release"
+ ],
+ "sting_ti_atk": [
+  "OK",
+  "FAIL",
+  "legs a statue; crossbow swung like a club, never shot; frozen hold behind the head 13 frames",
+  "drop into a half-crouch, level the crossbow with a flaming bolt, fire, the recoil rocks her onto the rear leg"
+ ],
+ "sting_bt_sup": [
+  "OK",
+  "WATCH",
+  "legs do not bend (arms and coat move); fire columns cross the face 19-21; four seals, not three",
+  ""
+ ],
+ "sting_ti_sup": [
+  "OK",
+  "FAIL",
+  "only the left forearm moves; the rest identical in all 25 frames; far poorer than BT",
+  "step into a wide low stance, draw the three seals with a sweep of both arms, rise flinging them forward"
+ ],
+ "sting_bt_hyp": [
+  "OK",
+  "WATCH",
+  "best clip (deep crouch, chain used); fire burst reaches both side edges and the top 10-12",
+  ""
+ ],
+ "sting_ti_hyp": [
+  "OK",
+  "FAIL",
+  "two fire arrows rise from the floor at both sides 14-18, not from the weapon; red flash slab at 13",
+  "as BT: deep crouch, shoot a flaming hook-chain from the crossbow and haul it back with the whole body"
+ ],
+ "thor_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "thor_ti_idle": [
+  "OK",
+  "WATCH",
+  "body swivels ~70 degrees on planted feet; rests at 8-10, 16, 22-1",
+  ""
+ ],
+ "thor_bt_atk": [
+  "OK",
+  "WATCH",
+  "good ground slam; thin bolt over head/torso 11-12, smear at 11, forearms at the top edge 6-10",
+  ""
+ ],
+ "thor_ti_atk": [
+  "OK (hammer head see-through 5, 11 as in old)",
+  "PASS",
+  "clear wind-up, swing, lunge; trail born on the hammer",
+  ""
+ ],
+ "thor_bt_sup": [
+  "BAD (gray-green haze slab around the legs 6-15, new) - old sheet kept",
+  "FAIL",
+  "hammer straight up, hammer head out of the top 6-14; legs a statue; jerks 5-6, 15-16",
+  "two-handed sweep or downward smash at chest-to-ground height, hammer always in frame, legs stepping in, lightning only on the hammer head"
+ ],
+ "thor_ti_sup": [
+  "OK (better than old)",
+  "FAIL",
+  "hands at the top edge 7-17, hammer gone 8-15; legs a statue; bolts down the whole body",
+  "wide horizontal hammer sweep at waist height, knees bending into the swing, lightning on the hammer head only"
+ ],
+ "thor_bt_hyp": [
+  "OK",
+  "FAIL (borderline)",
+  "hammer overhead 9-16, out of frame 6 frames; white flare at the top; same idea as the super",
+  "a flurry of short hammer blows left-right-down at chest height with stepping legs, hammer never above the head"
+ ],
+ "thor_ti_hyp": [
+  "OK (hammer see-through 19-21 as in old)",
+  "FAIL",
+  "hammer out of the top 12-18; white flare hides the head 13-17; pose jump 11-12",
+  "the same flurry as BT, hammer and face visible in every frame, lightning kept on the hammer"
+ ],
+ "susanoo_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "susanoo_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "susanoo_bt_atk": [
+  "BAD (tan floor patch behind the legs 17-18, new) - old sheet kept",
+  "FAIL",
+  "legs a statue all 25 frames; blade wholly out of the top edge 10-15, face covered 9-15",
+  "low side wind-up at hip height (blade inside the frame) with a step and bent knees into one horizontal cut, face visible"
+ ],
+ "susanoo_ti_atk": [
+  "BAD (gray-tan background slab 16-19, new) - old sheet kept",
+  "WATCH",
+  "gray patch in the left water loop 11-13, pop 14-16, super-sized effects",
+  ""
+ ],
+ "susanoo_bt_sup": [
+  "OK",
+  "FAIL",
+  "blade ~45% beyond the top edge 10 frames, face behind blade/hands 7-14, legs almost still, pale gray vortex",
+  "channel with the sword low and diagonal across the body, knees bent, vortex rising around a visible face"
+ ],
+ "susanoo_ti_sup": [
+  "OK",
+  "WATCH",
+  "same blade cut 6-17 but inside an upward light pillar; face clear, legs step; full-width curtain to the top 13-17",
+  ""
+ ],
+ "susanoo_bt_hyp": [
+  "BAD (big gray rectangle waist-to-floor 18-20, new) - old sheet kept",
+  "FAIL",
+  "blade fully out of the top 7-16, head hidden 7-16, legs static, a copy of the BT strike",
+  "crouch, then a two-handed cleave at shoulder height throwing a big blue water crescent, head never covered"
+ ],
+ "susanoo_ti_hyp": [
+  "OK",
+  "FAIL",
+  "water column hides face and torso 8-16 (9 frames); the slash 19-21 itself is good",
+  "keep the move but put the water column behind his back so face and chest stay visible; wind up at shoulder height"
+ ],
+ "wukong_bt_idle": [
+  "OK",
+  "WATCH",
+  "chin-stroke gesture 12-18, then ~6 near-still frames; legs shift only slightly",
+  ""
+ ],
+ "wukong_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "wukong_bt_atk": [
+  "BAD (gray-blue slab behind the figure at frame 16, new) - repair cut queued",
+  "WATCH",
+  "frontal ground-slam, gray smear under the staff 9-12",
+  ""
+ ],
+ "wukong_ti_atk": [
+  "OK",
+  "FAIL",
+  "staff never swings; light line through the body 11-16, frame-wide burst at 12, thin ring/line remnants 13-16",
+  "one real staff blow: step on a bent knee, wind the staff over the shoulder, bring it down diagonally, gold trail on the tip"
+ ],
+ "wukong_bt_sup": [
+  "OK",
+  "FAIL",
+  "legs a statue, only one arm and the staff move; one-frame arm pop at 14; repeats the strike",
+  "whirl the staff in both hands with a step and a knee dip, then a run of quick thrusts, glow along the staff"
+ ],
+ "wukong_ti_sup": [
+  "OK",
+  "FAIL",
+  "whole body frozen; five light pillars from emptiness 11-22, one through the body",
+  "the same staff whirl with stepping feet and thrusts, light living on the staff"
+ ],
+ "wukong_bt_hyp": [
+  "OK",
+  "WATCH",
+  "legs static, only the free arm acts; smoke fills ~70% of the frame 14-18",
+  ""
+ ],
+ "wukong_ti_hyp": [
+  "OK",
+  "WATCH",
+  "legs static; smoke fills ~70% of the frame 12-14, loose specks",
+  ""
+ ],
+ "veles_bt_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "veles_ti_idle": [
+  "OK",
+  "PASS",
+  "",
+  ""
+ ],
+ "veles_bt_atk": [
+  "OK",
+  "FAIL",
+  "no strike: figure motionless all 25 frames, only an orb glow and a hair-thin beam; far poorer than TI",
+  "step forward with bent knees and a heavy two-handed staff swing (or a bear-claw swipe as in TI), blue trail on the staff head"
+ ],
+ "veles_ti_atk": [
+  "OK",
+  "PASS",
+  "real bear-claw swipe with a lunge",
+  ""
+ ],
+ "veles_bt_sup": [
+  "OK (body restored in 17-21)",
+  "FAIL (borderline)",
+  "god a statue; flat-cut haze block over the head 12-20; poorer than TI's acting bear",
+  "stamp the staff down and hunch to brace as the spectral bear pelt drops onto him and hardens into the shield"
+ ],
+ "veles_ti_sup": [
+  "OK",
+  "WATCH",
+  "god himself motionless; spirit bear and shield carry it; sparkle burst to all edges 15-17",
+  ""
+ ],
+ "veles_bt_hyp": [
+  "OK (better than old)",
+  "WATCH",
+  "arm raises the staff, rich vortex, but legs static",
+  ""
+ ],
+ "veles_ti_hyp": [
+  "OK (gray-brown remnant between the feet 9-16 as in old)",
+  "PASS",
+  "lantern raised, stance shift, flames and a top beam",
+  ""
+ ]
+}
