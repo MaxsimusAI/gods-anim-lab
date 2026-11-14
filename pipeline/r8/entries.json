@@ -1,0 +1,64 @@
+{
+ "agni_bt_idle": {
+  "sex": "m",
+  "feel": "calm",
+  "look": "A fire god with dark red skin, long black hair and a golden flame crown, bare chest, a golden robe and a long red and gold coat, stands facing the viewer and holds a tall golden staff topped with a flame ornament and a glowing orange gem in his right hand.",
+  "story": "Idle, slow and alive for the whole clip: he shifts his whole weight from one leg to the other and back, a sway large enough to be seen from far away, his hips and shoulders following, the long coat and the robe swaying after the body; his chest rises and falls with calm breathing, his head turns to one side and back, the fingers of his free hand open and close, a small steady orange flame flickers on the gem of the staff the whole time, the staff stays low and upright beside him, and he ends exactly in the pose of the first frame.",
+  "items": "the staff and the coat"
+ },
+ "agni_ti_idle": {
+  "sex": "m",
+  "feel": "calm",
+  "look": "A young fire god with long dark hair, bare chest, an orange shawl over one shoulder, a red skirt with gold trim and golden greaves, stands facing the viewer and holds a tall golden torch staff with a burning bowl in his right hand.",
+  "story": "Idle, slow and alive for the whole clip: once in the whole clip he shifts his whole weight slowly from one leg to the other and slowly back, his hips and shoulders following, the shawl and the skirt swaying softly after the body; he breathes calmly, his open free hand sinks down beside his hip and comes back, his head turns to one side and back, the flame in the bowl flickers gently the whole time, the torch stays upright and still beside him, his feet stay where they are, and he ends exactly in the pose of the first frame.",
+  "items": "the torch staff and the shawl"
+ },
+ "agni_ti_atk": {
+  "sex": "m",
+  "feel": "punchy",
+  "look": "A young fire god with long dark hair, bare chest, an orange shawl over one shoulder, a red skirt with gold trim and golden greaves, holds a tall golden torch staff with a burning bowl in his right hand.",
+  "story": "Wind-up, the first half second: he grips the torch staff with both hands, bends his knees and sinks into a low stance, drawing the staff down with him so that the burning bowl comes down to the height of his face, the flame in the bowl shrinking. Release: he rises on his legs with a push and plants the staff upright again at its starting height; one thick tongue of deep orange and gold flame leaps straight up from the bowl in a narrow column, curls and fades. Recovery, the rest of the clip: he shifts his weight back, lets go with the left hand, the shawl settles, and he settles into exactly the same pose as the first frame.",
+  "fit": "The flame keeps its deep orange and gold colour the whole time and rises as one narrow column straight above the bowl. The staff stays close to his body and is never lifted higher than in the first frame.",
+  "items": "the torch staff and the flame"
+ },
+ "agni_bt_sup": {
+  "sex": "m",
+  "feel": "weighty",
+  "look": "A fire god with dark red skin, long black hair and a golden flame crown, bare chest, a golden robe and a long red and gold coat, holds a tall golden staff topped with a flame ornament and a glowing orange gem in his right hand; his left hand is free.",
+  "story": "Wind-up, the first second: he bends his knees and sinks into a half crouch, shifting his weight onto his left leg, and brings his open left hand palm up in front of his chest; three orange flames the size of a fist light up one after another just above the palm. Release: he rises on his legs with a push and tosses the three flames upward with a short lift of the palm; the three flames rise side by side to the height of his crown, flare brighter and fade there. Recovery, the rest of the clip: he lowers the left hand to his side, the coat settles, and he settles into exactly the same pose as the first frame.",
+  "fit": "The three flames stay in front of his chest and head, between his shoulders. The staff stays upright and still in his right hand.",
+  "items": "the staff and the three flames"
+ },
+ "anansi_bt_atk": {
+  "sex": "m",
+  "feel": "punchy",
+  "look": "A dark-skinned trickster god with long black dreadlocks and a golden spider circlet, eight black and gold spider legs spreading from his back, a patterned red and green sash over his bare chest, black trousers and gold-trimmed boots, holds a curved sickle in each lowered hand.",
+  "story": "Wind-up, the first third of a second: he steps his left foot back, bends his knees and sinks into a low crouch, crossing both sickles at his left hip, the spider legs on his back curling inward. Release: he lunges onto his front leg, twists his hips and slashes both sickles apart in one fast cross cut in front of his chest; a streak of amber gold light follows each blade and fades at once, the spider legs snapping open. Recovery, the rest of the clip: he pulls the back foot in, rises, lowers the sickles to his sides and settles into exactly the same pose as the first frame.",
+  "fit": "The sickles cut across his chest and stay close to his body. He leans into the cut and comes back; he does not step toward the camera.",
+  "items": "the two sickles and the spider legs"
+ },
+ "anansi_bt_sup": {
+  "sex": "m",
+  "feel": "weighty",
+  "look": "A dark-skinned trickster god with long black dreadlocks and a golden spider circlet, eight black and gold spider legs spreading from his back, a patterned red and green sash over his bare chest, black trousers and gold-trimmed boots, holds a curved sickle in each lowered hand.",
+  "story": "Wind-up, the first second: he bends his knees and sinks into a deep crouch, shifting his weight onto his right leg, and lifts both sickles in front of his chest with the tips almost touching; the spider legs on his back curl forward over his shoulders, and thin threads of glowing gold weave between the two blade tips into a round web the size of his chest. Release: he rises on his legs with a push and pulls the sickles apart; the golden web stretches wide between the blades in front of his chest, pulses brightly once and dissolves into fading threads. Recovery, the rest of the clip: the spider legs spread back, he lowers the sickles to his sides and settles into exactly the same pose as the first frame.",
+  "fit": "The web stays between the two sickles in front of his chest. The sickles keep their curved shape and stay in his hands.",
+  "items": "the two sickles, the spider legs and the web"
+ },
+ "anansi_bt_hyp": {
+  "sex": "m",
+  "feel": "weighty",
+  "look": "A dark-skinned trickster god with long black dreadlocks and a golden spider circlet, eight black and gold spider legs spreading from his back, a patterned red and green sash over his bare chest, black trousers and gold-trimmed boots, holds a curved sickle in each lowered hand.",
+  "story": "Wind-up, the first second: he steps his right foot aside, bends his knees and sinks low, spreading both sickles wide at hip height, the spider legs on his back opening like a fan. Release: he drops onto one knee and sweeps both sickles inward until they cross in front of his chest, as if raking something toward himself; glowing amber threads wind around his forearms and gather into a bright amber orb between the crossed blades, the spider legs closing around him, and the orb pulses twice. Recovery, the rest of the clip: the orb sinks into his chest and fades, he rises from the knee, pulls the foot back in, lowers the sickles to his sides and settles into exactly the same pose as the first frame.",
+  "fit": "The amber threads and the orb stay close to his arms and chest. During the skill his silhouette becomes narrower.",
+  "items": "the two sickles and the spider legs"
+ },
+ "anansi_ti_hyp": {
+  "sex": "m",
+  "feel": "weighty",
+  "look": "A young dark-skinned trickster with black dreadlocks tied back and a golden spider earring, an open black vest with gold trim over his bare chest, black baggy trousers with a long orange sash and gold-trimmed sandals, stands in a wide stance and holds a golden dagger in each hand.",
+  "story": "Wind-up, the first second: he bends his knees and sinks lower in his wide stance, shifting his weight onto his back leg, and spreads both daggers wide at hip height, the orange sash swinging. Release: he drops onto one knee and sweeps both daggers inward until they cross in front of his chest, as if raking something toward himself; glowing amber threads wind around his forearms and gather into a bright amber orb between the crossed daggers, and the orb pulses twice. Recovery, the rest of the clip: the orb sinks into his chest and fades, he rises from the knee, uncrosses the daggers and settles into exactly the same pose as the first frame.",
+  "fit": "The amber threads and the orb stay close to his arms and chest. The daggers stay in his hands the whole time.",
+  "items": "the two daggers and the sash"
+ }
+}
