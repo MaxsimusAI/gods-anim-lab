@@ -143,8 +143,9 @@ Overrides `work/impact_overrides.json` per clip:
   own head, e.g. Van Helsing's bolt); `r9Bolt` - a thick lightning that grows to the target (path built once, no flicker); `r9Coil(F, t, o)`
   - a ribbon winds up around a unit (control / curse / revive that has arrived); `r9Fp(F, u, kind, px, py)` - a point of the frame on
   screen; `r9Top(F, u, kind)` - where the baked effect leaves through the top edge (`ho.top` nearest to the release frame): continue a
-  column / spiral of the clip from there (Raijin, Poseidon, Veles); `r9Warm(F, u)` - the sheet picture is loaded lazily and the first
-  `frameOf()` returns nothing, so ask for it at the cast start (r9Link does it) or the first effect starts from the fallback point.
+  column / spiral of the clip from there (Raijin, Poseidon, Veles); `r9Warm(F, u)` - the stand clears its picture cache at every cast, the sheet picture is
+  then loaded lazily and the first `frameOf()` returns nothing, so ask for it at the cast start (r9Link does it) or the first effect of
+  every cast starts from the fallback point. `F.pillar` (and the other methods the design layer FX4 replaces) ignores the colour passed.
   Redesigned skills expect the release frame .45 s after the cast start (`BR.REL_TODAY`), which leaves ~.29 s of flight before the hit.
   Hit events of `c.later` series (Atlas ult) do not exist at `anticip` time: `nwEv(...)` there is a live query whose `forEach` runs when
   the event comes - time such volleys by the sim's schedule. Additive heads / sprites of a fan that starts in one point add up to a

@@ -1,4 +1,5 @@
 {
+ "_review_4b": "Review of 92f81bc..792f52c, fixes in the commit 'r9 fx Block 4b review fixes'. After the fixes arr traces («вчера» mode, three arenas incl. LEFT) of veles:hyp, vanhelsing:hyp/atk/sup, atlas:hyp, raijin:hyp, lilith:hyp, lucifer:sup are identical to 92f81bc. NOTES LEFT OPEN: (1) Erlang ult, copy branch (he repeats the enemies' last super): untouched old code - eye, sigil, rays and translucent after-images (F.after); it cannot be triggered on the stand, look at it in a real fight. (2) Veles ult: the branch (one stream to the fallen ally / streams to every enemy) is chosen at the cast start by 'is an ally dead now'; the sim decides at the hit (reviveOr) - if that differs, the stream goes to the wrong side. (3) r9Warm (in r9Link): the stand clears its picture cache at EVERY cast, so before this change the first projectile of every cast of the 7 earlier r9Link effects (Kali, Loki, Agni, Heracles, Silent, Blackbeard ults, Shiva super) started from the fallback point; now their origin is the real wf at every cast. (4) The design layer FX4 replaces F.pillar (and portal, vortex, skyBlade, hit1, rift, vineRun, finBuff, finSeal, finCrack) with its own fixed-colour drawings: a colour passed to them is ignored.",
  "_review_fixes": "Review of 2d87900..54a0e49, fixes in 79b2d9f (see the clips marked 'review fix' and _timing 5-8). Checks after the fixes, reviewer's tools (leftcmp2.py / lcdiff2.py) against his base traces of 2d87900: LEFT arena, today's version, 180 steps: 185 of 186 actions bit-identical (sim log, sheet frame, canvas hashes, transforms, DOM count); the one difference is the same as before the fixes - sting_hyp, one overlay canvas on 11 frames (steps 88-103); it stays when the new Sting hook is switched off and is absent in the «вчера» run, so it comes from state shared between the arenas, not from the left arena's code - cause not found. «вчера» version, 150 steps, arenas L + M + R: 186 of 186 identical. Console: no errors except the old izanami_hyp one (BASE[name] is not a function - present on 2d87900 too). Reviewer's stress.py (fast clicks, version / god switch mid-action, speeds, auto-repeat): no stuck hold / wait / transform, 0 errors. Not done: the reviewer's findings file (findings.md) was not on the machine, the fixes were made from the lead's summary; findings 13, 14, 16 could be identified only as far as the Sting hook timeout (fixed) - the other two were not looked at. Findings 4, 5, 9, 15, 17 are for the owner / later work.",
  "_timing": "Block 1 (new arenas, today's new sheets, focus god only; live arena and «вчера» sheets unchanged): (1) STG.playAnim: sheet duration D = clamp(max(hitAt/rel, floor), .3, max) with floor 1.25 s strike / 1.5 s super+ult and max 1.7 / 2.0. (2) When the release frame D*rel comes later than the script expects (hitAt; .5 for OLD_SIG supers/ults; REL_NEW; leapAt), fx2 calls BR.hold(lag): app.js stops stepping the sim and fx2 of THAT arena for lag seconds while the sprites keep playing (scriptDt in tick/stepManual). So the whole script of the action - anticipation, leap, launch, projectiles, pending hits, damage numbers - runs lag later; order and all sim values are unchanged; nothing else acts on the stand during that time. Lag is 0.06-0.56 s (median 0.23 s; Susanoo BT ult 0.85 s). (3) Strikes whose release frame is too early even at the slowest playback (>0.08 s before the expected moment: Brynhild, Indra, Zeus TI, Heimdall, Ra BT atk): the sheet starts later by that gap (idle pose until then), nothing else moves. (4) LEAP_NEW leap (Brynhild) is fast: starts 0.31 s before the strike instead of at 0.03 s. (5) Review fix (finding 10): auto-repeat and showcase keep the intervals they had before r9 (2.3 / 2.9 / 3.3 s and 2.5 / 3.0 / 3.4 s; all three arenas restart together). Only while a new arena that held its script is still in its action when the interval ends (sheet on screen, effects alive or hits pending), the next trigger waits until that arena has had the full interval of script time - at most its hold (Lu Bu ult: 3.3 + 0.27 s). So the left arena's repeat cadence is as before except in that case, where its pause between repeats grows by up to the hold; its action itself never changes. (6) Review fix (finding 2): a hit series that ends up to .45 s after its sheet stretches the rest of the sheet to the last hit (Wukong super) instead of restarting it. (7) Review fix (finding 8): Heimdall TI strike - the leap back waits for the end of the second baked swing (home at 1.23 s instead of 0.83 s). (8) Review fix (finding 6): r9Link projectiles land .01 s before the damage (flight .14 s where the release frame is .15 s before the hit). Block 4b: BR.REL_TODAY also holds lucifer:sup/hyp, lilith:hyp, raijin:hyp, llorona:sup/hyp, atlas:sup/hyp, vanhelsing:hyp, erlang:hyp = .45 - on today's sheets the release frame of these skills is expected .45 s after the cast start (was .6; Van Helsing ult .5), so their effect flies ~.29 s from the release frame to the sim's hit instead of ~.15 s; with the 1.5 s floor the script of such an action is held up to .15 s longer than after Block 1 (damage that much later). Poseidon super and Veles ult (OLD_SIG) keep the release at .5 s (flight .24 s). Left arena and «вчера» unchanged (arr traces of all 12 skills identical to 92f81bc).",
  "agni_bt_hyp": {
@@ -92,28 +93,28 @@
   "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
  },
  "atlas_bt_hyp": {
-  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380",
+  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380 | review fix: fsb 0.85 M, 0.5 R + arr.py: BT release 687, stars leave 700-783, land ~1000 / ~1120 / ~1240, hits 1017 / 1133 / 1267; TI release 813, leave 817-917, land ~1122 / ~1245 / ~1365, hits 1133 / 1250 / 1383",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26)"
+  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26) REVIEW FIX: all stars leave one after another within .09 s after the release frame (while the orb is in his hand in both clips, no lump of five at the hand, constant speed) and still arrive with the three hits; the number of hits comes from BR.SK.atlas.h.v.n and the schedule from one constant AT9_HIT (t0 .01, step .12 = sim-core SK.atlas.h.run), comment fixed."
  },
  "atlas_bt_sup": {
-  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301",
+  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301 | review fix: fsb 0.6 M",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s"
+  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s REVIEW FIX: stars larger (r 10.5)."
  },
  "atlas_ti_hyp": {
-  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380",
+  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380 | review fix: fsb 0.85 M, 0.5 R + arr.py: BT release 687, stars leave 700-783, land ~1000 / ~1120 / ~1240, hits 1017 / 1133 / 1267; TI release 813, leave 817-917, land ~1122 / ~1245 / ~1365, hits 1133 / 1250 / 1383",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26)"
+  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26) REVIEW FIX: all stars leave one after another within .09 s after the release frame (while the orb is in his hand in both clips, no lump of five at the hand, constant speed) and still arrive with the three hits; the number of hits comes from BR.SK.atlas.h.v.n and the schedule from one constant AT9_HIT (t0 .01, step .12 = sim-core SK.atlas.h.run), comment fixed."
  },
  "atlas_ti_sup": {
-  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301",
+  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301 | review fix: fsb 0.6 M",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s"
+  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s REVIEW FIX: stars larger (r 10.5)."
  },
  "blackbeard_bt_hyp": {
   "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062 | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
@@ -302,10 +303,10 @@
   "what": "Block 1 only: sheet 1.5 s (was 0.96 s); wisps leave after the release frame and the damage lands on arrival"
  },
  "lilith_ti_hyp": {
-  "checked": "fsb 0.85 R: release f8@500, ribbon 500-790, coil from 783, charm (ctrl) 800",
+  "checked": "fsb 0.85 R: release f8@500, ribbon 500-790, coil from 783, charm (ctrl) 800 | review fix: fsb 0.85-0.9 R: release f8@500, ribbon 500-790, coil 783-1630, charm 800; coil start 792-877 stepped by 17 ms - no blob",
   "remark": "Программные эффекты плозихие, полностью поменять",
   "status": "done",
-  "what": "today's sheet (TI; BT ult has no new sheet): owls / serpent / sigil / scrape sparks removed. On the release frame the clip's crimson ribbon with rose petals leaves her hand (wf), flies to the strongest enemy (r9Stream + petals), winds around him (new helper r9Coil), the charm mark appears on arrival. Release expected .45 s (BR.REL_TODAY)"
+  "what": "today's sheet (TI; BT ult has no new sheet): owls / serpent / sigil / scrape sparks removed. On the release frame the clip's crimson ribbon with rose petals leaves her hand (wf), flies to the strongest enemy (r9Stream + petals), winds around him (new helper r9Coil), the charm mark appears on arrival. Release expected .45 s (BR.REL_TODAY) REVIEW FIX: the ribbon is a wide crimson body (w 17, clip's crimson #c2184f) with many large dark-crimson / pink petals and a crimson haze, the coil is thick (w 11); the coil fades in (r9Coil no longer starts as a round blob)."
  },
  "llorona_bt_atk": {
   "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
@@ -314,16 +315,16 @@
   "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_bt_hyp": {
-  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050",
+  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050 | review fix: fsb 0.8 M: super 1200-1470, ult 1250-1450",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s"
+  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core)."
  },
  "llorona_bt_sup": {
-  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925",
+  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925 | review fix: fsb 0.8 M: super 1200-1470, ult 1250-1450",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s"
+  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core)."
  },
  "llorona_ti_atk": {
   "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
@@ -332,16 +333,16 @@
   "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_ti_hyp": {
-  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050",
+  "checked": "fsb 0.8 M, 0.6 R: BT release f14@874, stream 880-1164, coil + stun 1174, pool from 1200; TI release f12@750, lands 1040, stun 1050 | review fix: fsb 0.8 M: super 1200-1470, ult 1250-1450",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s"
+  "what": "today's sheets: tiny tear drops and the sigil removed. On the release frame one thick stream of the clip's water leaves her hand (BT: the blue water flame, R9_PT by eye because wf is the chest splash; TI: wf = the raised hand), reaches the most dangerous enemy, winds around him (r9Coil) and the water closes over him (existing drown pool + stun). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core)."
  },
  "llorona_ti_sup": {
-  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925",
+  "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925 | review fix: fsb 0.8 M: super 1200-1470, ult 1250-1450",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s"
+  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core)."
  },
  "loki_bt_hyp": {
   "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
@@ -374,16 +375,16 @@
   "what": "today's sheets (both styles, same code): wings / sigil / falling stars / golden line removed. On the release frame the ribbons of violet light unwind from the staff (wf) to every enemy (r9Stream, w 9.5), violet hit on arrival"
  },
  "lucifer_bt_sup": {
-  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115",
+  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115 | review fix: fsb 0.9 M 1425-1560: number -53.9M clear of the ring",
   "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
   "status": "done",
-  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s"
+  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s REVIEW FIX: the star is larger (r 12); the hit ring is smaller (r 24) and sits below the chest so that the damage number stays readable."
  },
  "lucifer_ti_sup": {
-  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115",
+  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115 | review fix: fsb 0.9 M 1425-1560: number -53.9M clear of the ring",
   "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
   "status": "done",
-  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s"
+  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s REVIEW FIX: the star is larger (r 12); the hit ring is smaller (r 24) and sits below the chest so that the damage number stays readable."
  },
  "mictlan_bt_hyp": {
   "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",
@@ -398,16 +399,16 @@
   "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
  },
  "poseidon_bt_sup": {
-  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065",
+  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065 | review fix: fsb 0.6 R 860-1040",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
   "status": "done",
-  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage"
+  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage REVIEW FIX: the jets start at the sheet's ho.top point (r9Top; TI x .586), the constant .5 is only the fallback."
  },
  "poseidon_ti_sup": {
-  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065",
+  "checked": "fsb 0.7 M / 0.55 R: BT release f8@500, jets 520-740, damage 750; TI release f13@813, jets 830-1055, damage 1065 | review fix: fsb 0.6 R 860-1040",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
   "status": "done",
-  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage"
+  "what": "today's sheets: surge blob and big wave pictures removed. On the release frame the clip's column of sea water (it leaves through the top edge) pours from that point in a teal jet to every enemy (r9Stream, thicker to the outer two), water crash (kwCrash) on arrival with the damage REVIEW FIX: the jets start at the sheet's ho.top point (r9Top; TI x .586), the constant .5 is only the fallback."
  },
  "ra_bt_atk": {
   "checked": "fseq ra atk: BT D=1.7",
@@ -422,10 +423,10 @@
   "what": "sheet plays 1.25 s (was 0.77 s)"
  },
  "raijin_bt_hyp": {
-  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175",
+  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175 | review fix: fsb 0.8 M, 0.5 R: BT bolts land 1230, at 1260 already detached, gone by 1340 (column gone f20-21 = 1279); TI land 1165, gone by 1285",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
   "status": "done",
-  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast"
+  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast REVIEW FIX: the bolts start at the sheet's ho.top point (r9Top, constant .5 only as the fallback) and let go of the origin as soon as they land (r9Bolt: after the arrival the bolt runs into the target, hold 0, .1 s) - nothing hangs from the point above his head after the baked column is gone."
  },
  "raijin_bt_sup": {
   "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
@@ -434,10 +435,10 @@
   "what": "sheet plays 1.5 s (was 1.11 / 0.85 s); the lightning lands after the release frame with the damage"
  },
  "raijin_ti_hyp": {
-  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175",
+  "checked": "fsb 0.75 M / 0.6 R: BT release f15@938, bolts grow 950-1230, damage 1245; TI release f14@874, bolts land 1165, damage 1175 | review fix: fsb 0.8 M, 0.5 R: BT bolts land 1230, at 1260 already detached, gone by 1340 (column gone f20-21 = 1279); TI land 1165, gone by 1285",
   "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
   "status": "done",
-  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast"
+  "what": "today's sheets: drawn drum ring, brother picture, sigil, clouds, leaf wind and thin sky bolts removed. On the release frame the clip's column of blue lightning (it leaves through the top edge) forks from that point to every enemy: thick bolts that grow to the targets (new helpers r9Bolt, r9Fp), zap hit on arrival. Release expected .45 s (BR.REL_TODAY). r9Link now pre-loads the sheet picture so wf is known at the first cast REVIEW FIX: the bolts start at the sheet's ho.top point (r9Top, constant .5 only as the fallback) and let go of the origin as soon as they land (r9Bolt: after the arrival the bolt runs into the target, hold 0, .1 s) - nothing hangs from the point above his head after the baked column is gone."
  },
  "raijin_ti_sup": {
   "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
@@ -554,10 +555,10 @@
   "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
  },
  "vanhelsing_bt_hyp": {
-  "checked": "fsb 0.9 M, 0.7 M/R: release f9@562, bolt in flight 570-865, damage 875 (both arenas)",
+  "checked": "fsb 0.9 M, 0.7 M/R: release f9@562, bolt in flight 570-865, damage 875 (both arenas) | review fix: fsb 0.9 M, 0.8 R: bolt lands 865, damage 875, 880-1120 no white patch, damage number and the bolt (shaft, head, fletching) readable",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets (same code for the TI sheet): tiny streak into the sky, giant stake picture from above and rays removed. On the release frame a big holy bolt (wooden shaft, white fletching, pale blue glow and trail - r9Orb with the bolt as its head) leaves the crossbow tip (wf), flies in an arc to the victim; hit on arrival (holy hit, wood splinters), the bolt stays in the victim for .5 s. Release expected .45 s (BR.REL_TODAY over REL_NEW .5)"
+  "what": "today's sheets (same code for the TI sheet): tiny streak into the sky, giant stake picture from above and rays removed. On the release frame a big holy bolt (wooden shaft, white fletching, pale blue glow and trail - r9Orb with the bolt as its head) leaves the crossbow tip (wf), flies in an arc to the victim; hit on arrival (holy hit, wood splinters), the bolt stays in the victim for .5 s. Release expected .45 s (BR.REL_TODAY over REL_NEW .5) REVIEW FIX: the hit no longer leaves a white patch (no flash, no hit2: a small pale-blue ring, wood splinters, non-additive sparks); the stuck bolt is drawn on top without glow (nlBolt plain) for .55 s; it sticks along the tangent of its arc at the arrival, not along the straight wf-target line."
  },
  "vanhelsing_ti_atk": {
   "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
@@ -572,10 +573,10 @@
   "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_bt_hyp": {
-  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed",
+  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed | review fix: fsb 0.8 M, 0.5 R: revive - stream lands 1053 (BT) / 990 (TI), blue column + coil from ~1065 / ~1005, no gold; curse branch through a temporary switch (removed): frames 1220-1550 M, 1160-1490 R - blue coils only, no purple seal",
   "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
   "status": "done",
-  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse)"
+  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse) REVIEW FIX: the purple curse seal (k2Seal) is not drawn on today's sheets - the blue coil is the curse; the fallen ally rises in a column of the same blue fire instead of the pale-gold pillar (own rise handler; F.pillar cannot be recoloured - the design layer FX4 replaces it with fixed pale-gold strands); coils thicker (w 8 / 8.5) with a coloured body."
  },
  "veles_bt_sup": {
   "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
@@ -590,10 +591,10 @@
   "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_ti_hyp": {
-  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed",
+  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed | review fix: fsb 0.8 M, 0.5 R: revive - stream lands 1053 (BT) / 990 (TI), blue column + coil from ~1065 / ~1005, no gold; curse branch through a temporary switch (removed): frames 1220-1550 M, 1160-1490 R - blue coils only, no purple seal",
   "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
   "status": "done",
-  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse)"
+  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse) REVIEW FIX: the purple curse seal (k2Seal) is not drawn on today's sheets - the blue coil is the curse; the fallen ally rises in a column of the same blue fire instead of the pale-gold pillar (own rise handler; F.pillar cannot be recoloured - the design layer FX4 replaces it with fixed pale-gold strands); coils thicker (w 8 / 8.5) with a coloured body."
  },
  "veles_ti_sup": {
   "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",

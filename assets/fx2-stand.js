@@ -5687,8 +5687,9 @@ return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr
 // The flight of EVERY target ends .01 s before the damage (tHit): o.min (wished minimum flight) and o.gap (stagger between targets)
 // are wishes that yield when the release frame is too close to the damage - the stagger is squeezed first, then the flight is
 // shortened. A projectile never lands after its hit.
-// r9Warm: the sheet picture is loaded lazily by the first frameOf() call, and that call still returns nothing - ask for it at the cast
-// start so that the weapon point (wf) is known on the release frame even at the very first cast
+// r9Warm: the stand clears its picture cache (W.imgs) at every cast, the sheet picture is then loaded lazily by the first frameOf() call
+// and that call still returns nothing - ask for it at the cast start so that the weapon point (wf) is known on the release frame.
+// Without it the first projectile of EVERY cast started from the fallback point instead of wf.
 const r9Warm = (F, u) => { if (F.st && F.st.frameOf)
 for (const d of [0, .06, .2])
 F.at(d, () => F.st.frameOf(u)); };
@@ -5809,7 +5810,7 @@ const P = [];
 for (let i = 0; i <= N; i++)
 P.push(pt(lerp(k0, k1, i / N)));
 // a fan of orbs starts from one point and the additive heads add up to a white blob there: the orb fades in over the first quarter
-const h = P[N], al = (1 - dq) * (.3 + .7 * clamp(a / (fly * .28), 0, 1));
+const h = P[N], al = (1 - dq) * (.12 + .88 * clamp(a / Math.min(fly * .4, .12), 0, 1));
 g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'round';
@@ -5868,7 +5869,8 @@ const col = o.col || '#ffffff', core = o.core || '#ffffff', w = o.w ?? 5, turns 
 F.obj(dur, (g, a) => {
 if (!t.alive && !o.any)
 return;
-const b = boxOf(t), up = EASE['ease-out'](clamp(a / tin, 0, 1)), al = a < dur * .55 ? 1 : 1 - (a - dur * .55) / (dur * .45), rx = b.w * (o.rx ?? .46), y0 = b.feet - b.h * .06, y1 = b.top + b.h * .12;
+// (the first frames: the whole ribbon is still one short stub - with round caps a thick ribbon is a round blob there, so it fades in)
+const b = boxOf(t), up = EASE['ease-out'](clamp(a / tin, 0, 1)), al = (a < dur * .55 ? 1 : 1 - (a - dur * .55) / (dur * .45)) * clamp((up - .12) / .3, 0, 1), rx = b.w * (o.rx ?? .46), y0 = b.feet - b.h * .06, y1 = b.top + b.h * .12;
 const P = [];
 for (let i = 0; i <= N; i++) {
 const k = i / N * up, th = k * turns * TAU + a * (o.spin ?? 5) + ph, rr = rx * (1 - .25 * k);
@@ -5877,7 +5879,7 @@ P.push([b.x + Math.cos(th) * rr, lerp(y0, y1, k) + Math.sin(th) * rr * .26, Math
 g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'round';
-for (const [lw, cc, aa] of [[2.4, col, .16], [1.1, col, .5], [.4, core, .75]])
+for (const [lw, cc, aa] of [[2.6, col, .2], [1.35, col, .8], [.3, core, .45]])   // the body is the effect colour, the light core is thin
 for (let i = 0; i < N; i++) {
 const k = (i + .5) / N, front = .35 + .65 * clamp(P[i][2] * .5 + .5, 0, 1), tp = Math.sin(Math.PI * Math.min(1, k * 1.15)) * .8 + .2;
 g.globalAlpha = aa * al * front;
@@ -5906,10 +5908,10 @@ return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr
 };
 // r9Top (Block 4b): the point where the baked effect of today's sheet leaves the frame through the TOP edge (metric `ho.top`, the entry
 // nearest to the release frame) - the game continues the effect from there. Falls back to wf.
-const r9Top = (F, u, kind, py = .05) => {
+const r9Top = (F, u, kind, py = .05, px = null) => {
 const A = BR.isProposed && u && u.gu ? BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) : null, T = A && A.ho && A.ho.top;
 if (!T || !T.length)
-return F.wp(kind, u);
+return px != null ? r9Fp(F, u, kind, px, py) : F.wp(kind, u);   // px: a constant x for a sheet without the metric
 let best = T[0];
 for (const q of T)
 if (Math.abs(q[0] - A.impact) < Math.abs(best[0] - A.impact))
@@ -5918,7 +5920,8 @@ return r9Fp(F, u, kind, best[1], py);
 };
 // r9Bolt (Block 4b): one thick living lightning that GROWS from a point to a target in `fly` seconds (the tip is seen travelling), stays
 // for `hold` and fades - a jagged path built once (no flicker), soft glow + coloured body + white core, a few short forks, sparks at
-// the tip. o: col, core, w, rough, forks, hold, fade, onHit, layer.
+// the tip. After the arrival (+ hold) the bolt lets go of its origin and runs into the target in `fade` seconds, so nothing hangs from
+// the origin when the baked effect there is over. o: col, core, w, rough, forks, hold, fade, onHit, layer.
 const r9Bolt = (F, from, to, fly, o = {}) => {
 const col = o.col || '#6fc0ff', core = o.core || '#ffffff', w = o.w ?? 4.5, hold = o.hold ?? .1, fade = o.fade ?? .22, rough = o.rough ?? .17, lv = {};
 const sub = (a, b, lvl) => { if (!lvl)
@@ -5930,7 +5933,7 @@ forks.push({ j, pts: sub(a, e, 2).concat([e]) });
 }
 let done = false;
 return F.obj(fly + hold + fade, (g, a) => {
-const k = clamp(a / fly, 0, 1), dq = clamp((a - fly - hold) / fade, 0, 1), al = (1 - dq) * (.9 + .1 * Math.sin(a * 38)), m = k * n, mi = Math.min(n - 1, Math.floor(m)), f = m - mi;
+const k = clamp(a / fly, 0, 1), dq = clamp((a - fly - hold) / fade, 0, 1), al = (1 - dq * .5) * (.9 + .1 * Math.sin(a * 38)), m0 = Math.min(n - 1, Math.floor(dq * n)), m = k * n, mi = Math.min(n - 1, Math.floor(m)), f = m - mi;
 const tip = k >= 1 ? P[n] : { x: lerp(P[mi].x, P[mi + 1].x, f), y: lerp(P[mi].y, P[mi + 1].y, f) };
 const line = (pts, wk) => { for (const [lw, cc, aa] of [[3.4, col, .16], [1.5, col, .6], [.55, core, .95]]) {
 g.globalAlpha = aa * al;
@@ -5946,9 +5949,10 @@ g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'round';
 g.lineJoin = 'round';
-line(P.slice(0, mi + 1).concat([tip]), 1);
+if (dq < 1)
+line(P.slice(m0, mi + 1).concat([tip]), 1);
 for (const b of forks)
-if (m > b.j + 1)
+if (m > b.j + 1 && b.j >= m0 && dq < 1)
 line(b.pts.slice(0, Math.max(2, Math.ceil(clamp((m - b.j - 1) / 3, 0, 1) * b.pts.length))), .5);
 if (dq <= 0) {
 const s = w * (a < fly ? 4.2 : 3.2);
@@ -14638,6 +14642,8 @@ for (let i = 0; i < 8; i++)
 F.at(.05 + i * .03, () => F.p({ x: f.x + F.rnd(-f.w * .5, f.w * .5), y: f.y - F.rnd(10, 30), vx: F.rnd(-10, 10), vy: -F.rnd(14, 30), drag: 1, life: F.rnd(.7, 1), s0: 14, s1: 30, tex: T2('smoke4', 'smoke'), col: '#d8fff4', add: false, a0: .55, rot: F.rnd(-.4, .4) }));
 F.obj(dur, (g, a) => { const al = (a < .15 ? a / .15 : Math.max(0, 1 - (a - .15) / (dur - .15))) * .55; g.globalCompositeOperation = 'lighter'; g.globalAlpha = al; g.drawImage(TX.get('glow', '#7fe8c8'), f.x - f.w * 1.3, f.y - 26, f.w * 2.6, 40); }, 'under');
 };
+// r9 Block 4b: the cold blue fire of Veles' ult clips (r9Fire options)
+const vlBlue9 = o => Object.assign({ col: '#3f9cff', core: '#e8f6ff', ramp: ['#e8f6ff', '#8fd0ff', '#4aa0ff', '#2a6ae0'], w: 6.5, wob: 7, tail: .8, drain: .18 }, o);
 SIG.veles = {
 motif: 'storm', glyph: 'k2_veles',
 a: {
@@ -14715,7 +14721,20 @@ F.at(.18, () => vlClaw(F, x0, x1, y, { sweep: .11 }));
 },
 },
 h: {
-col: VL.nav, status: k2Seal('k2_veles'),
+col: VL.nav,
+// review fix: on today's sheets the curse is the blue coil of the clip's fire - the purple seal is not drawn; the fallen ally rises in
+// a pillar of the same blue instead of the shared pale-gold one
+status(F, e) { if (F.today('hyp'))
+return e.up ? 'default' : undefined; return k2Seal('k2_veles').call(this, F, e); },
+rise(F, e) {
+if (!F.today('hyp'))
+return 'default';
+// (F.pillar is replaced by the design layer with pale-gold strands whatever colour is passed, so the column is drawn here)
+const b = boxOf(e.u);
+r9Fire(F, { x: b.x, y: b.feet - 2 }, { x: b.x, y: b.top - b.h * .3 }, .28, vlBlue9({ w: 13, arc: 0, wob: 4, hold: .4, drain: .25 }));
+for (let i = 0; i < 12; i++)
+F.at(i * .03, () => F.p({ x: b.x + F.rnd(-b.w * .3, b.w * .3), y: b.feet - F.rnd(0, b.h * .5), vx: F.rnd(-8, 8), vy: -F.rnd(40, 90), drag: 1.2, life: F.rnd(.4, .7), s0: F.rnd(6, 9), s1: 1.5, tex: 'flame', col: F.pick(['#8fd0ff', '#4aa0ff']) }));
+},
 anticip(F, u, k, rel, e) {
 k2Cut(u, 'hyp', 1);
 if (F.today('hyp', u)) {
@@ -14724,18 +14743,18 @@ if (F.today('hyp', u)) {
 // him and leaves through the top edge flows from that point to every enemy and winds around him - the curse (or, when an ally is
 // dead, in one stream to the fallen ally who rises).
 const flame9 = (x, y) => { if (F.rng() < .4) F.p({ x, y, vx: F.rnd(-10, 10), vy: -F.rnd(20, 50), drag: 1.5, life: F.rnd(.3, .5), s0: F.rnd(5, 8), s1: 1.5, tex: 'flame', col: F.pick(['#8fd0ff', '#4aa0ff']) }); };
-const dead = F.allies().filter(x => !x.alive && x !== u), blue = o => Object.assign({ col: '#3f9cff', core: '#e8f6ff', ramp: ['#e8f6ff', '#8fd0ff', '#4aa0ff', '#2a6ae0'], w: 6.5, wob: 7, tail: .8, drain: .18 }, o);
+const dead = F.allies().filter(x => !x.alive && x !== u), blue = vlBlue9;
 if (dead.length) {
 const tR = F.relDt('hyp', .5), fly = Math.max(.12, T_SUP - .01 - tR), t = dead[0];
 r9Warm(F, u);
 F.atRaw(tR, () => { r9Fire(F, r9Top(F, u, 'h'), F.tc(t, .5), fly, blue({ w: 9, arc: -18 }));
-F.atRaw(fly - .02, () => r9Coil(F, t, { any: true, col: '#3f9cff', core: '#e8f6ff', w: 6.5, dur: .9, turns: 2.4, emit: flame9 })); });
+F.atRaw(fly - .02, () => r9Coil(F, t, { any: true, col: '#3f9cff', core: '#e8f6ff', w: 8.5, dur: .9, turns: 2.4, emit: flame9 })); });
 return;
 }
 const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
 r9Link(F, u, 'h', row, (from, to, fly, t, i) => {
 r9Fire(F, r9Top(F, u, 'h'), to, fly, blue({ arc: (i - (n - 1) / 2) * -8 + (i % 2 ? 8 : -8) }));
-F.atRaw(fly - .02, () => r9Coil(F, t, { col: '#3f9cff', core: '#e8f6ff', w: 5.5, dur: .8, turns: 2.2, emit: flame9 }));
+F.atRaw(fly - .02, () => r9Coil(F, t, { col: '#3f9cff', core: '#e8f6ff', w: 8, dur: .8, turns: 2.2, emit: flame9 }));
 }, { gap: .012, ty: .46 });
 return;
 }
@@ -23936,7 +23955,7 @@ if (F.today('sup', u)) {
 // pours from that point in a jet to every enemy (thicker to the outer ones - they take more) and crashes on them with the damage.
 const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot), n = row.length;
 r9Link(F, u, 's', row, (from, to, fly, t, i) => { const far = i === 0 || i === n - 1;
-r9Stream(F, r9Fp(F, u, 's', .5, .06), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#7fe0d8', '#48c8c4', '#2fa8a8'], ts: 3, n: 12, speed: 1.2,
+r9Stream(F, r9Top(F, u, 's', .06, .5), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#7fe0d8', '#48c8c4', '#2fa8a8'], ts: 3, n: 12, speed: 1.2,
 emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 160, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#e4fffb', '#9af0e8', '#48d0cc']) }); } }); }, { gap: .012, ty: .5 });
 return;
 }
@@ -25916,12 +25935,12 @@ F.at(.05 + i * .07, () => LUC.feather(F, p.x + F.rnd(-22, 22), p.y - F.rnd(14, 3
 // the clip's own violet star. Super: on the release frame the star that the clip sends up through the top edge (wf) flies on to the
 // victim. Ult: the ribbons of light that wind around him unwind from the staff (wf) to every enemy. The hit is violet like the clip.
 LUC.C9 = { c: '#8a78ff', pale: '#c4bcff', core: '#f3f0ff' };
-LUC.star9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: LUC.C9.c, core: LUC.C9.core, r: 10, arc: -20, tex: txOr('glint', 'star4'), texCol: '#ffffff', ts: 3, spin: 3, tail: .5, sparkCol: [LUC.C9.pale, LUC.C9.c, '#ffffff'] }, o));
+LUC.star9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: LUC.C9.c, core: LUC.C9.core, r: 12, arc: -20, tex: txOr('glint', 'star4'), texCol: '#ffffff', ts: 3, spin: 3, tail: .5, sparkCol: [LUC.C9.pale, LUC.C9.c, '#ffffff'] }, o));
 LUC.hit9 = (F, t, s = 1) => {
-const p = F.tc(t, .5), f = F.feetOf(t);
-F.flash(p.x, p.y, 28 * s, LUC.C9.c, { dur: .42, k: 1.5, grow: true });
-F.ring(p.x, p.y, 8, 36 * s, LUC.C9.c, { dur: .4, w: 4, k: .6 });
-NC.glint(F, p.x, p.y, 24 * s, LUC.C9.pale, { life: .2, rot: .78 });
+const p = F.tc(t, .62), f = F.feetOf(t);   // below the chest: the damage number stays readable
+F.flash(p.x, p.y, 24 * s, LUC.C9.c, { dur: .42, k: 1.5, grow: true });
+F.ring(p.x, p.y, 6, 24 * s, LUC.C9.c, { dur: .36, w: 3.5, k: .5 });
+NC.glint(F, p.x, p.y, 18 * s, LUC.C9.pale, { life: .2, rot: .78 });
 F.burst(p.x, p.y, { n: Math.round(14 * s), v0: 80, v1: 200 * s, col: [LUC.C9.c, LUC.C9.pale, '#ffffff'], s0: 3.2, l0: .25, l1: .5, drag: 3 });
 LUC.shreds(F, p.x, p.y, 6, 32 * s, 1.1 * s);
 F.decal(f.x, f.y, f.w * .6 * s, LUC.C9.pale, { cracks: 6, dur: 1, k: .9 });
@@ -26472,10 +26491,13 @@ if (F.today('hyp', u)) {
 const t9 = e.targets[0];
 if (!t9)
 return;
-const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-26, 26), vy: F.rnd(-30, 8), ay: 60, drag: 1.8, life: F.rnd(.4, .7), s0: F.rnd(5, 7.5) * k, s1: 3 * k, tex: 'petal', col: F.pick(['#ff5a9a', '#d81e5c', '#ff9ac0']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
+// review fix: the clip is a wide dark-crimson cloud of petals, not a thin pink line - a wide crimson body, many large petals, a
+// crimson haze behind them, a thick coil
+const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-9, 9), y: y + F.rnd(-9, 9), vx: F.rnd(-34, 34), vy: F.rnd(-34, 10), ay: 60, drag: 1.8, life: F.rnd(.5, .9), s0: F.rnd(8, 13) * k, s1: 4 * k, tex: 'petal', col: F.pick(['#c2184f', '#8a0f36', '#e0407a', '#ff7aa8']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
+const haze = (x, y, k = 1) => F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-12, 12), vy: -F.rnd(4, 18), drag: 2, life: F.rnd(.45, .75), s0: F.rnd(16, 22) * k, s1: F.rnd(30, 40) * k, tex: F.pick(['smoke', 'smoke2']), col: F.pick(['#7a0a2c', '#5c0a24']), add: false, a0: .5, rot: F.rnd(0, 6), vr: F.rnd(-.6, .6) });
 r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
-r9Stream(F, from, to, fly, { col: '#e8307a', core: '#ffc4dc', w: 12.5, coreK: .7, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .8, drain: .18, tex: 'petal', ramp: ['#ffd0e4', '#ff6aa8', '#d81e5c'], ts: 1.5, n: 8, speed: 1.3, emit: (x, y) => { if (F.rng() < .5) pet(x, y); } });
-F.at(fly - .02, () => r9Coil(F, t, { col: '#e8307a', core: '#ffc4dc', w: 7, dur: .8, emit: (x, y) => { if (F.rng() < .35) pet(x, y, .8); } }));
+r9Stream(F, from, to, fly, { col: '#c2184f', core: '#ff8fb8', w: 17, coreK: .4, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .85, drain: .2, tex: 'petal', ramp: ['#ff7aa8', '#e0407a', '#b0123f'], ts: 1.5, n: 14, speed: 1.1, emit: (x, y) => { haze(x, y); pet(x, y); if (F.rng() < .7) pet(x, y); } });
+F.at(fly - .02, () => r9Coil(F, t, { col: '#c2184f', core: '#ff8fb8', w: 11, dur: .85, emit: (x, y) => { if (F.rng() < .7) pet(x, y, .8); if (F.rng() < .3) haze(x, y, .7); } }));
 }, { exp: .45, tHit: c9 ? c9.t - F.t : T_SUP, ty: .5 });
 LIL.watchCharm(F, t9);
 return;
@@ -33561,13 +33583,15 @@ F.hit1(p.x, p.y, { col: '#ffd77a', s: .6, mn: 2, motif: 'holy' });
 const VH = { c: '#dfe8f5', core: '#ffffff', holy: '#bfe8ff', wood: '#b89468' };
 NEWSTYLE.vanhelsing = { el: 'light', role: 'ranger', weapon: 'crossbow', melee: false, twin: false, proj: 'arrow', col: VH.c, glyph: 'nl_xbow' };
 const vhW = u => nlP(u, .46, .79);
-const nlBolt = (g, s = 1) => {
+const nlBolt = (g, s = 1, plain = false) => {   // plain (r9): no glow and no glint - the bolt that sticks in the victim
 g.save();
 g.scale(s, s);
+if (!plain) {
 g.globalCompositeOperation = 'lighter';
 g.globalAlpha = .6;
 g.drawImage(TX.get('glow', VH.c), -16, -6, 26, 12);
 g.globalAlpha = 1;
+}
 g.globalCompositeOperation = 'source-over';
 g.fillStyle = '#4a3828';
 g.fillRect(-17, -1.1, 14, 2.2);
@@ -33590,8 +33614,10 @@ g.fill();
 g.strokeStyle = '#8a98b0';
 g.lineWidth = .7;
 g.stroke();
+if (!plain) {
 g.globalCompositeOperation = 'lighter';
 g.drawImage(TX.get('star4', '#ffffff'), -6, -6, 12, 12);
+}
 g.restore();
 };
 const nlFlask = (g, s = 1, k = 1) => {
@@ -33775,8 +33801,11 @@ if (F.today('hyp', u)) {
 // of the clip, flies in an arc to the victim and stays in him for a moment - the hit lands when it arrives.
 const t9 = e.targets[0];
 if (t9)
-r9Link(F, u, 'h', [t9], (from, to, fly) => { F._vh9 = Math.atan2(to.y - from.y, to.x - from.x);
-r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc: (to.x < from.x ? 1 : -1) * 24, tail: .6, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
+r9Link(F, u, 'h', [t9], (from, to, fly) => {
+// the bolt flies on an arc: it sticks in the victim along the tangent of the arc at the arrival, not along the straight line
+const arc = (to.x < from.x ? 1 : -1) * 24, dx = to.x - from.x, dy = to.y - from.y, L = Math.hypot(dx, dy) || 1;
+F._vh9 = Math.atan2(dy - Math.PI * arc * dx / L, dx + Math.PI * arc * dy / L);
+r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc, tail: .6, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
 head: (g, a, k, R) => { g.globalAlpha = .8; g.drawImage(TX.get('glow', '#9fbcff'), -R * 2.4, -R * 1.5, R * 4.2, R * 3); g.globalAlpha = .75; g.strokeStyle = '#dfe8ff'; g.lineWidth = 4.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-6, 0); g.stroke(); g.globalAlpha = 1; nlBolt(g, 2.5); } }); }, { exp: .45, ty: .45 });
 return;
 }
@@ -33796,13 +33825,13 @@ hit(F, e) {
 if (e.src !== 'hyper' || !F.today('hyp'))
 return 'default';
 const p = F.tc(e.u, .45), f = F.feetOf(e.u), ang = F._vh9 ?? -Math.PI / 2;
-F.flash(p.x, p.y, 28, '#9fbcff', { dur: .36, k: 1.4, grow: true });
-F.hit2(p.x, p.y, { col: '#e8f0ff', core: '#ffffff', s: .9, mn: 6, motif: 'holy' });
+// review fix: no white patch on the victim - a small pale-blue ring and splinters, nothing additive and white; the bolt itself is
+// drawn on top without any glow and stays in the victim for a moment
+F.ring(p.x, p.y, 6, 24, '#9fbcff', { dur: .3, w: 3, k: .5 });
 F.burst(p.x, p.y, { n: 12, tex: 'shard', col: ['#d8bc8c', '#b08e60', '#8a6a44'], v0: 80, v1: 220, s0: 5, s1: 2.5, l0: .35, l1: .6, ay: 560, add: false, stretch: 0, vr: 14 });
-F.burst(p.x, p.y, { n: 10, tex: 'star4', col: ['#f4f8ff', '#bfd4ff'], v0: 60, v1: 170, s0: 5, s1: 1, l0: .3, l1: .5, drag: 2.6, stretch: 0 });
+F.burst(p.x, p.y, { n: 8, tex: 'star4', col: ['#bfd4ff', '#9fbcff'], v0: 60, v1: 170, s0: 4.5, s1: 1, l0: .3, l1: .5, drag: 2.6, stretch: 0, add: false });
 F.decal(f.x, f.y, f.w * .7, '#cfe0ff', { cracks: 8, dur: 1.2 });
-// the bolt stays in the victim for a moment
-F.obj(.5, (g, a) => { g.translate(p.x - Math.cos(ang) * 10, p.y - Math.sin(ang) * 10); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalAlpha = a > .3 ? 1 - (a - .3) / .2 : 1; nlBolt(g, 2.5); });
+F.obj(.55, (g, a) => { g.translate(p.x - Math.cos(ang) * 8, p.y - Math.sin(ang) * 8); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalCompositeOperation = 'source-over'; g.globalAlpha = (a > .35 ? 1 - (a - .35) / .2 : 1) * .9; g.strokeStyle = '#c8d4ea'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-8, 0); g.stroke(); g.globalAlpha = a > .35 ? 1 - (a - .35) / .2 : 1; nlBolt(g, 2.5, true); }, 'top');
 },
 },
 };
@@ -35891,7 +35920,8 @@ nwCrown(F, f.x, f.y - 2, .7, { col: '#cfe0ff', cols: [AT_CORE, AT_STAR, '#9fe6ff
 };
 // r9 Block 4b (14.11 Maxim, Atlas super / ult: «плохой программный эффект»): today's sheets - the blue of the clips.
 const AT9 = { c: '#4f9cff', pale: '#bfe0ff', core: '#f2f8ff' };
-const atOrb9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: AT9.c, core: AT9.core, r: 8.5, arc: -14, tex: 'star4', texCol: '#ffffff', ts: 2.8, spin: 6, tail: .5, sparkCol: [AT9.pale, AT9.c, '#ffffff'], sparkTex: 'star4', spark: 30 }, o));
+const AT9_HIT = { t0: .01, step: .12 };   // the ult's hit series in sim-core (SK.atlas.h.run: c.later(0.12 * i + 0.01)); the count is SK.atlas.h.v.n
+const atOrb9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: AT9.c, core: AT9.core, r: 10.5, arc: -14, tex: 'star4', texCol: '#ffffff', ts: 2.8, spin: 6, tail: .5, sparkCol: [AT9.pale, AT9.c, '#ffffff'], sparkTex: 'star4', spark: 30 }, o));
 // the blue shell of the clip closes around an ally for a moment: his hits now go into Atlas
 const atShell9 = (F, t, dur = .8) => F.obj(dur, (g, a) => {
 if (!t.alive)
@@ -36007,13 +36037,15 @@ anticip(F, u) {
 if (F.today('hyp', u)) {
 // ult (three hits on every enemy, then stun): no drawn sphere, no sigil, no stars from the sky. One read: from the release frame the
 // blue orb in his raised hand (wf) throws a volley of blue stars at every enemy for each of the three hits; each lands with its hit
-const tR = F.relDt('hyp', .45);
+const tR = F.relDt('hyp', .45), HV = ((BR.SK || {}).atlas || {}).h, nH = (HV && HV.v && HV.v.n) || 3, foes = F.foes().slice().sort((p, q) => p.slot - q.slot), N = nH * foes.length;
 r9Warm(F, u);
-// the sim deals the three hits .02, .14 and .26 s after T_SUP (the hit events do not exist yet when the cast starts)
-for (let j = 0; j < 3; j++) {
-const tA = T_SUP + .005 + .12 * j, fly = clamp(tA - tR, .1, .28 + .05 * j), big = j === 2;   // later volleys fly longer: all three leave while the orb is in his hand
-F.at(tA - fly, () => F.foes().forEach(t => atOrb9(F, F.wp('h', u), F.tc(t, .42), fly, { r: big ? 10.5 : 7.5, arc: (j - 1) * 14 + (t.slot % 2 ? 6 : -6) })));
-}
+// The hit events do not exist yet when the cast starts, so the volleys follow the sim's own schedule (sim-core SK.atlas.h.run:
+// hit i comes AT9_HIT.t0 + AT9_HIT.step * i after T_SUP, i < v.n). Review fix: every star leaves within the first .09 s after the
+// release frame - while the orb is still in his hand in both clips - one after another (no lump of stars at the hand), and the
+// stars of volley j arrive with hit j.
+for (let j = 0; j < nH; j++)
+foes.forEach((t, i) => { const tA = T_SUP + AT9_HIT.t0 + AT9_HIT.step * j - .005, dep = tR + .09 * (j * foes.length + i) / Math.max(1, N - 1), fly = Math.max(.1, tA - dep), big = j === nH - 1;
+F.at(dep, () => { if (t.alive) atOrb9(F, F.wp('h', u), F.tc(t, .42), fly, { r: big ? 10.5 : 7.5, arc: (j - 1) * 14 + (t.slot % 2 ? 6 : -6), ease: 'linear' }); }); });   // linear: the stars do not linger at the hand
 return;
 }
 const b = boxOf(u), up = (LAY.sy ?? 1) > 0, S = { x: b.x, y: up ? b.top - 22 : b.feet + 22, r: 16 }, tThrow = .5;
@@ -36051,7 +36083,7 @@ hit(F, e) { if (e.src === 'hyper') {
 if (F.today('hyp')) {
 const M = F._at9 || (F._at9 = new Map()), k = (M.get(e.u) || 0) + 1;
 M.set(e.u, k);
-atImpact(F, e.u, k === 3);
+atImpact(F, e.u, k === ((((BR.SK || {}).atlas || {}).h || {}).v || {}).n || k === 3);
 }
 return;
 } return 'default'; },
@@ -37498,7 +37530,7 @@ if (F.today('hyp', u)) {
 // drum ring, no brother, no sigil, no clouds, no leaves. One read: on the release frame the column of blue lightning that the clip
 // sends up through the top edge forks from that point to every enemy; the bolts are seen growing and land with the damage.
 const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot);
-r9Link(F, u, 'h', row, (from, to, fly, t) => r9Bolt(F, r9Fp(F, u, 'h', .5, .05), to, fly, { col: '#5fb8ff', core: '#f2fbff', w: 4.6, hold: .06, fade: .17 }), { exp: .45, gap: .012, ty: .48 });
+r9Link(F, u, 'h', row, (from, to, fly, t) => r9Bolt(F, r9Top(F, u, 'h', .05, .5), to, fly, { col: '#5fb8ff', core: '#f2fbff', w: 4.6, hold: 0, fade: .1 }), { exp: .45, gap: .012, ty: .48 });   // hold 0: the baked column is over about when the bolts land - they let go of it at once
 return;
 }
 F.w2drums = W2.drums(F, u, 1.45, { beats: [.14, .22, .3, .38, .46, .52].map((t, i) => ({ t, i: (i * 3) % 8 })).concat([{ t: rel, i: -1 }]) });
@@ -37562,7 +37594,7 @@ if (F.today('sup', u)) {
 const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
 r9Link(F, u, 's', row, (from, to, fly, t, i) => {
 r9Stream(F, r9Wp(F, 's', u), to, fly, W2.ll9({ w: 9, arc: (i - (n - 1) / 2) * -8 }));
-F.at(fly - .02, () => r9Coil(F, t, { col: '#7fc0f0', core: '#f2faff', w: 4.6, dur: .65, turns: 1.7 }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#5aa8ec', core: '#f2faff', w: 7.5, dur: .65, turns: 1.7 }));
 }, { exp: .45, gap: .014, ty: .42 });
 return;
 }
@@ -37588,7 +37620,7 @@ const t9 = e.targets[0];
 if (t9)
 r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
 r9Stream(F, r9Wp(F, 'h', u), to, fly, W2.ll9({ w: 14, arc: (to.x < from.x ? 1 : -1) * 24, emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 150, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#f2faff', '#bfe2fa', '#7fc0f0']) }); } }));
-F.at(fly - .02, () => r9Coil(F, t, { col: '#6ab6ee', core: '#f2faff', w: 7.5, dur: .95, turns: 2.5 }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#5aa8ec', core: '#f2faff', w: 9.5, dur: .95, turns: 2.5 }));
 }, { exp: .45, ty: .45 });
 return;
 }
