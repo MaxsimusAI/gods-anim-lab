@@ -1,0 +1,52 @@
+mictlan:bi+435 ti+378 ba-393 ta+392 bs+392 ts+385 bh+388 th+387
+lucifer:ti-385 bi+441 ba+233 ta+234 bs+232 ts+227 bh+286 th-288
+lilith:ti-331 ta-214 ts+211 th+226
+koschei:ti-399 bi+372 ba+273 ta-268 bs+273 ts+260 bh+262 th+274
+nightmare:ti-324 bi+336 ba+224 ta-234 bs-242 ts-238 bh-240 th-238
+kali:ti-380 ta-298 ba+303 ts+301 bs+297 th-302 bh+297
+dracula:ti-285 bi+285 ba-201 ta-201 bs+205 ts+204 th-206 bh+206
+hecate:ti-337 bi+410 ta+292 ba+290 ts-278 bs+288 bh+264 th+269
+horseman:ti+296 bi+299 ba+185 ta+185 bs+185 ts+188 bh+188 th+187
+veles:bi-396 ti-340 ba-297 ta+309 bs+310 ts+310 th+310 bh+294
+anansi:bi+482 ti+340 ta-318 ba+318 bs+319 ts+317 bh+419 th+405
+thor:ti-368 bi+400 ta+232 ba+213 bs-112 ts-238 bh-235 th-230
+wukong:bi+418 ti+346 ba+276 ta+276 bs-278 ts-274 bh-271 th-274
+persephone:ti+259 bi+345 ba+238 ta+239 bs+239 ts+238 th+234 bh+235
+silent:bi+421 ti+296 ba+241 ta-153 bs+259 ts+170 bh+233 th+258
+quetzalcoatl:bi+450 ti+355 ba+356 ta+353 bs+390 ts+386 bh+355 th+354
+jekyll:bi+220 ti+228 ba+142 ta+141 bs+138 ts+157 bh+142 th+168
+heracles:bi+395 ti+388 ba+242 ta+242 bs+240 ts+244 bh+248 th+246
+blackbeard:bi+398 ti+348 ba+233 ta+216 bs+230 ts+230
+susanoo:bi-406 ti-369 ba+213 ta+187 bs+208 ts+209 bh+212 th+214
+raijin:ti-416 bi+423 ba+293 ta+297 ts+304 bs+305 th+503 bh+506
+poseidon:bi+382 ti+470 ba-278 ta-267 bs+331 ts+331 bh+307 th+330
+dutchman:bi+460 ti+378 bs+314 ts+323 ba+320 ta+321 bh+321 th+323
+llorona:bi+286 ti+284 ba-223 ta-221 ts-214 bs+225 bh+128 th+260
+aphrodite:bi+416 ti+348 ba+288 ta+279 bs+279 ts+281 bh+286 th+287
+atlas:bi+289 ti+300 ta-222 ts-196 bs+194 bh+219 th+221
+aoguang:bi+372 ti+433 ba+268 ta+274 bs+272 ts+273
+shiva:bi+425 ti+391 ba-338 ta-334 bs+338 ts+337 th+332 bh+333
+shango:ti-336 bi+387 ba+272 ta+273 bh-272 th-268
+surt:bi+396 ti+363 ba-273 ta-274 bs+271 ts-272 bh+271 th+274
+sekhmet:bi+303 ti+275 ba+244 ta+247 bs+250 ts+248 bh+247 th+243
+lubu:bi+415 ba-266 bs+256 bh+254
+loki:bi+296 ti+227 ba+210 bs+195 bh+218 th+206
+sting:bi+290 ti+268 ba+182 ta+182 bs+182 ts+182 bh-195 th-195
+ares:bi+332 ti+397 ba+213 ta+213 bs+208 ts+206 bh+211 th+210
+agni:bi+327 ti+367 ba+252 ta+239 bs+251 ts+251 bh+251 th+253
+erlang:bi+377 ti+467 ba+276 ta+271 bs+175 ts+210 bh+291 th+241
+houyi:bi+499 ti+447 ba+341 ta+355 bs+360 ts+358 bh+351 th+140
+heimdall:bi+348 ti+358 ba+258 ta+253 bs+246 ts+249 bh+176 th+259
+ra:bi+426 ti+440 ba+290 bs+290 ts+303 bh+299 th+296
+inti:bi+344 ti+390 bs+122 ts+285 bh+285 th+286
+indra:bi+342 ti+359 ba+228 ta+230 bs+236 ts+230 bh+231 th+145
+vanhelsing:bi+307 ti+313 ba+192 ta+85 bs+88 ts+90 th-187 bh+194
+brynhild:bi+388 ti+316 ba+310 ta+301 bs+307 ts+307 bh+303 th+128
+apollo:bi+432 ti+428 ba+305 ta+304 bs+305 ts+308 bh+305
+amaterasu:bi+441 ti+369 ba+280 ta+284 ts+198 bs+328
+hel:bi+446 ti+288 ba+317 ta+312 bs+322 ts+318 bh+345 th+345
+demeter:bi+367 ti+326 ba+164 ta+187 bs+224 ts+182
+zeus:bi+366 ti-437 ba+293 ta+291 bs+288 ts+290 bh+295
+artemis:bi+324 ti+346 ba+289 ta+286 bs+286
+athena:bi+365 ti+354 bs+274 ts+273 bh+276 th+274
+kitsune:bi+534 ti-373 ba+316 ta+331 bs+337 bh+322 th+332

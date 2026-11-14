@@ -6,7 +6,7 @@ IDEA. Recipes and questions — never bans on a means.
 ## Checks
 
 One question per thing Maxim saw; "yes" always means the defect is there. The fresh-eyes reviewer asks 1-22 for every new
-clip of every god (skill, gate G2) and 23-35 on the stand (gate G4), and all of them for the published clips of a god when
+clip of every god (skill, gate G2) and 23-35, 41-47 on the stand (gate G4); 36-40 on every new or re-cut sheet, and all of them for the published clips of a god when
 his turn comes. In brackets: where and when he saw it.
 
 **Action clips**
@@ -54,6 +54,24 @@ his turn comes. In brackets: where and when he saw it.
     «тонкая линия здесь не нужна»)
 35. Does the game draw a symbol (mask, Medusa, moon, ears of wheat, name glyph) that the clip could carry itself? Then the
     symbol goes into the idea of the clip and the game stops drawing it once the clip has it. (13.11)
+36. Is the sheet badly cut — frames flicker, white specks blink at the edges of the figure? (Kali BT idle, Heracles BT atk, 14.11)
+37. Is empty space left around the figure in the frames, so the god is drawn smaller than he could be? (Persephone ult,
+    Silent super, 14.11 «Плохо убрана пустота в кадрах»)
+38. Did the cut eat a part of the god — a tail, a cloak — or make it translucent? (Kitsune BT tail, Van Helsing TI cloak, 14.11)
+39. Does the figure jerk sideways or change its height at the very start of the clip? (Lilith BT atk, Hou Yi TI ult, 14.11)
+40. Does the clip play too fast, so the move twitches instead of being seen? (Veles super, Ra atk, Inti atk, Lu Bu super,
+    Anansi super, Kali BT ult, 14.11)
+41. Is there no visible link between the move in the clip and the damage / effect on the targets? (Horseman, Shiva super,
+    Loki ult, Wukong, Lu Bu ult, 14.11 «нет связи между анимацией умения и уроном»)
+42. Does the game effect show something the god does not do in the clip (a crack running along the ground and a bolt
+    while he leaps and hits; fire from the feet while the clip breathes it from the mouth)? (Veles atk, Sekhmet super, 14.11)
+43. Does the game effect differ in colour or look from the effect baked into the clip? (Veles ult, 14.11)
+44. Is it unclear what exactly flies, or does it fly too fast to notice? (Erlang ult, Agni ult stream «слишком быстро
+    дергается», 14.11)
+45. Does the game draw a large picture or icon over the fight (skull, three heads, creature, pumpkin, big portraits)?
+    He wants them removed, also where the clip does not carry the symbol. (Mictlan, Hecate, Ao Guang, Horseman, Hel, 14.11)
+46. Does the god leap to the enemy in a skill that reads better from his place? (Shiva, Surt, Llorona, Dutchman atk, 14.11)
+47. In melee: does the strike in the clip happen before the god has arrived at the enemy? (Brynhild atk, 14.11)
 
 ## Ideas Maxim proposed or praised
 
@@ -79,6 +97,9 @@ his turn comes. In brackets: where and when he saw it.
 | the god's symbol appears in the clip itself instead of a game picture: Kitsune's fox mask in the ult; Medusa's face appears ON
   Athena's shield in the ult (nothing shoots from its eyes toward the viewer); Artemis's moon above her; Demeter's ears of wheat
   in her ult | Kitsune, Athena, Artemis, Demeter | 13.11 «встраивать прям в анимацию. И тогда программно их не надо уже показывать» |
+| the chain flies to the enemy first; when it has pulled him close, the clip shows a kick forward | Sting ult | 14.11 |
+| blank shot at the screen, no flash | Van Helsing TI ult | 14.11 |
+| a basic strike made from his place, without the leap to the enemy | Shiva, Surt, Llorona, Dutchman | 14.11 |
 
 ## Phrases from prompts whose clips were accepted
 

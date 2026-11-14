@@ -183,3 +183,31 @@ See `remarks_ru.md` next to this file.
   next to «✓ принять / ✗ переснять»; saved in his browser as he types, a white dot on the map cell, the text in the cell's
   tooltip and in «Скопировать мои отметки» (section «КОММЕНТАРИИ», with «смотрел: вчера / дубль N» when he wrote it while
   looking at another version). When he pastes them: every comment is a remark (skill, section 3) — LOG, card, CHECK.
+- 14.11 (22:55) Maxim: «разобрал весь сайт, везде там нажал принял или не принял, что на пересъемку, написал все комментарии
+  по программным эффектам. Вот, продолжи заниматься анимациями.» His marks were read from his browser (not pasted):
+  383 marks = 323 «принять» + 60 «переснять», 126 comments. Verbatim: `pipeline/r9/marks_1411.txt` (god: style+slot,
+  + ok / − redo, stamp of the take) and `pipeline/r9/notes_1411.txt` (clip | stamp | version he looked at | his text).
+  All marks were made on the takes that are live as v109 (no stale stamps).
+  → statuses: every «принять» = protected take (`status_overrides.json` "ok"), every «переснять» = re-shoot (Maxim named
+  it). 93 of the clips he accepted had a fresh-eyes verdict FAIL and 99 WATCH: the reviewers were far stricter than he is —
+  a reviewer's FAIL alone was never a reason to re-shoot, and now those takes are protected.
+  → «версия 2» he chose (comment «берём эту версию» / «принять версию 2»): athena_bt_atk, athena_ti_atk, artemis_ti_sup,
+  artemis_bt_hyp, artemis_ti_hyp, zeus_ti_hyp, demeter_bt_hyp, demeter_ti_hyp, apollo_ti_hyp, kitsune_ti_sup.
+  → cut defects he saw (no credits): kali_bt_idle «Плохо вырезаны кадры, все мерцает»; heracles_bt_atk «видны белые
+  мерцания»; persephone hyp, silent sup «Плохо убрана пустота в кадрах»; vanhelsing_ti_idle «Плащь на кдрах исчезает»;
+  kitsune BT idle/atk/sup «Проблем с хвостом… как будто сильтно порезали и он стал полупрозрачным»; lilith_bt_atk «Во время
+  старта анимации дергается влево»; houyi_ti_hyp «Во время старта анимации почемуто увеличивается в росте»; kitsune_ti_idle
+  «В одном из старых анимаций все же было хорошо, зачем поменяли? там надо было качество улучшить у той анимации, а не
+  заменить его».
+  → too fast / jerky playback: veles sup «Слишком быстро проходит анимация»; ra atk, inti atk «Слишком быстро дергается
+  анимация»; lubu_bt_sup; anansi sup «Слишком резкая»; kali_bt_hyp; raijin sup «Слишком дерганная анимация?»; wukong_bt_atk.
+  → game pictures to remove: Mictlan hyp skull, Hecate hyp three heads, Horseman atk small pumpkin icon, Ao Guang hyp big
+  creature, Hel hyp big pictures, Artemis hyp moon and Demeter hyp wheat (both are in the clip now).
+  → ideas he named: no leap to the enemy for Shiva atk, Surt atk, (Dutchman atk «можно»), Llorona atk «без ближнего удара»;
+  Sting hyp «Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой»;
+  Van Helsing TI hyp «стреляет в экран холостым, без вспышки»; Surt TI sup «Сделать анимацию как у титанов».
+  → game effects (the largest group, ~70 clips): «не синхронизирован с анимацией», «нет связи между анимацией умения и
+  уроном», «опять не понятно кто кого бьет», «вид не вау и другой цвет», «не понятно что летит. Слишком резко и не заметно»,
+  «вылетает не из кончика оружия», «Огонь из рта в анимации, а программных эффект из ног», Veles atk «прыгает вперед и
+  наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике», Brynhild atk «бьет в
+  анимации раньше чем оказывается рядом с противником».
