@@ -1,0 +1,82 @@
+{
+ "kali_ti_atk": {
+  "cut": "minor",
+  "notes": "Publishable. No real holes, no gray haze. Slightly thinned skin patches (65-90% opaque, seen only as a faint tint): chest in f5 (x0.45-0.55 y0.24-0.32) and f17-18 (x0.50-0.60 y0.28-0.38), thigh in f6 (x0.58-0.62 y0.50-0.56) and f18 (x0.40-0.50 y0.55-0.68), waist/skirt under the blurred sword arm in f11 (x0.30-0.45 y0.40-0.60); a 5-px speck at the sword hand in f16. The smeared sword arm in f11 is motion blur of the take. Edges (notes only): the crimson arc touches the left edge in f11 and is cut flat by the right edge in f12 (x1.0 y0.70-0.78), the sword tip is at/over the right edge in f12-13 (2 frames), thin trail to the left edge in f17-18. Size and place steady, f24=f0.",
+  "release": 11,
+  "wf": [
+   0.34,
+   0.5
+  ],
+  "cutter_release_ok": true
+ },
+ "koschei_ti_atk": {
+  "cut": "bad",
+  "notes": "HOLE in the weapon: the staff head (dark metal frame and spike around the crystal) and the shaft between the crystal and the hand are see-through in the rest pose and on the return - worst f3 (only the crystal and a pale ghost outline left, about 45% mean opacity) and f19-24 (shaft above the hand and the metal frame 25-60% opaque, f24 worst), partly in f0-2 (frame 60-90% opaque); solid in f4-18. So the head thins at 2->3, pops solid at 3->4 and fades again at 18->19. Region x0.62-0.88 y0.00-0.45, frames 0-3 and 19-24: make the dark metal and shaft opaque (the green glow ring around the crystal in f19-24 is the effect and may stay soft). Barely seen on a dark background, clear on a light one. Other notes: front leg/boot and lower left robe slightly thinned in f10 only (x0.02-0.30 y0.52-0.97, 60-90% opaque, not seen on dark); faint green floor glow under the hem in f13-14 (x0.50-0.85 y0.78-0.93) reads as part of the flare. Edges: the flying robe is cut flat by the right edge in f9-16 (8 frames, x1.0, y0.35-0.90) and the sleeve/robe by the left edge in f7-13 - it is so in the take, clothes only; crystal top grazes the top edge in f5 and f18-19, staff butt at the right edge in f6 and f9. Size and place steady, f24=f0. Cutter wf was 0.2 too far right (on the robe, not on the crystal). Release: flash bursts in f12, full halo in f13 - the cutter's 13 is acceptable, 12 is the first flash frame.",
+  "release": 12,
+  "wf": [
+   0.6,
+   0.45
+  ],
+  "cutter_release_ok": true
+ },
+ "hecate_ti_sup": {
+  "cut": "bad",
+  "notes": "HOLES in the weapon. (1) f6: the whole staff is missing - the hand holds nothing, only a few specks are left (staff should run x0.66-0.82 y0.00-0.60, above and below the hand at x0.72 y0.14); it is solid again in f7, so the staff blinks off for one frame during the lift. (2) Rest pose f0-5 and f22-24: the staff head (crescent frame, spikes) and the shaft between the head and the hand are a pale ghost (metal 10-55% opaque, only the violet crystal is solid), region x0.60-0.92 y0.02-0.34; solid in f9-21, so the head fades out at 21->22 and stays thin through the loop. (3) f5: the shaft below the hand is also half see-through (x0.58-0.76 y0.36-0.66). Repair = make the staff opaque in f0-6 and f22-24. No gray haze: violet ground ring/burst f9-14 and the glow + ring round the crystal f11-21 are the skill. Edges (from the take): the wide violet ring is cut flat by the right edge in f13-21 (9 frames) and lies across her eyes in f13-20; staff top/crystal is above the top edge in f7-8 (2 frames); ground glow cut flat by the right/bottom edge in f9-11. Body, hair, boots solid; size and place steady, f24=f0. Cutter's release f11 is 2 frames late (staff is planted and the ground burst appears in f9) and its wf (0.82,0.41) lies on empty air right of the hand. wf given = staff butt in the burst at f9; the crystal at f9 is at [0.76,0.21].",
+  "release": 9,
+  "wf": [
+   0.67,
+   0.94
+  ],
+  "cutter_release_ok": false
+ },
+ "shango_ti_hyp": {
+  "cut": "minor",
+  "notes": "Publishable. Body, trousers, sash and axe solid in all 25 frames (the blurred axe in f8 is motion blur of the take). HAZE: leftover gray floor smoke puffs, half see-through, seen on dark - f10 (x0.33-0.60 y0.86-0.97 and x0.85-0.97 y0.82-0.95), f11 (x0.42-0.62 y0.86-0.93 and x0.85-0.97 y0.83-0.93), f13 (x0.25-0.60 y0.82-0.98 between the feet and x0.80-0.97 y0.80-0.93), faint in f14 (x0.35-0.47 y0.86-0.92; x0.86-0.95 y0.85-0.92); can be wiped. Red sparks f10-14 are the skill. Edges (notes only): the white-red ground flash is cut flat by the bottom and right edge in f9 and f12-13 (single frames), sparks reach the left edge in f10 and f13. Two chops: f9 and again f12 (bigger white core) - release taken at the first. Size and place steady, f24=f0. Cutter wf (0.87,0.73) sits in the sparks right of the blade, not on the axe; point given = lower edge of the blade where it meets the flash (gem of the axe is at [0.66,0.77]).",
+  "release": 9,
+  "wf": [
+   0.7,
+   0.9
+  ],
+  "cutter_release_ok": true
+ },
+ "lubu_bt_atk": {
+  "cut": "bad",
+  "notes": "Re-cut check of the named places: f11 - the lower half is back (coat skirt and legs under the fire arc are solid); only the right shin and boot are still slightly thinned (x0.58-0.75 y0.65-0.98, 60-90% opaque, reads solid on dark and on light). f12 - left leg and left coat skirt are solid now. f12 leftover background is NOT fully gone: faint teal blotches remain left (x0.03-0.30 y0.51-0.70) and right (x0.76-0.97 y0.51-0.82), about 1200 px, mostly 5-15% opaque (a hundred px up to 40%) - seen as pale teal clouds in a zoom on dark and on light; plus a bluish-gray smoke smear in f11 left of the arc (x0.00-0.23 y0.60-0.88, about 30% opaque). These alone would be 'minor'. NEW HOLE that blocks: the halberd is keyed out on the return (in the raw take it is solid in all these frames). f16: the whole halberd is missing - the fist holds nothing, only a half see-through tassel and specks are left (halberd should run x0.00-0.42 y0.10-0.58: head upper-left, shaft through the fist at x0.22 y0.40). f18: shaft and head missing above and below the raised fist, only a see-through tassel is left (x0.17-0.38 y0.00-0.73). f19: the head and the tassel above the fist are a ghost (x0.16-0.36 y0.00-0.30), shaft below the fist is solid. f17: the blade is half see-through with a pinhole (x0.03-0.15 y0.00-0.20). So the weapon blinks: 15 there, 16 gone, 17 there, 18 gone, 19 half, 20 there. Repair = make the halberd opaque in f16-19. Edges (notes): halberd head cut by the left edge in f15, blade tip by the top edge in f17; the fire arc runs out of the bottom-left and top-right corners in f11-12 (take). Size and place steady, f24=f0. Release f11 is right (thick arc, the cut lands); the cutter's wf (0.86,0.40) lies on the far tail of the arc at the top right - the halberd head at f11 is at the lower left; the white core of the arc is at about [0.25,0.88].",
+  "release": 11,
+  "wf": [
+   0.05,
+   0.74
+  ],
+  "cutter_release_ok": true
+ },
+ "llorona_ti_sup": {
+  "cut": "bad",
+  "notes": "HOLE: the flying black hair is keyed out during the wail. In the raw take the hair is spread wide to both side edges through the whole wail; in the cut sheet it is solid in f10, a see-through ghost in f11 (about 40% opaque), almost entirely gone in f12-16 (she looks short-haired, only tufts by the head and a blue glow at the lantern are left) and only the right-hand strands are back in f17; in f18 the left wing of hair is still half see-through (x0.00-0.32 y0.42-0.68, 60-90% opaque). Region to restore: f11-17, both sides of the body, x0.00-0.35 and x0.65-1.00, y0.15-0.60. The hair pops off at 10->12 and back at 17->19, clearly seen in play. Body, dress, lantern solid in all frames; no gray haze (blue bubble f9, ring f10-12 and the blue glow by the lantern f11-16 are the skill). Edges (take, notes only): the ring is frame-wide and cut flat by the left, top and right edges in f10 (1 frame), its lower arc leaves through the bottom edge in f12; stage-1 worry about hair on the side edges cannot be judged until the hair is restored (in f10 and f18-19 it stays inside). Size and place steady, f24=f0. Release: the bubble leaves the lantern with the head thrown back in f9; cutter's f10 (ring at full size) is acceptable. Cutter wf (0.84,0.33) lies on empty air/hair right of the lantern - the lantern glass is at the given point (at f10 it is [0.50,0.34]).",
+  "release": 9,
+  "wf": [
+   0.5,
+   0.37
+  ],
+  "cutter_release_ok": true
+ },
+ "surt_ti_sup": {
+  "cut": "ok",
+  "notes": "Body, loincloth, bracers, crown and sword solid in all 25 frames, no gray haze (orange glow on the floor and round the blade f10-17 is the skill). Crown spikes are whole (2 px under the top edge, not cut - checked against the raw). Notes only: the ground flash is cut flat by the bottom edge in f10 (1 frame); a few pale dust specks beside the flash in f11 (x0.33-0.45 and x0.62-0.72, y0.92-0.97); fists/hilt cover the lower face in f6-9 and the pommel flame stands before mouth and chin in f13-19 (take). Size and place steady, f24=f0. Release: the blade is planted with the ground flash in f10, the flame covers the whole blade and the hilt bursts white in f12, the pommel flame is tallest in f13 - f12 and f13 are equally good, the earlier is given; the cutter's 13 and its wf (middle of the burning blade) are fine. Pommel flame is at [0.57,0.34].",
+  "release": 12,
+  "wf": [
+   0.59,
+   0.71
+  ],
+  "cutter_release_ok": true
+ },
+ "dracula_ti_hyp": {
+  "cut": "ok",
+  "notes": "Body, cape and both swords solid in all 25 frames (thin red blades are whole in the rest pose and after the strike), no gray haze. Notes only: the sheet frame is about 5% tighter on each side than the take, so the cape wings are cut flat by the right edge in f6-8 (x1.0 y0.40-0.55) and by the left edge in f7-8 (x0 y0.42-0.52), and the cape by the right edge again in f12-14 (y0.35-0.62) - clothes, 2-3 frames in a row; sword tips are out of the top edge in f6-8 (3 frames) and one tip at the left edge in f5; the red X runs out of the top edge and both bottom corners in f9, thin streaks to the bottom corners in f10-11 (effect). Coat front slightly thinned for one frame in f10 (x0.42-0.65 y0.50-0.85, 60-90% opaque, not seen on dark). Crossed arms hide the face in f5-8 (take). Size and place steady, f24=f0. Release f9 (thick bright X) is right. The cutter's wf (0.57,0.66) lies on the lower right arm of the X by the thigh; the point given is the crossing of the X, where the effect is centred.",
+  "release": 9,
+  "wf": [
+   0.44,
+   0.43
+  ],
+  "cutter_release_ok": true
+ }
+}

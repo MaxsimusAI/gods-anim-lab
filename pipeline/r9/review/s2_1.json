@@ -1,0 +1,86 @@
+{
+ "raijin_ti_idle": {
+  "cut": "ok",
+  "notes": "All 25 frames clean on magenta and dark: no holes, no haze, nothing touches the frame edge, size and place steady, 24=0.",
+  "release": null,
+  "wf": null,
+  "cutter_release_ok": true
+ },
+ "veles_bt_idle": {
+  "cut": "ok",
+  "notes": "All 25 frames clean: fur cloak, staff, antlers and pendants solid, no haze, nothing touches the edge, steady size, 24=0.",
+  "release": null,
+  "wf": null,
+  "cutter_release_ok": true
+ },
+ "anansi_ti_atk": {
+  "cut": "bad",
+  "notes": "HOLE: the rear (right) leg is half see-through in frame 7 (trouser, shin guard and sandal; x 0.66-0.90, y 0.52-0.97) and frame 9 (trouser and shin guard; x 0.66-0.86, y 0.52-0.88); frame 8 between them is faintly thinned on the trouser (x 0.66-0.86, y 0.52-0.72) - the leg blinks 7-9. Repair = make that leg fully opaque in 7, 8, 9. Notes only: front foot cut by the bottom edge in 14-18 (5 frames, comes from the raw video, toes/sole only); purple trail touches side edges at 11-12 and 14-15; dagger tip over the top edge at 16-17; one-frame snap from lunge to stance at 18->19 (in the take, not the cut). No haze; white wedge at the left in 14 is the head of the slash trail.",
+  "release": 11,
+  "wf": [
+   0.08,
+   0.33
+  ],
+  "cutter_release_ok": true
+ },
+ "shango_bt_hyp": {
+  "cut": "ok",
+  "notes": "No holes, no haze. Notes only: flying cape end is thin/see-through for one frame (12; x 0.85-0.97, y 0.55-0.65); axe blade grazes the left edge at 15-17 (3 frames, not cut); sparks reach the left/bottom edge at 11-13; crown tip touches the top at 19. The axe is a red motion smear in frame 5 (over the face) and frame 18 - that is in the take, not a cut hole. Size/place steady, 24=0.",
+  "release": 11,
+  "wf": [
+   0.2,
+   0.69
+  ],
+  "cutter_release_ok": true
+ },
+ "llorona_bt_atk": {
+  "cut": "bad",
+  "notes": "HOLES, frames 9-15: the gray dress and part of the body were keyed out with the gray background. 9: skirt behind the legs (x 0.50-0.72, y 0.62-0.90). 10: skirt (x 0.25-0.80, y 0.60-0.92). 11: skirt (x 0.20-0.75, y 0.58-0.92). 12: chest/shoulder (x 0.45-0.60, y 0.33-0.48) + skirt (x 0.25-0.75, y 0.58-0.92). 13 (worst): torso and waist (x 0.38-0.62, y 0.32-0.60) + left half of the skirt (x 0.15-0.70, y 0.58-0.97), left sleeve shredded into streaks (x 0-0.30, y 0.35-0.70). 14: belly/hip (x 0.42-0.62, y 0.52-0.68), left sleeve still streaks (x 0-0.30, y 0.38-0.70). 15: left sleeve half see-through (x 0-0.28, y 0.30-0.75). On the dark game background the dress goes dark and blinks back at 14-16. Repair = restore full opacity of torso, skirt and left sleeve in 9-15. Notes only: sleeve end touches the left edge at 11-12 and 15-18; faint detached smudge at the left in 18 (x 0-0.10, y 0.63-0.68). 0-8 and 16-24 clean, size/place steady, 24=0. Release: ribbon is complete and brightest at 12, arms flung open at 13 - both read, earlier taken; cutter's 13 is acceptable.",
+  "release": 12,
+  "wf": [
+   0.76,
+   0.53
+  ],
+  "cutter_release_ok": true
+ },
+ "wukong_bt_hyp": {
+  "cut": "minor",
+  "notes": "Publishable. Frame 8: left thigh slightly thinned (about 80% opaque; x 0.17-0.40, y 0.65-0.83) - barely visible even on a light background. Leftover floor dust: gray streak along the floor in 15 (x 0.05-0.85, y 0.90-0.97, splinters at x 0.05-0.20, y 0.82-0.95) and faint in 16; faint arc at the bottom left in 12 (y 0.96); gray blob at the left in 17 (x 0-0.12, y 0.72-0.78, remnant of a fading ring). Whitish floor glow under the burst in 14 is the effect. Staff top at/over the top edge in 11-14 (4 frames), feather tips touch the top at 19-20 - notes only. Size/place steady, 24=0. Cutter's release 15 is the ring peak; the staff hits the ground with the burst at 14 - one frame late.",
+  "release": 14,
+  "wf": [
+   0.29,
+   0.9
+  ],
+  "cutter_release_ok": false
+ },
+ "atlas_ti_sup": {
+  "cut": "minor",
+  "notes": "Publishable. No holes. Gray dust puffs at the feet in 6-9 (x 0.20-0.75, y 0.86-1.0; strongest 6-8, cut flat by the bottom edge in 6-7) - they come from the take, not from the skill; on the dark background they read as gray blobs for 3-4 frames, can be wiped. EDGE: the sword tip is cut flat by the bottom edge in 6-18 (13 frames in a row), about 6-7 px = 3% of the frame height lost; it is at the raw video edge (stage 1), reads as the sword driven into the ground. Feet reach the side edges in 6-16 but are not cut. Size/place steady, 24=0. Cutter's release 14 is the end of the glow plateau: the globe ring flares at 10 and is full by 11 - 3 frames late.",
+  "release": 11,
+  "wf": [
+   0.7,
+   0.25
+  ],
+  "cutter_release_ok": false
+ },
+ "veles_bt_atk": {
+  "cut": "ok",
+  "notes": "Checked on magenta and on green: body, fur cloak, staff solid in all 25 frames, no haze (violet around the crystal in 8-13 is the skill glow). Notes only, all under 5 frames: crystal half out of the left edge at 6, staff butt at the left edge at 9 and 16-18, cloak touches the left edge at 12-14, crystal at/over the top edge at 9, 11 and 19-20, glow reaches the right edge at 11-13. Size/place steady, 24=0.",
+  "release": 11,
+  "wf": [
+   0.86,
+   0.68
+  ],
+  "cutter_release_ok": true
+ },
+ "nightmare_bt_sup": {
+  "cut": "minor",
+  "notes": "Publishable. Checked on magenta and green: robe, scythe, lantern solid, no holes. Haze: a detached gray-violet smoke puff left of the body blinks - present in 9, 10, 13, 14 (faint in 15-16), absent in 11-12 (x 0.02-0.22, y 0.33-0.52); it is in the take, can be wiped in those frames. Violet halo around the lantern/upper body in 5-8, 11-12, 17-21 is the skill glow. Nothing cut by the edges; size/place steady, 24=0.",
+  "release": 12,
+  "wf": [
+   0.34,
+   0.39
+  ],
+  "cutter_release_ok": true
+ }
+}

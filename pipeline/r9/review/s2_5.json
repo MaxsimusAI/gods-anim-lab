@@ -1,0 +1,62 @@
+{
+ "sting_bt_hyp": {
+  "cut": "ok",
+  "notes": "No holes, no haze: silhouette solid in all 25 frames, size/place steady, 24=0 (frames 0-4 and 20-24 are a still stance). Notes only: kicking foot touches the left edge at 15 and its fireball is cut by the left edge at 16-17 (3 frames, as in the take); left hand touches the left edge at 9; rear arm cut by the right edge at 14-15 (2 frames); a few pixels of the pale face mask are thinned in 15 (x 0.88-0.93, y 0.19-0.22) and a tiny see-through nick sits between sleeve and coat in 13 (x 0.68-0.75, y 0.50-0.55) - neither reads in play. Frames 13-15 are soft (motion blur of the take). Release: in the cut sheet the leg is fully out with a bare foot at 15 and the fireball appears on the foot at 16 (cutter's frame, 1 frame later, also usable; on 16 the foot is at [0.18, 0.18]).",
+  "release": 15,
+  "wf": [
+   0.1,
+   0.18
+  ],
+  "cutter_release_ok": true
+ },
+ "sting_ti_hyp": {
+  "cut": "minor",
+  "notes": "No holes; body, crossbow and leg solid in all frames; size/place steady, 24=0. HAZE (small, steady, not flicker): in the standing frames 0-4 and 20-24 pale-gray pockets of leftover background stay closed inside the hair - beside the neck under the ponytail (x 0.58-0.63, y 0.20-0.26), between the left arm and the waist (x 0.44-0.51, y 0.29-0.39) and a thin gray rim on the left of the ponytail (x 0.41-0.46, y 0.12-0.19); on the dark game background they read as light-gray patches. One stray brown speck at the right in frame 10 (x 0.92-0.95, y 0.62-0.65). Notes only: kicking foot goes over the top-right corner at 14-15 (2 frames, in the take), flame reaches the top-right edge at 16; crossbow / hauled rod touches the right edge at 6-9. CUTTER RELEASE WRONG: 17 is the leg already coming down (flame at the floor) and its wf [0.547, 0.494] lies on the thigh; the kick is 14 (leg straight up-right with the flame along it, held in 15).",
+  "release": 14,
+  "wf": [
+   0.94,
+   0.09
+  ],
+  "cutter_release_ok": false
+ },
+ "thor_bt_hyp": {
+  "cut": "bad",
+  "notes": "HOLE in frame 15 (the slam frame, the pale lightning glow of the take was keyed out with the background): everything below the fur cape is see-through - belt and skirt, both legs and boots, the hammer arm, the red cape hem and half of the hammer head; region x 0.10-0.90, y 0.50-1.00 (only ~1/3 of the lower body is opaque against ~100 % in 14 and 16). In play the legs blink out for one frame exactly at the hit. Repair = make the body and hammer opaque in frame 15 in that region (keep the blue bolt). All other frames solid, no haze. Notes only: hammer head touches the top edge at 14 (1 frame), strap touches the right edge at 7, hammer touches the left edge at 10; blue-white flash on the hammer at 9 and sparks at 10-11 and 16 are the effect; face hidden behind arm/hammer at 7-8 (in the take). Size/place steady, 24=0. RELEASE: the cutter took 9 = the first (side) blow with the flash on the hammer [0.81, 0.19 is off: the flash centre at 9 is about 0.62, 0.22]; the real hit of the hyper is the slam into the ground at 15 (bolt down the arm into the hammer, sparks at 16).",
+  "release": 15,
+  "wf": [
+   0.65,
+   0.84
+  ],
+  "cutter_release_ok": false
+ },
+ "koschei_ti_atk": {
+  "cut": "minor",
+  "notes": "RE-CUT CHECK (staff, x 0.62-0.88, y 0-0.45): mostly repaired. Frames 0-2 and 24 - spike, dark metal frame around the crystal and the shaft above the hand are solid; crystal solid in all frames. Small leftovers: frame 3 - the left bar of the metal frame and the shaft just under the head are thinned / half see-through (x 0.70-0.76, y 0.12-0.28); frames 20-23 - the top spike above the crystal is a pale ghost (x 0.73-0.78, y 0.02-0.10), in 20-21 also the shaft just under the head is thinned (x 0.70-0.75, y 0.14-0.25); frame 19 the shaft between head and hand is slightly thin. Each spot is a few pixels inside the green glow, hardly seen on the dark game background - publish, optional touch-up = make the spike opaque in 20-23 and the frame bar in 3. Body and robe solid in all 25 frames, no gray haze. Notes only (all from the take): robe wings are clipped flat by the left and right edges at 10-15 (clothes, 6 frames); the green halo is cut by the right edge at 13-15 (3 frames); butt end of the staff runs out of the right/top edge at 6-9 (4 frames). Faint green ring around the crystal 20-24 is the effect; frame 24 still has a weak glow while frame 0 has none (soft step at the loop). Size/place steady. Release: flare starts at 12 (white core in the crystal, first glow), full halo at 13-14; cutter's 13 is the peak, 1 frame later - acceptable, but its wf cross [0.83, 0.40] sits in the halo right of the staff; the crystal is at [0.64, 0.46] in both 12 and 13.",
+  "release": 12,
+  "wf": [
+   0.64,
+   0.46
+  ],
+  "cutter_release_ok": true
+ },
+ "hecate_ti_sup": {
+  "cut": "bad",
+  "notes": "Still not publishable after the re-cut. (1) HAZE, frame 10: a gray-green mottled slab of leftover background fills the lower part behind her (x 0.02-0.97, y 0.43-1.00, ~15 % of the frame at half opacity) - on the dark background it flashes as an olive rectangle for one frame right after the staff hits the ground. Repair = remove the slab in frame 10, keep the violet burst and ground ring (x 0.35-0.95, y 0.70-1.0). (2) HOLE, frames 0-5 and 22-24, staff head (x 0.60-0.92, y 0.02-0.34): crystal, inner holder and upper shaft are solid now, but the two big crescent blades are still a ghost - only their pale edges are left, the dark steel is see-through; in 9-21 the same blades are solid dark, so they change when the clip starts and ends. Repair = make the crescents opaque in 0-5 and 22-24. (3) Frame 6 (x 0.66-0.82, y 0-0.60): the shaft from the hand down is back and solid; the short piece above the hand is still missing (x 0.70-0.77, y 0-0.12; only specks) - one frame, the head is already above the top edge there (6-7, in the take), small. Body, hair, boots solid in all frames; no other haze. Notes only (in the take): the wide violet ring around the crystal is cut by the right edge in 13-21 (9 frames) and lies over her eyes in 13-16; crescent tips touch the top edge in 16-20; ground ring touches the bottom/side edges in 9-13. Size/place steady, 24=0. RELEASE: the staff hits the ground at 9 (white burst at its foot); cutter's 11 is two frames late (burst already fading) and its wf cross [0.82, 0.42] is in empty space right of the staff. wf given = foot of the staff where the burst sits at 9; the crystal at 9 is at [0.74, 0.21].",
+  "release": 9,
+  "wf": [
+   0.67,
+   0.93
+  ],
+  "cutter_release_ok": false
+ },
+ "lubu_bt_atk": {
+  "cut": "bad",
+  "notes": "The re-cut fixed the halberd but left an OPAQUE gray slab at the strike - worse than the faint teal before. (1) HAZE frame 11 (the release frame): a solid light-gray rectangle of leftover background stands behind the whole figure, x 0.02-0.98, y 0.17-0.98 (about 40 % of the frame, almost fully opaque, ragged teal top edge at y 0.12-0.22). (2) HAZE frame 12: gray slab in the lower half - left block x 0.02-0.30, y 0.52-0.98; band along the floor x 0.02-0.98, y 0.80-0.98; right block x 0.72-0.98, y 0.72-0.98 (about 17 % of the frame) - plus gray smoke blotches right of the arc x 0.60-0.95, y 0.30-0.65. In play this is a gray box flashing for two frames at the hit. Repair = clear the gray in 11 and 12 in those regions, keep the figure, the halberd and the red arc. RE-CUT CHECK of the halberd: frame 16 (x 0-0.42, y 0.10-0.58) - shaft, tassel and head are back (head is at the left edge and a little thin there); frame 18 (x 0.17-0.38, y 0-0.73) - shaft and tassel solid, only the tip of the crescent shows because the head is above the top edge; frame 19 - head solid except the spike tip at the very top; frame 17 - blade solid. Halberd holes are repaired. Small steady leftover: in the standing frames 0-4 and 20-24 the pale steel of the crescent and of the spike is slightly thinned (x 0.17-0.25, y 0.05-0.33) - outline intact, not flicker. EDGE: halberd head is partly outside the frame 5 frames in a row - left edge at 15-16, top edge at 17-19 (19 only the spike tip); it is so in the take, the sheet is not tighter. Also in the take: red arc runs to the left/bottom and top-right edges at 11-12, the figure is dark and blurred in 10, thin red streaks stay at 13-14. Size/place steady, 24=0. Release 11 = cutter's frame (arc at its thickest, lunge done). wf given = the halberd head at the lower left; the cutter's [0.80, 0.46] is a point on the upper part of the arc, the brightest part of the arc is near [0.55, 0.72].",
+  "release": 11,
+  "wf": [
+   0.05,
+   0.74
+  ],
+  "cutter_release_ok": true
+ }
+}

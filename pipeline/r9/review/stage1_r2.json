@@ -1,0 +1,310 @@
+{
+"atlas_ti_atk": {
+"verdict": "FAIL",
+"better_than_old": "same",
+"fixed": "partly",
+"best": "retake",
+"why": "Sword now stays inside the frame and the blue light is only a ground flash at 13-14 (touches left/right/bottom edges for 2 frames), but he lifts the sword over his head: in 6-11 the head is completely hidden behind the hands and guard (a headless torso, shoulder globe gone, hands cut by the top edge 7-11), then in 12-17 the head is bowed behind the forearms - the face is not seen for 12 frames in a row (6-17), i.e. the whole action. Loop closes (24=0). The old take has the same headless pose for 3 frames (15-17) plus haze slabs at 13-14; the retake reads as one clear move, so it is the one to show if one of the three must be shown.",
+"release": 13,
+"legs": "wide stance, deep lunge 12-18",
+"ru": "Атлас поднимает меч над головой и с размаху втыкает его в землю перед собой — у клинка вспыхивает синий свет; но почти весь приём лица не видно: сначала голову закрывают руки с мечом, потом он стоит, опустив голову.",
+"retake": "The hilt never rises above his chest (he lifts the sword only a hand's width) and his head stays up with his eyes on the viewer while he drives the point into the ground."
+},
+"hecate_ti_sup": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "No leap any more: feet stay on the ground, she lifts the staff (crystal over the top edge only in 6-7), slams it at 8-9 and it reads clearly. But instead of three small seals there is one wide violet ring around the crystal in 11-22: it is cut by the right edge of the video for all 12 frames and its left side lies across her eyes in 13-20 (mouth still visible); a ground ring with a small burst glows at her feet in 9-14 and touches left/right/bottom edges in 9-10. Loop closes.",
+"release": 9,
+"legs": "knees bend, wide braced lunge",
+"ru": "Геката приподнимает посох и ударяет им о землю: у ног вспыхивает фиолетовый круг, а вокруг кристалла загорается широкое фиолетовое кольцо и гаснет; кольцо справа обрезано краем кадра и на время закрывает ей глаза."
+},
+"kali_ti_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The sword is now seen in every frame (in take 1 only the hilt was left): deep crouch 4-8, foot lift 9-10, stamp and waist-height cut 11-12, clear who strikes. Small things: the red-white fire arc runs from the left to the right edge in 11-12 and lies over the thighs in 12-13, the blade touches the left edge in 13-15 and its flame trail touches the left/top edge in 18-19, the arm is still stretched to the left 12-16; gray floor dust 11-15 must go at the cut. Loop closes.",
+"release": 12,
+"legs": "deep crouch, foot lift, stamp",
+"ru": "Кали приседает, перехватывает саблю, топает ногой и одним взмахом рубит перед собой на уровне пояса — за клинком тянется красный огненный след, потом она выпрямляется и возвращает саблю к голове."
+},
+"lilith_ti_atk": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "She no longer turns her back and nothing smears: weight back with the staff head at her shoulder 3-7, lunge and thrust of the crystal 8-9, face visible all the time, loop closes (static tail 19-24). Small things: the lower end of the staff is cut by the right edge in 4-7 (4 frames), the staff looks shorter in 8-12, the crimson flash at 9 throws rays to the top and right edges and the red cloud in 10-12 is about a third of the frame wide at the right edge (not a fist-size spark); a dark red smoke patch hangs behind the crystal in 13-17 and must be removed at the cut.",
+"release": 9,
+"legs": "weight back, then front lunge",
+"ru": "Лилит отводит посох к плечу, качнув бёдрами, затем делает выпад и резко выбрасывает кристалл вперёд — на нём вспыхивает багровая вспышка и рассеивается красным облачком, после чего она возвращается в стойку."
+},
+"lubu_bt_atk": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "Reads as a real chop now: wind-up 4-9, step and deep lunge with the diagonal cut 10-12, blade visible in every frame of the strike, face and plumes visible. But the asked change did not happen: a red-white fire arc still crosses the frame from the bottom-left to the top-right edge in 10-12 (in 10 it is thick, lies over the body and the figure is blurred for that one frame), gray smoke streaks stay to 15. Halberd blade is cut by the left edge in 15-16 and by the top edge in 17-18 (4 frames in a row, under the limit), and rises above the start height in 7-9 and 17-19. Loop closes.",
+"release": 10,
+"legs": "step forward, deep wide lunge",
+"ru": "Люй Бу отводит алебарду вправо, шагает вперёд и с глубоким выпадом рубит наискось вниз — за лезвием остаётся красная огненная дуга через весь кадр, затем он выпрямляется и ставит алебарду на место."
+},
+"lucifer_ti_hyp": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The head is no longer replaced by the star (face seen in 11-13 and 16-18, half behind a star ray in 14-15), body works well (turn and cape swirl 4-9, lunge 10-16), loop closes. But the star is far bigger than asked: in 11-16 it is about half the frame wide and high, is cut by the right edge (over half the frame height in 12-14) and by the top edge for all 6 frames, and lies over his right arm, half the chest and part of the face; violet haze behind him 11-13. Sword tip still touches / is cut by the left edge in 6-18.",
+"release": 13,
+"legs": "knees bend, side lunge, return",
+"ru": "Люцифер закручивается в плащ, затем выставляет ладонь у плеча — над ней разгорается огромная фиолетовая восьмиконечная звезда, которая закрывает полтуловища и не помещается в кадр, после чего сжимается обратно в маленькую.",
+"retake": "Star size: it never grows larger than his fist and only flares brighter in three pulses (now it grows to half the frame and is cut by the right and top edges)."
+},
+"raijin_ti_idle": {
+"verdict": "PASS",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "The turntable is gone: hips, chest and the drum keep the angle of frame 0 for all 25 frames, feet planted, no power-up flare. One slow breathing cycle: chest rises, shoulders and arms with the hammers spread and settle, hair and kilt move a little (peak at 10-12); no frozen run (every frame differs), loop closes (24=0). Small: the motion is modest and the legs do not shift weight; the mouth stays open as in the source art.",
+"legs": "planted, no weight shift",
+"ru": "Райдзин спокойно стоит и дышит: грудь поднимается, плечи и руки с молотами чуть расходятся и возвращаются, волосы и набедренная повязка слегка колышутся — он больше не поворачивается как фигурка."
+},
+"shango_ti_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "No more strobing and nothing above the head: the axe stays below the waist all clip, he draws it to the hip with a foot lift 3-7, stamps and chops low at 8, and holds each pose 2+ frames. Small things: there are two chops (8 and again 12 after a lift at 10-11) instead of one; the white-red ground flash and sparks touch the right and bottom edges in 8-9 and 12-13 (sparks to the left edge at 13); the head is bowed in 8-16 so the face is seen from above; white floor smoke 9-17 must be removed at the cut. Loop closes.",
+"release": 8,
+"legs": "foot lift, stamp, wide lunge",
+"ru": "Шанго отводит секиру к бедру, топает ногой и дважды коротко рубит ею вниз перед собой — у земли вспыхивают красно-белые искры, потом он выпрямляется и возвращает секиру на место."
+},
+"silent_ti_atk": {
+"verdict": "FAIL",
+"better_than_old": "same",
+"fixed": "partly",
+"best": "retake",
+"why": "He now faces the viewer the whole clip (no back, no profile) and the body works (crouch and drag 2-8, step and cut 9-13), but the sword is cut by a video edge for 8 frames in a row: by the left edge in 7-8 (almost the whole blade gone in 7) and by the right edge in 9-14 (a third to a half of the blade is outside while the cut is held at 9-13). Then he again lifts the sword upright over his head: hands and hilt cover the face in 15 and the head is fully hidden behind the forearms in 16-17 (headless torso). A red arc crosses the frame from the bottom-left to the top-right edge in 9-10. Loop closes.",
+"release": 9,
+"legs": "crouch, step forward, braced",
+"ru": "Сайлент приседает, оттягивает меч вбок, царапая остриём землю, шагает и рубит снизу вверх наискось — но клинок при ударе уходит за край кадра, а потом он поднимает меч над головой и на пару кадров остаётся без головы.",
+"retake": "Replace the diagonal cut with a short stab straight down: the sword stays point down in front of him all clip, he lifts it a hand's width (hilt never above his chest) and drives the point into the ground - so the long blade cannot leave the frame or rise over his head."
+},
+"surt_ti_atk": {
+"verdict": "PASS",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "The fire is now beside him, not over the head: fire gathers in the fist 3-6, side lunge with the open palm out 7-17, a fist-to-head-size fireball burns above the palm at 8-17 and fades by 21; the face is visible in every frame, the sword stays low and whole, no leap. Small: fingertips with the fire glow and the sword-arm elbow just touch the right/left video edges in 7-17 (nothing visibly cut), the body holds one pose 9-16 while only the flame moves, small dark smoke above the flame 11-16. Loop closes.",
+"release": 10,
+"legs": "wide side lunge, back straight",
+"ru": "Сурт сжимает левый кулак, в нём разгорается огонь, затем он делает широкий выпад и раскрывает ладонь в сторону — над ней горит огненный шар величиной с голову и гаснет; меч всё время опущен, прыжка нет."
+},
+"surt_ti_sup": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "The beam through the head is gone and the head stays up: sword brought in front 2-8, deep crouch with the blade planted and burning from point to guard 9-18, small ground flash 9-10, sword stays in the frame, loop closes. Small things: his fists with the hilt cover the lower half of the face in 6-8, and the pommel flame stands in front of the mouth and chin (up to the nose, a bit higher than asked) in 12-18 - eyes and crown are seen in every frame; the body holds still 12-18 while the fire flickers.",
+"release": 13,
+"legs": "wide stance, deep crouch",
+"ru": "Сурт берёт меч двумя руками, ставит его остриём в землю перед собой и глубоко приседает — клинок разгорается пламенем снизу доверху, над рукоятью горит небольшой огонёк, потом огонь стихает и он возвращает меч к ноге."
+},
+"vanhelsing_ti_hyp": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "no",
+"best": "retake",
+"why": "Still not the owner's idea: in 5-10 he aims and fires to the right side of the frame, not into the screen, and a white-yellow flash lights at the muzzle in 10 (small puff of light already in 8-9) - the flash is smaller than in take 1 and no longer tints the body, but it is there. On the recoil he throws the rifle straight up: the barrel is over the top edge in 11-14 and his raised arms hide the face in 12-14; a detached smoke cloud hangs at the top-right edge in 11-14 with gray streaks to 16. Stance, coat and return 15-24 are good, loop closes.",
+"release": 10,
+"legs": "step back, wide braced stance",
+"ru": "Ван Хельсинг отставляет ногу, вскидывает ружьё и стреляет — но вбок, а не в экран, у дула видна светлая вспышка, от отдачи ружьё взлетает стволом вверх за край кадра, справа повисает облако дыма.",
+"retake": "Camera direction of the shot: his chest and both shoulders stay square to the viewer and the rifle is seen end-on - a short foreshortened barrel under his chin with only the dark round muzzle hole toward us; the rifle stays at his shoulder after the shot (now he turns and fires to the right)."
+},
+"veles_bt_idle": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "No turn to the side any more: head, chest, hips and both boots face the viewer for all 25 frames and the figure keeps its width (the old take narrows by about 10% as he twists and its crystal turns blue). One slow cycle: the whole body sinks and leans a little (peak 10-13), the staff tilts with it, furs and amulets follow, the free hand opens (8-16), crystal stays violet; loop closes (24=0). Small: a short hold around the loop point - frames 21-24 and 0-1 are almost still (5 frames, under the limit); the motion is a breath-like sink, not a clear leg-to-leg sway.",
+"legs": "planted, knees give slightly",
+"ru": "Велес стоит лицом к зрителю и медленно дышит: чуть оседает и наклоняется, посох покачивается вместе с ним, меха и подвески на рогах колышутся, свободная кисть раскрывается — в сторону он больше не разворачивается."
+},
+"wukong_bt_sup": {
+"verdict": "FAIL",
+"better_than_old": false,
+"fixed": "no",
+"best": "old",
+"why": "All three reasons of take 1 are still here and the staff now breaks: thick golden streaks cross the whole frame over the body in 7-8 (top-left to bottom-right) and 11-12 (bottom-left to top-right, in 11 over half the frame); the body is smeared in 6-7 and 10 (face unreadable in 6-7); the staff is out of the left edge in 6 and cut by it in 10-14, shrinks to a short club in 9 and 15 and is not seen at all in 10; staff top over the top edge 16-17. Pose jumps 10->11->12 read as a flash, not as three blows. Loop closes, recovery 16-24 is clean. Of the three, take 1 is more coherent than this retake (its staff keeps its length), and the old take is the only clean one (glowing upright staff with a smoke column, but a standing body).",
+"release": 11,
+"legs": "low lunge, steps, smeared",
+"ru": "Укун перехватывает посох и несколько раз быстро бьёт им перед собой, но удары сливаются в кашу: через весь кадр проходят золотые полосы, тело смазывается, а посох то уходит за край, то становится коротким.",
+"retake": "Drop the three fast swings: the staff stays upright in both hands the whole clip and he stamps its butt on the ground three times, bending his knees with each stamp; the golden glow lights only the top end (no swing = no streaks, no smear, staff stays in the frame)."
+},
+"wukong_ti_hyp": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The big ground burst and the light column are gone (only a small flash at 12 and thin golden hoops on the ground 5-17), but the face is now hidden for the whole stamp: head down in 7, raised arm over it in 11, and in 12-17 the fists and the upright staff stand exactly in front of the bowed head - 7 frames in a row at the peak, partly also 9-10. Smaller: he still hops (knee up 9-11) with the staff top and hand over the top edge in 8-11 (4 frames); the staff flips to a diagonal for one frame at 7 between upright 6 and 8; odd thin golden vertical lines stand on the ground hoop in 8-11; gray dust reaches the left edge in 13-15; no rings slide up the staff. Loop closes.",
+"release": 12,
+"legs": "deep crouch, hop, wide squat",
+"ru": "Укун приседает, ставит посох торчком, подпрыгивает и с силой бьёт им о землю — поднимается пыль и по земле расходятся золотые кольца; но в момент удара и после него лицо закрыто кулаками и посохом.",
+"retake": "Where the staff stands: he plants it beside his right foot, at arm's length to the side, not in front of his body, and keeps his head up with his eyes on the viewer through the stamp."
+},
+"dracula_bt_atk": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "no",
+"best": "retake",
+"why": "Same faults as take 1: he still spins - profile at 3, back to the viewer and face hidden at 4-6; then he lands closer to the camera and is bigger, his boots are cut by the bottom edge of the video in 4-14 (11 frames) and the cape by the right edge in 10-16; the crimson arc runs from edge to edge over him at 7. Only gain: the back is shown 3 frames instead of 4 and the cane stays in his hand.",
+"release": 7,
+"legs": "spin step, then wide lunge",
+"ru": "Дракула разворачивается спиной, с разворота рубит мечом по дуге и приземляется ближе к зрителю в широкой стойке — сапоги уходят за нижний край.",
+"retake": "Replace the cross-body slash (it makes him spin) with a straight thrust: the sword goes from his right hip straight forward and back, both feet stay on their spots, chest and face to the viewer."
+},
+"dracula_ti_atk": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "no",
+"best": "retake",
+"why": "The crouch (3-7) and the X-cut (8) read well and the second cross above the head is gone, but the main fault stays: he still throws both arms wide, so both blades are cut by the left and right edges of the video (left edge 8-14 = 7 frames, right edge 9-15; more than half of each blade is gone in 9-12), the red X runs edge to edge at 8-9, the cape hits the right edge at 5-7. Fit line 'no wide sweep to the sides' not kept.",
+"release": 8,
+"legs": "deep crouch, push up, wide",
+"ru": "Дракула приседает, скрещивает мечи у ног и резко разводит их в стороны красным крестом — оба клинка на полсекунды уходят за боковые края кадра.",
+"retake": "After the cross the blades must not open sideways: he pulls both swords straight back down so that they point at the ground beside his legs, elbows against his ribs."
+},
+"dracula_ti_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The swords are no longer cut for 8 frames (after the cut they hang low and inside, 10-24) - that reason is gone. Left: the red X is still frame-wide for two frames (thick bright X over head and chest and out of the top edge at 8, corner to corner at 9, faint streaks to the bottom corners 10-13); the crossed arms hide the face at 4-7 (the card's bow over the blades), sword tips touch the top edge at 6-7.",
+"release": 8,
+"legs": "crouch, push up, settle",
+"ru": "Дракула приседает, скрещивает мечи над головой, рывком выпрямляется и рубит ими крест-накрест вниз — на миг через весь кадр вспыхивает красный крест.",
+"retake": ""
+},
+"llorona_ti_atk": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "partly",
+"best": "take1",
+"why": "The lantern is now held at the chest with bent elbows (that part is fixed), but the light again leaves the lantern: a blue flame as big as her torso swells at 9, hides half of her face at 9-10 and streams up out of the top edge for 9 frames (10-18); her hair flies out to both side edges at 11-18. Card: nothing flies away from the lantern. Take 1 (step and push of the lantern toward the enemy) reads better as a ranged attack and loses less at the edges.",
+"release": 10,
+"legs": "knees bend, rises on toes",
+"ru": "Льорона приседает, поднимает фонарь к груди — из него вырывается большое голубое пламя и уходит вверх за край кадра, волосы разлетаются в стороны.",
+"retake": "The light stays inside the lantern glass: the flame in it flares bright and dims, no flame, wisp or stream outside the lantern."
+},
+"llorona_ti_sup": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "Good acting: bow in tears 3-7, wail with the head thrown back 8-16, clean return. The ring is now one short pulse instead of a series, but it is still big: frame-wide at 9 and cut by the left, top and right edges at 10 (gone by 11). The hair no longer goes over the top, yet it still spreads to both side edges for 9 frames (10-18) - look at the side edges after the cut. Eyes are under her hand at 5-16 (the card's idea).",
+"release": 9,
+"legs": "knees bent, feet in place",
+"ru": "Льорона сгибается в плаче, закрыв лицо рукой, потом запрокидывает голову в крике — от фонаря расходится одно голубое кольцо, волосы разлетаются в стороны.",
+"retake": ""
+},
+"nightmare_ti_atk": {
+"verdict": "FAIL",
+"better_than_old": "same",
+"fixed": "partly",
+"best": "take1",
+"why": "He no longer shows his back, but turns side-on (profile 6-10, face behind the raised arm 9-10) with the sickle above his head at 8-10, then lunges at the camera: at 11-17 he is about 1.5 times bigger, hooves cut by the bottom edge 11-18, arm and sickle at/over the left edge 10-16 (blade out of the frame 13-16). A thick violet arc with a white core crosses the whole frame and his body at 11-12. Frames 0-4 do not move.",
+"release": 11,
+"legs": "knee up, lunge at camera",
+"ru": "Кошмар поворачивается боком, заносит серп над головой и с шагом на зрителя рубит — через весь кадр проходит фиолетовая дуга, а сам он на секунду становится заметно крупнее.",
+"retake": "He must not step toward the viewer: both hooves stay on their spots for the whole clip and he stays the same size; the cut is made by the arm and shoulders only, in front of his chest."
+},
+"nightmare_bt_hyp": {
+"verdict": "FAIL",
+"better_than_old": "same",
+"fixed": "no",
+"best": "retake",
+"why": "The frame-wide arc is still there: a thick violet band with a white core runs from the bottom-left corner to the top-right edge over his legs at 10-12 (start of it at the top edge at 9). He also lunges at the camera - about 1.4 times bigger at 10-15, feet cut by the bottom edge 9-15 - and a second violet slab lies across his chest and hood at 14-17 while the scythe swings back over the top edge (17). Side-on at 5-8. Frames 0-3 do not move.",
+"release": 10,
+"legs": "turn, lunge at camera",
+"ru": "Кошмар заносит косу за плечо и с шагом на зрителя рубит наискось — через весь кадр проходит толстая фиолетовая полоса, сам он на время становится крупнее.",
+"retake": "No light in the air at all: only the metal of the blade turns violet, and he stays the same size on the same spot (no step toward the viewer)."
+},
+"nightmare_ti_hyp": {
+"verdict": "FAIL",
+"better_than_old": "same",
+"fixed": "no",
+"best": "retake",
+"why": "All four reasons remain: he crouches side-on (5-8) and rises turned away, face hidden at 10-11; at 12-14 a violet ring with a white core fills the frame edge to edge over his body (face blurred at 12); he lunges at the camera and is much bigger at 12-18 with hooves cut by the bottom edge (7 frames); the sickle blade is outside the left edge at 13-17 (only the handle is seen). Frames 0-4 do not move. Slightly less time with the face hidden than in take 1, otherwise the same.",
+"release": 12,
+"legs": "side crouch, lunge at camera",
+"ru": "Кошмар приседает боком, заносит серп и с шагом на зрителя рубит — фиолетовая дуга закрывает весь кадр, сам он резко становится крупнее, серп уходит за край.",
+"retake": "He stays on his spot and the same size, chest to the viewer: both hooves do not leave the ground, no step forward; the chop is short, from his chest down to his knee."
+},
+"sting_bt_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "The kick now reads: chain pull in a wide stance 9-11, knee up 14, a clear straight side kick at 15-16 with a ball of fire on the foot, not a stream across the frame; the leg is a clean shape and the face is seen. Watch: the kick goes to the LEFT edge at shoulder height (the anime twin kicks to the right), the fireball is cut by the left edge at 15-17 and a gray smoke puff hangs in the top-left corner at 17-20; one smeared frame at 8; frames 0-3 do not move.",
+"release": 15,
+"legs": "wide stance, high side kick",
+"ru": "Жало двумя руками подтягивает цепь на себя, затем разворачивается и бьёт прямой ногой вбок — на ступне вспыхивает огненный шар, после удара остаётся дымок.",
+"retake": ""
+},
+"sting_ti_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The two frame-wide fire beams are gone and the kick is the clearest pose (knee up 13, high kick 14-15, leg down 16-17). Left over: the kick still goes up to the top-right corner and the foot is outside the frame at 14-15 (2 frames); a flame trail runs along the leg at 13-14 and from the foot to the top-right edge at 16; small fire stays on the floor by her left foot at 17-21. New: at 7-9 a long spear-like rod appears in her hands and runs out of the right edge (reads as a rope she is hauling, 3 frames).",
+"release": 14,
+"legs": "deep lunge, then high kick",
+"ru": "Жало приседает и с усилием тянет на себя трос, потом выпрямляется и высоко бьёт ногой вперёд — вдоль ноги вспыхивает огонь, носок на миг уходит за верхний угол.",
+"retake": ""
+},
+"thor_bt_sup": {
+"verdict": "FAIL",
+"better_than_old": true,
+"fixed": "no",
+"best": "retake",
+"why": "The wind-up is still a spin: he turns away at 7-8 (fur back and raised arm, no face), the hammer goes over his head and is cut by the top edge at 9, stands in front of his face at 10, and at 11-12 the head is bowed so only the hair is seen - face not seen for 7-11/12, most of the action; card: hammer never above the chest. The ground flash is cut by the bottom edge at 11-13 and tints his legs blue, sparks 12-14, and a gray dust band lies along the floor at 13-18 (may stay as haze after the cut). Borderline: the slam itself is strong and 1 frame shorter on the back than take 1.",
+"release": 11,
+"legs": "step, deep double-knee crouch",
+"ru": "Тор разворачивается, заносит молот над головой и, приседая, бьёт им в землю перед собой — вспышка, искры и пыль по полу; пока замахивается, лица не видно.",
+"retake": "No overhead swing: the hammer starts at his right hip and drops straight down onto the ground from waist height, his head stays up and his face looks at the viewer during the blow."
+},
+"thor_ti_sup": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "He no longer turns his back (side view at 7) and the face is hidden for 3 frames (7-9, behind the arms) instead of 10; from 10 it is seen from above. Left over: the hammer still goes over his head and is cut by the top edge at 8-9 (card: never above the chest); the white-blue ground burst is cut by the bottom and right edges at 11-14, and there is a lightning bolt the card does not have - from the top edge to the hammer at 10-13 and along the floor to the left edge at 13-15; lower body tinted blue 11-14.",
+"release": 11,
+"legs": "step, deep crouch, rise",
+"ru": "Тор заносит молот над головой и, приседая, с размаху бьёт им в землю — в молот ударяет молния, от удара разлетаются искры.",
+"retake": ""
+},
+"thor_bt_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "partly",
+"best": "retake",
+"why": "The white flashes on the head and the sparks bursting to all edges are gone: now a short lightning trail and a few sparks at the first blow (9) and one thin bolt from the top edge through his head and body with a pale glow over the frame at 14 (1 frame), small sparks at 15. Still two blows, not three (swing to his left at 9, slam down at 14-15), and the face is covered in scattered frames: 7, 11 (half in 12), 14, 15; hammer at head height at 8 and above the head at 13.",
+"release": 14,
+"legs": "wide stance, steps, crouch",
+"ru": "Тор бьёт молотом сбоку наотмашь, затем заносит его над плечом и обрушивает в землю — по молоту пробегает молния, у бойка искры.",
+"retake": ""
+},
+"thor_ti_hyp": {
+"verdict": "WATCH",
+"better_than_old": true,
+"fixed": "yes",
+"best": "retake",
+"why": "No light trails across the frame any more and three blows read: a punch-like blow in front of the chest (6-8), a swing to his left (9), an overhead slam into the ground (13). Small things: at 6 a white star-burst on the hammer covers his chest and the lower half of the face with a blue halo (1 frame); he turns away with the face hidden at 10-11; the hammer is above his head at 11-12 and its head leaves the top edge at 12; the ground burst is cut by the bottom and right edges at 13-14; faint dust smudges at the floor 15-22 (check after the cut).",
+"release": 13,
+"legs": "wide stance, shifts, deep crouch",
+"ru": "Тор трижды бьёт молотом: перед собой, вбок и с замахом из-за головы в землю — при первом и последнем ударе у бойка вспыхивают искры.",
+"retake": ""
+}
+}

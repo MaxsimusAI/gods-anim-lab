@@ -1,0 +1,82 @@
+{
+ "thor_ti_sup": {
+  "cut": "minor",
+  "notes": "Publishable, repair advised if cheap. HOLES (short): (1) the hammer head is half see-through in frame 8 (x 0.72-0.95, y 0.13-0.27, ~20% opaque / 65% half-transparent; on dark it reads as a dark ghost hammer instead of silver) and partly in 9 where it is at the top edge (x 0.45-0.80, y 0-0.07) - the head blinks once in the wind-up; (2) the skirt between the legs is half see-through in 12-13 (x 0.45-0.62, y 0.60-0.80, about half of the patch at 50-80% opacity; dark blue on dark, barely seen); small thinned patches under the body in 15-16 (same place, <10%). Hammer head on the ground is partly thinned inside the white-blue burst in 14-16 (reads as glow). No gray haze, no floor dust. Edges (notes only, all under 5 frames): hammer head cut by the top edge in 9-10 (2 frames, in the take); lightning comes from the top edge in 11-12; white-blue ground burst cut flat by the bottom and right edges in 11-14 (4 frames); flying cape end cut by the left edge with a straight fade in 12 (1 frame, x 0-0.03, y 0.38-0.52); floor bolt reaches the left edge in 14-15. Size and place steady, 0=1, 24=0. Release: hammer is on the ground with the bolt in it at 11, burst biggest at 12 (cutter's frame, 1 frame late, usable) - but the cutter's wf [0.889, 0.643] lies on the lightning bolt in the air, not on the hammer; the hammer head / ground contact is [0.78, 0.88] at 11 and about [0.74, 0.90] at 12.",
+  "release": 11,
+  "wf": [
+   0.78,
+   0.88
+  ],
+  "cutter_release_ok": true
+ },
+ "thor_ti_hyp": {
+  "cut": "minor",
+  "notes": "Publishable, repair advised if cheap. HOLES in the hammer, single frames between the blows: frame 6 - hammer head and the upper handle are see-through (x 0.63-0.95, y 0.08-0.30; ~5% opaque, on dark a dark ghost head with a pale top; solid in 5 and 7); frame 12 - head held over the left shoulder is thinned (x 0.03-0.20, y 0.10-0.27; purple-blurred in the take too); frame 13 - head at the top right is streaked see-through (x 0.62-0.85, y 0.03-0.30) and its blue trail is cut by the top edge (1 frame). Body, armour, skirt and cape solid in all frames; cape hem slightly thinned at the lower right in 9-10 (x 0.68-0.88, y 0.62-0.82, not seen on dark). No gray haze; the floor dust stage 1 warned about in 15-22 is gone (frame 15 only keeps a mottled violet-blue glow remnant under the body, x 0.55-0.72, y 0.80-0.95 - effect). Edges (notes): hammer head out of the left edge in 10 (1 frame, it is at the edge of the take as well); ground burst cut by the bottom/right edges in 14 (1 frame); cape end touches the left edge in 14-15. Size and place steady, 24=0. RELEASE: the cutter took 7 = the first blow (white-blue flash on the hammer in front of the chest; its wf [0.543, 0.335] is right for that frame, flash centre about [0.52, 0.33]). The hit of the hyper is the third blow - the slam into the ground at 14 (hammer lands, burst at the head; stage 1 named the slam too). If the game should fire on the first blow, 7 with the cutter's wf is fine.",
+  "release": 14,
+  "wf": [
+   0.8,
+   0.86
+  ],
+  "cutter_release_ok": false
+ },
+ "llorona_ti_sup": {
+  "cut": "minor",
+  "notes": "RE-CUT CHECK - hair: FIXED. The flying black hair is present and solid in every frame of the wail (10-18, both wings; x 0-0.35 and x 0.65-1.0, y 0.15-0.60 - opaque share of the left region 64% at 11, 55-37% in 12-16, matches the uncut frames; no ghost at 11, no short-haired frames in 12-16, both wings in 17-18). Only small see-through gaps between strands in 11-13 (e.g. x 0.15-0.30, y 0.40-0.50 at 11) - not read as holes. Left over, publishable: (1) HAZE frame 11 (1 frame): a gray-brown mottled cap of leftover background above the head, inside the fading ring (x 0.05-0.95, y 0.03-0.20, half-transparent; on dark a gray-olive cloud) - wipe it, keep the blue ring arc at the bottom (y 0.78-0.86); a faint ring remnant on the floor in 12 (y 0.92-1.0) is the effect. (2) EDGE: the hair wings are cut by both side edges with a straight vertical soft line in 11-17 (7 frames, x 0 and x 1.0, y 0.20-0.55) - hair only, it is at the edge of the take too; on a dark background black hair hides it. The blue ring is cut by the left/top/right edges in 10 (1 frame). Body, dress, legs and lantern solid in all frames; size and place steady, 24=0. Release: the ring bursts out of the lantern at 9 (sphere around the lantern), at 10 it is already frame-wide (cutter's frame, 1 frame late, usable). The cutter's wf [0.839, 0.329] is NOT on the lantern - it lies in the hair on the right; lantern centre is [0.50, 0.37] at 9 and [0.48, 0.34] at 10.",
+  "release": 9,
+  "wf": [
+   0.5,
+   0.37
+  ],
+  "cutter_release_ok": true
+ },
+ "kali_ti_hyp": {
+  "cut": "minor",
+  "notes": "RE-CUT CHECK. (1) Gray slab in frame 13 (x 0.03-0.45, y 0.33-0.70): the slab itself is GONE, but its RIM is left - an opaque pale-gray outline 2-4 px wide (about 600 px) runs around the empty space between the blade, the sword arm, the lower fist and the top of the fire arc (x 0.03-0.35, y 0.30-0.66), with a small gray wedge on top of the arc (x 0.09-0.33, y 0.62-0.67) and a thinner rim under the right forearm and hip (x 0.55-0.72, y 0.48-0.62); on the dark background it shows for one frame, the release frame, as a light outline round the arms. Wipe it if cheap. (2) Haze in 14: gone. Frame 15: two small gray chips of background are still inside the red fire (x 0.11-0.20, y 0.68-0.72 and x 0.34-0.38, y 0.70-0.74) - tiny. (3) Sword hand and forearm in 16-17 (x 0-0.25, y 0.26-0.46): FIXED, hand, bracer and forearm are solid; only the blade itself is thin and half see-through in 16-17 (x 0-0.08, y 0.42-0.65, ~12-15% opaque) while it hangs at the left edge - reads as a dark thin blade. (4) Fist with the sword in the rest pose (0-3, 21-24; x 0.10-0.22, y 0.20-0.32): FIXED, fist, hilt and blade solid in all of them. (5) Legs under the fire arc in 13: FIXED, thighs, shins and feet solid. Other notes: the glossy highlights on the upper stockings are keyed out as two narrow slits in the standing frames 0-4 and 16-24 (x 0.36-0.38 and x 0.53-0.55, y 0.57-0.68) - steady, invisible on dark. Edges (all in the take, under 5 frames): fire arc cut flat by the right edge in 12-13 and by the left edge in 13-15; blade at the left edge in 14-16; red flame trail along the left edge in 19 (x 0-0.05, y 0.30-0.75) and at the top edge in 20-21. Floor dust of the take is removed. Size and place steady, 24=0. Release: the cut is complete and the arc white-hot at 13 (blade tip at the left end of the arc); the cutter's 14 is one frame late (arc already red and fading, blade at the frame edge) and its wf [0.713, 0.592] lies on the skirt/thigh at the right, not on the blade.",
+  "release": 13,
+  "wf": [
+   0.11,
+   0.71
+  ],
+  "cutter_release_ok": false
+ },
+ "lilith_ti_atk": {
+  "cut": "bad",
+  "notes": "RE-CUT CHECK - both named defects are STILL THERE, nothing changed to the eye. (1) HOLE in the weapon: the dark metal curls and the top spike of the staff head are a ghost in 0-2 and 20-24 (x 0.66-0.88, y 0.04-0.32) - only the red crystal, a pale thin outline and one speck of the spike tip are left (5.5% of the region opaque against 16-21% in 3 and 17-19, where the head is solid dark metal); the shaft between head and hand is thinned as well (x 0.70-0.80, y 0.30-0.42). The head pops in at 2->3 and out at 19->20, and the rest pose (also the loop point 24->0) shows a staff without its head. Repair = make the whole head and upper shaft opaque in 0-2 and 20-24 like in frame 3/19. (2) HAZE: the opaque gray-brown smoke slab around the staff head is still there in 11-16 - x 0.55-1.0, y 0.02-0.45, strongest 13-15 (1900-2700 gray-brown px, fully opaque), still clear in 11-12 (dark red centre with a gray rim, cut by the right edge with a straight line at x 0.97) and fading in 16; gone at 17. On the dark background it is a brown-gray ball the size of her torso hanging on the staff for 5-6 frames. In the take there is only a faint dark-red haze there. In 14-15 the part of the head that sticks out above the slab is half see-through. Smaller: a gray disc of background around the red glow behind her head in 6-8 (x 0.50-0.78, y 0.08-0.32); the flash at 9 is a pinkish block with straight edges (x 0.55-0.95, y 0.03-0.47), cut by the right edge. Body, dress, boots and hair solid in all frames; staff butt leaves the right edge in 5 (1 frame), hair touches the left edge in 11-12. Size and place steady. Release 9 = cutter's frame; flash centre about [0.83, 0.21] (cutter [0.87, 0.22] is 4% to the right, inside the flash - usable).",
+  "release": 9,
+  "wf": [
+   0.83,
+   0.21
+  ],
+  "cutter_release_ok": true
+ },
+ "lubu_bt_atk": {
+  "cut": "bad",
+  "notes": "RE-CUT CHECK - the gray background at the strike is STILL THERE. (1) Frame 11 (the release frame): an opaque light-gray rectangle of leftover background stands behind the whole figure, x 0.02-0.98, y 0.20-0.98, with a ragged teal-gray fringe on top (y 0.12-0.22) - about 13,700 gray px = 35% of the frame, fully opaque; on the dark game background he stands in a gray box for one frame. NOT gone. (2) Frame 12: gray blocks in the lower half are NOT gone - left block x 0.01-0.33, y 0.52-0.98 (ragged, with holes) and right block x 0.72-0.97, y 0.72-0.98, joined by gray under the arc along the bottom (about 6,000 gray px). Frames 10 and 13-24 are clean. Repair = remove the gray in 11 and 12, keep the figure, the red-white arc and its dark smoke edge. (3) Halberd holes in 16-19: FIXED - shaft, tassel and hand solid in 15-20 (only a few thin pixels on the blade bits right at the top edge in 17-19). (4) Lower half of the body under the fire arc in 11: present and solid (legs, coat skirt, boots). EDGE: the halberd head is cut by a frame edge 5 frames in a row - by the left edge in 15-16 (in 15 the blade is out, in 16 half of the head), by the top edge in 17-19 (in 17 the spear point, in 18-19 everything above the crescent; only tassel and crescent tip are in the frame). It comes from the take (stage 1 counted 4 frames). Also: the fire arc is cut by the top/right edges in 11-12 and by the bottom-left corner in 11-13 (effect); frame 10 is a dark motion-blurred frame of the take with the face a black patch (1 frame). Body solid in all frames; size and place steady, 24=0. Release = 11 as the cutter has it (arc white-hot, chop finished), but its wf [0.797, 0.46] lies on the arc in the air at the right; the halberd head is at the lower left, [0.05, 0.74].",
+  "release": 11,
+  "wf": [
+   0.05,
+   0.74
+  ],
+  "cutter_release_ok": true
+ },
+ "hecate_ti_sup": {
+  "cut": "bad",
+  "notes": "RE-CUT CHECK - all three named defects are STILL THERE. (1) HAZE frame 10: the gray-green mottled slab of leftover background behind her is not gone - x 0.02-0.97, y 0.43-1.00, a rectangle with a straight top edge at y 0.43, half-transparent (about 2,900 gray px above her own), strongest at the left (x 0.02-0.35, y 0.45-0.95) and right of the staff (x 0.78-0.97, y 0.45-0.70); on the dark background it flashes as an olive box for one frame right after the staff hits the ground. Remove it, keep the violet burst and the ground ring (x 0.30-0.97, y 0.72-1.0). (2) HOLE in the weapon, rest pose 0-5 and 22-24: the crescent blades and the dark metal frame of the staff head are still a ghost (x 0.60-0.92, y 0.02-0.34) - only the violet crystal, thin pale outlines of the crescents and a mottled stem are left (9-13% of the region opaque against 23-27% in 9-10 where the head is solid dark metal; 21 is half way). The head pops in during the cast and fades out at 21->23; the loop point shows a staff without its head. Repair = make the whole head opaque in 0-5 and 22-24 as in frame 9. (3) HOLE frame 6: the shaft above the hand is still missing (x 0.66-0.80, y 0-0.13 - a few specks only, 0.2% opaque; solid in 7), and the shaft below the hand is flecked see-through in 6 (x 0.68-0.78, y 0.22-0.45) - the staff blinks for one frame during the lift. Body, hair, skirt and boots solid in all frames. Edges (notes): staff head above the top edge in 6-8 (3 frames, in the take); violet ring around the crystal cut by the right edge in 13-20 (effect, in the take, as stage 1 said) and by the top edge in 17-20; ground burst cut by the bottom/right edges in 9-11. Size and place steady, 24=0. RELEASE: the staff butt hits the ground with the violet burst at 9 (stage 1 says the same); the cutter's 11 is two frames late (burst already fading, crystal glow starting) and its wf [0.824, 0.421] lies on the shaft by the hand. Point = staff butt on the ground at 9.",
+  "release": 9,
+  "wf": [
+   0.67,
+   0.94
+  ],
+  "cutter_release_ok": false
+ },
+ "thor_bt_hyp": {
+  "cut": "minor",
+  "notes": "RE-CUT CHECK - frame 15 (the slam): FIXED. Everything below the fur cape is solid now - belt and skirt, both legs and boots, the hammer arm, cape hem and hammer head (x 0.10-0.90, y 0.50-1.0: 60% of the region opaque against 56% in 14 and 55% in 16, i.e. the full silhouette); the thin blue bolt and the pale glow at the hammer are kept. Left over, publishable - small punched-out pinholes where gray metal was keyed with the background: frame 5 - the face of the hammer held in front of the chest (x 0.58-0.72, y 0.25-0.38, about 145 px, largest 67 px; on dark the hammer face has dark blotches) and a speck on the forearm (x 0.32, y 0.32); frame 10 - a row of holes along the bracer of the hammer arm (x 0.33-0.48, y 0.38-0.52, about 220 px) and specks on the fur edge (x 0.27-0.33, y 0.30-0.40); frame 9 - specks on the bracer and the belt buckle (x 0.30-0.50, y 0.30-0.50); frame 4 - specks in the hammer head (x 0.08-0.18, y 0.45-0.62); frame 15 - one small hole in the bracer (x 0.50-0.54, y 0.62-0.70, 56 px); frames 16-17 - single specks. All sit on dark armour, on a dark background they are hardly seen; fill them if cheap (5 and 10 first). No gray haze. Edges (notes): hammer head cut by the top edge in 14 (1 frame); hammer touches the left edge in 10; strap touches the right edge in 7. Face hidden behind arm/hammer in 7-8 (in the take). Size and place steady, 24=0. RELEASE: the cutter still has 9 = the first (side) blow with the blue-white flash, and its wf [0.809, 0.189] is off even for that frame (flash centre about [0.62, 0.20]). The hit of the hyper is the slam at 15: hammer on the ground, bolt down the arm into the hammer head.",
+  "release": 15,
+  "wf": [
+   0.64,
+   0.85
+  ],
+  "cutter_release_ok": false
+ }
+}

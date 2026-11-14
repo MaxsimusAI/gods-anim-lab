@@ -200,3 +200,29 @@ filter_strength 20, sharpness 3, sns 60, method 6, quality by binary search unde
 its cap) → sheets and metrics copied into the workspace → `pub1.sh` («сейчас») or `pubprev.sh` («вчера»). Needs
 `pip install --break-system-packages webp`. Kitsune BT super afterwards: `hue_fix.py <v20 ref> <sheet> <cap KB>` (teal → sky
 blue). BiRefNet matting needs more than the 6 GB of the workspace — isnet stays. Cost: about 2 min per clip.
+
+## Round r9 (14-15.11) — what was added to the cutting and review tools
+
+- Reading Maxim's marks without asking him to paste: open the site in his Chrome (Claude in Chrome, his real browser —
+  the built-in browser has its own empty storage) and read `localStorage` `gal_marks_v1` / `gal_notes_v1` in pieces
+  (tool output is cut at ~1 000 characters per call).
+- Two-stage review of new takes (briefs in `pipeline/r9/kl/`): stage 1 `REVIEW_BRIEF.md` on RAW video frame sheets
+  (25 evenly spaced frames, no matting; cheap: do it BEFORE spending 5 minutes of cutting per clip), stage 2
+  `STAGE2_BRIEF.md` on the cut sheet (holes, haze, edges) — the reviewer also reads the release frame and `wf` by eye and
+  `r9/kl/setrel.py clip=release,x,y` writes them into the metrics without a re-cut. `strip2.py` builds frame strips on any
+  background; always pass full sheet paths (a bare clip id = the sheet on the site).
+- Cutter options, all per clip in `impact_overrides.json`, read by `b3/sharp_batch4.sh` (use this one; `sharp_batch.sh`
+  is the old script — never edit a batch script while a queue runs it, bash reads it as it goes):
+  `"darkbody": <n>` dark-body rescue with threshold n (22 for thin dark staffs, black hair, dark coat linings; 18 for
+  blue-gray skin; `true` = 45), `"desmoke": 1|2` (2 also removes gray smoke the body mask swallowed), `"model": "u2net"`
+  (gray dress the colour of the background; body under a fire arc), `"model2": "u2net"` (mask = maximum of two models),
+  `"bg": "robust"` (background colour from the grayest corner: needed when a fire arc or a ground burst covers a corner at
+  the release frame — otherwise the whole background comes out as an opaque gray rectangle).
+- Sheet-level repairs when the source video of a take is not kept: `b3/solid_fix.py <clip> <bg gray after the tone
+  step>` (see-through light fur → solid; BT tone step moves the background from 124 to about 164),
+  `r9/kl/gray_floor_fix.py` (gray smoke patches at the feet).
+- Memory: this machine kills processes above its memory limit (headless browsers of reviewers died, a session restart
+  followed). At most two cuts at a time and only ONE while a reviewer runs a headless browser; a cut with two models —
+  alone. Throughput then is about 8-12 clips an hour.
+- `b3/pub1.sh` ignores uncommitted files under `pipeline/r9/`; `r9/kl/pubnew.sh` = notes for Maxim (`note.py`, status
+  "new") + `pub1.sh`.

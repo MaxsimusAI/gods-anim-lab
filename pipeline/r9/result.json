@@ -1,0 +1,316 @@
+{
+ "mictlan_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "lucifer_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "lucifer_ti_hyp": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "He pushes the palm straight at the viewer and the star opens exactly in front of his face: the head is fully hidden in frames 10-14 (partly 9 and 15) — at the peak he is a body with a star instead of ",
+  "retake1": "The head is no longer replaced by the star (face seen in 11-13 and 16-18, half behind a star ray in 14-15), body works well (turn and cape swirl 4-9, lunge 10-16), loop closes. But the star is far big"
+ },
+ "lilith_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "lilith_ti_atk": {
+  "result": "old take stays",
+  "why": "cut not clean (staff head lost by the matting, smoke slab)",
+  "take1": "Frame 3 arms and staff smear/double; 4-5 the staff flips horizontal and shrinks into a stub; 6-8 she turns her back to the viewer with the crystal at the top/left edge; in 10-15 the staff is a short w",
+  "retake1": "She no longer turns her back and nothing smears: weight back with the staff head at her shoulder 3-7, lunge and thrust of the crystal 8-9, face visible all the time, loop closes (static tail 19-24). S"
+ },
+ "koschei_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "koschei_ti_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "nightmare_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "nightmare_ti_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 1: he spins a full turn and shows his back in 8-10 (profile in 7), face smeared in 11 and 13. Also a violet arc runs across the whole frame and over the body in 7-12 (edge to edge in 7, 11, 12)",
+  "retake1": "He no longer shows his back, but turns side-on (profile 6-10, face behind the raised arm 9-10) with the sickle above his head at 8-10, then lunges at the camera: at 11-17 he is about 1.5 times bigger,"
+ },
+ "nightmare_bt_sup": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "nightmare_ti_sup": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "nightmare_bt_hyp": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 6: a violet arc crosses the whole frame in 8-10 (in 9 from the bottom-left corner to the right edge, over the legs). Defect 5: he lunges to the left edge so the lantern hand (8-10) and the scyt",
+  "retake1": "The frame-wide arc is still there: a thick violet band with a white core runs from the bottom-left corner to the top-right edge over his legs at 10-12 (start of it at the top edge at 9). He also lunge"
+ },
+ "nightmare_ti_hyp": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 1: he crouches in profile with the head down and the face hidden in 4-8, then rises with his back to the viewer in 9-10 (face not seen 4-10). Defect 5: the sickle blade is outside the frame in ",
+  "retake1": "All four reasons remain: he crouches side-on (5-8) and rises turned away, face hidden at 10-11; at 12-14 a violet ring with a white core fills the frame edge to edge over his body (face blurred at 12)"
+ },
+ "kali_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "kali_ti_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "kali_ti_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "dracula_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "dracula_bt_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "He spins around: back to the viewer and face hidden in frames 5-8; then he steps toward the camera and is visibly bigger in 9-13, his feet are cut by the bottom edge of the video in 5-14 and the sword",
+  "retake1": "Same faults as take 1: he still spins - profile at 3, back to the viewer and face hidden at 4-6; then he lands closer to the camera and is bigger, his boots are cut by the bottom edge of the video in "
+ },
+ "dracula_ti_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "A lively double slash (crouch 4-6, cut 7-8), but far wider than the frame: the left sword is cut by the left edge of the video in frames 7-12 (two thirds of the blade gone in 9-11), the cape is cut by",
+  "retake1": "The crouch (3-7) and the X-cut (8) read well and the second cross above the head is gone, but the main fault stays: he still throws both arms wide, so both blades are cut by the left and right edges o"
+ },
+ "dracula_ti_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "hecate_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "hecate_ti_sup": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "veles_bt_idle": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "veles_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "veles_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "anansi_ti_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "thor_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "thor_bt_sup": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "The impact itself is strong (deep crouch, hammer on the ground with blue-white sparks 12-14, clean return), but the wind-up is a spin: in 6-8 he is turned away from the viewer (back and shoulder, no f",
+  "retake1": "The wind-up is still a spin: he turns away at 7-8 (fur back and raised arm, no face), the hammer goes over his head and is cut by the top edge at 9, stands in front of his face at 10, and at 11-12 the"
+ },
+ "thor_ti_sup": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "thor_bt_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "thor_ti_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "wukong_bt_sup": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 5: the staff is cut by the left edge in 12-16 (5 frames in a row), also in 6-7, and its top is over the top edge in 18-20. Defect 6: thick golden streaks cross the whole frame over the body in ",
+  "retake1": "All three reasons of take 1 are still here and the staff now breaks: thick golden streaks cross the whole frame over the body in 7-8 (top-left to bottom-right) and 11-12 (bottom-left to top-right, in "
+ },
+ "wukong_ti_sup": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "not reviewed (lead looked)"
+ },
+ "wukong_bt_hyp": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "wukong_ti_hyp": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 6: at the stamp the golden burst covers the feet and reaches the left, right and bottom edges while a column of light runs up the staff to the top edge in front of the face (11-12). Defect 5: t",
+  "retake1": "The big ground burst and the light column are gone (only a small flash at 12 and thin golden hoops on the ground 5-17), but the face is now hidden for the whole stamp: head down in 7, raised arm over ",
+  "alt": "retake 1 is on the stand as «Версия 2»"
+ },
+ "silent_ti_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "The cut ends with the sword held upright: the blade is cut by the top edge in 9-13 (5 frames in a row), then leaves the right edge in 14-15 and is held over his head with the hilt in front of the face",
+  "retake1": "He now faces the viewer the whole clip (no back, no profile) and the body works (crouch and drag 2-8, step and cut 9-13), but the sword is cut by a video edge for 8 frames in a row: by the left edge i"
+ },
+ "susanoo_bt_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "susanoo_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "raijin_ti_idle": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "PASS"
+ },
+ "poseidon_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "poseidon_ti_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "llorona_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "llorona_ti_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 5: the lantern is pushed out at full arm's length to the right edge and stays there for frames 10-15 (6 in a row), its side and the blue stream of light are cut by the right edge (the card says",
+  "retake1": "The lantern is now held at the chest with bent elbows (that part is fixed), but the light again leaves the lantern: a blue flame as big as her torso swells at 9, hides half of her face at 9-10 and str"
+ },
+ "llorona_ti_sup": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "atlas_ti_atk": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 5+6: the sword is cut by a video edge in 5-9 (right, then top), and during the chop itself the whole blade is outside the frame, 10-17 (only the hilt at the left edge in 13-16, left hand cut in",
+  "retake1": "Sword now stays inside the frame and the blue light is only a ground flash at 13-14 (touches left/right/bottom edges for 2 frames), but he lifts the sword over his head: in 6-11 the head is completely"
+ },
+ "atlas_ti_sup": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "shiva_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "shiva_ti_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "shango_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "shango_bt_hyp": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "WATCH"
+ },
+ "shango_ti_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "surt_bt_atk": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "surt_ti_atk": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "PASS"
+ },
+ "surt_ti_sup": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "lubu_bt_atk": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "sting_bt_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "sting_ti_hyp": {
+  "result": "published",
+  "take": "retake 1",
+  "stage1": "WATCH"
+ },
+ "vanhelsing_ti_hyp": {
+  "result": "old take stays",
+  "why": "take 1 and retake 1 failed the review",
+  "take1": "Defect 4 (not the owner's idea): he aims and fires to the right side, not at the viewer, and there is a big orange muzzle flash in 11 (video frames 33-34) that also tints the body, though Maxim asked ",
+  "retake1": "Still not the owner's idea: in 5-10 he aims and fires to the right side of the frame, not into the screen, and a white-yellow flash lights at the muzzle in 10 (small puff of light already in 8-9) - th"
+ },
+ "zeus_ti_idle": {
+  "result": "published",
+  "take": "take 1",
+  "stage1": "PASS"
+ },
+ "kitsune_ti_idle": {
+  "result": "published",
+  "take": "the 13.11-afternoon take re-cut sharp (not a re-shoot)"
+ }
+}

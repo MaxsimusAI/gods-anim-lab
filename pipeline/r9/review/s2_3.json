@@ -1,0 +1,72 @@
+{
+ "llorona_bt_atk": {
+  "cut": "minor",
+  "notes": "Re-cut check: the gray dress and torso are solid in 9-15 now (no see-through). Left: the flying LEFT sleeve tail away from the body is still half see-through in 13-15 (x 0.00-0.30, y 0.20-0.70; a faint patch also at 12, x 0.00-0.15, y 0.18-0.60) and the flying hair tip on the right in 13 (x 0.68-0.85, y 0.28-0.42); on a dark background this reads as thin gauze, not as a hole. No gray haze. Sleeve ends reach the left edge in 11 and 14-18 (thin cloth tips only, nothing important cut). Size and place steady, loop 24->0 closes; frames 0 and 1 are identical.",
+  "release": 12,
+  "wf": [
+   0.72,
+   0.55
+  ],
+  "cutter_release_ok": true
+ },
+ "kali_ti_hyp": {
+  "cut": "bad",
+  "notes": "Re-cut check: shins and feet are back in 13 and thighs are solid in 12-15 - that part is fixed. NEW/remaining defects: (1) HAZE frame 13: an opaque light-gray slab of leftover background between the sword arm, the blade and the torso, x 0.03-0.45, y 0.33-0.70 (clearly visible on dark); frame 14: half-transparent gray haze x 0.00-0.32, y 0.33-0.60; frame 15: gray specks inside the fire x 0.02-0.14, y 0.60-0.72. (2) HOLES: sword hand and forearm missing in 16-17 (gold bracelet floats, no hand, no sword; x 0.00-0.25, y 0.26-0.46), hand half see-through in 14-15 (x 0.00-0.10, y 0.25-0.38); the fist that holds the sword is half see-through in the rest pose 0-3 and 24 and almost gone in 21-23 (sword floats above the bracelet; x 0.10-0.22, y 0.20-0.32) - it pops at 20->21; a strip of thigh skin between loincloth and stocking is see-through in 7-9 (x 0.58-0.68, y 0.54-0.70); sword fist partly see-through in 10 (x 0.84-0.93, y 0.32-0.42). Edges: fire arc cut by the right edge in 12-13 and by the left edge in 13-15, blade/hand at the left edge 13-17 (note). Size and place steady, loop closes. wf given = blade tip where the white arc starts; middle of the arc is [0.50,0.68].",
+  "release": 13,
+  "wf": [
+   0.1,
+   0.7
+  ],
+  "cutter_release_ok": false
+ },
+ "lilith_ti_atk": {
+  "cut": "bad",
+  "notes": "Re-cut check (x 0.62-0.95, y 0-0.46): the crystal and the shaft above the hand are now present in 0-2 and 14-24, the head is solid in 14-19. STILL A HOLE: the dark metal curls and the top spike around the crystal are see-through (ghost outline only) in 0-2 and 20-24, x 0.66-0.88, y 0.04-0.32 - the head pops in at 2->3 and out at 19->20. HAZE: an opaque gray-brown smoke slab around the staff head stays in 13-16 (x 0.55-1.00, y 0.02-0.45; stage 1 asked to remove it), and a smaller gray-brown halo behind the crystal in 7-8 (x 0.58-0.88, y 0.07-0.32); the red cloud in 10-12 has the same muddy gray-brown rim. EDGE: the flash/cloud is cut by a straight vertical line at the right edge in 9-14 (6 frames, x 0.97, y 0.05-0.40). Notes only: lower end of the staff leaves the right edge in 5-6, a ray touches the top in 10, hair tips at the left edge 10-13. Body is solid, size and place steady, loop closes.",
+  "release": 9,
+  "wf": [
+   0.83,
+   0.21
+  ],
+  "cutter_release_ok": true
+ },
+ "poseidon_bt_atk": {
+  "cut": "minor",
+  "notes": "HOLE (short): the trident head and the upper shaft above the hand are see-through (thin ghost outline) in 19-20, x 0.14-0.34, y 0.02-0.30 - solid in 18 and 21, so the head blinks once on the way back to the rest pose; on dark it reads as a thin faded trident. Repair advised if cheap, not a blocker. No gray haze, body and cloak solid in all frames. Edges (notes): toes of the front foot sit on the bottom edge 8-16 (a 1-2 px sliver), the tip of the light blade touches the right edge in 13-15, the shaft end touches the left edge in 8, prongs touch the top in 5-7. Size and place steady, loop closes; frames 0 and 1 identical. Release: light blade is full length at 12 and one step longer (clipped by the right edge) at 13 - same pose, cutter's 13 is acceptable, 12 is the earlier of the two. wf = bright core at the trident head where the light blade starts; the tip of the light blade at 12 is [0.95,0.70].",
+  "release": 12,
+  "wf": [
+   0.52,
+   0.53
+  ],
+  "cutter_release_ok": true
+ },
+ "poseidon_ti_atk": {
+  "cut": "minor",
+  "notes": "HOLE (one frame): the inner side of the cloak behind the torso and legs is half see-through in frame 7 only, x 0.28-0.92, y 0.42-0.88 (solid in 6 and 8) - on dark it just goes darker for one frame; repair advised if cheap. EDGE: the cloak is cut by the left edge with a straight vertical line in 9-14 (6 frames, x 0, y 0.60-0.85; clothes, not weapon). Notes: trident head is above the top edge in 17-19 (3 frames, with the teal trail in 17), middle prong touches the right edge in 15-16. No gray haze; teal glow on the prongs 10-15 and around the head in 20-21 is the effect. Size and place steady, loop closes; frames 0 and 1 identical.",
+  "release": 12,
+  "wf": [
+   0.82,
+   0.58
+  ],
+  "cutter_release_ok": true
+ },
+ "surt_ti_atk": {
+  "cut": "ok",
+  "notes": "Body, sword and loincloth solid in all 25 frames, no gray haze, loop closes. Notes only: the sword pommel just touches the left edge in 5-18 (nothing visibly cut), the fire glow touches the right edge in 8 and 11 (in 8 with a thin pale fringe, x 0.93-0.97, y 0.33-0.45), dark smoke above the flame 12-13 and 18-20 is the baked effect. Release: fireball is whole above the open palm at 10 and same size at 11 (already splitting) - cutter's 11 is acceptable, 10 is the earlier. wf = centre of the fireball; the open palm is right under it at [0.84,0.42].",
+  "release": 10,
+  "wf": [
+   0.83,
+   0.28
+  ],
+  "cutter_release_ok": true
+ },
+ "wukong_ti_sup": {
+  "cut": "minor",
+  "notes": "No stage-1 note. Cut is clean: body, cloak and staff solid, no gray haze (pale tan glow next to the golden arcs in 6, 9, 12-14 is the effect). Notes: the soles of both feet sit on the bottom edge in 6-18 (1-2 px sliver, pink tint under the front foot), staff ends / arcs are cut by the edges in single frames - right 3, 9-10, 13-14; left 6-7, 9-11, 13, 16, 18; top 14, 16 (never 5 in a row at one edge). From the video, not the cut: in frame 8 the staff is not visible and both arms are smeared; in 14 the head is partly behind the staff. Size and place steady, loop 24->0 closes; frames 0 and 1 identical. wf = bright head of the golden arc at the staff tip.",
+  "release": 13,
+  "wf": [
+   0.93,
+   0.46
+  ],
+  "cutter_release_ok": true
+ }
+}

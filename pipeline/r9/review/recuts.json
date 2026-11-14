@@ -1,0 +1,72 @@
+{
+ "kitsune_bt_idle": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "none a player would see. The tail outline is now a hard, slightly stair-stepped edge instead of the old soft see-through fringe (all frames). Unchanged from OLD: ~250-280 px of faint see-through inside the figure in frames 1, 11, 13.",
+  "why": "Tails are solid white in all 25 frames (see-through px inside the figure 2300-3150 -> 100-280 per frame); no pixel lost, same frame 165x220, same sharpness and colours (pixel diff ~2 = recompression)."
+ },
+ "kitsune_bt_atk": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "none new. Already in OLD and unchanged: sleeve see-through in frame 9, lower-left skirt in frame 11 (alpha ~160-170), and the top tail tip is cut flat by the frame top in frames 9-14 (now reads a bit crisper because the tail is solid).",
+  "why": "Tails solid in all 25 frames incl. the fox-fire frames (white see-through px down ~60% in every frame, rest is the edge ring); nothing lost, same size 177x220, sharpness within 3%, colours same."
+ },
+ "kitsune_bt_sup": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "none new. Already in OLD and unchanged: lower-left skirt see-through in frame 10 (one frame); the tall top tail / blue beam is cut flat at the frame top in frames 10-14, the flat cap is slightly more visible now that the tail is solid.",
+  "why": "Tails solid in all 25 frames, incl. the big raised tail in 7-16; no pixel lost, same frame 163x220, same sharpness and colours."
+ },
+ "kitsune_bt_hyp": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "none. Nothing else changed: no pixel lost in any frame, every remaining semi-transparent pixel has the same alpha as in OLD (e.g. small patch under the hem in frame 5; flame touching the frame top in frame 8 as before).",
+  "why": "Same 25 frames pixel-for-pixel (diff ~2.5 = recompression), tails solid white in all of them (see-through px inside the figure 1250-3600 -> 90-515), fire effect, colours, size 162x220 and sharpness unchanged."
+ },
+ "kitsune_ti_idle": {
+  "verdict": "FAIL",
+  "same_moments": false,
+  "defect_gone": "no",
+  "new_problems": "NEW is NOT the animation of the v20 soft sheet. v20: she stands almost still, fan beside the head, tails symmetric in all 25 frames (its metrics say source 720x1280). NEW: from frame ~4 the tails sweep to the left, the fan comes in front of the face, back by frame ~20; its 25 frames match /home/claude/kl/b2/mp4/kitsune_ti_idle.mp4 (804x1164, 13.11 14:43) at frames 0,3,6..70 one-to-one, while v20's middle frames (8-18) match no frame of that video. The cut itself is clean: tails solid, no haze, sharp; tail tip touches the left frame edge by 1 px in frames 8-9.",
+  "why": "The owner asked for the old animation made sharper; NEW is sharper than v20 (sharpness 65 vs 42, body 196 vs 181 px) but it is a third, different take, so he would again get a replaced animation. Versus the sheet on the site: there she lowers the fan to her chest and brings her legs together (frames 5-19); in NEW the legs stay apart, the fan rises to the face and the tails sweep left. If the take he liked is in fact the 13.11 14:43 video, NEW is that take and is clean - then confirm with him, the v20 sheet is the wrong reference."
+ },
+ "houyi_ti_hyp": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "none from the repair. Early frames are spaced differently (acceptable): NEW starts moving 2 frames sooner (NEW 0-10 = OLD 2-11), full draw and the shot are at the same frames (11-16), one more rest frame at the end. As in OLD the upper bow tip sits at the top margin in frames 3-19. Note: in the sheet the figure is ~5% smaller than in the idle/atk/sup sheets (body box 202 vs 212-213 px), so the size at the idle->ult switch still depends on the measurement shipped with it; kl/work/adapted_all_metrics.json (top 0.1431, foot 0.9913, body 187 vs idle 197) compensates exactly that 5% - worth one look in the stand.",
+  "why": "Same take, cut larger and sharper (frame 155x220 vs 122x173, sharpness 80 vs 56). Inside NEW the figure keeps its size from frame 0: head-to-foot 195-197 px in frames 0-4 and 20-24, feet on the same line (y=217) in all 25 frames; clean on magenta, no holes or haze."
+ },
+ "heracles_bt_atk": {
+  "verdict": "PASS",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "small: a pale beige dust patch left of the club / at the floor in frames 16-19 (frame 18-19 with a slightly cut edge) - reads as dust from the hit. The frame is narrower (134 vs 143 px wide) only because the slabs no longer widen it; figure height identical (201 px).",
+  "why": "The gray-blue slabs behind the figure in frames 14-21 are gone (gray haze px 1300-6000 -> 65-290 per frame; see-through px 4500-6200 -> 30-900, the rest is the golden glow of the club). Same frames, same sharpness and colours."
+ },
+ "vanhelsing_ti_idle": {
+  "verdict": "WATCH",
+  "same_moments": true,
+  "defect_gone": "yes",
+  "new_problems": "small leftovers: the lower hem of the lining between the legs is still faintly see-through in frames 0, 1, 6, 24 (190-270 px, was 760-1075 in the bad frames) and its lower edge is ragged (pointed strands) in frames 9-16. No flicker at the loop (24 and 0 look alike).",
+  "why": "The coat lining between the legs is now present and solid in all 25 frames (was missing or see-through in 0-6, 11-13, 16, 23-24); no pixel lost, same 25 frames (diff <=2), same size 133x204, sharpness and colours."
+ },
+ "silent_ti_sup": {
+  "verdict": "WATCH",
+  "same_moments": true,
+  "defect_gone": "partly",
+  "new_problems": "leftovers: a light gray-teal patch between the legs (below the tunic) in frames 10-14, biggest in 12-14; pale jagged shards at the floor left and right in frames 15-16, flecks in 17; the legs are still partly see-through during the effect in frames 9-17 (less than in OLD: see-through px roughly halved). The red aura around the body in frames 6-18 is thicker and more solid than in OLD - reads as the effect, not as a halo. Sparks touch the bottom edge by 3 px in frame 15.",
+  "why": "The teal haze columns on both sides of the figure (frames 9-20) are gone and the sheet is clearly sharper than OLD (sharpness 78 vs 52, same frame 127x220); what remains is the small patch between the legs for 5 frames."
+ },
+ "persephone_bt_hyp": {
+  "verdict": "WATCH",
+  "same_moments": true,
+  "defect_gone": "partly",
+  "new_problems": "frame 16 (and a little 15): the dark cloak on her right side is now more see-through than in OLD (see-through px 862 -> 1532) for one frame. Unchanged from OLD: the two gray smoke clouds beside the figure in frames 7-8 (gray px 1420/1170 -> 1500/1230) and the pale haze left of the swirl in frames 10-11.",
+  "why": "The repair only touched frames 3-6, 9 and 15-16 (dark floor ring/shadow thinned, dark veil on the right mostly removed, 190-680 px per frame); everything else is pixel-identical, same size, sharpness, colours. If his remark was about the gray clouds in frames 7-8, they are exactly as before; on a light background they read as smoke, on a dark one as gray blobs."
+ }
+}

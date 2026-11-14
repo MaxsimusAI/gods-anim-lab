@@ -1,0 +1,92 @@
+{
+ "anansi_ti_atk": {
+  "cut": "minor",
+  "notes": "No holes: the rear (right) leg in f6-10 is solid in the zoom and in the alpha map (region x0.66-0.90 y0.52-0.97 fully opaque; only 2-3 pixel specks in the real gap between sash and boot in f8-9). No background haze. Edges: toes of the front (right) foot are under the bottom edge in f14-18 (5 frames, only the sandal tip); dagger tip above the top edge f16-17 (2 frames); purple trail reaches the left/right edges f11-12 and f14-15 (effect). Size and place steady, f0=f1, f23=f24=f0. wf: the cutter's point [0.346,0.479] sits mid-trail over the body; the cutting dagger itself at f11 is at the bright left head of the trail.",
+  "release": 11,
+  "wf": [
+   0.12,
+   0.39
+  ],
+  "cutter_release_ok": true
+ },
+ "kali_ti_hyp": {
+  "cut": "bad",
+  "notes": "HOLE at the release: in f13 both shins and feet are missing below the fire arc (region x0.15-0.98 y0.74-0.99 - only the two anklets and a thin outline of the right shin are left), so the legs blink off for one frame at the strike. Also half see-through skin of the upper thighs under the skirt in f12-15 (x0.33-0.55 y0.52-0.70, pink shows through) and the left shin just under the arc in f14 (x0.22-0.34 y0.74-0.90). Repair: restore the legs in f13 (whole band y0.72-0.99) and make the thighs opaque in f12-15. Haze: none (gray floor dust is gone; a very faint ghost outline at x0.40-0.50 y0.88-0.96 in f14, barely seen). Edges: blade/flame trail at the left edge f13-16 and at the top-left f19-20 (effect, 1-2 frames each for the blade). Size and place steady, loop closes. wf: the cutter's point [0.858,0.572] is on the tail of the arc at the right; the blade at f13 is on the left, tip at the bright head of the arc.",
+  "release": 13,
+  "wf": [
+   0.11,
+   0.71
+  ],
+  "cutter_release_ok": true
+ },
+ "nightmare_ti_sup": {
+  "cut": "ok",
+  "notes": "No holes (alpha solid in all 25 frames; the violet tint on chest and legs in f6-18 is the light of the glow, not see-through). No haze; a few motes above the hand f7-10 are the effect. Edges: only the tattered cloak hem touches the left edge f6-8 and f14-17, sickle whole in every frame. Size and place steady, loop closes.",
+  "release": 13,
+  "wf": [
+   0.85,
+   0.33
+  ],
+  "cutter_release_ok": true
+ },
+ "lubu_bt_atk": {
+  "cut": "bad",
+  "notes": "HOLE at the release: in f11 the whole lower half of the figure under/left of the fire arc is see-through or missing (legs, coat skirt; region x0.05-0.80 y0.50-0.98 - on dark he is a ghost from the waist down, only the right boot is partly there); in f12 the left leg and left coat skirt are half see-through (x0.03-0.60 y0.55-0.97). Haze: f12 teal/gray leftover patches left of the figure (x0.03-0.25 y0.54-0.66) and at the right (x0.80-0.97 y0.60-0.80). Repair f11-12 in those regions (make the body opaque, remove the patches). Edges (notes): halberd blade at the top edge f7-9 and f17-19 (3+3 frames), at the left edge f15-16, fire arc runs corner to corner f11-12. Size and place steady outside the lunge, f0=f1, f23=f24=f0. wf: the cutter's point [0.858,0.415] is on the upper-right tail of the arc; the halberd head at f11 is at the lower left (red tassel at x0.10 y0.67, blade just below).",
+  "release": 11,
+  "wf": [
+   0.07,
+   0.72
+  ],
+  "cutter_release_ok": true
+ },
+ "surt_bt_atk": {
+  "cut": "ok",
+  "notes": "No holes (alpha solid in all frames, sword and cape whole), no haze (thin smoke left of the head in f18 is the fading fireball). Nothing cut by an edge: fireball comes to x0.02 in f17, cape to x0.97 in f11-14, horns just under the top. Size and place steady, f0=f1, f24=f0. The cutter's release f17 is late: the palm opens with the bright ball in f15, the ball is full in f16, in f17 it is already an orange cloud breaking up.",
+  "release": 15,
+  "wf": [
+   0.3,
+   0.27
+  ],
+  "cutter_release_ok": false
+ },
+ "lilith_ti_atk": {
+  "cut": "bad",
+  "notes": "HOLE in the weapon: the head of the staff and the shaft above the hand are see-through / missing in the rest pose and in the return - f0-2 and f14-24 (region x0.62-0.95 y0.00-0.46). In f0-2 and f17-24 only the red crystal and thin pale highlights are left (the dark metal curls are 10-30% opaque), in f14-16 the crystal floats in the air with nothing between it and the hand. In f3-13 the same head is solid dark metal, so it pops in at f2->3 and vanishes at f13->14. Repair: make the staff head and upper shaft opaque in f0-2 and f14-24. Body, dress, boots have no holes. Haze: none outside the effect (dark red cloud f10-12 and smoke on the head f13 are the effect). Edges (notes): lower end of the staff is out of the right edge f4-8 (5 frames, butt end only); hair touches the left edge f10-13; flash rays reach the top/right edge f9-10. Size and place steady, loop closes.",
+  "release": 9,
+  "wf": [
+   0.83,
+   0.215
+  ],
+  "cutter_release_ok": true
+ },
+ "shiva_bt_atk": {
+  "cut": "minor",
+  "notes": "No holes (alpha solid in all frames; the fire lies over the chest f9-12, trident prongs are seen through it), no haze. Edges: the front (right) foot is cut off below the anklet by the bottom edge in f9-14 (6 frames, x0.82-0.92 y0.95-1.0) - it comes from the take (he steps toward the viewer and is ~20% bigger in the lunge); trident prongs are out of the top edge in f17-19 (3 frames, only shaft and cloth left; in f17 the prong base at the top is half see-through), trident butt at the left edge f5-8 (4 frames). Trident drops to the ground in one step f19->20. f0=f1, f24=f0, no jump at the loop. The cutter's release f11 is one frame late: fire bursts in f9 and is brightest with a halo in f10.",
+  "release": 10,
+  "wf": [
+   0.67,
+   0.46
+  ],
+  "cutter_release_ok": false
+ },
+ "shiva_ti_atk": {
+  "cut": "minor",
+  "notes": "No holes in body, skirt or trident (alpha solid; a patch between the legs under the skirt in f10, x0.40-0.55 y0.60-0.70, is 50-80% opaque but reads as shadow on dark). Haze, faint: leftover dust smudge on the floor under the back leg in f9 (x0.05-0.50 y0.72-1.0, half see-through, barely seen on dark) and dim olive specks on the floor at the bottom left in f11-12 (x0.10-0.35 y0.90-0.97) - worth wiping, not a blocker. Edges: back (left) foot is partly out of the bottom-left corner f9-16 (8 frames, heel and anklet stay); trident prongs touch the right edge f15-16 and are above the top edge f18-19 (in f19 the small trident head at the top is pinkish, half see-through); fire jet runs out of the bottom-right corner f10-13 (effect). Prongs cover the face f5-8 and f17 (take). Trident drops to the ground in one step f19->20; f0=f1, f24=f0. The cutter's release f12 is late: the trident is jabbed down and the jet is already out in f10.",
+  "release": 10,
+  "wf": [
+   0.79,
+   0.77
+  ],
+  "cutter_release_ok": false
+ },
+ "mictlan_bt_atk": {
+  "cut": "ok",
+  "notes": "No holes (alpha solid in all 25 frames, staff and skull whole), no haze (teal/violet glow around the skull f10-15 is the effect). Edges (notes only): staff butt touches the left edge f5-9 and f16-17 (end cap only), glow and spike tips of the skull crown touch the right edge f11-14, top of the staff skull is cut by the top edge in f18 (1 frame). One-frame smear of the staff skull over his face side in f17 (from the take). Size and place steady, f0=f1, f24=f0. The cutter's release f13 is inside the held glow but late: the jab is fully out and the glow is full from f11 (f10 is still mid-thrust); the point itself is the same.",
+  "release": 11,
+  "wf": [
+   0.78,
+   0.42
+  ],
+  "cutter_release_ok": false
+ }
+}
