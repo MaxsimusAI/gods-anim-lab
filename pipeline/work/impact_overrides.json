@@ -5982,7 +5982,12 @@
   "rel_by_eye": 13
  },
  "koschei_ti_atk": {
-  "darkbody": 22
+  "darkbody": 22,
+  "wf": [
+   0.64,
+   0.46
+  ],
+  "rel_by_eye": 12
  },
  "hecate_ti_sup": {
   "darkbody": 22
@@ -6017,5 +6022,19 @@
    0.43
   ],
   "rel_by_eye": 9
+ },
+ "sting_bt_hyp": {
+  "wf": [
+   0.1,
+   0.18
+  ],
+  "rel_by_eye": 15
+ },
+ "sting_ti_hyp": {
+  "wf": [
+   0.94,
+   0.09
+  ],
+  "rel_by_eye": 14
  }
 }
