@@ -5751,8 +5751,8 @@ const P = [];
 for (let i = 0; i <= N; i++)
 P.push(pt(lerp(k0, k1, i / N), a));
 g.save();
-g.globalCompositeOperation = 'lighter';
-g.lineCap = 'butt';
+g.globalCompositeOperation = o.comp || 'lighter';   // comp 'source-over': a dark, opaque body (a crimson cloud) instead of a glowing one
+g.lineCap = o.cap || 'butt';
 const al = (1 - dq * .6) * (o.a ?? 1), ck = o.coreK ?? .9, lk = o.line ?? 1;
 // the very start: the stream is still a short stub at the origin, and in a fan of streams all the stubs lie on one another - additive
 // sprites and head glows there add up to a white blob that reads as a flash. sk fades the head glow, the sprites and the core in.
@@ -5877,7 +5877,7 @@ const k = i / N * up, th = k * turns * TAU + a * (o.spin ?? 5) + ph, rr = rx * (
 P.push([b.x + Math.cos(th) * rr, lerp(y0, y1, k) + Math.sin(th) * rr * .26, Math.sin(th)]);
 }
 g.save();
-g.globalCompositeOperation = 'lighter';
+g.globalCompositeOperation = o.comp || 'lighter';
 g.lineCap = 'round';
 for (const [lw, cc, aa] of [[2.6, col, .2], [1.35, col, .8], [.3, core, .45]])   // the body is the effect colour, the light core is thin
 for (let i = 0; i < N; i++) {
@@ -26493,11 +26493,12 @@ if (!t9)
 return;
 // review fix: the clip is a wide dark-crimson cloud of petals, not a thin pink line - a wide crimson body, many large petals, a
 // crimson haze behind them, a thick coil
-const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-9, 9), y: y + F.rnd(-9, 9), vx: F.rnd(-34, 34), vy: F.rnd(-34, 10), ay: 60, drag: 1.8, life: F.rnd(.5, .9), s0: F.rnd(8, 13) * k, s1: 4 * k, tex: 'petal', col: F.pick(['#c2184f', '#8a0f36', '#e0407a', '#ff7aa8']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
-const haze = (x, y, k = 1) => F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-12, 12), vy: -F.rnd(4, 18), drag: 2, life: F.rnd(.45, .75), s0: F.rnd(16, 22) * k, s1: F.rnd(30, 40) * k, tex: F.pick(['smoke', 'smoke2']), col: F.pick(['#7a0a2c', '#5c0a24']), add: false, a0: .5, rot: F.rnd(0, 6), vr: F.rnd(-.6, .6) });
+const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-9, 9), y: y + F.rnd(-9, 9), vx: F.rnd(-34, 34), vy: F.rnd(-34, 10), ay: 60, drag: 1.8, life: F.rnd(.5, .9), s0: F.rnd(8, 13) * k, s1: 4 * k, tex: 'petal', col: F.pick(['#c2184f', '#a8123f', '#e0407a', '#ff7aa8']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
+const haze = (x, y, k = 1) => F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-12, 12), vy: -F.rnd(4, 18), drag: 2, life: F.rnd(.45, .75), s0: F.rnd(16, 22) * k, s1: F.rnd(30, 40) * k, tex: F.pick(['smoke', 'smoke2']), col: F.pick(['#8a1038', '#7a0a2c']), add: false, a0: .28, rot: F.rnd(0, 6), vr: F.rnd(-.6, .6) });
 r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
-r9Stream(F, from, to, fly, { col: '#c2184f', core: '#ff8fb8', w: 17, coreK: .4, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .85, drain: .2, tex: 'petal', ramp: ['#ff7aa8', '#e0407a', '#b0123f'], ts: 1.5, n: 14, speed: 1.1, emit: (x, y) => { haze(x, y); pet(x, y); if (F.rng() < .7) pet(x, y); } });
-F.at(fly - .02, () => r9Coil(F, t, { col: '#c2184f', core: '#ff8fb8', w: 11, dur: .85, emit: (x, y) => { if (F.rng() < .7) pet(x, y, .8); if (F.rng() < .3) haze(x, y, .7); } }));
+// second review: an additive body came out neon pink with dark blots on it - the body is drawn opaque in the clip's dark crimson
+r9Stream(F, from, to, fly, { col: '#a8123f', core: '#e0407a', comp: 'source-over', cap: 'round', w: 17, coreK: .35, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .85, drain: .2, tex: 'petal', ramp: ['#ff7aa8', '#e0407a', '#b0123f'], ts: 1.5, n: 14, speed: 1.1, emit: (x, y) => { haze(x, y); pet(x, y); if (F.rng() < .7) pet(x, y); } });
+F.at(fly - .02, () => r9Coil(F, t, { col: '#a8123f', core: '#e0407a', comp: 'source-over', w: 11, dur: .85, emit: (x, y) => { if (F.rng() < .7) pet(x, y, .8); if (F.rng() < .3) haze(x, y, .7); } }));
 }, { exp: .45, tHit: c9 ? c9.t - F.t : T_SUP, ty: .5 });
 LIL.watchCharm(F, t9);
 return;
@@ -33603,7 +33604,7 @@ g.lineTo(-14, 0);
 g.lineTo(-21, 3.6);
 g.closePath();
 g.fill();
-g.fillStyle = '#f6faff';
+g.fillStyle = plain ? '#9fb0c8' : '#f6faff';   // stuck in the victim: steel, not a white patch
 g.beginPath();
 g.moveTo(6, 0);
 g.lineTo(-3, -3);
@@ -33805,7 +33806,7 @@ r9Link(F, u, 'h', [t9], (from, to, fly) => {
 // the bolt flies on an arc: it sticks in the victim along the tangent of the arc at the arrival, not along the straight line
 const arc = (to.x < from.x ? 1 : -1) * 24, dx = to.x - from.x, dy = to.y - from.y, L = Math.hypot(dx, dy) || 1;
 F._vh9 = Math.atan2(dy - Math.PI * arc * dx / L, dx + Math.PI * arc * dy / L);
-r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc, tail: .6, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
+r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc, tail: .6, fade: .04, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
 head: (g, a, k, R) => { g.globalAlpha = .8; g.drawImage(TX.get('glow', '#9fbcff'), -R * 2.4, -R * 1.5, R * 4.2, R * 3); g.globalAlpha = .75; g.strokeStyle = '#dfe8ff'; g.lineWidth = 4.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-6, 0); g.stroke(); g.globalAlpha = 1; nlBolt(g, 2.5); } }); }, { exp: .45, ty: .45 });
 return;
 }
@@ -33831,7 +33832,7 @@ F.ring(p.x, p.y, 6, 24, '#9fbcff', { dur: .3, w: 3, k: .5 });
 F.burst(p.x, p.y, { n: 12, tex: 'shard', col: ['#d8bc8c', '#b08e60', '#8a6a44'], v0: 80, v1: 220, s0: 5, s1: 2.5, l0: .35, l1: .6, ay: 560, add: false, stretch: 0, vr: 14 });
 F.burst(p.x, p.y, { n: 8, tex: 'star4', col: ['#bfd4ff', '#9fbcff'], v0: 60, v1: 170, s0: 4.5, s1: 1, l0: .3, l1: .5, drag: 2.6, stretch: 0, add: false });
 F.decal(f.x, f.y, f.w * .7, '#cfe0ff', { cracks: 8, dur: 1.2 });
-F.obj(.55, (g, a) => { g.translate(p.x - Math.cos(ang) * 8, p.y - Math.sin(ang) * 8); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalCompositeOperation = 'source-over'; g.globalAlpha = (a > .35 ? 1 - (a - .35) / .2 : 1) * .9; g.strokeStyle = '#c8d4ea'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-8, 0); g.stroke(); g.globalAlpha = a > .35 ? 1 - (a - .35) / .2 : 1; nlBolt(g, 2.5, true); }, 'top');
+F.obj(.55, (g, a) => { g.translate(p.x - Math.cos(ang) * 17, p.y - Math.sin(ang) * 17); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalCompositeOperation = 'source-over'; g.globalAlpha = (a > .35 ? 1 - (a - .35) / .2 : 1) * .9; g.strokeStyle = '#c8d4ea'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-8, 0); g.stroke(); g.globalAlpha = a > .35 ? 1 - (a - .35) / .2 : 1; nlBolt(g, 2.5, true); }, 'top');
 },
 },
 };
