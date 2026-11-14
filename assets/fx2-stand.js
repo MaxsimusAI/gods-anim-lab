@@ -5668,7 +5668,10 @@ return null; const r = T[String(A.src || '').replace(/^.*\//, '').replace(/-(mob
 const R9_REL = { 'artemis-bt-atk': { f: 8, m: '5|0.699|0.512' }, 'artemis-ti-atk': { f: 7, m: '5|0.825|0.305' }, 'artemis-bt-sup': { f: 13, m: '9|0.763|0.368' }, 'artemis-ti-sup': { f: 12, m: '9|0.864|0.274' } };
 // R9_PT: a point of the sheet frame (fractions of the frame, like wf) where the owner wants the effect to start while wf marks another
 // baked effect. Sekhmet BT super: wf is the fire of the staff, the clip breathes fire from the mouth («огонь из рта»).
-const R9_PT = { 'sekhmet-bt-sup': { p: [.52, .14], m: '14|0.299|0.426' } };
+const R9_PT = { 'sekhmet-bt-sup': { p: [.52, .14], m: '14|0.299|0.426' },
+// Block 4b. Llorona BT ult: wf is the splash at her chest, the clip holds the blue water flame in the hand at the left. Llorona TI
+// super: wf is the side of the water curtain at knee height, the game continues the curtain from its crest above her head.
+'llorona-bt-hyp': { p: [.2, .2], m: '14|0.569|0.48' }, 'llorona-ti-sup': { p: [.5, .07], m: '10|0.815|0.599' } };
 // R9_STAY: a strike sheet with a second baked swing after the release frame - the god who leapt to the enemy stays there until
 // frame f (the end of that swing) and only then leaps back. Heimdall TI strike: release f3, second swing f8-f10.
 const R9_STAY = { 'heimdall-ti-atk': { f: 11, m: '3|0.35|0.1' } };
@@ -5684,9 +5687,16 @@ return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr
 // The flight of EVERY target ends .01 s before the damage (tHit): o.min (wished minimum flight) and o.gap (stagger between targets)
 // are wishes that yield when the release frame is too close to the damage - the stagger is squeezed first, then the flight is
 // shortened. A projectile never lands after its hit.
+// r9Warm: the stand clears its picture cache (W.imgs) at every cast, the sheet picture is then loaded lazily by the first frameOf() call
+// and that call still returns nothing - ask for it at the cast start so that the weapon point (wf) is known on the release frame.
+// Without it the first projectile of EVERY cast started from the fallback point instead of wf.
+const r9Warm = (F, u) => { if (F.st && F.st.frameOf)
+for (const d of [0, .06, .2])
+F.at(d, () => F.st.frameOf(u)); };
 const r9Link = (F, u, kind, targets, draw, o = {}) => {
 const K = kind === 's' ? 'sup' : kind === 'h' ? 'hyp' : 'atk', exp = o.exp ?? (kind === 'a' ? REL_SHOT : BR.OLD_SIG.has(u.hid) ? .5 : REL_SUP), tR = F.relDt(K, exp), tHit = o.tHit ?? T_SUP;
 const T = [...new Set(targets || [])].filter(t => t && t.alive && t !== u);
+r9Warm(F, u);
 const room = Math.max(.03, tHit - tR - .01), gap = T.length > 1 ? Math.min(o.gap ?? 0, Math.max(0, room - Math.min(o.min ?? .14, room)) / (T.length - 1)) : 0;
 F.at(tR, () => { const from = F.wp(kind, u); T.forEach((t, i) => { const d = gap * i; F.at(d, () => draw(from, F.tc(t, o.ty ?? .45), room - d, t, i)); }); });
 return tR;
@@ -5741,8 +5751,8 @@ const P = [];
 for (let i = 0; i <= N; i++)
 P.push(pt(lerp(k0, k1, i / N), a));
 g.save();
-g.globalCompositeOperation = 'lighter';
-g.lineCap = 'butt';
+g.globalCompositeOperation = o.comp || 'lighter';   // comp 'source-over': a dark, opaque body (a crimson cloud) instead of a glowing one
+g.lineCap = o.cap || 'butt';
 const al = (1 - dq * .6) * (o.a ?? 1), ck = o.coreK ?? .9, lk = o.line ?? 1;
 // the very start: the stream is still a short stub at the origin, and in a fan of streams all the stubs lie on one another - additive
 // sprites and head glows there add up to a white blob that reads as a flash. sk fades the head glow, the sprites and the core in.
@@ -5780,6 +5790,186 @@ g.drawImage(TX.get('glow', core), h.x - w, h.y - w, w * 2, w * 2);
 g.restore();
 if (o.emit && dq <= 0)
 o.emit(h.x, h.y, k1);
+}, o.layer);
+};
+// r9Orb (Block 4b, 14.11 Maxim: «плохой программный эффект», «не понятно что летит. Слишком резко и не заметно»): one large soft comet -
+// a glowing orb with a tapered flowing tail and sparks - from a point to a target in `fly` seconds. Big enough to follow on a phone,
+// no flash. o: col, core, r (orb radius), arc (side bow, px), ease, tail (share of the path), tex / texCol / spin (a sprite turning in
+// the orb), head(g, a, k, r) (own drawing of the orb, the canvas is moved to the orb and turned along the flight), spark (per second),
+// sparkCol [], sparkTex, from (function: a moving origin), onHit(x, y), layer. `to` may be a function (a moving target).
+const r9Rate = (F, o, perSec) => { if (o.t == null) { o.t = F.t; o.acc = 0; return 0; } o.acc += (F.t - o.t) * perSec; o.t = F.t; const n = Math.floor(o.acc); o.acc -= n; return Math.min(n, 8); };
+const r9Orb = (F, from, to, fly, o = {}) => {
+const col = o.col || '#ffffff', core = o.core || '#ffffff', r = o.r ?? 9, arc = o.arc ?? -16, tail = o.tail ?? .45, fade = o.fade ?? .14, ez = EASE[o.ease || 'ease-in-out'], N = 12, lv = {}, ph = F.rnd(0, 6);
+const to0 = to;
+const pt = k => { const f = o.from ? (o.from() || from) : from, t = typeof to0 === 'function' ? to0() : to0, L = Math.hypot(t.x - f.x, t.y - f.y) || 1, q = Math.sin(Math.PI * k) * arc;
+return { x: lerp(f.x, t.x, k) - (t.y - f.y) / L * q, y: lerp(f.y, t.y, k) + (t.x - f.x) / L * q }; };
+let done = false;
+return F.obj(fly + fade, (g, a) => {
+const k1 = ez(clamp(a / fly, 0, 1)), dq = clamp((a - fly) / fade, 0, 1), k0 = lerp(Math.max(0, k1 - tail), 1, dq), up = lerp(.5, 1, clamp(a / (fly * .3), 0, 1)), R = r * up * (1 + .06 * Math.sin(a * 26 + ph));
+const P = [];
+for (let i = 0; i <= N; i++)
+P.push(pt(lerp(k0, k1, i / N)));
+// a fan of orbs starts from one point and the additive heads add up to a white blob there: the orb fades in over the first quarter
+const h = P[N], al = (1 - dq) * (.12 + .88 * clamp(a / Math.min(fly * .4, .12), 0, 1));
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+if (k1 - k0 > .01)
+for (const [lw, cc, aa] of [[2.3, col, .16], [1.25, col, .46], [.5, core, .7]])
+for (let i = 0; i < N; i++) {
+const t = (i + .5) / N;
+g.globalAlpha = aa * al * t;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, R * lw * (.12 + .88 * t * t));
+g.beginPath();
+g.moveTo(P[i].x, P[i].y);
+g.lineTo(P[i + 1].x, P[i + 1].y);
+g.stroke();
+}
+if (dq < 1) {
+const q = pt(Math.max(0, k1 - .03)), ang = Math.atan2(h.y - q.y, h.x - q.x);
+g.globalAlpha = .55 * al;
+g.drawImage(TX.get('glow', col), h.x - R * 2.7, h.y - R * 2.7, R * 5.4, R * 5.4);
+g.translate(h.x, h.y);
+g.rotate(ang);
+if (o.head) {
+g.globalAlpha = al;
+o.head(g, a, k1, R);
+}
+else {
+g.globalAlpha = .95 * al;
+g.drawImage(TX.get('glow', col), -R * 1.5, -R * 1.5, R * 3, R * 3);
+g.globalAlpha = (o.coreA ?? .9) * al;
+g.drawImage(TX.get('glow', core), -R * .95, -R * .95, R * 1.9, R * 1.9);
+if (o.tex) {
+g.rotate(a * (o.spin ?? 5) + ph);
+g.globalAlpha = .9 * al;
+const s = R * (o.ts ?? 2.2);
+g.drawImage(TX.get(o.tex, o.texCol || core), -s / 2, -s / 2, s, s);
+}
+}
+}
+g.restore();
+if (a < fly && o.spark !== 0)
+for (let i = r9Rate(F, lv, o.spark ?? 46); i > 0; i--)
+F.p({ x: h.x + F.rnd(-R, R) * .6, y: h.y + F.rnd(-R, R) * .6, vx: F.rnd(-22, 22), vy: F.rnd(-22, 22) + (o.sparkVy ?? 0), ay: o.sparkAy ?? 0, drag: 2.4, life: F.rnd(.22, .42), s0: F.rnd(2.2, 3.8) * (o.sparkS ?? 1), s1: .5, tex: o.sparkTex || 'ember', col: F.pick(o.sparkCol || [col, core]) });
+if (a >= fly && !done) {
+done = true;
+if (o.onHit) {
+const t = typeof to0 === 'function' ? to0() : to0;
+o.onHit(t.x, t.y);
+}
+}
+}, o.layer);
+};
+// r9Coil (Block 4b): a ribbon winds up around a unit (a control / curse that has arrived and holds the victim): a soft helix from the
+// feet to the head that keeps turning and fades. o: col, core, w, turns, dur, in (wind-up time), rx (radius, share of the box width)
+const r9Coil = (F, t, o = {}) => {
+const col = o.col || '#ffffff', core = o.core || '#ffffff', w = o.w ?? 5, turns = o.turns ?? 2.2, dur = o.dur ?? .6, tin = o.in ?? .22, N = 34, ph = F.rnd(0, 6);
+F.obj(dur, (g, a) => {
+if (!t.alive && !o.any)
+return;
+// (the first frames: the whole ribbon is still one short stub - with round caps a thick ribbon is a round blob there, so it fades in)
+const b = boxOf(t), up = EASE['ease-out'](clamp(a / tin, 0, 1)), al = (a < dur * .55 ? 1 : 1 - (a - dur * .55) / (dur * .45)) * clamp((up - .12) / .3, 0, 1), rx = b.w * (o.rx ?? .46), y0 = b.feet - b.h * .06, y1 = b.top + b.h * .12;
+const P = [];
+for (let i = 0; i <= N; i++) {
+const k = i / N * up, th = k * turns * TAU + a * (o.spin ?? 5) + ph, rr = rx * (1 - .25 * k);
+P.push([b.x + Math.cos(th) * rr, lerp(y0, y1, k) + Math.sin(th) * rr * .26, Math.sin(th)]);
+}
+g.save();
+g.globalCompositeOperation = o.comp || 'lighter';
+g.lineCap = 'round';
+for (const [lw, cc, aa] of [[2.6, col, .2], [1.35, col, .8], [.3, core, .45]])   // the body is the effect colour, the light core is thin
+for (let i = 0; i < N; i++) {
+const k = (i + .5) / N, front = .35 + .65 * clamp(P[i][2] * .5 + .5, 0, 1), tp = Math.sin(Math.PI * Math.min(1, k * 1.15)) * .8 + .2;
+g.globalAlpha = aa * al * front;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, w * lw * tp * (.6 + .4 * front));
+g.beginPath();
+g.moveTo(P[i][0], P[i][1]);
+g.lineTo(P[i + 1][0], P[i + 1][1]);
+g.stroke();
+}
+g.restore();
+if (o.emit && a < dur * .7) {
+const q = P[Math.floor(F.rnd(0, N))];
+o.emit(q[0], q[1]);
+}
+}, o.layer);
+};
+// r9Fp (Block 4b): a point of the sheet frame that is on screen (px, py = fractions of the frame, like wf) in arena coordinates - for an
+// effect that the clip cuts at a frame edge (Raijin ult: the lightning column leaves through the top) and the game continues from there.
+const r9Fp = (F, u, kind, px, py) => {
+const fr = BR.isProposed && u && u.gu && F.st && F.st.frameOf ? F.st.frameOf(u) : null;
+if (!fr || !fr.atk)
+return F.wp(kind, u);
+const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - px : px;
+return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + py * fr.h - u.feet) * k0, h: boxOf(u).h };
+};
+// r9Top (Block 4b): the point where the baked effect of today's sheet leaves the frame through the TOP edge (metric `ho.top`, the entry
+// nearest to the release frame) - the game continues the effect from there. Falls back to wf.
+const r9Top = (F, u, kind, py = .05, px = null) => {
+const A = BR.isProposed && u && u.gu ? BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) : null, T = A && A.ho && A.ho.top;
+if (!T || !T.length)
+return px != null ? r9Fp(F, u, kind, px, py) : F.wp(kind, u);   // px: a constant x for a sheet without the metric
+let best = T[0];
+for (const q of T)
+if (Math.abs(q[0] - A.impact) < Math.abs(best[0] - A.impact))
+best = q;
+return r9Fp(F, u, kind, best[1], py);
+};
+// r9Bolt (Block 4b): one thick living lightning that GROWS from a point to a target in `fly` seconds (the tip is seen travelling), stays
+// for `hold` and fades - a jagged path built once (no flicker), soft glow + coloured body + white core, a few short forks, sparks at
+// the tip. After the arrival (+ hold) the bolt lets go of its origin and runs into the target in `fade` seconds, so nothing hangs from
+// the origin when the baked effect there is over. o: col, core, w, rough, forks, hold, fade, onHit, layer.
+const r9Bolt = (F, from, to, fly, o = {}) => {
+const col = o.col || '#6fc0ff', core = o.core || '#ffffff', w = o.w ?? 4.5, hold = o.hold ?? .1, fade = o.fade ?? .22, rough = o.rough ?? .17, lv = {};
+const sub = (a, b, lvl) => { if (!lvl)
+return [a]; const L = Math.hypot(b.x - a.x, b.y - a.y) || 1, off = (F.rng() - .5) * L * rough, m = { x: (a.x + b.x) / 2 - (b.y - a.y) / L * off, y: (a.y + b.y) / 2 + (b.x - a.x) / L * off }; return sub(a, m, lvl - 1).concat(sub(m, b, lvl - 1)); };
+const P = sub(from, to, 4).concat([to]), n = P.length - 1, forks = [];
+for (let i = 0; i < (o.forks ?? 2); i++) {
+const j = 3 + Math.floor(F.rng() * (n - 6)), a = P[j], d = P[j + 1], ang = Math.atan2(d.y - a.y, d.x - a.x) + (F.rng() < .5 ? -1 : 1) * F.rnd(.45, .85), L = F.rnd(14, 28), e = { x: a.x + Math.cos(ang) * L, y: a.y + Math.sin(ang) * L };
+forks.push({ j, pts: sub(a, e, 2).concat([e]) });
+}
+let done = false;
+return F.obj(fly + hold + fade, (g, a) => {
+const k = clamp(a / fly, 0, 1), dq = clamp((a - fly - hold) / fade, 0, 1), al = (1 - dq * .5) * (.9 + .1 * Math.sin(a * 38)), m0 = Math.min(n - 1, Math.floor(dq * n)), m = k * n, mi = Math.min(n - 1, Math.floor(m)), f = m - mi;
+const tip = k >= 1 ? P[n] : { x: lerp(P[mi].x, P[mi + 1].x, f), y: lerp(P[mi].y, P[mi + 1].y, f) };
+const line = (pts, wk) => { for (const [lw, cc, aa] of [[3.4, col, .16], [1.5, col, .6], [.55, core, .95]]) {
+g.globalAlpha = aa * al;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, w * lw * wk * (1 - dq * .5));
+g.beginPath();
+g.moveTo(pts[0].x, pts[0].y);
+for (let i = 1; i < pts.length; i++)
+g.lineTo(pts[i].x, pts[i].y);
+g.stroke();
+} };
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+g.lineJoin = 'round';
+if (dq < 1)
+line(P.slice(m0, mi + 1).concat([tip]), 1);
+for (const b of forks)
+if (m > b.j + 1 && b.j >= m0 && dq < 1)
+line(b.pts.slice(0, Math.max(2, Math.ceil(clamp((m - b.j - 1) / 3, 0, 1) * b.pts.length))), .5);
+if (dq <= 0) {
+const s = w * (a < fly ? 4.2 : 3.2);
+g.globalAlpha = .7 * al;
+g.drawImage(TX.get('glow', col), tip.x - s, tip.y - s, s * 2, s * 2);
+g.globalAlpha = .8 * al;
+g.drawImage(TX.get('glow', core), tip.x - s * .4, tip.y - s * .4, s * .8, s * .8);
+}
+g.restore();
+if (a < fly)
+for (let i = r9Rate(F, lv, o.spark ?? 40); i > 0; i--)
+F.p({ x: tip.x, y: tip.y, vx: F.rnd(-60, 60), vy: F.rnd(-60, 60), drag: 3, life: F.rnd(.14, .28), s0: F.rnd(2, 3.2), s1: .4, tex: 'ember', col: F.pick([col, core]), stretch: .05 });
+if (a >= fly && !done) {
+done = true;
+if (o.onHit)
+o.onHit(to.x, to.y);
+}
 }, o.layer);
 };
 const r9Stand = (F, e, fly, launch) => {
@@ -7570,6 +7760,9 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 // Sting ult: the kick (release frame) lands when the sim deals the first hit. Shango super: the lightning is instant - the release
 // frame lands with the bolts and the damage.
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
+// r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
+// before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45, 'atlas:sup': .45, 'atlas:hyp': .45, 'vanhelsing:hyp': .45, 'erlang:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -14449,6 +14642,8 @@ for (let i = 0; i < 8; i++)
 F.at(.05 + i * .03, () => F.p({ x: f.x + F.rnd(-f.w * .5, f.w * .5), y: f.y - F.rnd(10, 30), vx: F.rnd(-10, 10), vy: -F.rnd(14, 30), drag: 1, life: F.rnd(.7, 1), s0: 14, s1: 30, tex: T2('smoke4', 'smoke'), col: '#d8fff4', add: false, a0: .55, rot: F.rnd(-.4, .4) }));
 F.obj(dur, (g, a) => { const al = (a < .15 ? a / .15 : Math.max(0, 1 - (a - .15) / (dur - .15))) * .55; g.globalCompositeOperation = 'lighter'; g.globalAlpha = al; g.drawImage(TX.get('glow', '#7fe8c8'), f.x - f.w * 1.3, f.y - 26, f.w * 2.6, 40); }, 'under');
 };
+// r9 Block 4b: the cold blue fire of Veles' ult clips (r9Fire options)
+const vlBlue9 = o => Object.assign({ col: '#3f9cff', core: '#e8f6ff', ramp: ['#e8f6ff', '#8fd0ff', '#4aa0ff', '#2a6ae0'], w: 6.5, wob: 7, tail: .8, drain: .18 }, o);
 SIG.veles = {
 motif: 'storm', glyph: 'k2_veles',
 a: {
@@ -14526,15 +14721,51 @@ F.at(.18, () => vlClaw(F, x0, x1, y, { sweep: .11 }));
 },
 },
 h: {
-col: VL.nav, status: k2Seal('k2_veles'),
+col: VL.nav,
+// review fix: on today's sheets the curse is the blue coil of the clip's fire - the purple seal is not drawn; the fallen ally rises in
+// a pillar of the same blue instead of the shared pale-gold one
+status(F, e) { if (F.today('hyp'))
+return e.up ? 'default' : undefined; return k2Seal('k2_veles').call(this, F, e); },
+rise(F, e) {
+if (!F.today('hyp'))
+return 'default';
+// (F.pillar is replaced by the design layer with pale-gold strands whatever colour is passed, so the column is drawn here)
+const b = boxOf(e.u);
+r9Fire(F, { x: b.x, y: b.feet - 2 }, { x: b.x, y: b.top - b.h * .3 }, .28, vlBlue9({ w: 13, arc: 0, wob: 4, hold: .4, drain: .25 }));
+for (let i = 0; i < 12; i++)
+F.at(i * .03, () => F.p({ x: b.x + F.rnd(-b.w * .3, b.w * .3), y: b.feet - F.rnd(0, b.h * .5), vx: F.rnd(-8, 8), vy: -F.rnd(40, 90), drag: 1.2, life: F.rnd(.4, .7), s0: F.rnd(6, 9), s1: 1.5, tex: 'flame', col: F.pick(['#8fd0ff', '#4aa0ff']) }));
+},
 anticip(F, u, k, rel, e) {
 k2Cut(u, 'hyp', 1);
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Veles ult: «плохая синхронизация программного эффекта, вид не вау и другой цвет»): today's sheets - no green
+// serpent, no green fog, no sigil. The clip's colour is cold blue. One read: on the release frame the blue fire that spirals up around
+// him and leaves through the top edge flows from that point to every enemy and winds around him - the curse (or, when an ally is
+// dead, in one stream to the fallen ally who rises).
+const flame9 = (x, y) => { if (F.rng() < .4) F.p({ x, y, vx: F.rnd(-10, 10), vy: -F.rnd(20, 50), drag: 1.5, life: F.rnd(.3, .5), s0: F.rnd(5, 8), s1: 1.5, tex: 'flame', col: F.pick(['#8fd0ff', '#4aa0ff']) }); };
+const dead = F.allies().filter(x => !x.alive && x !== u), blue = vlBlue9;
+if (dead.length) {
+const tR = F.relDt('hyp', .5), fly = Math.max(.12, T_SUP - .01 - tR), t = dead[0];
+r9Warm(F, u);
+F.atRaw(tR, () => { r9Fire(F, r9Top(F, u, 'h'), F.tc(t, .5), fly, blue({ w: 9, arc: -18 }));
+F.atRaw(fly - .02, () => r9Coil(F, t, { any: true, col: '#3f9cff', core: '#e8f6ff', w: 8.5, dur: .9, turns: 2.4, emit: flame9 })); });
+return;
+}
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 'h', row, (from, to, fly, t, i) => {
+r9Fire(F, r9Top(F, u, 'h'), to, fly, blue({ arc: (i - (n - 1) / 2) * -8 + (i % 2 ? 8 : -8) }));
+F.atRaw(fly - .02, () => r9Coil(F, t, { col: '#3f9cff', core: '#e8f6ff', w: 8, dur: .8, turns: 2.2, emit: flame9 }));
+}, { gap: .012, ty: .46 });
+return;
+}
 const b = boxOf(u);
 F.at(.16, () => vlSerpent(F, vlCoilPath(b, { x: LAY.W / 2, y: LAY.eF(8) }), .46, { w: 6, body: .26 }));
 F.at(.76, () => k2sigil(F, 'k2_veles', '#8ff0c0', { s: 36, k: .7 }));
 },
 ult(F, e) { F.hypDrawn = true; },
 hyperHit(F, e) {
+if (F.today('hyp'))
+return;
 vlFogBank(F, e.targets, 1.4);
 const L = e.targets.slice().sort((a, b) => Math.abs(a.slot - 2) - Math.abs(b.slot - 2));
 L.forEach((t, i) => F.at(i * .04, () => vlFogOn(F, t, 1.2)));
@@ -23717,8 +23948,23 @@ KW.bolt(F, { x: a.x, y: a.y - 4 }, b, .012, { arc: (b.x < a.x ? 1 : -1) * 22, th
 },
 s: {
 col: PO.c,
-anticip(F, u) { const a = F.feetOf(u); F.at(.42, () => kwSurge(F, { x: a.x, y: a.y - 6 }, { x: LAY.W / 2, y: LAY.eF(14) }, .3, { w: 124 })); },
+anticip(F, u, kind, rel, e) {
+if (F.today('sup', u)) {
+// r9 Block 4b (14.11 Maxim, Poseidon super: «плохая связь анимации и программного эффекта. Программный эффект плохой»): today's sheets - no
+// surge blob, no wave pictures. One read: on the release frame the column of sea water that the clip raises through the top edge
+// pours from that point in a jet to every enemy (thicker to the outer ones - they take more) and crashes on them with the damage.
+const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 's', row, (from, to, fly, t, i) => { const far = i === 0 || i === n - 1;
+r9Stream(F, r9Top(F, u, 's', .06, .5), to, fly, { col: '#2fc4c0', core: '#e4fffb', w: far ? 12.5 : 10, coreK: .55, arc: (i - (n - 1) / 2) * -7, wob: 5, tail: .8, drain: .2, tex: 'smoke', ramp: ['#7fe0d8', '#48c8c4', '#2fa8a8'], ts: 3, n: 12, speed: 1.2,
+emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 160, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#e4fffb', '#9af0e8', '#48d0cc']) }); } }); }, { gap: .012, ty: .5 });
+return;
+}
+const a = F.feetOf(u); F.at(.42, () => kwSurge(F, { x: a.x, y: a.y - 6 }, { x: LAY.W / 2, y: LAY.eF(14) }, .3, { w: 124 })); },
 sup(F, e) {
+if (F.today('sup')) {
+F.supDrawn = true;
+return;
+}
 const yb = LAY.eF(7);
 F.at(.1, () => { KW.crown(F, LAY.W / 2, yb, 110, { tex: 'crown2', col: PO.cr, dur: .5, n: 8, sy: 1.1 }); KW.foam(F, LAY.W / 2, yb - 10, 4, 1.2); for (const dir of [-1, 1]) {
 if (OBJ('o_wave'))
@@ -25685,6 +25931,20 @@ F.decal(f.x, f.y, f.w * .62 * s, LUC.PALE, { cracks: 7, dur: 1, k: .95 });
 for (let i = 0; i < 3; i++)
 F.at(.05 + i * .07, () => LUC.feather(F, p.x + F.rnd(-22, 22), p.y - F.rnd(14, 34), { s: 1 }));
 };
+// r9 Block 4b (14.11 Maxim, Lucifer super / ult: «программный эффект не синхронизирован с анимацией и выглядит плохо»): today's sheets -
+// the clip's own violet star. Super: on the release frame the star that the clip sends up through the top edge (wf) flies on to the
+// victim. Ult: the ribbons of light that wind around him unwind from the staff (wf) to every enemy. The hit is violet like the clip.
+LUC.C9 = { c: '#8a78ff', pale: '#c4bcff', core: '#f3f0ff' };
+LUC.star9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: LUC.C9.c, core: LUC.C9.core, r: 12, arc: -20, tex: txOr('glint', 'star4'), texCol: '#ffffff', ts: 3, spin: 3, tail: .5, sparkCol: [LUC.C9.pale, LUC.C9.c, '#ffffff'] }, o));
+LUC.hit9 = (F, t, s = 1) => {
+const p = F.tc(t, .62), f = F.feetOf(t);   // below the chest: the damage number stays readable
+F.flash(p.x, p.y, 24 * s, LUC.C9.c, { dur: .42, k: 1.5, grow: true });
+F.ring(p.x, p.y, 6, 24 * s, LUC.C9.c, { dur: .36, w: 3.5, k: .5 });
+NC.glint(F, p.x, p.y, 18 * s, LUC.C9.pale, { life: .2, rot: .78 });
+F.burst(p.x, p.y, { n: Math.round(14 * s), v0: 80, v1: 200 * s, col: [LUC.C9.c, LUC.C9.pale, '#ffffff'], s0: 3.2, l0: .25, l1: .5, drag: 3 });
+LUC.shreds(F, p.x, p.y, 6, 32 * s, 1.1 * s);
+F.decal(f.x, f.y, f.w * .6 * s, LUC.C9.pale, { cracks: 6, dur: 1, k: .9 });
+};
 LUC.bless = (F, t) => {
 if (t._luc && !t._luc.down)
 return;
@@ -25858,6 +26118,10 @@ s: {
 col: LUC.W, noCharge: true, curseGlyph: 'nc_star', markGlyph: 'nc_star',
 anticip(F, u, kind, rel, e) {
 const t = e.targets[0];
+if (F.today('sup', u)) {
+r9Link(F, u, 's', [t], (from, to, fly) => LUC.star9(F, from, to, fly, { arc: (to.x < from.x ? 1 : -1) * 18 }), { exp: .45 });
+return;
+}
 LUC.gather(F, 's', .34, 9);
 F.at(.3, () => { const p = LUC.halo(F, 's'); LUC.flare(F, p, 1.2); LUC.rise(F, p, t ? (F.tc(t).x - p.x) * .25 : 0); });
 if (t)
@@ -25867,13 +26131,22 @@ LUC.starHit(F, t, 1); } }); });
 sup(F, e) { F.supDrawn = true; },
 superHit() { },
 hit(F, e) { if (e.src !== 'super')
-return 'default'; if (F.onImpact)
+return 'default'; if (F.today('sup')) {
+LUC.hit9(F, e.u, 1);
+return;
+} if (F.onImpact)
 LUC.starHit(F, e.u, 1); },
 status(F, e) { LUC.turn(F, e); },
 },
 h: {
 col: LUC.W, noCharge: true, glyph: 'nc_star', curseGlyph: 'nc_star', markGlyph: 'nc_star',
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+const n = e.targets.length;
+r9Link(F, u, 'h', e.targets, (from, to, fly, t, i) => r9Stream(F, from, to, fly, { col: LUC.C9.c, core: LUC.C9.core, w: 9.5, coreK: .75, arc: (i - (n - 1) / 2) * 9 + (i % 2 ? 12 : -12), wob: 8, tail: .7, drain: .16, tex: txOr('glint', 'star4'), ramp: ['#ffffff', LUC.C9.pale, LUC.C9.c], ts: 2.6, n: 6, speed: 1.4,
+emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-4, 4), y: y + F.rnd(-4, 4), vx: F.rnd(-20, 20), vy: F.rnd(-20, 20), drag: 2.4, life: F.rnd(.22, .4), s0: F.rnd(2.2, 3.6), s1: .5, tex: 'ember', col: F.pick([LUC.C9.pale, LUC.C9.c, '#ffffff']) }); } }), { exp: .45, gap: .012 });
+return;
+}
 LUC.gather(F, 'h', .3, 10);
 LUC.wings(F, .06, 1.25);
 F.at(.26, () => { const p = LUC.halo(F, 'h'); LUC.flare(F, p, 1.4); LUC.rise(F, p, 30); });
@@ -25883,7 +26156,10 @@ F.at(.36, () => LUC.fieldFall(F, e, .62));
 ult(F, e) { F.hypDrawn = true; },
 hyperHit() { },
 hit(F, e) { if (e.src !== 'hyper')
-return 'default'; LUC.rowHit(F, e.u); },
+return 'default'; if (F.today('hyp'))
+LUC.hit9(F, e.u, .8);
+else
+LUC.rowHit(F, e.u); },
 status(F, e) { LUC.turn(F, e); },
 },
 };
@@ -26208,6 +26484,25 @@ superHit() { },
 h: {
 col: LIL.C, noCharge: true, glyph: 'nc_owl', markGlyph: 'nc_owl',
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Lilith ult: «программные эффекты плохие, полностью поменять»): today's sheets - no owls, no serpent, no sigil.
+// One read: on the release frame the crimson ribbon with rose petals that winds around her in the clip leaves her hand (wf), flies to
+// the strongest enemy, winds around him - and the charm mark appears.
+const t9 = e.targets[0];
+if (!t9)
+return;
+// review fix: the clip is a wide dark-crimson cloud of petals, not a thin pink line - a wide crimson body, many large petals, a
+// crimson haze behind them, a thick coil
+const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-9, 9), y: y + F.rnd(-9, 9), vx: F.rnd(-34, 34), vy: F.rnd(-34, 10), ay: 60, drag: 1.8, life: F.rnd(.5, .9), s0: F.rnd(8, 13) * k, s1: 4 * k, tex: 'petal', col: F.pick(['#c2184f', '#a8123f', '#e0407a', '#ff7aa8']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
+const haze = (x, y, k = 1) => F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-12, 12), vy: -F.rnd(4, 18), drag: 2, life: F.rnd(.45, .75), s0: F.rnd(16, 22) * k, s1: F.rnd(30, 40) * k, tex: F.pick(['smoke', 'smoke2']), col: F.pick(['#8a1038', '#7a0a2c']), add: false, a0: .28, rot: F.rnd(0, 6), vr: F.rnd(-.6, .6) });
+r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
+// second review: an additive body came out neon pink with dark blots on it - the body is drawn opaque in the clip's dark crimson
+r9Stream(F, from, to, fly, { col: '#a8123f', core: '#e0407a', comp: 'source-over', cap: 'round', w: 17, coreK: .35, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .85, drain: .2, tex: 'petal', ramp: ['#ff7aa8', '#e0407a', '#b0123f'], ts: 1.5, n: 14, speed: 1.1, emit: (x, y) => { haze(x, y); pet(x, y); if (F.rng() < .7) pet(x, y); } });
+F.at(fly - .02, () => r9Coil(F, t, { col: '#a8123f', core: '#e0407a', comp: 'source-over', w: 11, dur: .85, emit: (x, y) => { if (F.rng() < .7) pet(x, y, .8); if (F.rng() < .3) haze(x, y, .7); } }));
+}, { exp: .45, tHit: c9 ? c9.t - F.t : T_SUP, ty: .5 });
+LIL.watchCharm(F, t9);
+return;
+}
 LIL.scrape(F, 'h', .42, 8);
 F.at(.3, () => NC.sigil(F, 'nc_owl', LIL.AMB, 42));
 const t = e.targets[0];
@@ -33289,13 +33584,15 @@ F.hit1(p.x, p.y, { col: '#ffd77a', s: .6, mn: 2, motif: 'holy' });
 const VH = { c: '#dfe8f5', core: '#ffffff', holy: '#bfe8ff', wood: '#b89468' };
 NEWSTYLE.vanhelsing = { el: 'light', role: 'ranger', weapon: 'crossbow', melee: false, twin: false, proj: 'arrow', col: VH.c, glyph: 'nl_xbow' };
 const vhW = u => nlP(u, .46, .79);
-const nlBolt = (g, s = 1) => {
+const nlBolt = (g, s = 1, plain = false) => {   // plain (r9): no glow and no glint - the bolt that sticks in the victim
 g.save();
 g.scale(s, s);
+if (!plain) {
 g.globalCompositeOperation = 'lighter';
 g.globalAlpha = .6;
 g.drawImage(TX.get('glow', VH.c), -16, -6, 26, 12);
 g.globalAlpha = 1;
+}
 g.globalCompositeOperation = 'source-over';
 g.fillStyle = '#4a3828';
 g.fillRect(-17, -1.1, 14, 2.2);
@@ -33307,7 +33604,7 @@ g.lineTo(-14, 0);
 g.lineTo(-21, 3.6);
 g.closePath();
 g.fill();
-g.fillStyle = '#f6faff';
+g.fillStyle = plain ? '#9fb0c8' : '#f6faff';   // stuck in the victim: steel, not a white patch
 g.beginPath();
 g.moveTo(6, 0);
 g.lineTo(-3, -3);
@@ -33318,8 +33615,10 @@ g.fill();
 g.strokeStyle = '#8a98b0';
 g.lineWidth = .7;
 g.stroke();
+if (!plain) {
 g.globalCompositeOperation = 'lighter';
 g.drawImage(TX.get('star4', '#ffffff'), -6, -6, 12, 12);
+}
 g.restore();
 };
 const nlFlask = (g, s = 1, k = 1) => {
@@ -33497,6 +33796,20 @@ F.mo(p.x, p.y, 'shadow', 7, 1, { col: '#e8f0ff', smoke: '#1a1020' });
 h: {
 col: VH.c, noCharge: true,
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Van Helsing ult: «плохой программный эффект»): today's sheets - no tiny streak into the sky, no giant stake
+// picture from above, no rays. One read: on the release frame a big holy bolt leaves the tip of the crossbow (wf) in the pale blue
+// of the clip, flies in an arc to the victim and stays in him for a moment - the hit lands when it arrives.
+const t9 = e.targets[0];
+if (t9)
+r9Link(F, u, 'h', [t9], (from, to, fly) => {
+// the bolt flies on an arc: it sticks in the victim along the tangent of the arc at the arrival, not along the straight line
+const arc = (to.x < from.x ? 1 : -1) * 24, dx = to.x - from.x, dy = to.y - from.y, L = Math.hypot(dx, dy) || 1;
+F._vh9 = Math.atan2(dy - Math.PI * arc * dx / L, dx + Math.PI * arc * dy / L);
+r9Orb(F, from, to, fly, { col: '#9fbcff', core: '#f4f8ff', r: 9, arc, tail: .6, fade: .04, ease: 'ease-in-out', sparkCol: ['#f4f8ff', '#bfd4ff', '#9fbcff'], sparkTex: 'star4', spark: 40,
+head: (g, a, k, R) => { g.globalAlpha = .8; g.drawImage(TX.get('glow', '#9fbcff'), -R * 2.4, -R * 1.5, R * 4.2, R * 3); g.globalAlpha = .75; g.strokeStyle = '#dfe8ff'; g.lineWidth = 4.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-6, 0); g.stroke(); g.globalAlpha = 1; nlBolt(g, 2.5); } }); }, { exp: .45, ty: .45 });
+return;
+}
 // 13.11 Maxim: "damage flies before the shot". On the new sheet the stake leaves upward in the clip; the game's sky
 // streak continues it from the same point at that moment, then the big stake falls on the target.
 const NSh = BRG.isProposed && u && (BRG.animOf(BRG.SHEETS_HYP, u.gu || u) || {}).isNewSheet, T0h = NSh ? BRG.REL_NEW['vanhelsing:hyp'] : .1;
@@ -33509,6 +33822,18 @@ if (t)
 nlAt(F, NSh ? T0h + .05 : .46, () => nlStakeFall(F, t, Math.max(.12, T - F.t)));
 },
 ult(F) { F.hypDrawn = true; },
+hit(F, e) {
+if (e.src !== 'hyper' || !F.today('hyp'))
+return 'default';
+const p = F.tc(e.u, .45), f = F.feetOf(e.u), ang = F._vh9 ?? -Math.PI / 2;
+// review fix: no white patch on the victim - a small pale-blue ring and splinters, nothing additive and white; the bolt itself is
+// drawn on top without any glow and stays in the victim for a moment
+F.ring(p.x, p.y, 6, 24, '#9fbcff', { dur: .3, w: 3, k: .5 });
+F.burst(p.x, p.y, { n: 12, tex: 'shard', col: ['#d8bc8c', '#b08e60', '#8a6a44'], v0: 80, v1: 220, s0: 5, s1: 2.5, l0: .35, l1: .6, ay: 560, add: false, stretch: 0, vr: 14 });
+F.burst(p.x, p.y, { n: 8, tex: 'star4', col: ['#bfd4ff', '#9fbcff'], v0: 60, v1: 170, s0: 4.5, s1: 1, l0: .3, l1: .5, drag: 2.6, stretch: 0, add: false });
+F.decal(f.x, f.y, f.w * .7, '#cfe0ff', { cracks: 8, dur: 1.2 });
+F.obj(.55, (g, a) => { g.translate(p.x - Math.cos(ang) * 17, p.y - Math.sin(ang) * 17); g.rotate(ang + Math.sin(a * 60) * .08 * Math.exp(-a * 9)); g.globalCompositeOperation = 'source-over'; g.globalAlpha = (a > .35 ? 1 - (a - .35) / .2 : 1) * .9; g.strokeStyle = '#c8d4ea'; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-40, 0); g.lineTo(-8, 0); g.stroke(); g.globalAlpha = a > .35 ? 1 - (a - .35) / .2 : 1; nlBolt(g, 2.5, true); }, 'top');
+},
 },
 };
 const nlStakeFall = FX4.wrapHelper("wooden-stake", (F, t, dur) => {
@@ -34301,6 +34626,16 @@ F.supDrawn = true;
 h: {
 col: ER.c, noCharge: true,
 anticip(F, u) {
+if (F.today('hyp', u) && !erCopied(F)) {
+// r9 Block 4b (14.11 Maxim, Erlang ult: «не понятно что летит. Слишком резко и не заметно»): today's sheets, his own strike (no enemy super to
+// repeat) - no eye, no sigil, no instant cuts. One read: on the release frame the white-blue whirl that the clip gathers on the spear
+// tip (wf) unwinds from it in a wide ribbon of wind to every enemy; the cuts and the damage come when the ribbon arrives.
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+F._er9 = true;
+r9Link(F, u, 'h', row, (from, to, fly, t, i) => r9Stream(F, from, to, fly, { col: '#86b2ff', core: '#ffffff', w: 10.5, coreK: .8, arc: (i - (n - 1) / 2) * 8 + (i % 2 ? 12 : -12), wob: 9, tail: .75, drain: .16, tex: 'smoke', ramp: ['#c8dcff', '#a4c4ff', '#86b2ff'], ts: 2.8, n: 10, speed: 1.2,
+emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-24, 24), vy: F.rnd(-24, 24), drag: 2.4, life: F.rnd(.22, .4), s0: F.rnd(2.4, 3.8), s1: .5, tex: 'star4', col: F.pick(['#ffffff', '#c8dcff', '#86b2ff']) }); } }), { exp: .45, gap: .012, ty: .45 });
+return;
+}
 const hs = nlEvs(F, 'hit', x => x.src === 'hyper');
 nlEyeOpen(F, u, hs.length ? hs[0].t + .1 : 1.5, { big: 8, open: .3 });
 F.at(.14, () => nlsigil(F, 'nl_eye3', ER.eye));
@@ -34325,6 +34660,10 @@ F.burst(p.x, p.y, { n: 10, col: [c, '#fff3c4'], v0: 60, v1: 170, s0: 2.6, l0: .1
 F.at(.06, () => F.stream(p, erHalo(F.u), .3, { col: c, n: 5, w: 2.8, spread: .08, wobble: 8 }));
 },
 ult(F, e) {
+if (F._er9) {
+F.hypDrawn = true;
+return;
+}
 const u = F.u, hs = nlEvs(F, 'hit', x => x.src === 'hyper'), cp = erCopied(F);
 if (cp) {
 const c = G.HEROES[cp] ? G.HEROES[cp].fx : ER.eye, gl = SIG[cp] && SIG[cp].glyph, h = erEye(u), P = nlSignPt(F, 34);
@@ -34360,6 +34699,7 @@ return 'default';
 const p = F.tc(e.u, .45), f = F.feetOf(e.u);
 for (let i = -1; i <= 1; i++)
 F.cut(p.x + i * 8, p.y + i * 3, { col: '#dfe8ff', core: '#ffffff', L: i ? 42 : 56, ang: -.7, w: 4.8, sparkN: 4 });
+if (!F._er9)
 nlRays(F, p.x, p.y, { n: 8, L: 32, col: ER.eye });
 F.hit2(p.x, p.y, { col: ER.c, core: '#ffffff', feet: f, s: .7, mn: 4, motif: 'holy', cracks: 3 });
 },
@@ -35579,6 +35919,38 @@ F.decal(f.x, f.y, f.w * .36, AT_STAR, { dur: 1, cracks: 4, k: .7 });
 nwCrown(F, f.x, f.y - 2, .7, { col: '#cfe0ff', cols: [AT_CORE, AT_STAR, '#9fe6ff'], n: 7 });
 }
 };
+// r9 Block 4b (14.11 Maxim, Atlas super / ult: «плохой программный эффект»): today's sheets - the blue of the clips.
+const AT9 = { c: '#4f9cff', pale: '#bfe0ff', core: '#f2f8ff' };
+const AT9_HIT = { t0: .01, step: .12 };   // the ult's hit series in sim-core (SK.atlas.h.run: c.later(0.12 * i + 0.01)); the count is SK.atlas.h.v.n
+const atOrb9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: AT9.c, core: AT9.core, r: 10.5, arc: -14, tex: 'star4', texCol: '#ffffff', ts: 2.8, spin: 6, tail: .5, sparkCol: [AT9.pale, AT9.c, '#ffffff'], sparkTex: 'star4', spark: 30 }, o));
+// the blue shell of the clip closes around an ally for a moment: his hits now go into Atlas
+const atShell9 = (F, t, dur = .8) => F.obj(dur, (g, a) => {
+if (!t.alive)
+return;
+const b = boxOf(t), q = a / dur, up = EASE['ease-out'](clamp(a / .2, 0, 1)), al = q < .55 ? 1 : 1 - (q - .55) / .45, rx = b.w * .6 * lerp(.55, 1, up), ry = b.h * .58 * lerp(.55, 1, up), cx = b.x, cy = b.top + b.h * .5;
+g.save();
+g.translate(cx, cy);
+g.scale(1, ry / rx);
+g.globalCompositeOperation = 'lighter';
+const gr = g.createRadialGradient(0, 0, rx * .35, 0, 0, rx);
+gr.addColorStop(0, rgba(AT9.c, 0));
+gr.addColorStop(.7, rgba(AT9.c, .16));
+gr.addColorStop(.93, rgba(AT9.pale, .5));
+gr.addColorStop(1, rgba(AT9.c, 0));
+g.globalAlpha = al;
+g.fillStyle = gr;
+g.beginPath();
+g.arc(0, 0, rx, 0, TAU);
+g.fill();
+g.lineCap = 'round';
+g.strokeStyle = AT9.core;
+g.lineWidth = 2;
+g.globalAlpha = al * .7;
+g.beginPath();
+g.arc(0, 0, rx * .86, -Math.PI * .92 + a * .8, -Math.PI * .6 + a * .8);
+g.stroke();
+g.restore();
+});
 NEWSTYLE.atlas = { el: 'water', role: 'warrior', weapon: 'fist', melee: true, twin: false, proj: 'star', col: AT_STAR, glyph: 'nw1Sphere' };
 SIG.atlas = {
 motif: 'stone', glyph: 'nw1Sphere',
@@ -35607,7 +35979,13 @@ F.burst(p.x, p.y + 10, { n: 5, tex: 'star4', col: [AT_STAR, AT_CORE, AT_WARM], v
 },
 s: {
 noCharge: true,
-anticip(F, u, kind, rel) {
+anticip(F, u, kind, rel, e) {
+if (F.today('sup', u)) {
+// super (hits on the other allies go into Atlas): no drawn sphere above him, no gathering stars. One read: on the release frame a blue
+// star of the clip's shell leaves his hand (wf) for every other ally, and the same blue shell closes around the ally when it arrives
+r9Link(F, u, 's', F.allies ? F.allies() : (e && e.targets) || [], (from, to, fly, t, i) => atOrb9(F, from, to, fly, { arc: (i % 2 ? 1 : -1) * 16, onHit: () => atShell9(F, t) }), { exp: .45, gap: .02, ty: .5 });
+return;
+}
 const b = boxOf(u), p = F.wp('s');
 nwGather(F, p, rel, { n: 9, r: 24, cols: [AT_STAR, AT_CORE, AT_WARM], glow: AT_STAR, s: 11, tex: 'star4', s0: 4 });
 F.obj(rel, () => { if (F.rng() < .4)
@@ -35615,6 +35993,8 @@ F.p({ x: b.x + F.rnd(-b.w * .5, b.w * .5), y: b.feet - F.rnd(0, 8), vx: F.rnd(-6
 },
 sup(F) {
 F.supDrawn = true;
+if (F.today('sup'))
+return;
 const me = F.u, b = boxOf(me), S = { x: b.x, y: (LAY.sy ?? 1) > 0 ? b.top - 22 : b.feet + 22, r: 16 };
 F._nw1Sky = S;
 atSphere(F, S, { dur: .95, from: F.wp('s'), rise: .16 });
@@ -35627,6 +36007,12 @@ F.p({ x: c.x + Math.cos(a) * 22, y: c.y + Math.sin(a) * 26, vx: -Math.cos(a) * 7
 },
 superHit() { },
 chain(F, e) {
+if (F.today('sup')) {
+// a hit on a protected ally goes into Atlas: a short blue stream from the ally to him
+if (e.u && e.u !== F.u)
+r9Stream(F, F.tc(e.u, .45), () => F.tc(F.u, .45), .16, { col: AT9.c, core: AT9.core, w: 6, coreK: .6, arc: -10, wob: 3, tail: .7, drain: .14 });
+return;
+}
 const S = F._nw1Sky;
 if (!S)
 return;
@@ -35649,6 +36035,20 @@ F.p({ x: a.x, y: a.y, life: .3, s0: 12, s1: 3, tex: 'star4', col: AT_WARM, rot: 
 h: {
 noCharge: true,
 anticip(F, u) {
+if (F.today('hyp', u)) {
+// ult (three hits on every enemy, then stun): no drawn sphere, no sigil, no stars from the sky. One read: from the release frame the
+// blue orb in his raised hand (wf) throws a volley of blue stars at every enemy for each of the three hits; each lands with its hit
+const tR = F.relDt('hyp', .45), HV = ((BR.SK || {}).atlas || {}).h, nH = (HV && HV.v && HV.v.n) || 3, foes = F.foes().slice().sort((p, q) => p.slot - q.slot), N = nH * foes.length;
+r9Warm(F, u);
+// The hit events do not exist yet when the cast starts, so the volleys follow the sim's own schedule (sim-core SK.atlas.h.run:
+// hit i comes AT9_HIT.t0 + AT9_HIT.step * i after T_SUP, i < v.n). Review fix: every star leaves within the first .09 s after the
+// release frame - while the orb is still in his hand in both clips - one after another (no lump of stars at the hand), and the
+// stars of volley j arrive with hit j.
+for (let j = 0; j < nH; j++)
+foes.forEach((t, i) => { const tA = T_SUP + AT9_HIT.t0 + AT9_HIT.step * j - .005, dep = tR + .09 * (j * foes.length + i) / Math.max(1, N - 1), fly = Math.max(.1, tA - dep), big = j === nH - 1;
+F.at(dep, () => { if (t.alive) atOrb9(F, F.wp('h', u), F.tc(t, .42), fly, { r: big ? 10.5 : 7.5, arc: (j - 1) * 14 + (t.slot % 2 ? 6 : -6), ease: 'linear' }); }); });   // linear: the stars do not linger at the hand
+return;
+}
 const b = boxOf(u), up = (LAY.sy ?? 1) > 0, S = { x: b.x, y: up ? b.top - 22 : b.feet + 22, r: 16 }, tThrow = .5;
 atSphere(F, S, { dur: tThrow + .02, from: { x: b.x, y: b.top + b.h * .45 }, rise: .4, fade: .04, r0: .4 });
 F.obj(tThrow, () => { if (F.rng() < .4)
@@ -35669,6 +36069,8 @@ F.burst(x, y, { n: 7, tex: 'shard', col: ['#cfe0ff', '#6a88c8'], v0: 60, v1: 180
 },
 ult(F) {
 F.hypDrawn = true;
+if (F.today('hyp'))
+return;
 const me = F.u, H = nwEv(F, v => v.type === 'hit' && v.src === 'hyper' && v.u.side !== me.side), n = {};
 H.forEach(h => {
 const j = n[h.u.slot] = (n[h.u.slot] ?? -1) + 1, fall = .16, big = j === 2;
@@ -35678,8 +36080,14 @@ nwComet(F, from, to, fall, { ease: 'ease-in', col: AT_STAR, w: big ? 6 : 4.4, ta
 }, .01);
 });
 },
-hit(F, e) { if (e.src === 'hyper')
-return; return 'default'; },
+hit(F, e) { if (e.src === 'hyper') {
+if (F.today('hyp')) {
+const M = F._at9 || (F._at9 = new Map()), k = (M.get(e.u) || 0) + 1;
+M.set(e.u, k);
+atImpact(F, e.u, k === ((((BR.SK || {}).atlas || {}).h || {}).v || {}).n || k === 3);
+}
+return;
+} return 'default'; },
 ctrl(F, e) { F.finFeet(e.u, 'stone', e.dur || 1); },
 },
 };
@@ -37117,7 +37525,15 @@ F.w2kb = null;
 },
 h: {
 col: W2RJ, noCharge: true,
-anticip(F, u, kind, rel) {
+anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Raijin ult: «плохая связь анимации и программного эффекта. Программный эффект плохой»): today's sheets - no drawn
+// drum ring, no brother, no sigil, no clouds, no leaves. One read: on the release frame the column of blue lightning that the clip
+// sends up through the top edge forks from that point to every enemy; the bolts are seen growing and land with the damage.
+const row = (e && e.targets && e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot);
+r9Link(F, u, 'h', row, (from, to, fly, t) => r9Bolt(F, r9Top(F, u, 'h', .05, .5), to, fly, { col: '#5fb8ff', core: '#f2fbff', w: 4.6, hold: 0, fade: .1 }), { exp: .45, gap: .012, ty: .48 });   // hold 0: the baked column is over about when the bolts land - they let go of it at once
+return;
+}
 F.w2drums = W2.drums(F, u, 1.45, { beats: [.14, .22, .3, .38, .46, .52].map((t, i) => ({ t, i: (i * 3) % 8 })).concat([{ t: rel, i: -1 }]) });
 W2.brother(F, u, .9, { col: '#7fe0a0', k: .32, k2: .55, dx: -.42 });
 F.at(.28, () => w2sigil(F, 'w2tomoe', W2RJ, 40, { spin: 2 }));
@@ -37125,6 +37541,8 @@ F.at(.16, () => F.foes().forEach(t => { const b = boxOf(t); W2.cloud(F, b.x - 24
 },
 ult(F, e) {
 F.hypDrawn = true;
+if (F.today('hyp'))
+return;
 const D = F.w2drums || W2.drumGeo(F.u), row = (e.targets.length ? e.targets : F.foes()).slice().sort((p, q) => p.slot - q.slot);
 {
 const p = W2.drumPos(D, 1);
@@ -37144,6 +37562,8 @@ return 'default'; W2.zapHit(F, F.tc(e.u, .48), 1.05); },
 const W2LL = '#d8ecff';
 const w2llHand = F => W2.pt(F, [.22, -.5], 's');
 const w2llHead = F => W2.pt(F, [-.02, -.84], 'h');
+// r9 Block 4b: Llorona's ghostly water of today's clips - a pale blue stream with white foam (r9Stream options)
+W2.ll9 = o => Object.assign({ col: '#7fc0f0', core: '#f2faff', coreK: .5, wob: 6, tail: .82, drain: .2, tex: 'smoke', ramp: ['#9fd0f4', '#7fbcee', '#5fa4e0'], ts: 3, n: 12, speed: 1.2 }, o);
 NEWSTYLE.llorona = { el: 'water', role: 'warrior', weapon: 'claw', melee: true, twin: false, proj: 'water', col: W2LL, glyph: 'w2tear' };
 SIG.llorona = {
 motif: 'water', glyph: 'w2tear',
@@ -37167,9 +37587,23 @@ return 'default'; W2.touch(F, F.tc(e.u, .42)); },
 },
 s: {
 col: W2LL, noCharge: true,
-anticip(F, u, kind, rel) { const h = w2llHead(F); W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 8); W2.gather(F, h, rel, { col: W2LL, n: 8, r: 20, tex: 'smoke', cols: ['#dff0fa'], add: false, a0: .5, s0: 8, k: .6 }); },
+anticip(F, u, kind, rel) {
+if (F.today('sup', u)) {
+// r9 Block 4b (14.11 Maxim, Llorona super / ult: «плохой программный эффект»): today's sheets - no tear drops, no thin wail arcs, no sigil.
+// Super (all enemies attack only her): on the release frame the ghostly water of the clip flows from her hand / lantern (wf) to every
+// enemy and winds around him - he is tied to her.
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 's', row, (from, to, fly, t, i) => {
+r9Stream(F, r9Wp(F, 's', u), to, fly, W2.ll9({ w: 9, arc: (i - (n - 1) / 2) * -8 }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#5aa8ec', core: '#f2faff', w: 7.5, dur: .65, turns: 1.7 }));
+}, { exp: .45, gap: .014, ty: .42 });
+return;
+}
+const h = w2llHead(F); W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 8); W2.gather(F, h, rel, { col: W2LL, n: 8, r: 20, tex: 'smoke', cols: ['#dff0fa'], add: false, a0: .5, s0: 8, k: .6 }); },
 sup(F, e) {
 F.supDrawn = true;
+if (F.today('sup'))
+return;
 const h = w2llHead(F);
 W2.wail(F, h, { n: 3, gap: .07, dur: .32, r: Math.abs(h.y - (LAY.eFeet - LAY.eRow * .45)) / .82 });
 W2.tears(F, { x: h.x, y: h.y + 6 }, .5, 6);
@@ -37180,6 +37614,17 @@ return 'default'; W2.terror(F, e.u); return 'default'; },
 h: {
 col: W2LL, noCharge: true,
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b: ult (the most dangerous enemy is dragged under water) - on the release frame one thick stream of the clip's water leaves
+// her hand (wf), reaches the victim, winds around him, and the water closes over him (stun + drowning)
+const t9 = e.targets[0];
+if (t9)
+r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
+r9Stream(F, r9Wp(F, 'h', u), to, fly, W2.ll9({ w: 14, arc: (to.x < from.x ? 1 : -1) * 24, emit: (x, y) => { if (F.rng() < .6) F.p({ x: x + F.rnd(-6, 6), y: y + F.rnd(-6, 6), vx: F.rnd(-30, 30), vy: F.rnd(-40, 10), ay: 150, drag: 1.6, life: F.rnd(.25, .45), s0: F.rnd(3, 5), s1: 1, tex: 'glow', col: F.pick(['#f2faff', '#bfe2fa', '#7fc0f0']) }); } }));
+F.at(fly - .02, () => r9Coil(F, t, { col: '#5aa8ec', core: '#f2faff', w: 9.5, dur: .95, turns: 2.5 }));
+}, { exp: .45, ty: .45 });
+return;
+}
 const h = w2llHead(F);
 W2.tears(F, { x: h.x, y: h.y + 6 }, rel, 10);
 F.at(.3, () => w2sigil(F, 'w2tear', W2LL, 40));
