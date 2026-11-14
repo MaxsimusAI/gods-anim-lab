@@ -43767,42 +43767,42 @@
    -0.62
   ],
   "wf": [
-   0.508,
-   0.384
+   0.498,
+   0.388
   ],
-  "maxDiff": 28.34,
+  "maxDiff": 18.7,
   "fig": {
-   "top": 0.0191,
-   "foot": 0.9806,
-   "ax": 0.5079
+   "top": 0.0184,
+   "foot": 0.9898,
+   "ax": 0.4977
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
   "bodyPx": 198,
-  "bodyPxF": 198.07,
+  "bodyPxF": 198.17,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 398.2,
    "ramMb": 5.84,
-   "kbPct": 85,
-   "ramPct": 40
+   "kbPct": 82,
+   "ramPct": 42
   },
   "mob": {
    "file": "veles-ti-idle-mob.webp",
-   "w": 120,
-   "h": 206,
-   "kb": 340.4,
-   "ramMb": 2.36
+   "w": 125,
+   "h": 204,
+   "kb": 327.3,
+   "ramMb": 2.43
   },
   "lite": {
    "file": "veles-ti-idle-lite.webp",
-   "w": 84,
-   "h": 144,
-   "kb": 193.2,
-   "ramMb": 1.15
+   "w": 88,
+   "h": 143,
+   "kb": 189.7,
+   "ramMb": 1.2
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },

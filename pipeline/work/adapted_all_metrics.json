@@ -2172,111 +2172,84 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 9,
-  "rel": 0.375,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   0.251,
-   -0.454
+   -0.139,
+   -0.533
   ],
   "wf": [
-   0.777,
-   0.567
+   0.347,
+   0.479
   ],
-  "maxDiff": 30.17,
+  "maxDiff": 50.38,
   "fig": {
-   "top": 0.0826,
-   "foot": 0.97,
-   "ax": 0.4988
+   "top": 0.0497,
+   "foot": 0.969,
+   "ax": 0.5
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "LR",
   "ho": {
    "top": [
     [
-     14,
-     0.487,
-     0.14
-    ],
-    [
      15,
-     0.493,
-     0.06
+     0.974,
+     0.12
     ],
     [
-     17,
-     0.482,
-     0.92
-    ],
-    [
-     18,
-     0.499,
-     0.58
-    ],
-    [
-     19,
-     0.552,
-     0.1
-    ]
-   ],
-   "bottom": [
-    [
-     11,
-     0.495,
-     0.18
-    ],
-    [
-     12,
-     0.488,
-     0.22
-    ],
-    [
-     13,
-     0.486,
-     0.08
+     16,
+     0.656,
+     0.51
     ]
    ],
    "left": [
     [
-     5,
-     0.562,
-     0.3
+     11,
+     0.429,
+     0.33
+    ],
+    [
+     14,
+     0.477,
+     0.38
     ]
    ],
    "right": [
     [
-     8,
-     0.59,
-     0.17
+     15,
+     0.197,
+     0.97
     ]
    ],
-   "col": "#ffae8a"
+   "col": "#b77ffe"
   },
-  "q": 83,
-  "bodyPx": 195,
-  "bodyPxF": 195.23,
+  "q": 86,
+  "bodyPx": 198,
+  "bodyPxF": 197.65,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 266.7,
    "ramMb": 3.98,
-   "kbPct": 119,
+   "kbPct": 120,
    "ramPct": 93
   },
   "mob": {
    "file": "anansi-ti-atk-mob.webp",
-   "w": 176,
-   "h": 220,
-   "kb": 318.1,
+   "w": 180,
+   "h": 215,
+   "kb": 318.8,
    "ramMb": 3.69
   },
   "lite": {
    "file": "anansi-ti-atk-lite.webp",
-   "w": 123,
-   "h": 154,
-   "kb": 173.3,
-   "ramMb": 1.81
+   "w": 126,
+   "h": 150,
+   "kb": 174.8,
+   "ramMb": 1.8
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -25641,70 +25614,51 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 16,
-  "rel": 0.667,
+  "impact": 13,
+  "rel": 0.542,
   "wpt": [
-   0.003,
-   -0.894
+   0.255,
+   -0.46
   ],
   "wf": [
-   0.515,
-   0.237
+   0.806,
+   0.58
   ],
-  "maxDiff": 38.48,
+  "maxDiff": 53.05,
   "fig": {
-   "top": 0.148,
-   "foot": 0.9905,
-   "ax": 0.5115
+   "top": 0.0996,
+   "foot": 0.9899,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
-  "ho": {
-   "top": [
-    [
-     18,
-     0.708,
-     0.11
-    ],
-    [
-     19,
-     0.625,
-     0.09
-    ],
-    [
-     20,
-     0.149,
-     0.09
-    ]
-   ],
-   "col": "#aacfff"
-  },
-  "q": 75,
-  "bodyPx": 185,
-  "bodyPxF": 185.35,
+  "ho": null,
+  "q": 67,
+  "bodyPx": 191,
+  "bodyPxF": 191.41,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 187.9,
    "ramMb": 2.85,
-   "kbPct": 119,
-   "ramPct": 111
+   "kbPct": 120,
+   "ramPct": 114
   },
   "mob": {
    "file": "llorona-bt-atk-mob.webp",
-   "w": 150,
-   "h": 220,
-   "kb": 223.0,
-   "ramMb": 3.15
+   "w": 159,
+   "h": 215,
+   "kb": 225.0,
+   "ramMb": 3.26
   },
   "lite": {
    "file": "llorona-bt-atk-lite.webp",
-   "w": 105,
-   "h": 154,
-   "kb": 123.8,
-   "ramMb": 1.54
+   "w": 111,
+   "h": 150,
+   "kb": 123.0,
+   "ramMb": 1.59
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -36523,159 +36477,72 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 9,
-  "rel": 0.375,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   0.124,
-   -0.93
+   -0.085,
+   -0.441
   ],
   "wf": [
-   0.683,
-   0.179
+   0.398,
+   0.57
   ],
-  "maxDiff": 55.86,
+  "maxDiff": 53.94,
   "fig": {
-   "top": 0.1197,
-   "foot": 0.97,
-   "ax": 0.4843
+   "top": 0.0661,
+   "foot": 0.9681,
+   "ax": 0.5019
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": {
-   "top": [
-    [
-     4,
-     0.535,
-     1.0
-    ],
-    [
-     5,
-     0.559,
-     1.0
-    ],
-    [
-     6,
-     0.559,
-     0.34
-    ],
-    [
-     7,
-     0.548,
-     0.66
-    ],
-    [
-     8,
-     0.553,
-     0.78
-    ],
-    [
-     9,
-     0.53,
-     1.0
-    ],
-    [
-     10,
-     0.49,
-     0.74
-    ],
-    [
-     11,
-     0.518,
-     0.09
-    ],
-    [
-     13,
-     0.498,
-     0.3
-    ],
-    [
-     14,
-     0.49,
-     0.15
-    ],
-    [
-     15,
-     0.462,
-     0.1
-    ],
-    [
-     16,
-     0.531,
-     0.06
-    ],
-    [
-     17,
-     0.524,
-     0.05
-    ]
-   ],
    "bottom": [
     [
-     5,
-     0.591,
-     0.64
-    ],
-    [
-     6,
-     0.543,
-     0.65
-    ],
-    [
-     7,
-     0.593,
-     0.99
-    ],
-    [
-     8,
-     0.613,
-     0.92
-    ],
-    [
-     9,
-     0.544,
-     1.0
-    ],
-    [
-     10,
-     0.517,
-     0.6
+     12,
+     0.154,
+     0.06
     ]
    ],
-   "right": [
+   "left": [
     [
-     19,
-     0.411,
-     0.1
+     11,
+     0.728,
+     0.08
+    ],
+    [
+     12,
+     0.599,
+     0.13
     ]
    ],
-   "col": "#ff887f"
+   "col": "#ff7b68"
   },
-  "q": 79,
-  "bodyPx": 187,
-  "bodyPxF": 187.07,
+  "q": 76,
+  "bodyPx": 198,
+  "bodyPxF": 198.44,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 227.6,
    "ramMb": 4.49,
-   "kbPct": 119,
-   "ramPct": 55
+   "kbPct": 118,
+   "ramPct": 76
   },
   "mob": {
    "file": "shango-bt-hyp-mob.webp",
-   "w": 117,
+   "w": 162,
    "h": 220,
-   "kb": 271.6,
-   "ramMb": 2.45
+   "kb": 269.2,
+   "ramMb": 3.4
   },
   "lite": {
    "file": "shango-bt-hyp-lite.webp",
-   "w": 82,
+   "w": 113,
    "h": 154,
-   "kb": 148.6,
-   "ramMb": 1.2
+   "kb": 143.2,
+   "ramMb": 1.66
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -44255,7 +44122,7 @@
    0.498,
    0.388
   ],
-  "maxDiff": 21.03,
+  "maxDiff": 18.7,
   "fig": {
    "top": 0.0184,
    "foot": 0.9898,
@@ -44272,21 +44139,21 @@
    "key": "idle",
    "kb": 398.2,
    "ramMb": 5.84,
-   "kbPct": 87,
+   "kbPct": 82,
    "ramPct": 42
   },
   "mob": {
    "file": "veles-ti-idle-mob.webp",
    "w": 125,
    "h": 204,
-   "kb": 346.8,
+   "kb": 327.3,
    "ramMb": 2.43
   },
   "lite": {
    "file": "veles-ti-idle-lite.webp",
    "w": 88,
    "h": 143,
-   "kb": 201.4,
+   "kb": 189.7,
    "ramMb": 1.2
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
