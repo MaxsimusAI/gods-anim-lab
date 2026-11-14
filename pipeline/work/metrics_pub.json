@@ -15084,18 +15084,18 @@
   "impact": 14,
   "rel": 0.583,
   "wpt": [
-   -0.058,
-   -0.458
+   -0.213,
+   -0.692
   ],
   "wf": [
-   0.422,
-   0.592
+   0.227,
+   0.39
   ],
-  "maxDiff": 68.48,
+  "maxDiff": 43.94,
   "fig": {
-   "top": 0.1251,
-   "foot": 0.986,
-   "ax": 0.4987
+   "top": 0.125,
+   "foot": 0.9852,
+   "ax": 0.528
   },
   "defects": [
    "raw_edge_clip"
@@ -15104,64 +15104,42 @@
   "ho": {
    "bottom": [
     [
+     7,
+     0.283,
+     0.05
+    ],
+    [
      14,
-     0.253,
-     0.15
-    ],
-    [
-     15,
-     0.266,
-     0.37
-    ],
-    [
-     16,
-     0.508,
+     0.268,
      0.12
-    ],
-    [
-     17,
-     0.627,
-     0.08
     ]
    ],
-   "right": [
-    [
-     16,
-     0.857,
-     0.11
-    ],
-    [
-     17,
-     0.87,
-     0.08
-    ]
-   ],
-   "col": "#ffebb3"
+   "col": "#ffca83"
   },
-  "q": 68,
+  "q": 74,
   "bodyPx": 189,
-  "bodyPxF": 189.4,
+  "bodyPxF": 189.24,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 203.9,
    "ramMb": 4.59,
-   "kbPct": 119,
-   "ramPct": 65
+   "kbPct": 118,
+   "ramPct": 61
   },
   "mob": {
    "file": "heracles-bt-atk-mob.webp",
-   "w": 143,
+   "w": 134,
    "h": 220,
-   "kb": 242.3,
-   "ramMb": 3.0
+   "kb": 240.5,
+   "ramMb": 2.81
   },
   "lite": {
    "file": "heracles-bt-atk-lite.webp",
-   "w": 100,
+   "w": 94,
    "h": 154,
-   "kb": 131.4,
-   "ramMb": 1.47
+   "kb": 134.5,
+   "ramMb": 1.38
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -17223,25 +17201,25 @@
  },
  "houyi_ti_hyp": {
   "id": "houyi_ti_hyp",
-  "srcRes": "290x420",
+  "srcRes": "804x1168",
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 16,
-  "rel": 0.667,
+  "impact": 14,
+  "rel": 0.583,
   "wpt": [
-   0.272,
-   -0.914
+   0.332,
+   -0.391
   ],
   "wf": [
-   0.815,
-   0.241
+   0.9,
+   0.66
   ],
-  "maxDiff": 41.72,
+  "maxDiff": 40.86,
   "fig": {
-   "top": 0.1706,
-   "foot": 0.9927,
-   "ax": 0.4983
+   "top": 0.1431,
+   "foot": 0.9913,
+   "ax": 0.5
   },
   "defects": [
    "raw_edge_clip"
@@ -17251,80 +17229,95 @@
    "top": [
     [
      16,
-     0.751,
-     0.37
+     0.742,
+     0.31
     ],
     [
      17,
      0.735,
-     0.27
+     0.38
+    ],
+    [
+     18,
+     0.73,
+     0.2
     ]
    ],
    "right": [
     [
-     9,
-     0.162,
-     0.06
+     8,
+     0.161,
+     0.14
     ],
     [
-     10,
-     0.199,
+     9,
+     0.19,
      0.07
     ],
     [
+     10,
+     0.203,
+     0.08
+    ],
+    [
      11,
-     0.208,
+     0.207,
      0.08
     ],
     [
      12,
-     0.209,
-     0.06
+     0.212,
+     0.07
     ],
     [
      13,
-     0.215,
-     0.08
+     0.212,
+     0.07
     ],
     [
      14,
-     0.21,
+     0.214,
      0.07
     ],
     [
      15,
-     0.208,
-     0.06
+     0.211,
+     0.08
     ],
     [
      16,
-     0.221,
-     0.1
+     0.2,
+     0.09
     ]
    ],
-   "col": "#feac44"
+   "col": "#ffae4d"
   },
-  "q": 58,
-  "bodyPx": 142,
-  "budget": {
-   "kb": 166.8,
-   "liveRam": 9.26,
-   "liveKb": 763.3
+  "q": 83,
+  "bodyPx": 187,
+  "bodyPxF": 186.6,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 300.5,
+   "ramMb": 3.71,
+   "kbPct": 119,
+   "ramPct": 88
   },
   "mob": {
    "file": "houyi-ti-hyp-mob.webp",
-   "w": 122,
-   "h": 173,
-   "kb": 139.5,
-   "ramMb": 2.01
+   "w": 155,
+   "h": 220,
+   "kb": 356.3,
+   "ramMb": 3.25
   },
   "lite": {
    "file": "houyi-ti-hyp-lite.webp",
-   "w": 85,
-   "h": 121,
-   "kb": 87.0,
-   "ramMb": 0.98
-  }
+   "w": 108,
+   "h": 154,
+   "kb": 193.6,
+   "ramMb": 1.59
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "houyi_ti_idle": {
   "id": "houyi_ti_idle",
@@ -22073,7 +22066,7 @@
    0.517,
    0.412
   ],
-  "maxDiff": 35.43,
+  "maxDiff": 35.74,
   "fig": {
    "top": 0.0582,
    "foot": 0.9881,
@@ -22090,21 +22083,21 @@
    "key": "idle",
    "kb": 419.4,
    "ramMb": 5.65,
-   "kbPct": 103,
+   "kbPct": 98,
    "ramPct": 48
   },
   "mob": {
    "file": "kali-bt-idle-mob.webp",
    "w": 135,
    "h": 213,
-   "kb": 429.9,
+   "kb": 412.7,
    "ramMb": 2.74
   },
   "lite": {
    "file": "kali-bt-idle-lite.webp",
    "w": 94,
    "h": 149,
-   "kb": 247.7,
+   "kb": 237.7,
    "ramMb": 1.34
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
@@ -22623,17 +22616,17 @@
    "file": "kitsune-bt-atk-mob.webp",
    "w": 177,
    "h": 220,
-   "kb": 316.1,
+   "kb": 323.3,
    "ramMb": 3.71
   },
   "lite": {
    "file": "kitsune-bt-atk-lite.webp",
    "w": 124,
    "h": 154,
-   "kb": 185.2,
+   "kb": 189.3,
    "ramMb": 1.82
   },
-  "prep": "13.11 test: full frames, LAB tone match to art (60%), NL-means denoise, unsharp 0.9/70, tuned WebP (filter 20), cap 120% of live"
+  "prep": "13.11 test: full frames, LAB tone match to art (60%), NL-means denoise, unsharp 0.9/70, tuned WebP (filter 20), cap 120% of live + solid_fix 14.11 (see-through white fur made solid)"
  },
  "kitsune_bt_hyp": {
   "id": "kitsune_bt_hyp",
@@ -22741,17 +22734,17 @@
    "file": "kitsune-bt-hyp-mob.webp",
    "w": 162,
    "h": 220,
-   "kb": 321.6,
+   "kb": 330.9,
    "ramMb": 3.4
   },
   "lite": {
    "file": "kitsune-bt-hyp-lite.webp",
    "w": 113,
    "h": 154,
-   "kb": 177.3,
+   "kb": 181.9,
    "ramMb": 1.66
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + solid_fix 14.11 (see-through white fur made solid)"
  },
  "kitsune_bt_idle": {
   "id": "kitsune_bt_idle",
@@ -22793,17 +22786,17 @@
    "file": "kitsune-bt-idle-mob.webp",
    "w": 165,
    "h": 220,
-   "kb": 533.6,
+   "kb": 550.5,
    "ramMb": 3.46
   },
   "lite": {
    "file": "kitsune-bt-idle-lite.webp",
    "w": 115,
    "h": 154,
-   "kb": 291.8,
+   "kb": 295.2,
    "ramMb": 1.69
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + solid_fix 14.11 (see-through white fur made solid)"
  },
  "kitsune_bt_sup": {
   "id": "kitsune_bt_sup",
@@ -22881,17 +22874,17 @@
    "file": "kitsune-bt-sup-mob.webp",
    "w": 163,
    "h": 220,
-   "kb": 337.0,
+   "kb": 339.0,
    "ramMb": 3.42
   },
   "lite": {
    "file": "kitsune-bt-sup-lite.webp",
    "w": 114,
    "h": 154,
-   "kb": 184.0,
+   "kb": 187.0,
    "ramMb": 1.67
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + hue to sky blue (hue_fix.py)"
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + hue to sky blue (hue_fix.py) + solid_fix 14.11 (see-through white fur made solid)"
  },
  "kitsune_ti_atk": {
   "id": "kitsune_ti_atk",
@@ -23214,14 +23207,14 @@
    -0.62
   ],
   "wf": [
-   0.484,
+   0.528,
    0.44
   ],
-  "maxDiff": 45.12,
+  "maxDiff": 34.77,
   "fig": {
    "top": 0.102,
    "foot": 0.9914,
-   "ax": 0.4843
+   "ax": 0.5285
   },
   "defects": [],
   "crop": null,
@@ -23234,22 +23227,22 @@
    "key": "idle",
    "kb": 445.3,
    "ramMb": 5.92,
-   "kbPct": 84,
-   "ramPct": 53
+   "kbPct": 85,
+   "ramPct": 54
   },
   "mob": {
    "file": "kitsune-ti-idle-mob.webp",
-   "w": 148,
+   "w": 152,
    "h": 220,
-   "kb": 372.7,
-   "ramMb": 3.11
+   "kb": 378.5,
+   "ramMb": 3.19
   },
   "lite": {
    "file": "kitsune-ti-idle-lite.webp",
-   "w": 104,
+   "w": 106,
    "h": 154,
-   "kb": 220.1,
-   "ramMb": 1.53
+   "kb": 220.7,
+   "ramMb": 1.56
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -29867,7 +29860,7 @@
    0.75,
    0.242
   ],
-  "maxDiff": 47.84,
+  "maxDiff": 45.63,
   "fig": {
    "top": 0.1289,
    "foot": 0.968,
@@ -29947,14 +29940,14 @@
    "file": "persephone-bt-hyp-mob.webp",
    "w": 167,
    "h": 220,
-   "kb": 234.7,
+   "kb": 235.0,
    "ramMb": 3.5
   },
   "lite": {
    "file": "persephone-bt-hyp-lite.webp",
    "w": 117,
    "h": 154,
-   "kb": 130.7,
+   "kb": 128.8,
    "ramMb": 1.72
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
@@ -30376,14 +30369,14 @@
   "impact": 11,
   "rel": 0.458,
   "wpt": [
-   0.1,
-   -0.547
+   0.103,
+   -0.558
   ],
   "wf": [
-   0.679,
-   0.454
+   0.684,
+   0.444
   ],
-  "maxDiff": 87.78,
+  "maxDiff": 75.83,
   "fig": {
    "top": 0.024,
    "foot": 0.9739,
@@ -30391,7 +30384,7 @@
   },
   "defects": [
    "raw_edge_clip",
-   "explode_area(2.50)"
+   "explode_area(2.42)"
   ],
   "crop": null,
   "ho": {
@@ -30519,21 +30512,21 @@
    "key": "atk",
    "kb": 200.7,
    "ramMb": 2.67,
-   "kbPct": 117,
+   "kbPct": 116,
    "ramPct": 92
   },
   "mob": {
    "file": "persephone-ti-hyp-mob.webp",
    "w": 117,
    "h": 220,
-   "kb": 234.1,
+   "kb": 228.9,
    "ramMb": 2.45
   },
   "lite": {
    "file": "persephone-ti-hyp-lite.webp",
    "w": 82,
    "h": 154,
-   "kb": 130.5,
+   "kb": 127.6,
    "ramMb": 1.2
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
@@ -38523,25 +38516,25 @@
  },
  "silent_ti_sup": {
   "id": "silent_ti_sup",
-  "srcRes": "246x420",
+  "srcRes": "724x1240",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 15,
   "rel": 0.625,
   "wpt": [
-   0.176,
-   -0.369
+   0.075,
+   -0.391
   ],
   "wf": [
-   0.78,
-   0.653
+   0.625,
+   0.634
   ],
-  "maxDiff": 73.21,
+  "maxDiff": 50.49,
   "fig": {
-   "top": 0.0954,
-   "foot": 0.9784,
-   "ax": 0.5104
+   "top": 0.0958,
+   "foot": 0.9788,
+   "ax": 0.5099
   },
   "defects": [
    "raw_edge_clip"
@@ -38551,112 +38544,68 @@
    "bottom": [
     [
      9,
-     0.487,
-     0.79
+     0.497,
+     0.8
     ],
     [
      15,
-     0.534,
-     0.98
+     0.559,
+     0.9
     ],
     [
      16,
-     0.531,
-     0.11
+     0.55,
+     0.05
     ],
     [
      17,
-     0.478,
-     0.16
-    ],
-    [
-     18,
-     0.516,
-     0.14
-    ],
-    [
-     19,
-     0.512,
-     0.07
-    ]
-   ],
-   "left": [
-    [
-     9,
-     0.68,
-     0.27
-    ],
-    [
-     10,
-     0.665,
-     0.28
-    ],
-    [
-     11,
-     0.702,
-     0.2
-    ],
-    [
-     12,
-     0.792,
-     0.09
-    ],
-    [
-     15,
-     0.704,
-     0.36
-    ]
-   ],
-   "right": [
-    [
-     9,
-     0.553,
+     0.492,
      0.21
     ],
     [
-     10,
-     0.531,
-     0.2
+     18,
+     0.519,
+     0.18
     ],
     [
-     11,
-     0.572,
-     0.1
+     19,
+     0.516,
+     0.13
     ],
     [
-     15,
-     0.611,
-     0.52
-    ],
-    [
-     16,
-     0.65,
-     0.05
+     20,
+     0.515,
+     0.07
     ]
    ],
-   "col": "#fdfff1"
+   "col": "#ff715c"
   },
-  "q": 46,
+  "q": 70,
   "bodyPx": 194,
-  "budget": {
-   "kb": 168.3,
-   "liveRam": 12.83,
-   "liveKb": 770.2
+  "bodyPxF": 194.26,
+  "v": 21,
+  "live": {
+   "key": "sup",
+   "kb": 216.0,
+   "ramMb": 3.22,
+   "kbPct": 117,
+   "ramPct": 83
   },
   "mob": {
    "file": "silent-ti-sup-mob.webp",
    "w": 127,
    "h": 220,
-   "kb": 170.2,
+   "kb": 253.5,
    "ramMb": 2.66
   },
   "lite": {
    "file": "silent-ti-sup-lite.webp",
    "w": 89,
    "h": 154,
-   "kb": 100.7,
+   "kb": 141.4,
    "ramMb": 1.31
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "sting_bt_atk": {
   "id": "sting_bt_atk",
@@ -42887,7 +42836,7 @@
    0.528,
    0.387
   ],
-  "maxDiff": 33.84,
+  "maxDiff": 32.66,
   "fig": {
    "top": 0.0188,
    "foot": 0.9873,
@@ -42896,7 +42845,7 @@
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 90,
+  "q": 91,
   "bodyPx": 198,
   "bodyPxF": 197.57,
   "v": 21,
@@ -42904,21 +42853,21 @@
    "key": "idle",
    "kb": 261.1,
    "ramMb": 4.7,
-   "kbPct": 120,
+   "kbPct": 118,
    "ramPct": 55
   },
   "mob": {
    "file": "vanhelsing-ti-idle-mob.webp",
    "w": 133,
    "h": 204,
-   "kb": 312.8,
+   "kb": 307.5,
    "ramMb": 2.59
   },
   "lite": {
    "file": "vanhelsing-ti-idle-lite.webp",
    "w": 93,
    "h": 143,
-   "kb": 171.2,
+   "kb": 169.4,
    "ramMb": 1.27
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"

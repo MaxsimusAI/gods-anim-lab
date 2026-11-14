@@ -183,8 +183,14 @@ def matte_frame(im_rgb, session):
     # 14.11 (Hel BT strike, Maxim «плохо вырезан фон»): Kling smoke = gray, unsaturated, a little brighter than the background;
     # k_detail made it a translucent gray slab. Opt-in (KL_DESMOKE=1): outside the body mask, unsaturated mid-contrast pixels are
     # background. Thin white hair strands are high-contrast and stay.
-    if os.environ.get("KL_DESMOKE") == "1":
+    if os.environ.get("KL_DESMOKE") in ("1", "2"):
         smoke = (sat < 22.0) & (m < 0.35) & (diff_max < 80.0)
+        if os.environ.get("KL_DESMOKE") == "2":   # 14.11 (Persephone TI ult, Maxim «Плохо убрана пустота в кадрах»): gray smoke that the body mask swallowed -
+            from scipy import ndimage as _ni3      # gray, low-contrast pixels count as body only next to coloured or contrasty body pixels
+            _core = (m > 0.5) & ((sat >= 22.0) | (diff_max >= 80.0))
+            _near = _ni3.binary_dilation(_core, iterations=max(4, int(H * 0.012)))
+            _sm2 = (sat < 22.0) & (diff_max < 80.0) & ~_near
+            m = np.where(_sm2, 0.0, m); smoke = smoke | _sm2
         k_detail = np.where(smoke, 0.0, k_detail)
         k_magic = np.where(smoke, 0.0, k_magic)
     k = np.where(is_dark_floor, 0.0, np.maximum(np.maximum(k_magic, k_detail), k_dark))
@@ -193,10 +199,11 @@ def matte_frame(im_rgb, session):
     # background colour, so not a soft floor shadow) that are connected to the solid body count as body.
     if os.environ.get("KL_DARKBODY") == "1":   # opt-in again (override "darkbody": true): as a default it turned dark haze behind the legs into solid slabs (Susanoo, Thor, Wukong, 14.11)
         from scipy import ndimage as _ni
-        dk = (a.mean(axis=2) < g.mean(axis=2) - 12.0) & (diff_max > 45.0)
+        _dt = float(os.environ.get('KL_DARKBODY_T', '45'))   # per clip (override "darkbody": <number>): a gray coat lining only 25-40 levels darker than the background (Van Helsing TI idle, 14.11)
+        dk = (a.mean(axis=2) < g.mean(axis=2) - min(12.0, _dt * 0.4)) & (diff_max > _dt)
         lab, _n = _ni.label(dk | (m > 0.5))
         keep = np.zeros(_n + 1, bool); keep[np.unique(lab[m > 0.5])] = True; keep[0] = False
-        k = np.maximum(k, np.where(dk & keep[lab], np.clip((diff_max - 45.0) / 25.0, 0.0, 1.0), 0.0))
+        k = np.maximum(k, np.where(dk & keep[lab], np.clip((diff_max - _dt) / (25.0 if _dt >= 45 else 12.0), 0.0, 1.0), 0.0))
 
     margin_x = max(8.0, W * 0.035)
     body_x = 1.5
