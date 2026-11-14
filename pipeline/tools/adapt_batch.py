@@ -163,6 +163,10 @@ def matte_frame(im_rgb, session):
         _m2 = np.asarray(remove(_sm, session=session, only_mask=True).resize((W, H), Image.BILINEAR)).astype(np.float32) / 255.0
         _er = max(3, int(H * 0.006))
         m = np.maximum(m, _ni2.grey_erosion(_m2, size=(2 * _er + 1, 2 * _er + 1)))
+        # thin body parts (a cape lining 10 px wide) do not survive the erosion: there the small mask is taken where the pixel
+        # is not background-coloured, so the soft outside rim of the upscaled mask (pure background) adds nothing (Lucifer TI)
+        _dm = np.abs(np.asarray(im_rgb).astype(np.float32) - bg_profile(np.asarray(im_rgb).astype(np.float32))).max(axis=2)
+        m = np.maximum(m, _m2 * np.clip((_dm - 10.0) / 15.0, 0.0, 1.0))
 
     sat = a.max(axis=2) - a.min(axis=2)
     bright = np.maximum(a.max(axis=2) - g.max(axis=2), 0.0)
