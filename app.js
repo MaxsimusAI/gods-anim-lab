@@ -48,7 +48,8 @@
     autoWait: 0,
     arenas: [],
     sheetWarm: {},
-    marks: {},        // 14.11: Maxim's own marks per clip, {god_style_slot: 'ok' | 'redo'}, kept in localStorage
+    marks: {},        // 14.11: Maxim's own marks per clip, {god_style_slot: 'ok|<stamp>' | 'redo|<stamp>'}, kept in localStorage
+    notes: {},        // 14.11: Maxim's comments per clip, {god_style_slot: {t, s}}, kept in localStorage
     mapFilter: null,  // status code picked in the legend of the status map
   };
 
@@ -74,6 +75,8 @@
   const MAP_STYLES = ['bt', 'ti'];
   const MAP_STYLE_RU = { bt: 'Титан', ti: 'Аниме' };
   const MARKS_KEY = 'gal_marks_v1';
+  const NOTES_KEY = 'gal_notes_v1';   // 14.11 (21:37) Maxim: «ещё поле, чтобы я мог комментарии оставить. Каждой из анимаций»
+  const NOTE_MAX = 600;
 
   function loadMarks() {
     try {
@@ -83,6 +86,47 @@
   }
   function saveMarks() {
     try { localStorage.setItem(MARKS_KEY, JSON.stringify(state.marks)); } catch (_) {}
+  }
+  // Maxim's comments per clip: {god_style_slot: {t: text, s: stamp of the take it was written about}}
+  function loadNotes() {
+    try {
+      const m = JSON.parse(localStorage.getItem(NOTES_KEY) || '{}');
+      return m && typeof m === 'object' && !Array.isArray(m) ? m : {};
+    } catch (_) { return {}; }
+  }
+  function saveNotes() {
+    try { localStorage.setItem(NOTES_KEY, JSON.stringify(state.notes)); } catch (_) {}
+  }
+  function cutText(t, max) {   // by whole characters, so an emoji is never cut in half
+    const a = Array.from(String(t));
+    return a.length > max ? a.slice(0, max).join('') : String(t);
+  }
+  function noteOf(godId, key) {
+    if (recStatus(godId, key) === 'none') return '';
+    const n = state.notes[godId + '_' + key];
+    return n && typeof n === 'object' && typeof n.t === 'string' ? cutText(n.t, NOTE_MAX) : '';
+  }
+  // which version he was looking at when he wrote the comment: '' = the current one («новое», version 1)
+  function noteCtx(godId, key) {
+    const n = state.notes[godId + '_' + key];
+    return n && typeof n === 'object' && typeof n.c === 'string' ? n.c.slice(0, 20) : '';
+  }
+  // true when the comment was written about an earlier take of this clip
+  function noteIsOld(godId, key) {
+    const n = state.notes[godId + '_' + key];
+    return !!(n && typeof n === 'object' && String(n.s == null ? '' : n.s) !== clipStamp(godId, key));
+  }
+  function setNote(godId, key, text) {
+    const id = godId + '_' + key, t = cutText(text, NOTE_MAX);
+    const slot = key.split('_')[1], alt = state.alt[slot] | 0;
+    const c = state.ver === 'prev' ? 'вчера' : alt >= 2 ? 'дубль ' + alt : '';
+    if (t.trim()) state.notes[id] = { t, s: clipStamp(godId, key), c }; else delete state.notes[id];
+    saveNotes();
+  }
+  function notesCount() {
+    let n = 0;
+    for (const g of mapGods()) for (const st of MAP_STYLES) for (const sl of MAP_SLOTS) if (noteOf(g.id, st + '_' + sl).trim()) n++;
+    return n;
   }
   function recStatus(godId, key) {
     const g = (window.CLIP_STATUS || {})[godId];
@@ -141,13 +185,15 @@
       cnt[shownStatus(g.id, st + '_' + sl)]++;
       if (markOf(g.id, st + '_' + sl)) marked++;
     }
+    const noted = notesCount(), mine = marked + noted;
     const f = state.mapFilter;
     document.getElementById('statusLegend').innerHTML =
       ST_ORDER.map(c => `<button class="st-chip${f === c ? ' active' : ''}" data-stf="${c}" type="button" title="Показать только такие"><i class="st-dot st-${c}"></i>${escHtml(ST_RU[c])} <b>${cnt[c]}</b></button>`).join('') +
       `<span class="st-legend-gap"></span>` +
       `<span class="st-mine"><i class="st-dot st-ok st-marked"></i>в белой рамке — ваша отметка (${marked})</span>` +
-      `<button class="st-act" id="btnCopyMarks" type="button"${marked ? '' : ' disabled'} title="Скопировать список ваших отметок, чтобы вставить его в чат">Скопировать мои отметки</button>` +
-      `<button class="st-act st-act-dim" id="btnResetMarks" type="button"${marked ? '' : ' disabled'}>Сбросить мои отметки</button>`;
+      `<span class="st-mine"><i class="st-dot st-fine st-noted"></i>с точкой — ваш комментарий (${noted})</span>` +
+      `<button class="st-act" id="btnCopyMarks" type="button"${mine ? '' : ' disabled'} title="Скопировать список ваших отметок и комментариев, чтобы вставить его в чат">Скопировать мои отметки</button>` +
+      `<button class="st-act st-act-dim" id="btnResetMarks" type="button"${mine ? '' : ' disabled'} title="Стереть все ваши отметки и комментарии в этом браузере">Сбросить отметки и комментарии</button>`;
 
     const head = `<div class="st-row st-head"><span class="st-god"></span>` +
       MAP_STYLES.map(st => `<span class="st-grp"><em>${MAP_STYLE_RU[st]}</em>${MAP_SLOTS.map(sl => `<span class="st-col">${MAP_SLOT_RU[sl]}</span>`).join('')}</span>`).join('') +
@@ -156,10 +202,12 @@
       const cells = MAP_STYLES.map(st => `<span class="st-grp">` + MAP_SLOTS.map(sl => {
         const k = st + '_' + sl, c = shownStatus(g.id, k), mk = markOf(g.id, k);
         const dim = f && f !== c ? ' st-dim' : '';
-        const tip = `${g.name} — ${MAP_STYLE_RU[st]}, ${MAP_SLOT_RU[sl]}: ${ST_RU[c]}${mk ? ' (ваша отметка)' : ''}`;
+        const nt = noteOf(g.id, k).trim();
+        const ntShort = Array.from(nt).length > 200 ? cutText(nt, 200) + '…' : nt;
+        const tip = `${g.name} — ${MAP_STYLE_RU[st]}, ${MAP_SLOT_RU[sl]}: ${ST_RU[c]}${mk ? ' (ваша отметка)' : ''}${nt ? ' · Комментарий: ' + ntShort : ''}`;
         return c === 'none'
           ? `<span class="st-cell st-none${dim}" title="${escHtml(tip)}"></span>`
-          : `<button class="st-cell st-${c}${mk ? ' st-marked' : ''}${dim}" data-god="${g.id}" data-slot="${sl}" type="button" title="${escHtml(tip)}"></button>`;
+          : `<button class="st-cell st-${c}${mk ? ' st-marked' : ''}${nt ? ' st-noted' : ''}${dim}" data-god="${g.id}" data-slot="${sl}" type="button" title="${escHtml(tip)}"></button>`;
       }).join('') + `</span>`).join('');
       const hide = f && !MAP_STYLES.some(st => MAP_SLOTS.some(sl => shownStatus(g.id, st + '_' + sl) === f));
       return `<div class="st-row${g.id === state.godId ? ' st-cur' : ''}"${hide ? ' hidden' : ''}><span class="st-god"><img src="${g.portrait}" alt=""><span>${idx + 1}. ${escHtml(g.name)}</span></span>${cells}</div>`;
@@ -202,11 +250,22 @@
       const dis = locked ? ` disabled title="${escHtml(locked)}"` : '';
       return `<span class="mk-item"><span class="mk-style">${MAP_STYLE_RU[st]}</span><i class="st-dot st-${r}"></i><span class="mk-text">${ST_SHORT[r]}</span>` +
         `<button class="mk-btn mk-ok${mk === 'ok' ? ' active' : ''}" data-mark="ok" data-key="${k}" type="button"${dis || ' title="Ролик меня устраивает"'}>✓ принять</button>` +
-        `<button class="mk-btn mk-redo${mk === 'redo' ? ' active' : ''}" data-mark="redo" data-key="${k}" type="button"${dis || ' title="Ролик нужно переснять"'}>✗ переснять</button></span>`;
+        `<button class="mk-btn mk-redo${mk === 'redo' ? ' active' : ''}" data-mark="redo" data-key="${k}" type="button"${dis || ' title="Ролик нужно переснять"'}>✗ переснять</button>` +
+        `<input class="mk-note" type="text" data-note="${k}" maxlength="${NOTE_MAX}" autocomplete="off" spellcheck="false" placeholder="комментарий к ролику: ${MAP_STYLE_RU[st].toLowerCase()}, ${MAP_SLOT_RU[sl]}" aria-label="Комментарий: ${MAP_STYLE_RU[st]}, ${MAP_SLOT_RU[sl]}"></span>`;
     }).join('') + (locked ? `<span class="mk-lock">${escHtml(locked)}</span>` : '');
-    // auto-play re-renders this strip every few seconds: keep the same buttons when nothing changed, so a click is never lost
+    // auto-play re-renders this strip every few seconds: keep the same buttons and fields when nothing changed, so a click
+    // is never lost and typing is never interrupted (the comment text itself is not part of the signature)
     const sig = god.id + '|' + html;
-    if (bar._html !== sig) { bar.innerHTML = html; bar._html = sig; }
+    if (bar._html !== sig) {
+      bar.innerHTML = html; bar._html = sig;
+      bar.querySelectorAll('input[data-note]').forEach(inp => {
+        inp.value = noteOf(god.id, inp.dataset.note);
+        inp.dataset.god = god.id;
+        const old = inp.value.trim() && noteIsOld(god.id, inp.dataset.note);
+        inp.classList.toggle('mk-note-old', !!old);
+        inp.title = old ? 'Комментарий написан к прежней версии этого ролика' : 'Ваш комментарий к этому ролику — попадёт в «Скопировать мои отметки»';
+      });
+    }
   }
 
   function updatePillTodo(godId) {
@@ -239,9 +298,16 @@
       }
       for (const m of ['ok', 'redo']) if (parts[m].length) by[m].push(g.name + ' — ' + parts[m].join(', '));
     }
+    const notes = [];
+    for (const g of mapGods()) for (const st of MAP_STYLES) for (const sl of MAP_SLOTS) {
+      const k = st + '_' + sl, t = noteOf(g.id, k).trim();
+      const ctx = noteCtx(g.id, k);
+      if (t) notes.push(g.name + ' — ' + MAP_STYLE_RU[st].toLowerCase() + ' ' + MAP_SLOT_RU[sl] + (ctx ? ' (смотрел: ' + ctx + ')' : '') + (noteIsOld(g.id, k) ? ' (к прежней версии ролика)' : '') + ': ' + t.replace(/\s+/g, ' '));
+    }
     return 'Мои отметки по анимациям на сайте.\n' +
       'ПРИНЯТЬ:\n' + (by.ok.length ? by.ok.join('\n') : '—') + '\n' +
-      'ПЕРЕСНЯТЬ:\n' + (by.redo.length ? by.redo.join('\n') : '—') + '\n';
+      'ПЕРЕСНЯТЬ:\n' + (by.redo.length ? by.redo.join('\n') : '—') + '\n' +
+      'КОММЕНТАРИИ:\n' + (notes.length ? notes.join('\n') : '—') + '\n';
   }
   function copyMarks(btn) {
     const text = marksText();
@@ -1154,10 +1220,12 @@
         // no browser dialog: the first click arms the button for 4 s, the second one clears
         if (resetArmedAt && Date.now() - resetArmedAt < 4000) {
           state.marks = {}; saveMarks();
+          state.notes = {}; saveNotes();
+          const mb = document.getElementById('markBar'); if (mb) mb._html = null;   // force the fields to be redrawn empty
           renderStatusMap(); renderMarkBar(currentGod()); renderRoster(); renderMapButton();
         } else {
-          resetArmedAt = Date.now(); reset.textContent = 'Точно сбросить? Нажмите ещё раз';
-          setTimeout(() => { if (reset.isConnected && Date.now() - resetArmedAt >= 3900) { resetArmedAt = 0; reset.textContent = 'Сбросить мои отметки'; } }, 4000);
+          resetArmedAt = Date.now(); reset.textContent = 'Стереть отметки и комментарии? Нажмите ещё раз';
+          setTimeout(() => { if (reset.isConnected && Date.now() - resetArmedAt >= 3900) { resetArmedAt = 0; reset.textContent = 'Сбросить отметки и комментарии'; } }, 4000);
         }
       }
     });
@@ -1165,6 +1233,24 @@
       const b = e.target.closest('button[data-mark]');
       const god = currentGod();
       if (b && !b.disabled && god) setMark(god.id, b.dataset.key, b.dataset.mark);
+    });
+    // comments: saved on every keystroke under the god and clip the field was drawn for
+    document.getElementById('markBar').addEventListener('input', e => {
+      const inp = e.target.closest('input[data-note]');
+      if (!inp || !inp.dataset.god) return;
+      setNote(inp.dataset.god, inp.dataset.note, inp.value);
+      inp.classList.remove('mk-note-old');
+      inp.title = 'Ваш комментарий к этому ролику — попадёт в «Скопировать мои отметки»';
+    });
+    // Enter or Escape leaves the field, so the stand's keys (arrows, 1-4, space) work again
+    document.getElementById('markBar').addEventListener('keydown', e => {
+      const inp = e.target.closest('input[data-note]');
+      if (inp && (e.key === 'Enter' || e.key === 'Escape')) { e.stopPropagation(); inp.blur(); }
+    });
+    // while he types, the stand must not switch to another skill under the field
+    document.getElementById('markBar').addEventListener('focusin', e => {
+      if (!e.target.closest('input[data-note]')) return;
+      if (state.showcaseMode) { state.showcaseMode = false; const sb = document.getElementById('btnShowcase'); if (sb) sb.classList.remove('active'); }
     });
   }
 
@@ -1291,8 +1377,10 @@
     document.getElementById('conceptBackdrop').addEventListener('click', closeConceptModal);
 
     window.addEventListener('keydown', e => {
-      if (e.target && (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT')) return;
-      if (e.key === 'Escape') { closeConceptModal(); closeStatusMap(); return; }
+      const typing = e.target && (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT');
+      // Escape closes the windows from anywhere but a select / comment field (so also from the copy-by-hand text box)
+      if (e.key === 'Escape' && !typing) { closeConceptModal(); closeStatusMap(); return; }
+      if (typing || (e.target && e.target.tagName === 'TEXTAREA')) return;
       const sm = document.getElementById('statusModal');
       if (sm && !sm.hidden) return;   // the map is open: no god switching or skills behind it
       if (e.key === 'ArrowLeft') { stepGod(-1); return; }
@@ -1372,6 +1460,7 @@
 
   // Boot!
   state.marks = loadMarks();
+  state.notes = loadNotes();
   buildArenasDom();
   bindUiEvents();
   bindStatusUi();

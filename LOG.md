@@ -179,3 +179,7 @@ See `remarks_ru.md` next to this file.
   `pipeline/work/status_overrides.json`. When he sends his marks: accepted clips go into status_overrides as "ok"
   (= protected takes), «переснять» as "redo"; update STATE.md the same day.
   → CHECK for the executor: is a new or changed clip missing from the status map / does its status lag the stand?
+- 14.11 (21:37) Maxim: «Ещё поле, чтобы я мог комментарии оставить. Каждой из анимаций.» → done (v109): a text field per clip
+  next to «✓ принять / ✗ переснять»; saved in his browser as he types, a white dot on the map cell, the text in the cell's
+  tooltip and in «Скопировать мои отметки» (section «КОММЕНТАРИИ», with «смотрел: вчера / дубль N» when he wrote it while
+  looking at another version). When he pastes them: every comment is a remark (skill, section 3) — LOG, card, CHECK.
