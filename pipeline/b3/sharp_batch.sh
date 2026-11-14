@@ -5,7 +5,7 @@ set -e
 K=/home/claude/kl
 for c in "$@"; do
   g=${c%%_*}; st=$(echo $c | cut -d_ -f2); d=/tmp/sc/$c; rm -rf $d; mkdir -p $d/raw $d/frames_all/$c $d/gods-anim-lab-repo/assets/sheets
-  cp $K/work/{live_bt_metrics,new_10_art_metrics,impact_overrides,adapted_all_metrics}.json $d/
+  flock /tmp/am.lock cp $K/work/{live_bt_metrics,new_10_art_metrics,impact_overrides,adapted_all_metrics}.json $d/
   ffmpeg -v error -y -i $K/b2/mp4/$c.mp4 $d/raw/f_%03d.png
   art=none; [ "$st" = bt ] && [ -f /home/claude/gods-anim-lab/art/f0/$g.webp ] && art=/home/claude/gods-anim-lab/art/f0/$g.webp
   need=$(cd /tmp && python3 $K/b3/need_idx.py $c $d/raw)
