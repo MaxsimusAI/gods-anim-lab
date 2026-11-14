@@ -13,10 +13,10 @@
   "what": ""
  },
  "amaterasu_bt_atk": {
-  "checked": "",
+  "checked": "fseq amaterasu atk: release f8@416, orb 430-700, hit 745 ms",
   "remark": "Плохая синхронизация с программный эффектом",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "Block 1 only: sheet 1.25 s (was 1.16 s); the orb leaves on the release frame, damage on arrival (the orb itself is small - not redesigned)"
  },
  "anansi_bt_sup": {
   "checked": "fseq anansi sup: BT release f16@1001, orb 1120-1380, hits 1265; TI release f15@938, hits 1195 ms",
@@ -37,10 +37,10 @@
   "what": "today's sheets: creature picture and pearl sigil removed; water drops + swirl at wf on the release frame (the ult is a summon - no damage on the stand, so nothing else to sync)"
  },
  "aoguang_bt_sup": {
-  "checked": "",
+  "checked": "fseq aoguang sup: release f11@687, bolts 730-810, damage 840 ms",
   "remark": "Плохо синхронизирован программный эффект",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the bolts were launched 0.1 s after the release frame and were still flying when the numbers appeared - release kept at the launch time (REL6_TODAY): bolts leave on the release frame, damage on arrival"
  },
  "aoguang_ti_hyp": {
   "checked": "fseq aoguang hyp: no creature 580-1490 ms, swirl at the release (f12/f13)",
@@ -49,16 +49,16 @@
   "what": "today's sheets: creature picture and pearl sigil removed; water drops + swirl at wf on the release frame (the ult is a summon - no damage on the stand, so nothing else to sync)"
  },
  "aoguang_ti_sup": {
-  "checked": "",
+  "checked": "fseq aoguang sup: release f11@687, bolts 730-810, damage 840 ms",
   "remark": "Плохо синхронизирован программный эффект",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the bolts were launched 0.1 s after the release frame and were still flying when the numbers appeared - release kept at the launch time (REL6_TODAY): bolts leave on the release frame, damage on arrival"
  },
  "artemis_bt_atk": {
-  "checked": "",
+  "checked": "sheetview artemis bt atk f3-f11; fseq artemis atk: BT flash f8@450 + arrow 450-510, TI flash f7@390, hit 735 / 705 ms",
   "remark": "Плохая синхронизация у програмного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash"
  },
  "artemis_bt_hyp": {
   "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
@@ -67,16 +67,16 @@
   "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
  },
  "artemis_bt_sup": {
-  "checked": "",
+  "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms",
   "remark": "Плохая синхронизация у програмного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival"
  },
  "artemis_ti_atk": {
-  "checked": "",
+  "checked": "sheetview artemis bt atk f3-f11; fseq artemis atk: BT flash f8@450 + arrow 450-510, TI flash f7@390, hit 735 / 705 ms",
   "remark": "Плохая синхронизация у програмного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash"
  },
  "artemis_ti_hyp": {
   "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
@@ -85,10 +85,10 @@
   "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
  },
  "artemis_ti_sup": {
-  "checked": "",
+  "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms",
   "remark": "У аниме версии берем вторую версию. анимаций. Плохая синхронизация у програмного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival"
  },
  "atlas_bt_hyp": {
   "checked": "",
@@ -181,10 +181,10 @@
   "what": "today's sheets: no heads picture, no three flames, no triskele sigil; shots from the hand to the targets kept"
  },
  "hecate_bt_sup": {
-  "checked": "",
+  "checked": "fseq hecate sup BT: release f11@687, shots 760-820, damage 850 ms",
   "remark": "Плохая синхронизация у прогрммныъ эффектов с анимацией",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "same fix as Ao Guang super (REL6_TODAY): shots leave on the release frame, damage on arrival"
  },
  "hecate_ti_hyp": {
   "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
@@ -289,10 +289,10 @@
   "what": ""
  },
  "koschei_ti_sup": {
-  "checked": "",
+  "checked": "fseq koschei sup TI: release f15@938, wisps 1000-1100, damage 1090 ms",
   "remark": "Плохо синхронизированы программные эффекты и аниммация",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "Block 1 only: sheet 1.5 s (was 0.96 s); wisps leave after the release frame and the damage lands on arrival"
  },
  "lilith_ti_hyp": {
   "checked": "",
@@ -451,16 +451,16 @@
   "what": "today's sheets: on the release frame flame streams leave wf (TI: mouth/head; BT: wf is the staff fire) to every enemy and arrive with the damage; fire along the ground from the feet removed"
  },
  "shango_bt_sup": {
-  "checked": "",
+  "checked": "fseq shango sup: BT release f13@813, bolts 840, damage 835; TI release f14@874, bolts + damage 900 ms",
   "remark": "Плохая синхронизация программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the lightning is instant - the release frame now lands together with the bolts and the damage (REL_TODAY shango:sup = 0.73 s; was 0.25 s earlier)"
  },
  "shango_ti_sup": {
-  "checked": "",
+  "checked": "fseq shango sup: BT release f13@813, bolts 840, damage 835; TI release f14@874, bolts + damage 900 ms",
   "remark": "Плохая синхронизация программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the lightning is instant - the release frame now lands together with the bolts and the damage (REL_TODAY shango:sup = 0.73 s; was 0.25 s earlier)"
  },
  "shiva_bt_atk": {
   "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
@@ -469,10 +469,10 @@
   "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
  },
  "shiva_bt_hyp": {
-  "checked": "",
+  "checked": "fseq shiva hyp: BT release f11@687, beam 740-830, damage 845; TI release f14@874, beam 920-1010, damage 1025 ms",
   "remark": "Плохая синхронизация программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the beam started 0.2 s after the release frame - release kept at the launch time (REL6_TODAY): the beam leaves the forehead on the release frame and reaches the target with the damage"
  },
  "shiva_bt_sup": {
   "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
@@ -487,10 +487,10 @@
   "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
  },
  "shiva_ti_hyp": {
-  "checked": "",
+  "checked": "fseq shiva hyp: BT release f11@687, beam 740-830, damage 845; TI release f14@874, beam 920-1010, damage 1025 ms",
   "remark": "Плохая синхронизация программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "the beam started 0.2 s after the release frame - release kept at the launch time (REL6_TODAY): the beam leaves the forehead on the release frame and reaches the target with the damage"
  },
  "shiva_ti_sup": {
   "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
@@ -529,10 +529,10 @@
   "what": "today's sheets: no leap; a fireball leaves wf on the release frame and reaches the target with the damage"
  },
  "surt_bt_sup": {
-  "checked": "",
+  "checked": "fseq surt sup BT: release f10@626, fire 690-800, damage 890 ms",
   "remark": "Плохая синхронизация программного эффекта",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "Block 1 only: sheet 1.5 s (was 0.92 s); the thrown fire leaves after the release frame, damage on arrival"
  },
  "surt_ti_atk": {
   "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",

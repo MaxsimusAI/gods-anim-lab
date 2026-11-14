@@ -7539,7 +7539,9 @@ const OLD = new Set(["agni", "amaterasu", "anansi", "anubis", "aoguang", "apollo
 BR.OLD_SIG = OLD;
 BR.boltSync = u => !!(BR.isProposed && u && u.gu && (BR.animOf(BR.SHEETS_ATK, u.gu) || {}).isNewSheet);
 BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill release time of the NEW sheets (s after the cast starts)
-BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3) };   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
+BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };   // Shango super: the lightning is instant - the release frame lands with the bolts and the damage
+// r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
+BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup']);   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
@@ -7555,7 +7557,9 @@ const REL_FIX = {
 'isis:sup': 9,
 'varuna:sup': 17,
 };
-const relTrue = (gu, kind, A) => { if (BR.isProposed && A && A.isNewSheet) return A.rel; const k = (BR.figKey ? BR.figKey(gu) : gu.hid) + ':' + kind, f = REL_FIX[k] ?? REL_FIX[gu.hid + ':' + kind]; return f != null ? f / Math.max(1, (A.frames || 25) - 1) : A.rel; };
+// r9: release frames of today's sheets measured by eye where the metrics are wrong (the arrow is still on the string at the metric frame)
+const R9_REL = { 'artemis:bt:atk': 8, 'artemis:ti:atk': 7, 'artemis:bt:sup': 13, 'artemis:ti:sup': 12 };
+const relTrue = (gu, kind, A) => { if (BR.isProposed && A && A.isNewSheet) { const f9 = A.isPrevSheet ? null : R9_REL[gu.hid + ':' + (/-ti-/.test(A.src || '') ? 'ti' : 'bt') + ':' + kind]; return f9 != null ? f9 / Math.max(1, (A.frames || 25) - 1) : A.rel; } const k = (BR.figKey ? BR.figKey(gu) : gu.hid) + ':' + kind, f = REL_FIX[k] ?? REL_FIX[gu.hid + ':' + kind]; return f != null ? f / Math.max(1, (A.frames || 25) - 1) : A.rel; };
 class VU {
 constructor(gu, rs) {
 this.gu = gu;
@@ -7855,7 +7859,8 @@ hitAt = BR.REL_TODAY[u.hid + ':' + kind];
 const A = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
 // 12.11 Maxim (batch 3): "first the game effect, then the baked burst". The old signatures launch their effect at .5 s
 // (written for the old sheets), the new sheet reached its release at .6 s. Bring the baked release to the script.
-if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && hitAt > .5 && BR.OLD_SIG && BR.OLD_SIG.has(u.hid) && !(u.hid === 'houyi' && kind === 'sup'))
+if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && hitAt > .5 && BR.OLD_SIG && BR.OLD_SIG.has(u.hid) && !(u.hid === 'houyi' && kind === 'sup')
+&& !(!A.isPrevSheet && (BR.REL6_TODAY && BR.REL6_TODAY.has(u.hid + ':' + kind) || BR.REL_TODAY && BR.REL_TODAY[u.hid + ':' + kind])))
 hitAt = .5;
 let at = hitAt;
 if (A && A.rel && hitAt) {
@@ -23307,7 +23312,7 @@ kwMoonHit(F, p, Math.atan2(p.y - w.y, p.x - w.x), 1);
 },
 s: {
 col: AR.c,
-anticip(F, u) { const b = boxOf(u); F.at(.05, () => kwMoon(F, b.x + b.w * .12, b.top - 10, 10, .78, { rise: -6, in: .3, out: .7, k: .9 })); },
+anticip(F, u) { if (F.today('sup', u)) return; const b = boxOf(u); F.at(.05, () => kwMoon(F, b.x + b.w * .12, b.top - 10, 10, .78, { rise: -6, in: .3, out: .7, k: .9 })); },   // r9: no game moon over the god on today's sheets
 sup(F, e) {
 const from = F.wp('s');
 F.flash(from.x, from.y, 26, AR.c2, { dur: .22 });
