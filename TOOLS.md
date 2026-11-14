@@ -116,6 +116,24 @@ Overrides `work/impact_overrides.json` per clip:
 - A game effect changed during a redo must not change "вчера": gate it with `F.today(kind, u)` (a new sheet that is not
   yesterday's frozen copy, `!A.isPrevSheet`), not with `F.newSheet` — `F.newSheet` is also true on yesterday's sheets.
 
+- **r9 (14.11) playback and sync model, today's sheets only (`STG.playAnim`, `app.js`):** a new sheet never plays faster than a floor
+  (strike 1.25 s, super / ult 1.5 s; max 1.7 / 2.0). When the release frame then comes later than the script expects (`hitAt`; .5 for
+  `OLD_SIG` supers / ults), fx2 calls `BR.hold(lag)` and the stand stops stepping the sim and fx2 of that arena for `lag` seconds while
+  the sprites play (`scriptDt` in `tick` / `stepManual`): the whole script (effects, leap, pending hits, numbers) runs `lag` later, order
+  intact. Strikes whose release frame is too early even at the slowest playback start their sheet later (`wait`, idle pose until then).
+  Tables: `BR.REL_TODAY` (expected release time per skill, e.g. Sting ult kick, Shango super bolts), `BR.REL6_TODAY` (OLD_SIG skills
+  launched by `sup()` / `ult()` at .6 s keep the release at .6 s), `R9_REL` (release frame by eye where the metric frame is wrong),
+  `BR.NOLEAP_NEW` (melee basics played from the place).
+- **r9 helpers (defined right after `const SIG = {}`, usable in every signature):** `r9Stand(F, e, fly, launch)` - a melee basic from the
+  place with a projectile from `wf`; `r9Link(F, u, kind, targets, draw, o)` - on the release frame something leaves `wf` and reaches each
+  target when the sim deals the damage; `r9Stream` (smooth tapered stream, moving origin / target, optional flowing sprites), `r9Fire`
+  (stream of fire in a colour ramp), `r9Staff` (Wukong's staff); `F.st.replayRelease(u, kind, lead)` - play the sheet again so that its
+  release frame comes `lead` s from now (a hit long after the cast, Lu Bu ult). On the stand `contactImpact` no longer restarts a sheet
+  that is still playing.
+- **r9 tools (`pipeline/r9/tools/`, server on :8766):** `fseq.py` (deterministic frame series: paused page + `stepManual`; prints sheet
+  duration, release, hold, hit times, console errors), `survey.py` (timing table of all gods x slots, no pictures), `relview.py` /
+  `sheetview.py` (release frame with `wf`, any frame range of a sheet), `led.py` (update `pipeline/r9/fx_ledger.json`).
+
 **What to look at for the stand gate (the gate itself is G4 of the skill; every action slot, BT row + TI row):**
 `python3 b3/seq.py out.jpg <god> <slot> [n] [step_ms] [speed]` — LOOK at it.
 - [ ] Game effect starts at the release frame, from `wf`, continues the baked effect.
