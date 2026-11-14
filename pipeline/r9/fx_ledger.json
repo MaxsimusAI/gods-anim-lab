@@ -92,28 +92,28 @@
   "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
  },
  "atlas_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26)"
  },
  "atlas_bt_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s"
  },
  "atlas_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn sphere, sigil, thrown ball and stars from the sky removed. From the release frame the blue orb in his raised hand (wf) throws three volleys of blue stars (r9Orb) at every enemy, one per hit of the series; each volley lands with its hit (star impact), the third is bigger; then the stun. Hit events do not exist at the cast start, so the volleys are timed by the sim's schedule (T_SUP + .02 / .14 / .26)"
  },
  "atlas_ti_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.6 M/R: BT release f12@750, stars 760-1040, shells from 1040, buff 1050; TI release f16@1001, stars land 1291, buff 1301",
   "remark": "Плохой программный эффект",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: drawn sphere above him, gathering stars and chains to the sky removed. On the release frame a blue star of the clip's shell leaves him (wf) for every other ally (r9Orb), the same blue shell closes around the ally on arrival (atShell9) - his hits now go into Atlas; a redirected hit later = a short blue stream from the ally to Atlas. Release expected .45 s"
  },
  "blackbeard_bt_hyp": {
   "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062 | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
@@ -572,10 +572,10 @@
   "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed",
   "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse)"
  },
  "veles_bt_sup": {
   "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
@@ -590,10 +590,10 @@
   "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.75 M/R (revive): BT release f13@813, stream 820-1053, coil + revive from 1060; TI release f12@750, lands 990, revive 1000. Curse branch seen once with a temporary switch (streams to 5 enemies + coils, 0.6), switch removed",
   "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: green serpent, green fog and sigil removed; colour = the clip's cold blue. On the release frame the blue fire that spirals up around him and leaves through the top edge (new helper r9Top = the sheet's ho.top point) flows as a stream of blue fire (r9Fire, blue ramp): on the stand (an ally is dead -> revive) in one stream to the fallen ally, a blue spiral rises there and he revives; when nobody is dead - to every enemy with a blue coil (curse)"
  },
  "veles_ti_sup": {
   "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",

@@ -5687,14 +5687,15 @@ return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr
 // The flight of EVERY target ends .01 s before the damage (tHit): o.min (wished minimum flight) and o.gap (stagger between targets)
 // are wishes that yield when the release frame is too close to the damage - the stagger is squeezed first, then the flight is
 // shortened. A projectile never lands after its hit.
+// r9Warm: the sheet picture is loaded lazily by the first frameOf() call, and that call still returns nothing - ask for it at the cast
+// start so that the weapon point (wf) is known on the release frame even at the very first cast
+const r9Warm = (F, u) => { if (F.st && F.st.frameOf)
+for (const d of [0, .06, .2])
+F.at(d, () => F.st.frameOf(u)); };
 const r9Link = (F, u, kind, targets, draw, o = {}) => {
 const K = kind === 's' ? 'sup' : kind === 'h' ? 'hyp' : 'atk', exp = o.exp ?? (kind === 'a' ? REL_SHOT : BR.OLD_SIG.has(u.hid) ? .5 : REL_SUP), tR = F.relDt(K, exp), tHit = o.tHit ?? T_SUP;
 const T = [...new Set(targets || [])].filter(t => t && t.alive && t !== u);
-// the sheet picture is loaded lazily by the first frameOf() call, and that call still returns nothing: ask for it now so that
-// the point of the weapon (wf) is known on the release frame even at the very first cast
-if (F.st && F.st.frameOf)
-for (const d of [0, .06, .2])
-F.at(d, () => F.st.frameOf(u));
+r9Warm(F, u);
 const room = Math.max(.03, tHit - tR - .01), gap = T.length > 1 ? Math.min(o.gap ?? 0, Math.max(0, room - Math.min(o.min ?? .14, room)) / (T.length - 1)) : 0;
 F.at(tR, () => { const from = F.wp(kind, u); T.forEach((t, i) => { const d = gap * i; F.at(d, () => draw(from, F.tc(t, o.ty ?? .45), room - d, t, i)); }); });
 return tR;
@@ -5807,7 +5808,8 @@ const k1 = ez(clamp(a / fly, 0, 1)), dq = clamp((a - fly) / fade, 0, 1), k0 = le
 const P = [];
 for (let i = 0; i <= N; i++)
 P.push(pt(lerp(k0, k1, i / N)));
-const h = P[N], al = 1 - dq;
+// a fan of orbs starts from one point and the additive heads add up to a white blob there: the orb fades in over the first quarter
+const h = P[N], al = (1 - dq) * (.3 + .7 * clamp(a / (fly * .28), 0, 1));
 g.save();
 g.globalCompositeOperation = 'lighter';
 g.lineCap = 'round';
@@ -5864,7 +5866,7 @@ o.onHit(t.x, t.y);
 const r9Coil = (F, t, o = {}) => {
 const col = o.col || '#ffffff', core = o.core || '#ffffff', w = o.w ?? 5, turns = o.turns ?? 2.2, dur = o.dur ?? .6, tin = o.in ?? .22, N = 34, ph = F.rnd(0, 6);
 F.obj(dur, (g, a) => {
-if (!t.alive)
+if (!t.alive && !o.any)
 return;
 const b = boxOf(t), up = EASE['ease-out'](clamp(a / tin, 0, 1)), al = a < dur * .55 ? 1 : 1 - (a - dur * .55) / (dur * .45), rx = b.w * (o.rx ?? .46), y0 = b.feet - b.h * .06, y1 = b.top + b.h * .12;
 const P = [];
@@ -5901,6 +5903,18 @@ if (!fr || !fr.atk)
 return F.wp(kind, u);
 const k0 = u.sc * (u.msc || 1), fx = u.flip ? 1 - px : px;
 return { x: u.cx + u.tx + (fr.x + fx * fr.w - u.cx) * k0, y: u.feet + u.ty + (fr.y + py * fr.h - u.feet) * k0, h: boxOf(u).h };
+};
+// r9Top (Block 4b): the point where the baked effect of today's sheet leaves the frame through the TOP edge (metric `ho.top`, the entry
+// nearest to the release frame) - the game continues the effect from there. Falls back to wf.
+const r9Top = (F, u, kind, py = .05) => {
+const A = BR.isProposed && u && u.gu ? BR.animOf(kind === 's' ? BR.SHEETS_SUP : kind === 'h' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) : null, T = A && A.ho && A.ho.top;
+if (!T || !T.length)
+return F.wp(kind, u);
+let best = T[0];
+for (const q of T)
+if (Math.abs(q[0] - A.impact) < Math.abs(best[0] - A.impact))
+best = q;
+return r9Fp(F, u, kind, best[1], py);
 };
 // r9Bolt (Block 4b): one thick living lightning that GROWS from a point to a target in `fly` seconds (the tip is seen travelling), stays
 // for `hold` and fades - a jagged path built once (no flicker), soft glow + coloured body + white core, a few short forks, sparks at
@@ -7744,7 +7758,7 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
 // r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
 // before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
-Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45 });
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45, 'atlas:sup': .45, 'atlas:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -14704,12 +14718,35 @@ h: {
 col: VL.nav, status: k2Seal('k2_veles'),
 anticip(F, u, k, rel, e) {
 k2Cut(u, 'hyp', 1);
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Veles ult: «плохая синхронизация программного эффекта, вид не вау и другой цвет»): today's sheets - no green
+// serpent, no green fog, no sigil. The clip's colour is cold blue. One read: on the release frame the blue fire that spirals up around
+// him and leaves through the top edge flows from that point to every enemy and winds around him - the curse (or, when an ally is
+// dead, in one stream to the fallen ally who rises).
+const flame9 = (x, y) => { if (F.rng() < .4) F.p({ x, y, vx: F.rnd(-10, 10), vy: -F.rnd(20, 50), drag: 1.5, life: F.rnd(.3, .5), s0: F.rnd(5, 8), s1: 1.5, tex: 'flame', col: F.pick(['#8fd0ff', '#4aa0ff']) }); };
+const dead = F.allies().filter(x => !x.alive && x !== u), blue = o => Object.assign({ col: '#3f9cff', core: '#e8f6ff', ramp: ['#e8f6ff', '#8fd0ff', '#4aa0ff', '#2a6ae0'], w: 6.5, wob: 7, tail: .8, drain: .18 }, o);
+if (dead.length) {
+const tR = F.relDt('hyp', .5), fly = Math.max(.12, T_SUP - .01 - tR), t = dead[0];
+r9Warm(F, u);
+F.atRaw(tR, () => { r9Fire(F, r9Top(F, u, 'h'), F.tc(t, .5), fly, blue({ w: 9, arc: -18 }));
+F.atRaw(fly - .02, () => r9Coil(F, t, { any: true, col: '#3f9cff', core: '#e8f6ff', w: 6.5, dur: .9, turns: 2.4, emit: flame9 })); });
+return;
+}
+const row = F.foes().slice().sort((p, q) => p.slot - q.slot), n = row.length;
+r9Link(F, u, 'h', row, (from, to, fly, t, i) => {
+r9Fire(F, r9Top(F, u, 'h'), to, fly, blue({ arc: (i - (n - 1) / 2) * -8 + (i % 2 ? 8 : -8) }));
+F.atRaw(fly - .02, () => r9Coil(F, t, { col: '#3f9cff', core: '#e8f6ff', w: 5.5, dur: .8, turns: 2.2, emit: flame9 }));
+}, { gap: .012, ty: .46 });
+return;
+}
 const b = boxOf(u);
 F.at(.16, () => vlSerpent(F, vlCoilPath(b, { x: LAY.W / 2, y: LAY.eF(8) }), .46, { w: 6, body: .26 }));
 F.at(.76, () => k2sigil(F, 'k2_veles', '#8ff0c0', { s: 36, k: .7 }));
 },
 ult(F, e) { F.hypDrawn = true; },
 hyperHit(F, e) {
+if (F.today('hyp'))
+return;
 vlFogBank(F, e.targets, 1.4);
 const L = e.targets.slice().sort((a, b) => Math.abs(a.slot - 2) - Math.abs(b.slot - 2));
 L.forEach((t, i) => F.at(i * .04, () => vlFogOn(F, t, 1.2)));
@@ -35814,6 +35851,37 @@ F.decal(f.x, f.y, f.w * .36, AT_STAR, { dur: 1, cracks: 4, k: .7 });
 nwCrown(F, f.x, f.y - 2, .7, { col: '#cfe0ff', cols: [AT_CORE, AT_STAR, '#9fe6ff'], n: 7 });
 }
 };
+// r9 Block 4b (14.11 Maxim, Atlas super / ult: «плохой программный эффект»): today's sheets - the blue of the clips.
+const AT9 = { c: '#4f9cff', pale: '#bfe0ff', core: '#f2f8ff' };
+const atOrb9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: AT9.c, core: AT9.core, r: 8.5, arc: -14, tex: 'star4', texCol: '#ffffff', ts: 2.8, spin: 6, tail: .5, sparkCol: [AT9.pale, AT9.c, '#ffffff'], sparkTex: 'star4', spark: 30 }, o));
+// the blue shell of the clip closes around an ally for a moment: his hits now go into Atlas
+const atShell9 = (F, t, dur = .8) => F.obj(dur, (g, a) => {
+if (!t.alive)
+return;
+const b = boxOf(t), q = a / dur, up = EASE['ease-out'](clamp(a / .2, 0, 1)), al = q < .55 ? 1 : 1 - (q - .55) / .45, rx = b.w * .6 * lerp(.55, 1, up), ry = b.h * .58 * lerp(.55, 1, up), cx = b.x, cy = b.top + b.h * .5;
+g.save();
+g.translate(cx, cy);
+g.scale(1, ry / rx);
+g.globalCompositeOperation = 'lighter';
+const gr = g.createRadialGradient(0, 0, rx * .35, 0, 0, rx);
+gr.addColorStop(0, rgba(AT9.c, 0));
+gr.addColorStop(.7, rgba(AT9.c, .16));
+gr.addColorStop(.93, rgba(AT9.pale, .5));
+gr.addColorStop(1, rgba(AT9.c, 0));
+g.globalAlpha = al;
+g.fillStyle = gr;
+g.beginPath();
+g.arc(0, 0, rx, 0, TAU);
+g.fill();
+g.lineCap = 'round';
+g.strokeStyle = AT9.core;
+g.lineWidth = 2;
+g.globalAlpha = al * .7;
+g.beginPath();
+g.arc(0, 0, rx * .86, -Math.PI * .92 + a * .8, -Math.PI * .6 + a * .8);
+g.stroke();
+g.restore();
+});
 NEWSTYLE.atlas = { el: 'water', role: 'warrior', weapon: 'fist', melee: true, twin: false, proj: 'star', col: AT_STAR, glyph: 'nw1Sphere' };
 SIG.atlas = {
 motif: 'stone', glyph: 'nw1Sphere',
@@ -35842,7 +35910,13 @@ F.burst(p.x, p.y + 10, { n: 5, tex: 'star4', col: [AT_STAR, AT_CORE, AT_WARM], v
 },
 s: {
 noCharge: true,
-anticip(F, u, kind, rel) {
+anticip(F, u, kind, rel, e) {
+if (F.today('sup', u)) {
+// super (hits on the other allies go into Atlas): no drawn sphere above him, no gathering stars. One read: on the release frame a blue
+// star of the clip's shell leaves his hand (wf) for every other ally, and the same blue shell closes around the ally when it arrives
+r9Link(F, u, 's', F.allies ? F.allies() : (e && e.targets) || [], (from, to, fly, t, i) => atOrb9(F, from, to, fly, { arc: (i % 2 ? 1 : -1) * 16, onHit: () => atShell9(F, t) }), { exp: .45, gap: .02, ty: .5 });
+return;
+}
 const b = boxOf(u), p = F.wp('s');
 nwGather(F, p, rel, { n: 9, r: 24, cols: [AT_STAR, AT_CORE, AT_WARM], glow: AT_STAR, s: 11, tex: 'star4', s0: 4 });
 F.obj(rel, () => { if (F.rng() < .4)
@@ -35850,6 +35924,8 @@ F.p({ x: b.x + F.rnd(-b.w * .5, b.w * .5), y: b.feet - F.rnd(0, 8), vx: F.rnd(-6
 },
 sup(F) {
 F.supDrawn = true;
+if (F.today('sup'))
+return;
 const me = F.u, b = boxOf(me), S = { x: b.x, y: (LAY.sy ?? 1) > 0 ? b.top - 22 : b.feet + 22, r: 16 };
 F._nw1Sky = S;
 atSphere(F, S, { dur: .95, from: F.wp('s'), rise: .16 });
@@ -35862,6 +35938,12 @@ F.p({ x: c.x + Math.cos(a) * 22, y: c.y + Math.sin(a) * 26, vx: -Math.cos(a) * 7
 },
 superHit() { },
 chain(F, e) {
+if (F.today('sup')) {
+// a hit on a protected ally goes into Atlas: a short blue stream from the ally to him
+if (e.u && e.u !== F.u)
+r9Stream(F, F.tc(e.u, .45), () => F.tc(F.u, .45), .16, { col: AT9.c, core: AT9.core, w: 6, coreK: .6, arc: -10, wob: 3, tail: .7, drain: .14 });
+return;
+}
 const S = F._nw1Sky;
 if (!S)
 return;
@@ -35884,6 +35966,18 @@ F.p({ x: a.x, y: a.y, life: .3, s0: 12, s1: 3, tex: 'star4', col: AT_WARM, rot: 
 h: {
 noCharge: true,
 anticip(F, u) {
+if (F.today('hyp', u)) {
+// ult (three hits on every enemy, then stun): no drawn sphere, no sigil, no stars from the sky. One read: from the release frame the
+// blue orb in his raised hand (wf) throws a volley of blue stars at every enemy for each of the three hits; each lands with its hit
+const tR = F.relDt('hyp', .45);
+r9Warm(F, u);
+// the sim deals the three hits .02, .14 and .26 s after T_SUP (the hit events do not exist yet when the cast starts)
+for (let j = 0; j < 3; j++) {
+const tA = T_SUP + .005 + .12 * j, fly = clamp(tA - tR, .1, .28 + .05 * j), big = j === 2;   // later volleys fly longer: all three leave while the orb is in his hand
+F.at(tA - fly, () => F.foes().forEach(t => atOrb9(F, F.wp('h', u), F.tc(t, .42), fly, { r: big ? 10.5 : 7.5, arc: (j - 1) * 14 + (t.slot % 2 ? 6 : -6) })));
+}
+return;
+}
 const b = boxOf(u), up = (LAY.sy ?? 1) > 0, S = { x: b.x, y: up ? b.top - 22 : b.feet + 22, r: 16 }, tThrow = .5;
 atSphere(F, S, { dur: tThrow + .02, from: { x: b.x, y: b.top + b.h * .45 }, rise: .4, fade: .04, r0: .4 });
 F.obj(tThrow, () => { if (F.rng() < .4)
@@ -35904,6 +35998,8 @@ F.burst(x, y, { n: 7, tex: 'shard', col: ['#cfe0ff', '#6a88c8'], v0: 60, v1: 180
 },
 ult(F) {
 F.hypDrawn = true;
+if (F.today('hyp'))
+return;
 const me = F.u, H = nwEv(F, v => v.type === 'hit' && v.src === 'hyper' && v.u.side !== me.side), n = {};
 H.forEach(h => {
 const j = n[h.u.slot] = (n[h.u.slot] ?? -1) + 1, fall = .16, big = j === 2;
@@ -35913,8 +36009,14 @@ nwComet(F, from, to, fall, { ease: 'ease-in', col: AT_STAR, w: big ? 6 : 4.4, ta
 }, .01);
 });
 },
-hit(F, e) { if (e.src === 'hyper')
-return; return 'default'; },
+hit(F, e) { if (e.src === 'hyper') {
+if (F.today('hyp')) {
+const M = F._at9 || (F._at9 = new Map()), k = (M.get(e.u) || 0) + 1;
+M.set(e.u, k);
+atImpact(F, e.u, k === 3);
+}
+return;
+} return 'default'; },
 ctrl(F, e) { F.finFeet(e.u, 'stone', e.dur || 1); },
 },
 };
