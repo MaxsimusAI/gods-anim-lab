@@ -245,3 +245,16 @@ See `remarks_ru.md` next to this file.
     the sim's hit time (0.42 / 0.5-0.75 s). New model, new arenas only: speed floor (strike ≥ 1.25 s, super/ult ≥ 1.5 s)
     and the whole action (effects, leap, damage) waits for the real release frame (`BR.hold`). STAND-ONLY presentation:
     in the game the same needs a per-skill wind-up time in the fight → Maxim's decision (it changes fight timing).
+
+### 15.11 morning — effects Block 4b, last cuts
+  · Block 4b (the effects Maxim called poor, 12 skills, today's sheets, new arenas only): Lucifer super/ult, Lilith TI ult,
+    Raijin ult, Poseidon super, Llorona super/ult, Atlas super/ult, Veles ult, Van Helsing ult, Erlang ult. New helpers
+    r9Orb / r9Coil / r9Bolt / r9Top / r9Warm. Two fresh-eyes rounds: round 1 — no critical, 3 important (white patch on
+    Van Helsing's hit, purple seal + gold pillar in Veles' ult, thin neon line for Lilith) + minors, all fixed; round 2
+    on the fixes — left arena and «вчера» identical to 92f81bc (30/30 each), other skills identical to 792f52c; two
+    leftovers fixed by hand and seen in frames, not re-reviewed (two rounds is the limit): Lilith ribbon drawn opaque
+    dark crimson, Van Helsing's stuck bolt with a steel tip. Open: Atlas ult stars still fly to a target that died from
+    an earlier volley (not visible on the stand); Veles curse branch not showable on the stand.
+  · Lilith TI strike: fourth cut (sturdier background estimate) still leaves a gray rectangle around the orb → the old
+    take stays for good. Thor BT super retake: body turns blue under the lightning in the cut → dropped.
+    Nightmare BT ult retake: clean with the sturdier background estimate → on the stand as «Версия 2».

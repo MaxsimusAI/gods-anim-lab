@@ -165,9 +165,14 @@ To read them without asking him to paste: open the site in his Chrome (Claude in
 ## Next step
 
 1. Maxim looks at the takes with status "new" (re-shoots and cut repairs of this night) and at the game effects.
-2. His word on: the 13 twice-failed clips (new idea / keep old / «Версия 2»), the Kitsune TI idle question, the
+2. His word on: the 13 twice-failed clips + Lilith TI strike (new idea / keep old; «Версия 2» exists for Wukong TI ult
+   and Nightmare BT ult), the Kitsune TI idle question, the
    fight-timing question of the effects, the 19+ sheets above 115 % RAM (still open from 14.11).
-3. Block 4 of the effects (redesign of the effects he called poor): see `fx_ledger.json` "not done".
+3. Block 4b of the effects (12 skills he called poor, redesigned on today's sheets: Lucifer super/ult, Lilith TI ult,
+   Raijin ult, Poseidon super, Llorona super/ult, Atlas super/ult, Veles ult, Van Helsing ult, Erlang ult) is published
+   and waits for his look. Still "not done" in `fx_ledger.json`: Ra BT strike (partly), the Veles curse branch cannot be
+   shown on the stand (the stand always puts a fallen ally), Erlang's copy branch (old code, draws doubles — not reachable
+   on the stand).
 4. Re-cut the BT sheets of gods 1-16 with the fixed tone step and the second mask (no credits) — still open.
 
 ## Gods 1-5 — per slot
