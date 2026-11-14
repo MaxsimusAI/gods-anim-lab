@@ -89,8 +89,8 @@ N=$(grep -E '^\+' $B/diff.txt | grep -ciE -f $K/b3/secret_patterns.txt || true)
 if [ "${N:-0}" != "0" ]; then echo "SECRET-LIKE CONTENT STAGED ($N lines)"; false; fi
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -q -m "v$V: $MSG
 
-Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01TwtrTNviSUXmZDB6NkZCAw"
+Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01TwtrTRNgCDDxeMteWxvwoZ"
 trap - ERR INT TERM HUP
 git -c push.negotiate=true push -q origin HEAD || { echo "PUSH FAILED - committed locally as v$V, not live"; exit 1; }
 for i in $(seq 1 8); do
