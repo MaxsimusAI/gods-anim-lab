@@ -24078,7 +24078,7 @@ const tR = F.relDt('hyp', .5), seen = new Set(), orb = kwWhirlHead(8);
 let held = true;
 F.at(Math.max(0, tR - .2), () => KW.drops(F, F.wp('h', u).x, F.wp('h', u).y, 6, { r: 10, v0: 30, v1: 90, spread: 1.2 }));
 F.at(tR, () => { kwSwirl(F, F.wp('h', u), 18, .3);
-F.obj(5, (g, a) => { if (!held)
+F.obj(2.6, (g, a) => { if (!held)
 return; const p = F.wp('h', u), k = Math.min(1, a / .2) * (1 + .08 * Math.sin(a * 7)); g.translate(p.x, p.y); g.scale(k, k); orb(g, a); });
 const watch = n => { for (const p of (BR.B && BR.B.pending) || []) {
 if (!p || seen.has(p) || !p.src || !p.src.pet || p.src.owner !== u.gu || !p.tgt || p.tgt === u.gu || !Number.isFinite(p.t) || p.t < .06)
@@ -24091,9 +24091,9 @@ const m = F.wp('h', u);
 held = false;
 kwSwirl(F, m, 14, .22);
 KW.bolt(F, m, F.tc(t, .42), Math.max(.06, p.t - .01), { arc: 12, thick: 8, maxLen: 70, jetCol: AO.c, jetK: .8, life: .2, head: kwWhirlHead(11), emit: kwHelix });
-} if (n > 0)
+} if (n > 0 && held)   // review 2 (15.11): only the dragon's FIRST strike is linked to the gesture - later strikes come when the god stands at rest
 F.at(.04, () => watch(n - 1)); };
-watch(150); });
+watch(60); });
 return;
 }
 const b = boxOf(u), src = 'art/cr-' + u.hid + '.webp', pb = { x: b.x - b.w * .62, f: b.feet, h: b.h * .7 };
