@@ -5855,7 +5855,12 @@
   "darkbody": 22
  },
  "anansi_ti_atk": {
-  "darkbody": 22
+  "darkbody": 22,
+  "wf": [
+   0.12,
+   0.39
+  ],
+  "rel_by_eye": 11
  },
  "llorona_bt_atk": {
   "model": "u2net"
@@ -5894,5 +5899,49 @@
    0.39
   ],
   "rel_by_eye": 12
+ },
+ "lilith_ti_atk": {
+  "darkbody": 22
+ },
+ "kali_ti_hyp": {
+  "model": "u2net"
+ },
+ "lubu_bt_atk": {
+  "model": "u2net"
+ },
+ "nightmare_ti_sup": {
+  "wf": [
+   0.85,
+   0.33
+  ],
+  "rel_by_eye": 13
+ },
+ "surt_bt_atk": {
+  "wf": [
+   0.3,
+   0.27
+  ],
+  "rel_by_eye": 15
+ },
+ "shiva_bt_atk": {
+  "wf": [
+   0.67,
+   0.46
+  ],
+  "rel_by_eye": 10
+ },
+ "shiva_ti_atk": {
+  "wf": [
+   0.79,
+   0.77
+  ],
+  "rel_by_eye": 10
+ },
+ "mictlan_bt_atk": {
+  "wf": [
+   0.78,
+   0.42
+  ],
+  "rel_by_eye": 11
  }
 }
