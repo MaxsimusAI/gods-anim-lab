@@ -1,0 +1,19 @@
+{
+"_comment": "Clip statuses of gods 1-16, taken from STATE.md/LOG.md of 12-14.11 (executor's reading of the records - Maxim's own marks on the stand override). ok = Maxim accepted; new = new take he has not seen; look = published, not judged / questionable; redo = to re-shoot.",
+"kitsune":{"bt_idle":"look","ti_idle":"look","bt_atk":"ok","ti_atk":"look","bt_sup":"look","ti_sup":"redo","bt_hyp":"look","ti_hyp":"ok"},
+"athena":{"bt_idle":"look","ti_idle":"new","bt_atk":"redo","ti_atk":"redo","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"new"},
+"artemis":{"bt_idle":"look","ti_idle":"new","bt_atk":"new","ti_atk":"new","bt_sup":"new","ti_sup":"redo","bt_hyp":"redo","ti_hyp":"redo"},
+"zeus":{"bt_idle":"look","ti_idle":"new","bt_atk":"ok","ti_atk":"new","bt_sup":"ok","ti_sup":"ok","bt_hyp":"new","ti_hyp":"redo"},
+"demeter":{"bt_idle":"new","ti_idle":"new","bt_atk":"redo","ti_atk":"look","bt_sup":"new","ti_sup":"redo","bt_hyp":"look","ti_hyp":"look"},
+"hel":{"bt_idle":"look","ti_idle":"look","bt_atk":"ok","ti_atk":"new","bt_sup":"new","ti_sup":"new","bt_hyp":"look","ti_hyp":"ok"},
+"amaterasu":{"bt_idle":"redo","ti_idle":"redo","bt_atk":"new","ti_atk":"redo","bt_sup":"new","ti_sup":"redo","bt_hyp":"ok","ti_hyp":"ok"},
+"apollo":{"bt_idle":"look","ti_idle":"look","bt_atk":"new","ti_atk":"look","bt_sup":"ok","ti_sup":"ok","bt_hyp":"new","ti_hyp":"look"},
+"brynhild":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"new","ti_atk":"look","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"ok"},
+"vanhelsing":{"bt_idle":"look","ti_idle":"redo","bt_atk":"look","ti_atk":"redo","bt_sup":"redo","ti_sup":"redo","bt_hyp":"look","ti_hyp":"look"},
+"indra":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"ok","ti_atk":"ok","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"ok"},
+"inti":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"ok","ti_atk":"ok","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"ok"},
+"ra":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"ok","ti_atk":"new","bt_sup":"new","ti_sup":"new","bt_hyp":"ok","ti_hyp":"ok"},
+"heimdall":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"ok","ti_atk":"ok","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"ok"},
+"houyi":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"new","ti_atk":"new","bt_sup":"new","ti_sup":"new","bt_hyp":"new","ti_hyp":"redo"},
+"erlang":{"bt_idle":"ok","ti_idle":"ok","bt_atk":"new","ti_atk":"new","bt_sup":"ok","ti_sup":"ok","bt_hyp":"ok","ti_hyp":"ok"}
+}

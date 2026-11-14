@@ -1,6 +1,6 @@
 # State of the gods animation work
 
-Site: https://maxsimusai.github.io/gods-anim-lab/ (v107, 14.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
+Site: https://maxsimusai.github.io/gods-anim-lab/ (v108, 14.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
@@ -127,6 +127,14 @@ Maxim: «в первую очередь сначала ты проверяешь
   without the second mask — re-cut them from the same sources (no credits) and compare before publishing.
 - Memory: many action sheets are now 100-130 % of the live sheet of their slot in RAM (frame up to 180×220 at the idle's
   scale); numbers per clip in `pipeline/work/metrics_pub.json` (`live.ramPct`). Report to Maxim; his word decides.
+
+## Status map (v108) — the single place where the state of every clip is shown
+
+`assets/status-data.js` (built by `pipeline/tools/build_status.py` on every publish). To change a status: edit
+`pipeline/work/status_overrides.json` (clip → ok | new | look | fine | redo | none) or the round's ledger, then publish.
+After every new take: set it to "new" there. After Maxim's marks (he pastes them from the «Скопировать мои отметки»
+button): "ok" = protected take, "redo" = re-shoot (Maxim named it). The statuses of gods 1-16 were typed from the
+records of 12-14.11 (`status_first16.json`) and are not verified clip by clip.
 
 ## Next step
 

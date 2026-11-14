@@ -48,10 +48,223 @@
     autoWait: 0,
     arenas: [],
     sheetWarm: {},
+    marks: {},        // 14.11: Maxim's own marks per clip, {god_style_slot: 'ok' | 'redo'}, kept in localStorage
+    mapFilter: null,  // status code picked in the legend of the status map
   };
 
   function getAllGods() {
     return window.GODS_MANIFEST.gods || [];
+  }
+
+  /* ============ 0. STATUS MAP (14.11 Maxim: «как мне на сайте понять, у какого бога какое состояние?») ============
+     One status per clip (assets/status-data.js, built by pipeline/tools/build_status.py) + Maxim's own marks, kept in this
+     browser (localStorage) and copied to the chat with one button. A mark wins over the recorded status on the map. */
+  const ST_ORDER = ['new', 'look', 'redo', 'fine', 'ok', 'none'];
+  const ST_RU = {
+    new: 'Новый ролик — ждёт вашего взгляда',
+    look: 'Спорный — посмотрите',
+    redo: 'Не проходит правила — на пересъёмку',
+    fine: 'Проверка замечаний не нашла',
+    ok: 'Принято вами',
+    none: 'Ролика нет',
+  };
+  const ST_SHORT = { new: 'новый', look: 'посмотрите', redo: 'на пересъёмку', fine: 'без замечаний', ok: 'принято', none: 'нет ролика' };
+  const MAP_SLOTS = ['idle', 'atk', 'sup', 'hyp'];
+  const MAP_SLOT_RU = { idle: 'стойка', atk: 'удар', sup: 'супер', hyp: 'ульта' };
+  const MAP_STYLES = ['bt', 'ti'];
+  const MAP_STYLE_RU = { bt: 'Титан', ti: 'Аниме' };
+  const MARKS_KEY = 'gal_marks_v1';
+
+  function loadMarks() {
+    try {
+      const m = JSON.parse(localStorage.getItem(MARKS_KEY) || '{}');
+      return m && typeof m === 'object' && !Array.isArray(m) ? m : {};
+    } catch (_) { return {}; }
+  }
+  function saveMarks() {
+    try { localStorage.setItem(MARKS_KEY, JSON.stringify(state.marks)); } catch (_) {}
+  }
+  function recStatus(godId, key) {
+    const g = (window.CLIP_STATUS || {})[godId];
+    const c = g && g[key];
+    return typeof c === 'string' && Object.prototype.hasOwnProperty.call(ST_RU, c) ? c : 'none';
+  }
+  // stamp of the take now on the stand (size of its sheet): a mark made on an older take stops counting
+  function clipStamp(godId, key) {
+    const v = (window.CLIP_STAMP || {})[godId + '_' + key];
+    return v == null ? '' : String(v);
+  }
+  // a mark is stored as "ok|<stamp>" / "redo|<stamp>"
+  function markOf(godId, key) {
+    const raw = state.marks[godId + '_' + key];
+    if (typeof raw !== 'string' || recStatus(godId, key) === 'none') return '';
+    const i = raw.indexOf('|'), m = i < 0 ? raw : raw.slice(0, i), stamp = i < 0 ? '' : raw.slice(i + 1);
+    if (m !== 'ok' && m !== 'redo') return '';
+    return stamp === clipStamp(godId, key) ? m : '';
+  }
+  // what the map shows: Maxim's mark if there is one, otherwise the recorded status
+  function shownStatus(godId, key) {
+    return recStatus(godId, key) === 'none' ? 'none' : (markOf(godId, key) || recStatus(godId, key));
+  }
+  // clips that still wait for his look: new or questionable, not marked by him yet
+  function godTodoCount(godId) {
+    let n = 0;
+    for (const st of MAP_STYLES) for (const sl of MAP_SLOTS) {
+      const k = st + '_' + sl, r = recStatus(godId, k);
+      if ((r === 'new' || r === 'look') && !markOf(godId, k)) n++;
+    }
+    return n;
+  }
+  function mapGods() {
+    return getAllGods().filter(g => g.group === 'existing' && (window.CLIP_STATUS || {})[g.id]);
+  }
+  function escHtml(t) {
+    return String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  function renderMapButton() {
+    const el = document.getElementById('mapTodoCount');
+    if (!el) return;
+    let n = 0;
+    for (const g of mapGods()) n += godTodoCount(g.id);
+    el.textContent = n ? String(n) : '';
+    el.title = n ? 'Роликов ждут вашего взгляда: ' + n : '';
+  }
+
+  let resetArmedAt = 0;
+  function renderStatusMap() {
+    resetArmedAt = 0;
+    const gods = mapGods();
+    const cnt = {}; ST_ORDER.forEach(c => { cnt[c] = 0; });
+    let marked = 0;
+    for (const g of gods) for (const st of MAP_STYLES) for (const sl of MAP_SLOTS) {
+      cnt[shownStatus(g.id, st + '_' + sl)]++;
+      if (markOf(g.id, st + '_' + sl)) marked++;
+    }
+    const f = state.mapFilter;
+    document.getElementById('statusLegend').innerHTML =
+      ST_ORDER.map(c => `<button class="st-chip${f === c ? ' active' : ''}" data-stf="${c}" type="button" title="Показать только такие"><i class="st-dot st-${c}"></i>${escHtml(ST_RU[c])} <b>${cnt[c]}</b></button>`).join('') +
+      `<span class="st-legend-gap"></span>` +
+      `<span class="st-mine"><i class="st-dot st-ok st-marked"></i>в белой рамке — ваша отметка (${marked})</span>` +
+      `<button class="st-act" id="btnCopyMarks" type="button"${marked ? '' : ' disabled'} title="Скопировать список ваших отметок, чтобы вставить его в чат">Скопировать мои отметки</button>` +
+      `<button class="st-act st-act-dim" id="btnResetMarks" type="button"${marked ? '' : ' disabled'}>Сбросить мои отметки</button>`;
+
+    const head = `<div class="st-row st-head"><span class="st-god"></span>` +
+      MAP_STYLES.map(st => `<span class="st-grp"><em>${MAP_STYLE_RU[st]}</em>${MAP_SLOTS.map(sl => `<span class="st-col">${MAP_SLOT_RU[sl]}</span>`).join('')}</span>`).join('') +
+      `</div>`;
+    const rows = gods.map((g, idx) => {
+      const cells = MAP_STYLES.map(st => `<span class="st-grp">` + MAP_SLOTS.map(sl => {
+        const k = st + '_' + sl, c = shownStatus(g.id, k), mk = markOf(g.id, k);
+        const dim = f && f !== c ? ' st-dim' : '';
+        const tip = `${g.name} — ${MAP_STYLE_RU[st]}, ${MAP_SLOT_RU[sl]}: ${ST_RU[c]}${mk ? ' (ваша отметка)' : ''}`;
+        return c === 'none'
+          ? `<span class="st-cell st-none${dim}" title="${escHtml(tip)}"></span>`
+          : `<button class="st-cell st-${c}${mk ? ' st-marked' : ''}${dim}" data-god="${g.id}" data-slot="${sl}" type="button" title="${escHtml(tip)}"></button>`;
+      }).join('') + `</span>`).join('');
+      const hide = f && !MAP_STYLES.some(st => MAP_SLOTS.some(sl => shownStatus(g.id, st + '_' + sl) === f));
+      return `<div class="st-row${g.id === state.godId ? ' st-cur' : ''}"${hide ? ' hidden' : ''}><span class="st-god"><img src="${g.portrait}" alt=""><span>${idx + 1}. ${escHtml(g.name)}</span></span>${cells}</div>`;
+    }).join('');
+    // the column captions live outside the scrolling list (one per column), so they never cover a row
+    document.getElementById('statusHead').innerHTML = head + head;
+    const body = document.getElementById('statusBody');
+    body.innerHTML = rows;
+    const visible = body.querySelectorAll('.st-row:not([hidden])').length;
+    body.style.gridTemplateRows = 'repeat(' + Math.max(1, Math.ceil(visible / 2)) + ', auto)';
+  }
+
+  function openStatusMap() {
+    renderStatusMap();
+    document.getElementById('statusModal').hidden = false;
+    const cur = document.querySelector('#statusBody .st-cur');
+    if (cur && cur.scrollIntoView) cur.scrollIntoView({ block: 'center' });
+  }
+  function closeStatusMap() {
+    const m = document.getElementById('statusModal');
+    if (m) m.hidden = true;
+  }
+
+  // the strip under the skill buttons: status of the two clips of the current slot + Maxim's two buttons
+  function renderMarkBar(god) {
+    const bar = document.getElementById('markBar');
+    if (!bar) return;
+    if (!god || god.group !== 'existing' || !(window.CLIP_STATUS || {})[god.id]) {
+      if (bar._html !== '') { bar.innerHTML = ''; bar._html = ''; }
+      bar.hidden = true; return;
+    }
+    bar.hidden = false;
+    const sl = state.activeSlot;
+    // a mark always means the take that is «новое», version 1: no marking while yesterday's sheet or a spare take is shown
+    const locked = state.ver === 'prev' ? 'Отметки ставятся на «новое» — переключите «Новые арены» с «вчера»'
+      : (state.alt[sl] | 0) >= 2 ? 'Отметки ставятся на «Версию 1» — про дубль напишите в чат' : '';
+    const html = `<span class="mk-slot">${MAP_SLOT_RU[sl]}</span>` + MAP_STYLES.map(st => {
+      const k = st + '_' + sl, r = recStatus(god.id, k), mk = markOf(god.id, k);
+      if (r === 'none') return `<span class="mk-item"><span class="mk-style">${MAP_STYLE_RU[st]}</span><i class="st-dot st-none"></i><span class="mk-text">${ST_SHORT.none}</span></span>`;
+      const dis = locked ? ` disabled title="${escHtml(locked)}"` : '';
+      return `<span class="mk-item"><span class="mk-style">${MAP_STYLE_RU[st]}</span><i class="st-dot st-${r}"></i><span class="mk-text">${ST_SHORT[r]}</span>` +
+        `<button class="mk-btn mk-ok${mk === 'ok' ? ' active' : ''}" data-mark="ok" data-key="${k}" type="button"${dis || ' title="Ролик меня устраивает"'}>✓ принять</button>` +
+        `<button class="mk-btn mk-redo${mk === 'redo' ? ' active' : ''}" data-mark="redo" data-key="${k}" type="button"${dis || ' title="Ролик нужно переснять"'}>✗ переснять</button></span>`;
+    }).join('') + (locked ? `<span class="mk-lock">${escHtml(locked)}</span>` : '');
+    // auto-play re-renders this strip every few seconds: keep the same buttons when nothing changed, so a click is never lost
+    const sig = god.id + '|' + html;
+    if (bar._html !== sig) { bar.innerHTML = html; bar._html = sig; }
+  }
+
+  function updatePillTodo(godId) {
+    const pill = document.querySelector('#godRoster button[data-god="' + godId + '"]');
+    if (!pill) return;
+    const n = godTodoCount(godId);
+    let b = pill.querySelector('.pill-todo');
+    if (!n) { if (b) b.remove(); return; }
+    if (!b) { b = document.createElement('b'); b.className = 'pill-todo'; pill.appendChild(b); }
+    b.textContent = String(n); b.title = 'Роликов ждут вашего взгляда: ' + n;
+  }
+
+  function setMark(godId, key, val) {
+    if (state.ver === 'prev' || (state.alt[state.activeSlot] | 0) >= 2) return;
+    const id = godId + '_' + key;
+    if (markOf(godId, key) === val) delete state.marks[id]; else state.marks[id] = val + '|' + clipStamp(godId, key);
+    saveMarks();
+    renderMarkBar(currentGod());
+    updatePillTodo(godId);   // not renderRoster(): it scrolls the page to the roster
+    renderMapButton();
+  }
+
+  function marksText() {
+    const by = { ok: [], redo: [] };
+    for (const g of mapGods()) {
+      const parts = { ok: [], redo: [] };
+      for (const st of MAP_STYLES) for (const sl of MAP_SLOTS) {
+        const mk = markOf(g.id, st + '_' + sl);
+        if (mk) parts[mk].push(MAP_STYLE_RU[st].toLowerCase() + ' ' + MAP_SLOT_RU[sl]);
+      }
+      for (const m of ['ok', 'redo']) if (parts[m].length) by[m].push(g.name + ' — ' + parts[m].join(', '));
+    }
+    return 'Мои отметки по анимациям на сайте.\n' +
+      'ПРИНЯТЬ:\n' + (by.ok.length ? by.ok.join('\n') : '—') + '\n' +
+      'ПЕРЕСНЯТЬ:\n' + (by.redo.length ? by.redo.join('\n') : '—') + '\n';
+  }
+  function copyMarks(btn) {
+    const text = marksText();
+    const done = ok => {
+      btn.textContent = ok ? 'Скопировано — вставьте в чат' : 'Выделите текст ниже и скопируйте';
+      setTimeout(() => { if (btn.isConnected) btn.textContent = 'Скопировать мои отметки'; }, 2500);
+      if (!ok) {   // the browser refused the clipboard: show the text so it can be copied by hand
+        const legend = document.getElementById('statusLegend');
+        let box = document.getElementById('marksTextBox');
+        if (!box && legend) { box = document.createElement('textarea'); box.id = 'marksTextBox'; box.className = 'st-textbox'; box.readOnly = true; legend.appendChild(box); }
+        if (box) { box.value = text; box.focus(); box.select(); }
+      }
+    };
+    const fallback = () => {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch (_) {}
+      ta.remove(); done(ok);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(() => done(true), fallback);
+    else fallback();
   }
 
   function getFilteredGods() {
@@ -703,7 +916,9 @@
     host.innerHTML = gods.map((g, idx) => {
       const cls = g.id === state.godId ? 'god-pill active' : 'god-pill';
       const dot = g.hasVideoAnim ? `<i class="vid-dot" title="Kling готов (${g.videoSlotsReady}/8)"></i>` : '';
-      return `<button class="${cls}" data-god="${g.id}" type="button"><img src="${g.portrait}" alt=""><span>${idx + 1}. ${g.name}</span>${dot}</button>`;
+      const todoN = g.group === 'existing' ? godTodoCount(g.id) : 0;
+      const todo = todoN ? `<b class="pill-todo" title="Роликов ждут вашего взгляда: ${todoN}">${todoN}</b>` : '';
+      return `<button class="${cls}" data-god="${g.id}" type="button"><img src="${g.portrait}" alt=""><span>${idx + 1}. ${g.name}</span>${dot}${todo}</button>`;
     }).join('');
 
     host.querySelectorAll('button[data-god]').forEach(btn => {
@@ -799,6 +1014,7 @@
       if (badge) { badge.hidden = !nAlt; badge.textContent = nAlt ? '+' + nAlt : ''; badge.title = nAlt ? 'Есть дубли: ' + nAlt + ' — выберите умение, кнопки «Версия» появятся ниже' : ''; }
     });
     renderAltBar(god);
+    renderMarkBar(god);
 
     const sk = god.skills[state.activeSlot] || god.skills.idle;
     document.getElementById('fxTitle').textContent = `Блок А — ${sk.title}`;
@@ -808,7 +1024,7 @@
     document.getElementById('fxBody').innerHTML =
       `<p>${sk.descRu}</p>` +
       (sk.animRu ? `<div class="fx-verdict-box"><b>Анимация Kling:</b> ${sk.animRu}</div>` : '') +
-      (sk.todoRu ? `<div class="fx-verdict-box" style="border-left-color:#e0903a"><b>Что доработать (замечания Максима):</b> ${sk.todoRu}</div>` : '') +
+      (sk.todoRu ? `<div class="fx-verdict-box" style="border-left-color:#e0903a"><b>Что доработать (ваши замечания и проверка свежим взглядом):</b> ${sk.todoRu}</div>` : '') +
       (sk.balRu ? `<div class="fx-verdict-box" style="border-left-color:#6ec8ff"><b>Баланс — предложение (не внедрено, мин. → макс. прокачка):</b> ${sk.balRu}</div>` : '') +
       `<div class="fx-verdict-box"><b>Движок FX2 «Кузница»:</b> ${sk.fxVerdictRu}</div>`;
 
@@ -908,6 +1124,48 @@
 
   function closeConceptModal() {
     document.getElementById('conceptModal').hidden = true;
+  }
+
+  function bindStatusUi() {
+    const need = ['btnStatusMap', 'btnCloseStatus', 'statusBackdrop', 'statusBody', 'statusLegend', 'statusHead', 'markBar'];
+    if (need.some(id => !document.getElementById(id))) return;   // a stale cached index.html: the stand must still boot
+    document.getElementById('btnStatusMap').addEventListener('click', openStatusMap);
+    document.getElementById('btnCloseStatus').addEventListener('click', closeStatusMap);
+    document.getElementById('statusBackdrop').addEventListener('click', closeStatusMap);
+    document.getElementById('statusBody').addEventListener('click', e => {
+      const cell = e.target.closest('button.st-cell[data-god]');
+      if (!cell) return;
+      const target = getAllGods().find(g => g.id === cell.dataset.god);
+      if (!target) return;
+      closeStatusMap();
+      if (target.group !== state.group) { state.group = target.group; state.elFilter = 'all'; }
+      if (!getFilteredGods().some(g => g.id === target.id)) state.elFilter = 'all';   // an element filter would hide the god
+      state.activeSlot = cell.dataset.slot;
+      selectGod(target.id);
+      if (cell.dataset.slot === 'idle') triggerSkill('idle', false);
+    });
+    document.getElementById('statusLegend').addEventListener('click', e => {
+      const chip = e.target.closest('[data-stf]');
+      if (chip) { state.mapFilter = state.mapFilter === chip.dataset.stf ? null : chip.dataset.stf; renderStatusMap(); return; }
+      const copy = e.target.closest('#btnCopyMarks');
+      if (copy) { copyMarks(copy); return; }
+      const reset = e.target.closest('#btnResetMarks');
+      if (reset) {
+        // no browser dialog: the first click arms the button for 4 s, the second one clears
+        if (resetArmedAt && Date.now() - resetArmedAt < 4000) {
+          state.marks = {}; saveMarks();
+          renderStatusMap(); renderMarkBar(currentGod()); renderRoster(); renderMapButton();
+        } else {
+          resetArmedAt = Date.now(); reset.textContent = 'Точно сбросить? Нажмите ещё раз';
+          setTimeout(() => { if (reset.isConnected && Date.now() - resetArmedAt >= 3900) { resetArmedAt = 0; reset.textContent = 'Сбросить мои отметки'; } }, 4000);
+        }
+      }
+    });
+    document.getElementById('markBar').addEventListener('click', e => {
+      const b = e.target.closest('button[data-mark]');
+      const god = currentGod();
+      if (b && !b.disabled && god) setMark(god.id, b.dataset.key, b.dataset.mark);
+    });
   }
 
   function bindUiEvents() {
@@ -1034,7 +1292,9 @@
 
     window.addEventListener('keydown', e => {
       if (e.target && (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT')) return;
-      if (e.key === 'Escape') { closeConceptModal(); return; }
+      if (e.key === 'Escape') { closeConceptModal(); closeStatusMap(); return; }
+      const sm = document.getElementById('statusModal');
+      if (sm && !sm.hidden) return;   // the map is open: no god switching or skills behind it
       if (e.key === 'ArrowLeft') { stepGod(-1); return; }
       if (e.key === 'ArrowRight') { stepGod(1); return; }
       if (e.key === '1') triggerSkill('idle', false);
@@ -1111,11 +1371,14 @@
   }
 
   // Boot!
+  state.marks = loadMarks();
   buildArenasDom();
   bindUiEvents();
+  bindStatusUi();
   const initialHash = (location.hash || '').replace(/^#/, '').trim();
   const startGod = getAllGods().find(g => g.id === initialHash) || getAllGods()[0];
   selectGod(startGod.id);
+  renderMapButton();
   requestAnimationFrame(tick);
 
   window.__STAND_DEBUG = {

@@ -1,0 +1,16 @@
+{
+"_comment": "Per-clip statuses that win over the ledger: clips Maxim accepted, and new takes he has not seen yet.",
+"agni_bt_atk": "ok",
+"agni_ti_sup": "ok",
+"agni_bt_hyp": "ok",
+"agni_ti_hyp": "ok",
+"agni_bt_idle": "new",
+"agni_ti_idle": "new",
+"agni_ti_atk": "new",
+"agni_bt_sup": "new",
+"anansi_bt_hyp": "new",
+"loki_ti_idle": "redo",
+"loki_ti_hyp": "redo",
+"lilith_bt_atk": "redo",
+"_comment2": "loki_ti_* and lilith_bt_*: old sheets on art that Maxim is having redrawn - to re-shoot after the redraw."
+}

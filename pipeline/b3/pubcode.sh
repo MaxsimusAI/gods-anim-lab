@@ -19,10 +19,12 @@ json.dump(d,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=1); print(d['
 PY
 )
 cd $K && KL_HERE=$K/work KL_REPO=$R python3 tools/build_full_manifest.py | tail -1
+KL_HERE=$K/work KL_REPO=$R python3 $K/tools/build_status.py | tail -1   # per-clip statuses for the status map (14.11)
 python3 $K/b3/sizecheck.py $R
 sed -i -E "s/\?v=[0-9]+/?v=$V/g" $R/index.html
-for f in app.js assets/sim-core.js assets/fx2-stand.js assets/gods-data.js; do node -e "new Function(require('fs').readFileSync('$R/$f','utf8'))"; done
+for f in app.js assets/sim-core.js assets/fx2-stand.js assets/gods-data.js assets/status-data.js; do node -e "new Function(require('fs').readFileSync('$R/$f','utf8'))"; done
 cp $K/work/kling_done.json $R/pipeline/work/
+cp $K/work/status_first16.json $K/work/status_overrides.json $R/pipeline/work/; cp $K/tools/build_status.py $R/pipeline/tools/
 cp $K/b3/*.py $K/b3/*.sh $K/b3/*.md $R/pipeline/b3/ 2>/dev/null || true
 cd $R
 git add -A -- assets index.html app.js styles.css pipeline LOG.md STATE.md PATTERNS.md TOOLS.md cards remarks_ru.md

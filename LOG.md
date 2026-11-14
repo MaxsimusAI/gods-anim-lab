@@ -168,3 +168,14 @@ See `remarks_ru.md` next to this file.
   idles, TI strike, BT super; 5 clips, BT idle needed a second take) plus one Anansi BT ult; 180 credits (6 clips). A Kling call for
   two more Anansi clips he had not judged was refused by the session's permission check → no credits are spent on clips
   Maxim has not seen without his word. Cutter fixes: white cores, second small-frame mask, dark-body rescue per clip.
+- 14.11 (21:17) Maxim: «Как мне на сайте понять, у какого бога какое состояние, кто исправлен, кто неисправлен, кто требует
+  одобрения, кто не требует одобрения? Там сотни богов, сотни анимаций… Я же в памяти это не смогу сохранить все.»
+  → what he saw: the state of each clip lived only in the notes of each god. What he wants: one screen with the state of
+  everything, and no need to remember. Done (v108): status map (52 gods × 8 clips, colour per status, click opens the clip),
+  his own marks «✓ принять / ✗ переснять» under the skill buttons (kept in his browser, tied to the take), a counter of
+  clips waiting for his look on the map button and on every god pill, «Скопировать мои отметки» for the chat.
+  Statuses: `assets/status-data.js`, built by `pipeline/tools/build_status.py` on every publish from
+  `pipeline/work/status_first16.json` (gods 1-16, from the records — may be off in places), the ledgers and
+  `pipeline/work/status_overrides.json`. When he sends his marks: accepted clips go into status_overrides as "ok"
+  (= protected takes), «переснять» as "redo"; update STATE.md the same day.
+  → CHECK for the executor: is a new or changed clip missing from the status map / does its status lag the stand?

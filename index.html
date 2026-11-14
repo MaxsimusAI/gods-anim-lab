@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Анимации богов Kling — приёмка: Битва титанов и Titan Idols</title>
   <link rel="icon" type="image/webp" href="assets/ui/ports/kitsune.webp">
-  <link rel="stylesheet" href="styles.css?v=107">
+  <link rel="stylesheet" href="styles.css?v=108">
 </head>
 <body>
   <div class="app-shell">
@@ -26,6 +26,7 @@
           <select class="god-select" id="godQuickSelect" aria-label="Быстрый выбор бога"></select>
           <button class="nav-arrow" id="btnNextGod" type="button" title="Следующий бог (→)">▶</button>
           <button class="concept-btn" id="btnConceptModal" type="button" hidden>🔍 Арт 2K (БТ + TI)</button>
+          <button class="map-btn" id="btnStatusMap" type="button" title="Все боги и все ролики: что принято, что ждёт вашего взгляда, что на пересъёмку">Карта состояния <b id="mapTodoCount"></b></button>
         </div>
       </div>
 
@@ -86,6 +87,7 @@
       </div>
     </nav>
     <div class="alt-bar" id="altBar" hidden></div>
+    <div class="mark-bar" id="markBar"></div>
 
     <!-- 4. ДВА ТЕКСТОВЫХ БЛОКА ПОД КНОПКАМИ: УМЕНИЕ/FX2 И БАЛАНС НА КАПЕ -->
     <section class="verdicts-grid" aria-label="Разбор умения, FX и баланса">
@@ -107,6 +109,20 @@
     </section>
   </div>
 
+  <!-- Карта состояния: все боги x 8 роликов (14.11) -->
+  <div class="status-modal" id="statusModal" hidden>
+    <div class="concept-backdrop" id="statusBackdrop"></div>
+    <div class="status-dialog" role="dialog" aria-modal="true" aria-labelledby="statusModalTitle">
+      <div class="concept-head">
+        <span class="concept-title" id="statusModalTitle">Карта состояния — нажмите клетку, чтобы открыть ролик</span>
+        <button class="concept-close" id="btnCloseStatus" type="button">✕ Закрыть</button>
+      </div>
+      <div class="status-legend" id="statusLegend"></div>
+      <div class="status-head" id="statusHead"></div>
+      <div class="status-body" id="statusBody"></div>
+    </div>
+  </div>
+
   <!-- Модальное окно полноразмерного сравнения 2K-артов новых богов (БТ vs Titan Idols) -->
   <div class="concept-modal" id="conceptModal" hidden>
     <div class="concept-backdrop" id="conceptBackdrop"></div>
@@ -119,9 +135,10 @@
     </div>
   </div>
 
-  <script src="assets/gods-data.js?v=107"></script>
-  <script src="assets/sim-core.js?v=107"></script>
-  <script src="assets/fx2-stand.js?v=107"></script>
-  <script src="app.js?v=107"></script>
+  <script src="assets/gods-data.js?v=108"></script>
+  <script src="assets/status-data.js?v=108"></script>
+  <script src="assets/sim-core.js?v=108"></script>
+  <script src="assets/fx2-stand.js?v=108"></script>
+  <script src="app.js?v=108"></script>
 </body>
 </html>
