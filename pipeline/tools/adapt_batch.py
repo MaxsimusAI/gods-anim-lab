@@ -154,6 +154,12 @@ def matte_frame(im_rgb, session):
     H, W, _ = a.shape
     g = bg_profile(a)
     m = np.asarray(remove(im_rgb, session=session, only_mask=True)).astype(np.float32) / 255.0
+    # 15.11 (Kali TI ult, Lilith TI strike): one matting model loses the legs under a fire arc, the other loses a hand or a thin
+    # staff head. Opt-in (override "model2"): the body mask is the maximum of the two models' masks.
+    if os.environ.get("KL_MODEL2"):
+        global _SESSION2
+        if globals().get("_SESSION2") is None: _SESSION2 = new_session(os.environ["KL_MODEL2"])
+        m = np.maximum(m, np.asarray(remove(im_rgb, session=_SESSION2, only_mask=True)).astype(np.float32) / 255.0)
     # 14.11 (Kali's belly, Ao Guang's robe): on full-size frames the mask model drops flat body areas whose colour is close to
     # the gray background; on a small frame (420 px high, as the cuts before the sharp cut used) it keeps them. The small
     # mask, eroded so that it never touches the outline, is added to the full-size one: the edge stays sharp, the inside solid.
