@@ -5,6 +5,7 @@ import sys, os, numpy as np, cv2
 from PIL import Image
 from rembg import remove, new_session
 src, out, art = sys.argv[1:4]; os.makedirs(out, exist_ok=True)
+need = set(int(x) for x in sys.argv[4].split(',')) if len(sys.argv) > 4 else None   # only these frames are used by the cut: the rest is copied as is (3x faster)
 fs = sorted(f for f in os.listdir(src) if f.endswith('.png'))
 lut, sat = np.arange(256, dtype=np.float32), [1.0, 1.0]
 if art != 'none':
@@ -19,7 +20,9 @@ if art != 'none':
     sat = [1 + 0.6 * (float(np.clip(la[:, c].std() / max(l0[:, c].std(), 1e-3), 1.0, 1.25)) - 1) for c in (1, 2)]
     print('lightness 10/50/90 % video', [round(float(np.quantile(l0[:, 0], q))) for q in (.1, .5, .9)],
           'art', [round(float(np.quantile(la[:, 0], q))) for q in (.1, .5, .9)], 'sat', [round(s, 3) for s in sat])
-for f in fs:
+for i_f, f in enumerate(fs):
+    if need is not None and i_f not in need:
+        os.link(os.path.join(src, f), os.path.join(out, f)); continue
     im = np.array(Image.open(os.path.join(src, f)).convert('RGB'))
     im = cv2.fastNlMeansDenoisingColored(im, None, 3, 3, 5, 15)
     L = cv2.cvtColor(im, cv2.COLOR_RGB2LAB).astype(np.float32)

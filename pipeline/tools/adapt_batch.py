@@ -192,6 +192,10 @@ def matte_frame(im_rgb, session):
 
 def select_25_indices(raw_files, clip_dir, is_idle=False, clip_id=None):
     o = OVR.get(clip_id or "")
+    if o and "idx" in o and not is_idle:
+        # explicit list of the 25 video frames: pins the moments of a published take when it is only re-cut sharper
+        # (the automatic choice below depends on the frame size and the denoise, so it can drift on full-size frames)
+        return [min(len(raw_files) - 1, max(0, int(x))) for x in o["idx"]]
     if o and "imp" in o and not is_idle:
         # o = {"imp": video frame of the release, "k": sheet frame it must land on, "v0": first, "v1": last}
         n = len(raw_files); v0 = int(o.get("v0", 0)); v1 = int(o.get("v1", n - 1)); k = int(o["k"]); imp = int(o["imp"])

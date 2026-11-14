@@ -8,7 +8,8 @@ for c in "$@"; do
   cp $K/work/{live_bt_metrics,new_10_art_metrics,impact_overrides,adapted_all_metrics}.json $d/
   ffmpeg -v error -y -i $K/b2/mp4/$c.mp4 $d/raw/f_%03d.png
   art=none; [ "$st" = bt ] && [ -f /home/claude/gods-anim-lab/art/f0/$g.webp ] && art=/home/claude/gods-anim-lab/art/f0/$g.webp
-  python3 $K/b3/sharp_prep.py $d/raw $d/frames_all/$c $art | tail -2
+  need=$(cd /tmp && python3 $K/b3/need_idx.py $c $d/raw)
+  python3 $K/b3/sharp_prep.py $d/raw $d/frames_all/$c $art $need | tail -2
   rm -rf $d/raw
   (cd /tmp && python3 $K/b3/sharp_cut.py $d 1.2 isnet-general-use $c 2>&1 | grep -E "\->|rror")
   s=$(echo $c | tr _ -); cp $d/gods-anim-lab-repo/assets/sheets/$s-mob.webp $d/gods-anim-lab-repo/assets/sheets/$s-lite.webp $K/work/gods-anim-lab-repo/assets/sheets/

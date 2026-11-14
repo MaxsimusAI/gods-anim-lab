@@ -155,3 +155,10 @@ See `remarks_ru.md` next to this file.
 - 14.11 (05:05) 10 gods: v76 Indra TI super, Inti TI ult (smoke); v77 near-misses as «Версия 2» (Hou Yi TI ult, Erlang TI
   strike); v78 Erlang BT strike, Hou Yi TI strike. Van Helsing retakes failed twice → old takes stay, idea question to Maxim.
 - 14.11 (05:20) G4 stand check of the new clips' game effects: 1 PASS, 1 WATCH, 12 FAIL (code built to old timings) → next work block.
+- 14.11 (13:43) Maxim: «Продолжая делать анимации, в первую очередь сначала ты проверяешь то, что уже сделано было в Клинге, и
+  стараешься это доработать. То есть, если умение хорошее, и там не хватало нам четкости, то ты сначала четкость
+  восстанавливаешь. Вот. Действуешь по правилам.» He allowed Kling and the folder `Kling тест`.
+  → what he wants to see: for every remaining god the existing Kling takes are looked at first; a good take only gets the
+  sharp cut (same 25 moments); only a take that fails the laws is re-shot. Work: all 276 existing clips of the remaining 36
+  gods re-cut sharp (two queues); the 25 moments of each published take are pinned before the cut (`b3/pin_moments.py`:
+  the automatic frame choice drifts on full-size denoised frames) and stored whole at the largest scale that fits (`fit`).
