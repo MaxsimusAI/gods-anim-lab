@@ -13276,6 +13276,14 @@ h: {
 col: HL_G,
 anticip(F, u, k, rel, e) {
 kdTL(F, 'hyp', [[0, .5, 0, 4.99], [.5, 1.55, 4, 4.99]]);
+if (F.today('hyp', u)) {
+// r9 (14.11 Maxim «слишком большие программные картинки. Лучше их полностью убрать»): today's sheets - no ghost warriors, no soul
+// picture, no hourglass, no field sigil. At the release frame soul wisps leave the weapon (wf) and fly to the allies.
+const tR = F.relDt('hyp', .5), A = F.st.units.filter(t => t && t !== u && t.rs === u.rs && t.gu && !t.gu.pet);
+F.at(tR, () => { const m = F.wp('h', u); F.mo(m.x, m.y, 'souls', 6, .8, { col: '#dfffee' });
+A.forEach((t, i) => F.at(i * .03, () => { const c = F.tc(t, .45); F.shot({ x: m.x, y: m.y }, c, Math.max(.16, T_SUP - tR - i * .03), { arc: -34 + i * 14, ease: 'ease-in-out', trailW: 9, col: '#cfffe6', trailCol: HL_G, coreCol: '#e8fff2', trailLife: .14, head: HEAD.wisp('#cfffe6', '#ffffff', 8), emit: (F2, x, y) => F.p({ x, y, vx: F.rnd(-10, 10), vy: F.rnd(-10, 10), life: .35, s0: 3.5, s1: 1, tex: 'glow', col: HL_G }) }); })); });
+return;
+}
 const W = [0, 1, 2, 3].map(i => ({ x: (LAY.cx(i) + LAY.cx(i + 1)) / 2 + F.rnd(-6, 6), feet: LAY.hFeet - 16 - F.rnd(0, 6), h: LAY.hRow * F.rnd(.78, .9), flip: i > 1, ph: F.rnd(0, 6), d: Math.abs(i - 1.5) * .05 }));
 F.at(.2, () => F.obj(.62, (g, a) => {
 for (const w of W) {
@@ -13298,6 +13306,11 @@ F.at(j * .03, () => F.shot({ x: w.x + F.rnd(-8, 8), y: w.feet - w.h * F.rnd(.4, 
 },
 update(F) { kdTLstep(F); },
 ult(F, e) {
+if (F.today('hyp')) {
+F.st.units.filter(t => t && t.rs === F.u.rs && t.alive).forEach(t => { const f = F.feetOf(t); F.mo(f.x, f.y - f.h * .4, 'souls', 4, .7, { col: '#dfffee' }); });
+F.hypDrawn = true;
+return;
+}
 F.fieldSigil('kd_hel', { y: LAY.sy > 0 ? 208 : 268, s: 28, dur: .8, col: HL_G, k: .8 });
 const allies = [], hx = LAY.W / 2, hy = (LAY.sy > 0 ? LAY.hFeet - LAY.hRow * 1.3 : LAY.hFeet + LAY.hRow * .45);
 const S = { x: hx, y: hy };
@@ -13447,6 +13460,8 @@ h: {
 col: HC_V, skyCol: '#0a0414', curseGlyph: 'triskele',
 anticip(F, u, k, rel, e) {
 kdTL(F, 'hyp', [[0, 1.55, 0, .99]]);
+if (F.today('hyp', u))
+return;   // r9 (14.11 Maxim «программная картинка 3 голов не нужна»): today's sheets - no heads, no three flames above them
 const im = imOk('art/f0/' + u.id + '.webp'), b = boxOf(u);
 F.obj(1.5, (g, a) => {
 const q = EASE['ease-out'](clamp((a - .08) / .3, 0, 1)), al = (a > 1.25 ? Math.max(0, (1.5 - a) / .25) : 1) * q;
@@ -13474,6 +13489,7 @@ g.restore();
 update(F) { kdTLstep(F); },
 ult(F, e) {
 const T = e.targets, wx = LAY.W / 2, wy = LAY.eF(72);
+if (!F.today('hyp'))
 F.sigil('triskele', wx, wy, 40, HC_V, { dur: .8, in: .15, out: .6, spin: 2.6, k: .95 });
 const hand = F.wp('h');
 T.forEach((t, i) => { const p = F.tc(t, .45), from = { x: hand.x + F.rnd(-5, 5), y: hand.y + F.rnd(-5, 5) }; F.at(i * .012, () => F.shot(from, p, FLY_S - i * .012, { arc: -30, ease: 'ease-in', wobble: 3, wf: 2, trailW: 9, col: HC_V, trailCol: '#9a4dff', coreCol: '#e8c8ff', trailLife: .05, head: HEAD.flame(HC_V, '#f6e8ff', 9), emit: (F2, x, y) => F.p({ x, y, vx: F.rnd(-10, 10), vy: -F.rnd(10, 30), drag: 1.5, life: .32, s0: 7, s1: 2, tex: tx('flame2', 'flame'), col: HC_V, hot: true, a0: .8 }) })); });
@@ -14078,10 +14094,12 @@ mxTake(F, ev.u); }); },
 h: {
 col: MX.c, keep: [0.507, 0.54, 0.27, 0.34],
 anticip(F, u, k, rel, e) {
-const a = F.feetOf(u);
+const a = F.feetOf(u), N = F.today('hyp', u);   // r9 (14.11 Maxim «убрать программную картинку черепа»): today's sheets - no giant skull, no skull sigil; the fire runs from the staff (wf)
+if (!N)
 F.at(.2, () => mxGiantSkull(F, u, 1.38));
 k2Erase(F, u, .34, 1.36, [[.5, .5, 1.3, 1.3, .95]]);
-F.at(.5, () => mxFireRun(F, { x: a.x - 6, y: a.y - 6 }, { x: LAY.W / 2, y: MX_GATE() + 6 }, .2));
+F.at(.5, () => mxFireRun(F, N ? F.wp('h', u) : { x: a.x - 6, y: a.y - 6 }, { x: LAY.W / 2, y: MX_GATE() + 6 }, .2));
+if (!N)
 F.at(.62, () => k2sigil(F, 'skull', MX.c, { s: 30, k: .62, y: 206 }));
 },
 ult(F, e) {
@@ -15525,9 +15543,10 @@ FX_IMPACT_K_EARTH1(F, t, FLY_S, () => F.at(.15, () => F.mo(p.x, p.y + 6, 'crimso
 },
 h: {
 col: '#e8c860', keep: [.5, .33, .5, .5],
-anticip(F) { F.at(.42, () => KE.wheatField(F, F.u, 1.05)); },
+anticip(F) { if (!F.today('hyp')) F.at(.42, () => KE.wheatField(F, F.u, 1.05)); },   // r9 (14.11 Maxim «убрать программные ростки пшеницы - они теперь есть в анимации бога»)
 ult(F, e) {
 F.hypDrawn = true;
+if (!F.today('hyp'))
 F.sigil('ke1wheat', LAY.W / 2, LAY.py(150 + 80), 38, '#f0d070', { dur: .8, in: .15, out: .55, fill: true });
 const h0 = F.handle;
 F.handle = function (ev) { if (ev.type === 'drain')
@@ -23108,6 +23127,7 @@ u.mask = { kind: 'hyp', from: 2, to: 24, e: [[.268, .105, .075, .125, .62]] };
 const t = e.targets[0];
 if (!t)
 return;
+if (!F.today('hyp', u))   // r9 (14.11 Maxim «убираем программную луну - в анимации уже есть луна»)
 F.at(.12, () => kwMoon(F, LAY.W / 2 + 30, LAY.eF(94), 30, .8, { in: .25, out: .62, rot: -.55, k: .95 }));
 void 'sigil';
 const tHit = KW.until(F, t) ?? T_SUP, tMark = KW.until(F, t, 'mark') ?? tHit + .15;
@@ -23752,6 +23772,16 @@ col: AO.c, glyph: 'pearl',
 anticip(F, u, k, rel, e) {
 if (u.atk)
 u.atk.cut = 14;
+if (F.today('hyp', u)) {
+// r9 (14.11 Maxim «большая картинка существа не нужна», «плохо синхронизирован»): today's sheets - no creature, no pearl sigil.
+// At the release frame water jets leave the weapon (wf) and reach every target exactly when the damage lands.
+const tR = F.relDt('hyp', .5), T = (e.targets || []).filter(t => t && t.alive);
+F.at(Math.max(0, tR - .2), () => KW.drops(F, F.wp('h', u).x, F.wp('h', u).y, 6, { r: 10, v0: 30, v1: 90, spread: 1.2 }));
+F.at(tR, () => { const m = F.wp('h', u); kwSwirl(F, m, 18, .3);
+T.forEach((t, i) => { const fly = Math.max(.14, (KW.until(F, t) ?? T_SUP - tR) - .01);
+KW.bolt(F, m, F.tc(t, .42), fly, { arc: (i - (T.length - 1) / 2) * 9, thick: 8, maxLen: 70, jetCol: AO.c, jetK: .8, life: .2, head: kwWhirlHead(11), emit: kwHelix }); }); });
+return;
+}
 const b = boxOf(u), src = 'art/cr-' + u.hid + '.webp', pb = { x: b.x - b.w * .62, f: b.feet, h: b.h * .7 };
 const tDive = .7, tLand = .87;
 kwSpirit(F, src, { dur: 1.0, tint: '#2a8fd0', tintK: .5, glow: AO.c, glowK: .22, layer: 'mid', state: t => {
@@ -23769,6 +23799,8 @@ F.at(.3, () => F.sigil('pearl', LAY.W / 2, LAY.py(150 + 46), 32, AO.c, { dur: .8
 ult(F, e) {
 const u = F.u;
 F.hypDrawn = true;
+if (F.today('hyp', u))
+return;
 FX_QUERY_K_WATER1(F).filter(ev => ev.type === 'hit' && ev.by === u && ev.t >= F.t - 1e-6).forEach(hv => {
 const b = boxOf(u), mouth = { x: b.x - b.w * .62 + 2, y: b.feet - b.h * .7 * .8 };
 F.flash(mouth.x, mouth.y, 20, AO.c, { dur: .2 });
@@ -27415,17 +27447,18 @@ F.st.playAnim(e.u, 'atk', REL_SHOT);
 F.atkGlowNew(e.u);
 FX_QUERY_N_DARK(F).forEach(ev => { if (ev.type === 'hit' && ev.src === 'dot')
 ev.dotKind = 'burn'; });
-const H = () => ND.wp(F, 'a');
+const H = () => ND.wp(F, 'a'), N = F.today('atk', e.u);   // r9 (14.11 Maxim «убрать программную маленькую иконку тыквы»): today's sheets - no pumpkin icon at the hand, the shot is a fire clot
+if (!N)
 F.at(.12, () => F.obj(REL_SHOT - .12, (g, a) => { const p = H(), k = a / (REL_SHOT - .12); g.save(); g.translate(p.x, p.y - k * 6); g.globalCompositeOperation = 'lighter'; g.globalAlpha = .5 * k; g.drawImage(TX.get('glow', HM.c), -20, -20, 40, 40); g.globalCompositeOperation = 'source-over'; g.globalAlpha = Math.min(1, k * 2); ND.pumpkin(g, 7 + 2 * k, { lit: k }); g.restore(); if (F.rng() < .4)
 F.p({ x: p.x + F.rnd(-3, 3), y: p.y - 10, vx: F.rnd(-6, 6), vy: -F.rnd(30, 50), drag: 1.5, life: .3, s0: 6, s1: 1.5, tex: 'flame', col: HM.c, hot: true, ramp: HM.ramp }); }));
 F.at(REL_SHOT, () => {
 const from = H(), to = F.tc(e.tgt, .42), fly = T_WIND + T_FLY - REL_SHOT;
 F.flash(from.x, from.y, 16, HM.c, { dur: .16 });
-F.shot(from, to, fly, { arc: -56, ease: 'linear', trail: false, head: hmPumpkinHead(9), emit: hmEmit });
+F.shot(from, to, fly, N ? { arc: -40, ease: 'ease-in', trailW: 9, col: HM.c, trailCol: '#ff7a1a', coreCol: '#fff0c0', trailLife: .12, head: HEAD.flame(HM.c, '#fff0c0', 12), emit: hmEmit } : { arc: -56, ease: 'linear', trail: false, head: hmPumpkinHead(9), emit: hmEmit });
 });
 },
 hit(F, e) { if (e.src !== 'shot')
-return 'default'; const p = F.tc(e.u, .42); ND.pumpkinBurst(F, p.x, p.y, 1); },
+return 'default'; const p = F.tc(e.u, .42); if (F.today('atk')) { ND.flames(F, p.x, F.feetOf(e.u).y - 4, { n: 5, w: 8, h: 34 }); F.mo(p.x, p.y, 'embers', 6, .9); return; } ND.pumpkinBurst(F, p.x, p.y, 1); },
 },
 s: {
 col: HM.c, noCharge: true,

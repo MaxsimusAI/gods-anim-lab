@@ -31,10 +31,10 @@
   "what": ""
  },
  "aoguang_bt_hyp": {
-  "checked": "",
+  "checked": "fseq aoguang hyp: no creature 580-1490 ms, swirl at the release (f12/f13)",
   "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: creature picture and pearl sigil removed; water drops + swirl at wf on the release frame (the ult is a summon - no damage on the stand, so nothing else to sync)"
  },
  "aoguang_bt_sup": {
   "checked": "",
@@ -43,10 +43,10 @@
   "what": ""
  },
  "aoguang_ti_hyp": {
-  "checked": "",
+  "checked": "fseq aoguang hyp: no creature 580-1490 ms, swirl at the release (f12/f13)",
   "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: creature picture and pearl sigil removed; water drops + swirl at wf on the release frame (the ult is a summon - no damage on the stand, so nothing else to sync)"
  },
  "aoguang_ti_sup": {
   "checked": "",
@@ -61,10 +61,10 @@
   "what": ""
  },
  "artemis_bt_hyp": {
-  "checked": "",
+  "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
   "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
  },
  "artemis_bt_sup": {
   "checked": "",
@@ -79,10 +79,10 @@
   "what": ""
  },
  "artemis_ti_hyp": {
-  "checked": "",
+  "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
   "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
  },
  "artemis_ti_sup": {
   "checked": "",
@@ -139,16 +139,16 @@
   "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage"
  },
  "demeter_bt_hyp": {
-  "checked": "",
+  "checked": "fseq demeter hyp: only the clip wheat; shots 840, damage 815 ms, wither 970",
   "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game wheat field and wheat sigil removed; seed shots from wf and wither kept"
  },
  "demeter_ti_hyp": {
-  "checked": "",
+  "checked": "fseq demeter hyp: only the clip wheat; shots 840, damage 815 ms, wither 970",
   "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game wheat field and wheat sigil removed; seed shots from wf and wither kept"
  },
  "dutchman_bt_atk": {
   "checked": "",
@@ -175,10 +175,10 @@
   "what": ""
  },
  "hecate_bt_hyp": {
-  "checked": "",
+  "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
   "remark": "Программная картинка 3 голов не нужна",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no heads picture, no three flames, no triskele sigil; shots from the hand to the targets kept"
  },
  "hecate_bt_sup": {
   "checked": "",
@@ -187,22 +187,22 @@
   "what": ""
  },
  "hecate_ti_hyp": {
-  "checked": "",
+  "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
   "remark": "Программная картинка 3 голов не нужна",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no heads picture, no three flames, no triskele sigil; shots from the hand to the targets kept"
  },
  "hel_bt_hyp": {
-  "checked": "",
+  "checked": "fseq hel hyp: wisps leave at ~730 ms (release f9@562), «Воскрешение» at 870 ms",
   "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: ghost warriors, soul picture, hourglass and field sigil removed; at the release soul wisps fly from wf to the allies, then the resurrection"
  },
  "hel_ti_hyp": {
-  "checked": "",
+  "checked": "fseq hel hyp: wisps leave at ~730 ms (release f9@562), «Воскрешение» at 870 ms",
   "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: ghost warriors, soul picture, hourglass and field sigil removed; at the release soul wisps fly from wf to the allies, then the resurrection"
  },
  "heracles_bt_hyp": {
   "checked": "",
@@ -217,10 +217,10 @@
   "what": ""
  },
  "horseman_bt_atk": {
-  "checked": "",
+  "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
   "remark": "Убрать программную маленькую иконку тыквы",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
  },
  "horseman_bt_hyp": {
   "checked": "",
@@ -235,10 +235,10 @@
   "what": ""
  },
  "horseman_ti_atk": {
-  "checked": "",
+  "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
   "remark": "Убрать программную маленькую иконку тыквы",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
  },
  "horseman_ti_hyp": {
   "checked": "",
@@ -379,16 +379,16 @@
   "what": ""
  },
  "mictlan_bt_hyp": {
-  "checked": "",
+  "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",
   "remark": "Убрать программную картинку черепа",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
  },
  "mictlan_ti_hyp": {
-  "checked": "",
+  "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",
   "remark": "Убрать программную картинку черепа",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
  },
  "poseidon_bt_sup": {
   "checked": "",
