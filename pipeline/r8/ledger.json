@@ -594,9 +594,9 @@
   "step into the blow with a bent front knee, diagonal cane slash across the body with a green trail, step back"
  ],
  "jekyll_ti_atk": [
-  "cut pending",
-  "not reviewed yet",
-  "",
+  "OK",
+  "WATCH",
+  "claw swipe reads; feet rooted, only hips shift; arm parked across his chest 10-15",
   ""
  ],
  "jekyll_bt_sup": [
@@ -642,10 +642,10 @@
   ""
  ],
  "kali_ti_atk": [
-  "cut pending",
-  "not reviewed yet",
-  "",
-  ""
+  "OK (old ghost blade now solid)",
+  "FAIL",
+  "legs and body frozen in 19 of 25 frames; one arm moves; hold 12-17; snap back 18-19",
+  "step into a lunge with a deep front-knee bend and cut one wide diagonal slash, hips and shoulders turning, then step back"
  ],
  "kali_bt_sup": [
   "repair cut published v94",
@@ -1350,7 +1350,7 @@
   ""
  ],
  "shiva_ti_sup": [
-  "BAD (gray slab at lower right 17-18, new) - old sheet kept",
+  "repair cut published v107",
   "WATCH",
   "blue skin washes to pale pink 12-18; one-frame knee pops",
   ""
@@ -1404,7 +1404,7 @@
   "charge the sword diagonally over the shoulder (face clear), then a heavy downward slash over 4-5 frames"
  ],
  "surt_bt_hyp": [
-  "BAD (pale haze patch right of the legs at frame 7, new) - old sheet kept",
+  "repair cut published v107",
   "FAIL",
   "head gone 8-17, legs static",
   "keep the body-ablaze idea with the sword planted or held low so the horned head stays in view, wide knee-bent stance"
@@ -1488,7 +1488,7 @@
   ""
  ],
  "thor_bt_sup": [
-  "BAD (gray-green haze slab around the legs 6-15, new) - old sheet kept",
+  "BAD (lavender floor pool twice as wide as old 6-14 after the repair cut) - old sheet kept",
   "FAIL",
   "hammer straight up, hammer head out of the top 6-14; legs a statue; jerks 5-6, 15-16",
   "two-handed sweep or downward smash at chest-to-ground height, hammer always in frame, legs stepping in, lightning only on the hammer head"
@@ -1524,13 +1524,13 @@
   ""
  ],
  "susanoo_bt_atk": [
-  "BAD (tan floor patch behind the legs 17-18, new) - old sheet kept",
+  "repair cut published v107",
   "FAIL",
   "legs a statue all 25 frames; blade wholly out of the top edge 10-15, face covered 9-15",
   "low side wind-up at hip height (blade inside the frame) with a step and bent knees into one horizontal cut, face visible"
  ],
  "susanoo_ti_atk": [
-  "BAD (gray-tan background slab 16-19, new) - old sheet kept",
+  "BAD (gray fill inside the left water loop at frame 12 after the repair cut) - old sheet kept",
   "WATCH",
   "gray patch in the left water loop 11-13, pop 14-16, super-sized effects",
   ""
@@ -1572,7 +1572,7 @@
   ""
  ],
  "wukong_bt_atk": [
-  "BAD (gray-blue slab behind the figure at frame 16, new) - repair cut queued",
+  "repair cut published v107",
   "WATCH",
   "frontal ground-slam, gray smear under the staff 9-12",
   ""
