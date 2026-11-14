@@ -19002,11 +19002,19 @@ anticip(F, u, k, rel, e) {
 F.at(.745, () => { if (u.mask && u.mask.kind === 'hyp')
 u.mask = Object.assign({}, u.mask, { e: [[.86, .3, .3, .18, .5]] }); });
 const mouth = () => sheetPt(u, 'hyp', .55, .31);
+if (F.today('hyp', u)) {
+// r9 (14.11 Maxim: «программная анимация струи огня слишком быстро дергается»): today's sheets - no seven flames, no sigil. One read:
+// on the release frame smooth streams of fire leave wf, reach every enemy with the damage and keep burning for a moment.
+r9Link(F, u, 'h', e.targets, (from, to, fly, t, i) => r9Fire(F, from, to, fly, { from: () => F.wp('h', u), col: '#ff8a2a', core: '#fff0c0', ramp: ['#fff0c0', '#ffd27a', '#ffae3a', '#ff6a1a', '#d83a0a'], w: 6, ts: 5, n: 14, speed: 1.3, wob: 3, arc: (i - 2) * 5, hold: .34, drain: .28 }));
+return;
+}
 k2sevenFlames(F, u, .24, .62, mouth);
 F.at(.3, () => F.sigil('k2agni', LAY.W / 2, LAY.py(150 + 78), 34, '#ffae3a', { dur: .75, in: .2, out: .55, k: .9 }));
 },
 ult(F, e) {
 F.hypDrawn = true;
+if (F.today('hyp'))
+return;
 const u = F.u, mouth = () => sheetPt(u, 'hyp', .55, .31);
 F.flash(mouth().x, mouth().y, 26, '#ffd27a', { dur: .25 });
 k2breath(F, mouth, e.targets || []);
