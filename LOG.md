@@ -211,3 +211,37 @@ See `remarks_ru.md` next to this file.
   «вылетает не из кончика оружия», «Огонь из рта в анимации, а программных эффект из ног», Veles atk «прыгает вперед и
   наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике», Brynhild atk «бьет в
   анимации раньше чем оказывается рядом с противником».
+- 15.11 (night, after his marks) — work done on the marks of 14.11:
+  · v110 marks recorded; v111 the ten «версия 2» he chose became the main takes, all other alternatives removed.
+  · v112 cut repairs without credits: Kitsune BT tails (new `b3/solid_fix.py`: see-through light fur made solid on the
+    sheet, the source of that take is not kept), Kitsune TI idle = the 13.11-afternoon take cut sharp (NOT the 12.11 take of
+    «вчера»: its source video was not found — a fresh-eyes reviewer caught that the two differ; asked Maxim which he
+    meant), Hou Yi TI ult re-cut at v21 measurements (he «grew» because the old sheet had old-style metrics), haze removed
+    with `desmoke` (Heracles BT strike, Silent TI super, Persephone BT/TI ult; Persephone TI also `r9/gray_floor_fix.py`),
+    Van Helsing TI idle coat lining and Kali BT idle belly kept with the dark-body rescue at a lower threshold
+    (`"darkbody": 22` / `18`). Silent BT super: the re-cut was worse (leg holes) → old sheet stays, no defect found on it.
+    Lilith BT strike (staff vanishes in the cut → jerk): not touched, her BT art is being redrawn.
+  · 59 re-shoots (58 + Wukong TI super reworded after a refusal for wording), prompts `pipeline/r9/`, ids
+    `pipeline/r9/kling_tasks_1411c.json`, 1 770 credits. Stage 1 = four fresh-eyes reviewers on raw video frames:
+    11 PASS, 18 WATCH, 29 FAIL (Kling added spins with the back to the viewer, weapons over the head, frame-wide arcs and
+    bursts, palms pushed at the camera so the effect covers the face). One retake each with ONE change
+    (`pipeline/r9/r2/`, ids `kling_tasks_1511.json`, 870 credits): 2 PASS, 14 WATCH, 13 FAIL again. The 13 are not
+    re-shot a third time: Dracula BT/TI strike, Atlas TI strike, Silent TI strike, Nightmare TI strike, Nightmare BT/TI
+    ult, Llorona TI strike, Lucifer TI ult, Van Helsing TI ult (twice shot to the side, not into the screen), Wukong BT
+    super, Wukong TI ult, Thor BT super → old takes stay; the best near-misses go on the stand as «Версия 2».
+  · Stage 2 = a fresh-eyes reviewer on every CUT sheet (holes, haze, edges) who also reads the release frame and `wf` by
+    eye (`r9/setrel.py` writes them into the metrics without a re-cut). Cuts that failed were repaired per clip:
+    `"model": "u2net"` (Llorona BT strike: gray dress keyed out; Kali TI ult, Lu Bu BT strike: body lost under a fire
+    arc), `"darkbody": 22` (Anansi TI leg, Lilith TI staff). New cutter options: `KL_DARKBODY_T`, `KL_DESMOKE=2`,
+    per-clip `model` (`b3/sharp_batch2.sh`).
+  · Lessons for prompts (section 7 table candidates): a palm "thrust forward" → pushed at the camera, the effect covers
+    the face → "held out beside him"; "swings back … shoulders turning away" → a full spin → name only the draw-back;
+    "six quick pulses" → several blows; "head lowering / bows his head" → face hidden for the whole action; a slash of a
+    long weapon → frame-wide arc whatever the fit line says; a head turn in an idle → the whole body turns.
+  · Reviewers are still stricter than Maxim (he accepted 93 clips with a reviewer FAIL): stage-1 FAIL lists were used to
+    decide retakes, not to hide takes — near-misses are shown to him as «Версия 2».
+  · Game effects: branch `fx-r9` (worker + independent fresh-eyes code review + fixes). Root cause of «слишком быстро
+    дергается» and most «плохая синхронизация»: the stand squeezed every new sheet so that its release frame landed on
+    the sim's hit time (0.42 / 0.5-0.75 s). New model, new arenas only: speed floor (strike ≥ 1.25 s, super/ult ≥ 1.5 s)
+    and the whole action (effects, leap, damage) waits for the real release frame (`BR.hold`). STAND-ONLY presentation:
+    in the game the same needs a per-skill wind-up time in the fight → Maxim's decision (it changes fight timing).
