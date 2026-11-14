@@ -191,7 +191,7 @@ def matte_frame(im_rgb, session):
     # 14.11 (Anansi BT ult): a kneeling leg in black trousers got a low body mask for three frames and turned see-through -
     # pixels darker than the background are kept only by the mask. Opt-in (KL_DARKBODY=1): clearly dark pixels (far from the
     # background colour, so not a soft floor shadow) that are connected to the solid body count as body.
-    if os.environ.get("KL_DARKBODY", "1") == "1":   # default ON since 14.11 15:50 (fixed Anansi, Ares, see-through dark limbs); KL_DARKBODY=0 switches it off
+    if os.environ.get("KL_DARKBODY") == "1":   # opt-in again (override "darkbody": true): as a default it turned dark haze behind the legs into solid slabs (Susanoo, Thor, Wukong, 14.11)
         from scipy import ndimage as _ni
         dk = (a.mean(axis=2) < g.mean(axis=2) - 12.0) & (diff_max > 45.0)
         lab, _n = _ni.label(dk | (m > 0.5))

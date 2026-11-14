@@ -7,6 +7,8 @@ for c in "$@"; do
   # at most two cuts at a time on this machine (three or more run out of memory: BrokenProcessPool, 14.11)
   slot=""; for i in 0 1; do exec 8>/tmp/slot.$i.lock; if flock -n 8; then slot=$i; break; fi; done
   if [ -z "$slot" ]; then slot=$((RANDOM % 2)); exec 8>/tmp/slot.$slot.lock; flock 8; fi   # blocking wait: a polling waiter starved (14.11)
+  # per-clip matting switches from impact_overrides.json: "darkbody": true -> KL_DARKBODY=1, "desmoke": true -> KL_DESMOKE=1
+  eval "$(python3 -c "import json,sys;o=json.load(open('/home/claude/kl/work/impact_overrides.json')).get(sys.argv[1],{});print('export KL_DARKBODY=%d KL_DESMOKE=%d'%(1 if o.get('darkbody') else 0, 1 if o.get('desmoke') else 0))" $c)"
   g=${c%%_*}; st=$(echo $c | cut -d_ -f2); d=/tmp/sc/$c; rm -rf $d; mkdir -p $d/raw $d/frames_all/$c $d/gods-anim-lab-repo/assets/sheets
   flock /tmp/am.lock cp $K/work/{live_bt_metrics,new_10_art_metrics,impact_overrides,adapted_all_metrics}.json $d/
   ffmpeg -v error -y -i $K/b2/mp4/$c.mp4 $d/raw/f_%03d.png
