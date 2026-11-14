@@ -5853,5 +5853,46 @@
  },
  "veles_ti_idle": {
   "darkbody": 22
+ },
+ "anansi_ti_atk": {
+  "darkbody": 22
+ },
+ "llorona_bt_atk": {
+  "model": "u2net"
+ },
+ "shango_bt_hyp": {
+  "wf": [
+   0.2,
+   0.69
+  ],
+  "rel_by_eye": 11
+ },
+ "wukong_bt_hyp": {
+  "wf": [
+   0.29,
+   0.9
+  ],
+  "rel_by_eye": 14
+ },
+ "atlas_ti_sup": {
+  "wf": [
+   0.7,
+   0.25
+  ],
+  "rel_by_eye": 11
+ },
+ "veles_bt_atk": {
+  "wf": [
+   0.86,
+   0.68
+  ],
+  "rel_by_eye": 11
+ },
+ "nightmare_bt_sup": {
+  "wf": [
+   0.34,
+   0.39
+  ],
+  "rel_by_eye": 12
  }
 }
