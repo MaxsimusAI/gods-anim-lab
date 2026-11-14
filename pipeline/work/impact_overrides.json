@@ -5915,7 +5915,8 @@
   "desmoke": 2
  },
  "lubu_bt_atk": {
-  "model": "u2net"
+  "model2": "u2net",
+  "darkbody": 22
  },
  "nightmare_ti_sup": {
   "wf": [
@@ -5979,5 +5980,42 @@
    0.46
   ],
   "rel_by_eye": 13
+ },
+ "koschei_ti_atk": {
+  "darkbody": 22
+ },
+ "hecate_ti_sup": {
+  "darkbody": 22
+ },
+ "llorona_ti_sup": {
+  "darkbody": 22
+ },
+ "kali_ti_atk": {
+  "wf": [
+   0.34,
+   0.5
+  ],
+  "rel_by_eye": 11
+ },
+ "shango_ti_hyp": {
+  "wf": [
+   0.7,
+   0.9
+  ],
+  "rel_by_eye": 9
+ },
+ "surt_ti_sup": {
+  "wf": [
+   0.59,
+   0.71
+  ],
+  "rel_by_eye": 12
+ },
+ "dracula_ti_hyp": {
+  "wf": [
+   0.44,
+   0.43
+  ],
+  "rel_by_eye": 9
  }
 }
