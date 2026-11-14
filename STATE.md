@@ -1,6 +1,6 @@
 # State of the gods animation work
 
-Site: https://maxsimusai.github.io/gods-anim-lab/ (v108, 14.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
+Site: https://maxsimusai.github.io/gods-anim-lab/ (v119+, 15.11.2026). Rules: skill `gods-anim-kling` v2. History: `LOG.md`.
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
@@ -128,22 +128,47 @@ Maxim: «в первую очередь сначала ты проверяешь
 - Memory: many action sheets are now 100-130 % of the live sheet of their slot in RAM (frame up to 180×220 at the idle's
   scale); numbers per clip in `pipeline/work/metrics_pub.json` (`live.ramPct`). Report to Maxim; his word decides.
 
-## Status map (v108) — the single place where the state of every clip is shown
+## 14-15.11 night — Maxim's marks on every clip (site v110-v119+)
+
+Maxim marked all 52 gods on the stand (read from his browser, not pasted): 323 «принять», 60 «переснять», 126 comments
+(`pipeline/r9/marks_1411.txt`, `notes_1411.txt`; LOG 14.11 22:55). From now on:
+- Every clip he marked «принять» is a PROTECTED take (`status_overrides.json` "ok"). 93 of them had a reviewer FAIL — the
+  reviewers' verdicts of round r8 are void for those clips. A protected take is only ever re-cut (same 25 moments).
+- «Версия 2» he chose is now the main take: athena_bt_atk, athena_ti_atk, artemis_ti_sup, artemis_bt_hyp, artemis_ti_hyp,
+  zeus_ti_hyp, demeter_bt_hyp, demeter_ti_hyp, apollo_ti_hyp, kitsune_ti_sup. No alternatives are left from before.
+- Cut repairs published v112 (same takes): Kitsune BT idle/atk/sup/hyp (tails), Kitsune TI idle (13.11-afternoon take sharp;
+  OPEN: he may have meant the 12.11 take of «вчера», whose source video is not found), Hou Yi TI ult, Heracles BT strike,
+  Van Helsing TI idle, Silent TI super, Persephone BT/TI ult, Kali BT idle. Not repaired: Silent BT super (no defect found
+  on the old sheet; the re-cut was worse), Lilith BT strike (waits for the redrawn BT art).
+- Re-shoots (60 marks): 59 clips shot (r9, 1 770 credits) + 29 single retakes (r9/r2, 870 credits). Two review stages:
+  stage 1 on the raw video (`kl/r9/review/stage1_all.json`, `stage1_r2.json`), stage 2 on the cut sheet with the release
+  frame and `wf` read by eye (`s2_*.json`). Published takes have status "new" (wait for his look); per-clip result:
+  `pipeline/r9/result.json` (written at the end of the round).
+- Twice failed, NOT re-shot a third time (old take stays, needs a new idea or his word): dracula_bt_atk, dracula_ti_atk,
+  atlas_ti_atk, silent_ti_atk, nightmare_ti_atk, nightmare_bt_hyp, nightmare_ti_hyp, llorona_ti_atk, lucifer_ti_hyp,
+  vanhelsing_ti_hyp (Kling shoots to the side, not into the screen), wukong_bt_sup, wukong_ti_hyp, thor_bt_sup.
+- Sources of the new takes: `Kling тест\workspace\mp4-zzzz-v1xx-r9.tar` (saved at the end of the round).
+- Game effects: branch `fx-r9` (worktree `/home/claude/fxwork` in that session; pushed to main only after the fresh-eyes
+  code review and its fixes). Ledger per clip: `pipeline/r9/fx_ledger.json`. Model: `TOOLS.md` "r9 playback/sync".
+  OPEN for Maxim: the new arenas now WAIT for the clip's real release frame (stand-only hold, up to ~0.9 s); in the game
+  this needs a per-skill wind-up time — a fight-timing decision that is his.
+
+## Status map — the single place where the state of every clip is shown
 
 `assets/status-data.js` (built by `pipeline/tools/build_status.py` on every publish). To change a status: edit
 `pipeline/work/status_overrides.json` (clip → ok | new | look | fine | redo | none) or the round's ledger, then publish.
-After every new take: set it to "new" there. After Maxim's marks (he pastes them from the «Скопировать мои отметки»
-button): "ok" = protected take, "redo" = re-shoot (Maxim named it). The statuses of gods 1-16 were typed from the
-records of 12-14.11 (`status_first16.json`) and are not verified clip by clip.
+After every new take or re-cut: set it to "new" (`kl/r9/note.py new <clip> "<Russian note>"` also writes the note for him).
+His own marks live in his browser and win over the recorded status only for the take they were made on (stamp = sheet KB).
+To read them without asking him to paste: open the site in his Chrome (Claude in Chrome) and read localStorage
+`gal_marks_v1` / `gal_notes_v1`.
 
 ## Next step
 
-1. Maxim looks at the 36 gods on the stand (sharp re-cuts, «вчера / сейчас»), and at the new Agni and Anansi takes.
-2. His word on the re-shoots: the 118 FAIL clips of `pipeline/r8/ledger.json` (ideas are written there). One god at a
-   time unless he says otherwise; prompts by the skill's grammar (`pipeline/r8/mk.py` builds them).
-3. Re-cut the BT sheets of gods 1-16 with the fixed tone step and the second mask (no credits), compare, publish.
-4. Still open from the night: the game effects of the 10 gods' new clips (G4 list above), Hel / Kitsune / Artemis / Demeter
-   items waiting for Maxim.
+1. Maxim looks at the takes with status "new" (re-shoots and cut repairs of this night) and at the game effects.
+2. His word on: the 13 twice-failed clips (new idea / keep old / «Версия 2»), the Kitsune TI idle question, the
+   fight-timing question of the effects, the 19+ sheets above 115 % RAM (still open from 14.11).
+3. Block 4 of the effects (redesign of the effects he called poor): see `fx_ledger.json` "not done".
+4. Re-cut the BT sheets of gods 1-16 with the fixed tone step and the second mask (no credits) — still open.
 
 ## Gods 1-5 — per slot
 
