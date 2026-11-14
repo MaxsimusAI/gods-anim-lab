@@ -302,10 +302,10 @@
   "what": "Block 1 only: sheet 1.5 s (was 0.96 s); wisps leave after the release frame and the damage lands on arrival"
  },
  "lilith_ti_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.85 R: release f8@500, ribbon 500-790, coil from 783, charm (ctrl) 800",
   "remark": "Программные эффекты плозихие, полностью поменять",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheet (TI; BT ult has no new sheet): owls / serpent / sigil / scrape sparks removed. On the release frame the clip's crimson ribbon with rose petals leaves her hand (wf), flies to the strongest enemy (r9Stream + petals), winds around him (new helper r9Coil), the charm mark appears on arrival. Release expected .45 s (BR.REL_TODAY)"
  },
  "llorona_bt_atk": {
   "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
@@ -368,22 +368,22 @@
   "what": "sheet plays 1.5 s (was 1.2 s) and runs through without restarting on the hits of the series; the red slash leaves after the release frame"
  },
  "lucifer_bt_hyp": {
-  "checked": "not looked at",
+  "checked": "fsb 0.9 M, 0.6 R: BT release f14@874, ribbons 880-1170, damage 1180; TI release f12@750, arrive 1040, damage 1050",
   "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets (both styles, same code): wings / sigil / falling stars / golden line removed. On the release frame the ribbons of violet light unwind from the staff (wf) to every enemy (r9Stream, w 9.5), violet hit on arrival"
  },
  "lucifer_bt_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115",
   "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s"
  },
  "lucifer_ti_sup": {
-  "checked": "not looked at",
+  "checked": "fsb 0.8 M/R: BT release f18@1125, orb in flight 1180-1380, lands 1415, damage 1425; TI release f13@813, lands 1105, damage 1115",
   "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
-  "status": "not done",
-  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+  "status": "done",
+  "what": "today's sheets: gather sparks / golden star from the sky removed. On the release frame the clip's violet star (r9Orb, wf = where the baked orb leaves through the top edge) flies in an arc to the victim, violet hit (LUC.hit9) + curse turn on arrival. Release expected .45 s (BR.REL_TODAY) -> flight .29 s"
  },
  "mictlan_bt_hyp": {
   "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",

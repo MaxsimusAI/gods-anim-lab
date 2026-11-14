@@ -5782,6 +5782,109 @@ if (o.emit && dq <= 0)
 o.emit(h.x, h.y, k1);
 }, o.layer);
 };
+// r9Orb (Block 4b, 14.11 Maxim: «плохой программный эффект», «не понятно что летит. Слишком резко и не заметно»): one large soft comet -
+// a glowing orb with a tapered flowing tail and sparks - from a point to a target in `fly` seconds. Big enough to follow on a phone,
+// no flash. o: col, core, r (orb radius), arc (side bow, px), ease, tail (share of the path), tex / texCol / spin (a sprite turning in
+// the orb), head(g, a, k, r) (own drawing of the orb, the canvas is moved to the orb and turned along the flight), spark (per second),
+// sparkCol [], sparkTex, from (function: a moving origin), onHit(x, y), layer. `to` may be a function (a moving target).
+const r9Rate = (F, o, perSec) => { if (o.t == null) { o.t = F.t; o.acc = 0; return 0; } o.acc += (F.t - o.t) * perSec; o.t = F.t; const n = Math.floor(o.acc); o.acc -= n; return Math.min(n, 8); };
+const r9Orb = (F, from, to, fly, o = {}) => {
+const col = o.col || '#ffffff', core = o.core || '#ffffff', r = o.r ?? 9, arc = o.arc ?? -16, tail = o.tail ?? .45, fade = o.fade ?? .14, ez = EASE[o.ease || 'ease-in-out'], N = 12, lv = {}, ph = F.rnd(0, 6);
+const to0 = to;
+const pt = k => { const f = o.from ? (o.from() || from) : from, t = typeof to0 === 'function' ? to0() : to0, L = Math.hypot(t.x - f.x, t.y - f.y) || 1, q = Math.sin(Math.PI * k) * arc;
+return { x: lerp(f.x, t.x, k) - (t.y - f.y) / L * q, y: lerp(f.y, t.y, k) + (t.x - f.x) / L * q }; };
+let done = false;
+return F.obj(fly + fade, (g, a) => {
+const k1 = ez(clamp(a / fly, 0, 1)), dq = clamp((a - fly) / fade, 0, 1), k0 = lerp(Math.max(0, k1 - tail), 1, dq), up = lerp(.5, 1, clamp(a / (fly * .3), 0, 1)), R = r * up * (1 + .06 * Math.sin(a * 26 + ph));
+const P = [];
+for (let i = 0; i <= N; i++)
+P.push(pt(lerp(k0, k1, i / N)));
+const h = P[N], al = 1 - dq;
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+if (k1 - k0 > .01)
+for (const [lw, cc, aa] of [[2.3, col, .16], [1.25, col, .46], [.5, core, .7]])
+for (let i = 0; i < N; i++) {
+const t = (i + .5) / N;
+g.globalAlpha = aa * al * t;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, R * lw * (.12 + .88 * t * t));
+g.beginPath();
+g.moveTo(P[i].x, P[i].y);
+g.lineTo(P[i + 1].x, P[i + 1].y);
+g.stroke();
+}
+if (dq < 1) {
+const q = pt(Math.max(0, k1 - .03)), ang = Math.atan2(h.y - q.y, h.x - q.x);
+g.globalAlpha = .55 * al;
+g.drawImage(TX.get('glow', col), h.x - R * 2.7, h.y - R * 2.7, R * 5.4, R * 5.4);
+g.translate(h.x, h.y);
+g.rotate(ang);
+if (o.head) {
+g.globalAlpha = al;
+o.head(g, a, k1, R);
+}
+else {
+g.globalAlpha = .95 * al;
+g.drawImage(TX.get('glow', col), -R * 1.5, -R * 1.5, R * 3, R * 3);
+g.globalAlpha = (o.coreA ?? .9) * al;
+g.drawImage(TX.get('glow', core), -R * .95, -R * .95, R * 1.9, R * 1.9);
+if (o.tex) {
+g.rotate(a * (o.spin ?? 5) + ph);
+g.globalAlpha = .9 * al;
+const s = R * (o.ts ?? 2.2);
+g.drawImage(TX.get(o.tex, o.texCol || core), -s / 2, -s / 2, s, s);
+}
+}
+}
+g.restore();
+if (a < fly && o.spark !== 0)
+for (let i = r9Rate(F, lv, o.spark ?? 46); i > 0; i--)
+F.p({ x: h.x + F.rnd(-R, R) * .6, y: h.y + F.rnd(-R, R) * .6, vx: F.rnd(-22, 22), vy: F.rnd(-22, 22) + (o.sparkVy ?? 0), ay: o.sparkAy ?? 0, drag: 2.4, life: F.rnd(.22, .42), s0: F.rnd(2.2, 3.8) * (o.sparkS ?? 1), s1: .5, tex: o.sparkTex || 'ember', col: F.pick(o.sparkCol || [col, core]) });
+if (a >= fly && !done) {
+done = true;
+if (o.onHit) {
+const t = typeof to0 === 'function' ? to0() : to0;
+o.onHit(t.x, t.y);
+}
+}
+}, o.layer);
+};
+// r9Coil (Block 4b): a ribbon winds up around a unit (a control / curse that has arrived and holds the victim): a soft helix from the
+// feet to the head that keeps turning and fades. o: col, core, w, turns, dur, in (wind-up time), rx (radius, share of the box width)
+const r9Coil = (F, t, o = {}) => {
+const col = o.col || '#ffffff', core = o.core || '#ffffff', w = o.w ?? 5, turns = o.turns ?? 2.2, dur = o.dur ?? .6, tin = o.in ?? .22, N = 34, ph = F.rnd(0, 6);
+F.obj(dur, (g, a) => {
+if (!t.alive)
+return;
+const b = boxOf(t), up = EASE['ease-out'](clamp(a / tin, 0, 1)), al = a < dur * .55 ? 1 : 1 - (a - dur * .55) / (dur * .45), rx = b.w * (o.rx ?? .46), y0 = b.feet - b.h * .06, y1 = b.top + b.h * .12;
+const P = [];
+for (let i = 0; i <= N; i++) {
+const k = i / N * up, th = k * turns * TAU + a * (o.spin ?? 5) + ph, rr = rx * (1 - .25 * k);
+P.push([b.x + Math.cos(th) * rr, lerp(y0, y1, k) + Math.sin(th) * rr * .26, Math.sin(th)]);
+}
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'round';
+for (const [lw, cc, aa] of [[2.4, col, .16], [1.1, col, .5], [.4, core, .75]])
+for (let i = 0; i < N; i++) {
+const k = (i + .5) / N, front = .35 + .65 * clamp(P[i][2] * .5 + .5, 0, 1), tp = Math.sin(Math.PI * Math.min(1, k * 1.15)) * .8 + .2;
+g.globalAlpha = aa * al * front;
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, w * lw * tp * (.6 + .4 * front));
+g.beginPath();
+g.moveTo(P[i][0], P[i][1]);
+g.lineTo(P[i + 1][0], P[i + 1][1]);
+g.stroke();
+}
+g.restore();
+if (o.emit && a < dur * .7) {
+const q = P[Math.floor(F.rnd(0, N))];
+o.emit(q[0], q[1]);
+}
+}, o.layer);
+};
 const r9Stand = (F, e, fly, launch) => {
 const u = e.u;
 if (!u || !e.tgt || !BR.NOLEAP_NEW.has(u.hid) || !F.today('atk', u))
@@ -7570,6 +7673,9 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 // Sting ult: the kick (release frame) lands when the sim deals the first hit. Shango super: the lightning is instant - the release
 // frame lands with the bolts and the damage.
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
+// r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
+// before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
+Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
 BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
@@ -25685,6 +25791,20 @@ F.decal(f.x, f.y, f.w * .62 * s, LUC.PALE, { cracks: 7, dur: 1, k: .95 });
 for (let i = 0; i < 3; i++)
 F.at(.05 + i * .07, () => LUC.feather(F, p.x + F.rnd(-22, 22), p.y - F.rnd(14, 34), { s: 1 }));
 };
+// r9 Block 4b (14.11 Maxim, Lucifer super / ult: «программный эффект не синхронизирован с анимацией и выглядит плохо»): today's sheets -
+// the clip's own violet star. Super: on the release frame the star that the clip sends up through the top edge (wf) flies on to the
+// victim. Ult: the ribbons of light that wind around him unwind from the staff (wf) to every enemy. The hit is violet like the clip.
+LUC.C9 = { c: '#8a78ff', pale: '#c4bcff', core: '#f3f0ff' };
+LUC.star9 = (F, from, to, fly, o = {}) => r9Orb(F, from, to, fly, Object.assign({ col: LUC.C9.c, core: LUC.C9.core, r: 10, arc: -20, tex: txOr('glint', 'star4'), texCol: '#ffffff', ts: 3, spin: 3, tail: .5, sparkCol: [LUC.C9.pale, LUC.C9.c, '#ffffff'] }, o));
+LUC.hit9 = (F, t, s = 1) => {
+const p = F.tc(t, .5), f = F.feetOf(t);
+F.flash(p.x, p.y, 28 * s, LUC.C9.c, { dur: .42, k: 1.5, grow: true });
+F.ring(p.x, p.y, 8, 36 * s, LUC.C9.c, { dur: .4, w: 4, k: .6 });
+NC.glint(F, p.x, p.y, 24 * s, LUC.C9.pale, { life: .2, rot: .78 });
+F.burst(p.x, p.y, { n: Math.round(14 * s), v0: 80, v1: 200 * s, col: [LUC.C9.c, LUC.C9.pale, '#ffffff'], s0: 3.2, l0: .25, l1: .5, drag: 3 });
+LUC.shreds(F, p.x, p.y, 6, 32 * s, 1.1 * s);
+F.decal(f.x, f.y, f.w * .6 * s, LUC.C9.pale, { cracks: 6, dur: 1, k: .9 });
+};
 LUC.bless = (F, t) => {
 if (t._luc && !t._luc.down)
 return;
@@ -25858,6 +25978,10 @@ s: {
 col: LUC.W, noCharge: true, curseGlyph: 'nc_star', markGlyph: 'nc_star',
 anticip(F, u, kind, rel, e) {
 const t = e.targets[0];
+if (F.today('sup', u)) {
+r9Link(F, u, 's', [t], (from, to, fly) => LUC.star9(F, from, to, fly, { arc: (to.x < from.x ? 1 : -1) * 18 }), { exp: .45 });
+return;
+}
 LUC.gather(F, 's', .34, 9);
 F.at(.3, () => { const p = LUC.halo(F, 's'); LUC.flare(F, p, 1.2); LUC.rise(F, p, t ? (F.tc(t).x - p.x) * .25 : 0); });
 if (t)
@@ -25867,13 +25991,22 @@ LUC.starHit(F, t, 1); } }); });
 sup(F, e) { F.supDrawn = true; },
 superHit() { },
 hit(F, e) { if (e.src !== 'super')
-return 'default'; if (F.onImpact)
+return 'default'; if (F.today('sup')) {
+LUC.hit9(F, e.u, 1);
+return;
+} if (F.onImpact)
 LUC.starHit(F, e.u, 1); },
 status(F, e) { LUC.turn(F, e); },
 },
 h: {
 col: LUC.W, noCharge: true, glyph: 'nc_star', curseGlyph: 'nc_star', markGlyph: 'nc_star',
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+const n = e.targets.length;
+r9Link(F, u, 'h', e.targets, (from, to, fly, t, i) => r9Stream(F, from, to, fly, { col: LUC.C9.c, core: LUC.C9.core, w: 9.5, coreK: .75, arc: (i - (n - 1) / 2) * 9 + (i % 2 ? 12 : -12), wob: 8, tail: .7, drain: .16, tex: txOr('glint', 'star4'), ramp: ['#ffffff', LUC.C9.pale, LUC.C9.c], ts: 2.6, n: 6, speed: 1.4,
+emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-4, 4), y: y + F.rnd(-4, 4), vx: F.rnd(-20, 20), vy: F.rnd(-20, 20), drag: 2.4, life: F.rnd(.22, .4), s0: F.rnd(2.2, 3.6), s1: .5, tex: 'ember', col: F.pick([LUC.C9.pale, LUC.C9.c, '#ffffff']) }); } }), { exp: .45, gap: .012 });
+return;
+}
 LUC.gather(F, 'h', .3, 10);
 LUC.wings(F, .06, 1.25);
 F.at(.26, () => { const p = LUC.halo(F, 'h'); LUC.flare(F, p, 1.4); LUC.rise(F, p, 30); });
@@ -25883,7 +26016,10 @@ F.at(.36, () => LUC.fieldFall(F, e, .62));
 ult(F, e) { F.hypDrawn = true; },
 hyperHit() { },
 hit(F, e) { if (e.src !== 'hyper')
-return 'default'; LUC.rowHit(F, e.u); },
+return 'default'; if (F.today('hyp'))
+LUC.hit9(F, e.u, .8);
+else
+LUC.rowHit(F, e.u); },
 status(F, e) { LUC.turn(F, e); },
 },
 };
@@ -26208,6 +26344,21 @@ superHit() { },
 h: {
 col: LIL.C, noCharge: true, glyph: 'nc_owl', markGlyph: 'nc_owl',
 anticip(F, u, kind, rel, e) {
+if (F.today('hyp', u)) {
+// r9 Block 4b (14.11 Maxim, Lilith ult: «программные эффекты плохие, полностью поменять»): today's sheets - no owls, no serpent, no sigil.
+// One read: on the release frame the crimson ribbon with rose petals that winds around her in the clip leaves her hand (wf), flies to
+// the strongest enemy, winds around him - and the charm mark appears.
+const t9 = e.targets[0];
+if (!t9)
+return;
+const c9 = NC.ev(F, x => x.type === 'ctrl' && x.u === t9)[0], pet = (x, y, k = 1) => F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-26, 26), vy: F.rnd(-30, 8), ay: 60, drag: 1.8, life: F.rnd(.4, .7), s0: F.rnd(5, 7.5) * k, s1: 3 * k, tex: 'petal', col: F.pick(['#ff5a9a', '#d81e5c', '#ff9ac0']), add: false, a0: .95, rot: F.rnd(0, 6), vr: F.rnd(-6, 6) });
+r9Link(F, u, 'h', [t9], (from, to, fly, t) => {
+r9Stream(F, from, to, fly, { col: '#e8307a', core: '#ffc4dc', w: 12.5, coreK: .7, arc: (to.x < from.x ? 1 : -1) * 22, wob: 9, tail: .8, drain: .18, tex: 'petal', ramp: ['#ffd0e4', '#ff6aa8', '#d81e5c'], ts: 1.5, n: 8, speed: 1.3, emit: (x, y) => { if (F.rng() < .5) pet(x, y); } });
+F.at(fly - .02, () => r9Coil(F, t, { col: '#e8307a', core: '#ffc4dc', w: 7, dur: .8, emit: (x, y) => { if (F.rng() < .35) pet(x, y, .8); } }));
+}, { exp: .45, tHit: c9 ? c9.t - F.t : T_SUP, ty: .5 });
+LIL.watchCharm(F, t9);
+return;
+}
 LIL.scrape(F, 'h', .42, 8);
 F.at(.3, () => NC.sigil(F, 'nc_owl', LIL.AMB, 42));
 const t = e.targets[0];
