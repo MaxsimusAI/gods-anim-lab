@@ -139,6 +139,16 @@ Overrides `work/impact_overrides.json` per clip:
   release frame comes `lead` s from now (a hit long after the cast, Lu Bu ult). On the stand `contactImpact` never restarts a sheet
   that is still playing; when a hit series ends up to .45 s after the sheet, the rest of the sheet is stretched to the last hit (no
   restart, no idle pose inside the series); only a longer series replays a finished sheet, at the floor speed.
+- **r9 Block 4b helpers (same place):** `r9Orb(F, from, to, fly, o)` - a large soft comet (orb + tapered tail + sparks; `o.head` draws an
+  own head, e.g. Van Helsing's bolt); `r9Bolt` - a thick lightning that grows to the target (path built once, no flicker); `r9Coil(F, t, o)`
+  - a ribbon winds up around a unit (control / curse / revive that has arrived); `r9Fp(F, u, kind, px, py)` - a point of the frame on
+  screen; `r9Top(F, u, kind)` - where the baked effect leaves through the top edge (`ho.top` nearest to the release frame): continue a
+  column / spiral of the clip from there (Raijin, Poseidon, Veles); `r9Warm(F, u)` - the sheet picture is loaded lazily and the first
+  `frameOf()` returns nothing, so ask for it at the cast start (r9Link does it) or the first effect starts from the fallback point.
+  Redesigned skills expect the release frame .45 s after the cast start (`BR.REL_TODAY`), which leaves ~.29 s of flight before the hit.
+  Hit events of `c.later` series (Atlas ult) do not exist at `anticip` time: `nwEv(...)` there is a live query whose `forEach` runs when
+  the event comes - time such volleys by the sim's schedule. Additive heads / sprites of a fan that starts in one point add up to a
+  white blob: fade them in (r9Orb and r9Stream do).
 - **r9 tools (`pipeline/r9/tools/`, server on :8766):** `fseq.py` (deterministic frame series: paused page + `stepManual`; prints sheet
   duration, release, hold, hit times, console errors), `survey.py` (timing table of all gods x slots, no pictures), `relview.py` /
   `sheetview.py` (release frame with `wf`, any frame range of a sheet), `led.py` (update `pipeline/r9/fx_ledger.json`),
