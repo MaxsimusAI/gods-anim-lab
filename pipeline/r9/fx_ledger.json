@@ -1,0 +1,646 @@
+{
+ "_review_fixes": "Review of 2d87900..54a0e49, fixes in 79b2d9f (see the clips marked 'review fix' and _timing 5-8). Checks after the fixes, reviewer's tools (leftcmp2.py / lcdiff2.py) against his base traces of 2d87900: LEFT arena, today's version, 180 steps: 185 of 186 actions bit-identical (sim log, sheet frame, canvas hashes, transforms, DOM count); the one difference is the same as before the fixes - sting_hyp, one overlay canvas on 11 frames (steps 88-103); it stays when the new Sting hook is switched off and is absent in the «вчера» run, so it comes from state shared between the arenas, not from the left arena's code - cause not found. «вчера» version, 150 steps, arenas L + M + R: 186 of 186 identical. Console: no errors except the old izanami_hyp one (BASE[name] is not a function - present on 2d87900 too). Reviewer's stress.py (fast clicks, version / god switch mid-action, speeds, auto-repeat): no stuck hold / wait / transform, 0 errors. Not done: the reviewer's findings file (findings.md) was not on the machine, the fixes were made from the lead's summary; findings 13, 14, 16 could be identified only as far as the Sting hook timeout (fixed) - the other two were not looked at. Findings 4, 5, 9, 15, 17 are for the owner / later work.",
+ "_timing": "Block 1 (new arenas, today's new sheets, focus god only; live arena and «вчера» sheets unchanged): (1) STG.playAnim: sheet duration D = clamp(max(hitAt/rel, floor), .3, max) with floor 1.25 s strike / 1.5 s super+ult and max 1.7 / 2.0. (2) When the release frame D*rel comes later than the script expects (hitAt; .5 for OLD_SIG supers/ults; REL_NEW; leapAt), fx2 calls BR.hold(lag): app.js stops stepping the sim and fx2 of THAT arena for lag seconds while the sprites keep playing (scriptDt in tick/stepManual). So the whole script of the action - anticipation, leap, launch, projectiles, pending hits, damage numbers - runs lag later; order and all sim values are unchanged; nothing else acts on the stand during that time. Lag is 0.06-0.56 s (median 0.23 s; Susanoo BT ult 0.85 s). (3) Strikes whose release frame is too early even at the slowest playback (>0.08 s before the expected moment: Brynhild, Indra, Zeus TI, Heimdall, Ra BT atk): the sheet starts later by that gap (idle pose until then), nothing else moves. (4) LEAP_NEW leap (Brynhild) is fast: starts 0.31 s before the strike instead of at 0.03 s. (5) Review fix (finding 10): auto-repeat and showcase keep the intervals they had before r9 (2.3 / 2.9 / 3.3 s and 2.5 / 3.0 / 3.4 s; all three arenas restart together). Only while a new arena that held its script is still in its action when the interval ends (sheet on screen, effects alive or hits pending), the next trigger waits until that arena has had the full interval of script time - at most its hold (Lu Bu ult: 3.3 + 0.27 s). So the left arena's repeat cadence is as before except in that case, where its pause between repeats grows by up to the hold; its action itself never changes. (6) Review fix (finding 2): a hit series that ends up to .45 s after its sheet stretches the rest of the sheet to the last hit (Wukong super) instead of restarting it. (7) Review fix (finding 8): Heimdall TI strike - the leap back waits for the end of the second baked swing (home at 1.23 s instead of 0.83 s). (8) Review fix (finding 6): r9Link projectiles land .01 s before the damage (flight .14 s where the release frame is .15 s before the hit).",
+ "agni_bt_hyp": {
+  "checked": "fseq agni hyp: release f9@562, streams 640-1180, damage 820 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Программная анимация струи огня слишком быстро дергается",
+  "status": "done",
+  "what": "today's sheets: jerky breath jets, seven flames and sigil removed; one read - on the release frame smooth streams of fire (r9Fire, flowing flame sprites) leave wf, reach every enemy with the damage and burn for 0.3 s | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "agni_ti_hyp": {
+  "checked": "fseq agni hyp: release f9@562, streams 640-1180, damage 820 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Программная анимация струи огня слишком быстро дергается",
+  "status": "done",
+  "what": "today's sheets: jerky breath jets, seven flames and sigil removed; one read - on the release frame smooth streams of fire (r9Fire, flowing flame sprites) leave wf, reach every enemy with the damage and burn for 0.3 s | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "amaterasu_bt_atk": {
+  "checked": "fseq amaterasu atk: release f8@416, orb 430-700, hit 745 ms",
+  "remark": "Плохая синхронизация с программный эффектом",
+  "status": "done",
+  "what": "Block 1 only: sheet 1.25 s (was 1.16 s); the orb leaves on the release frame, damage on arrival (the orb itself is small - not redesigned)"
+ },
+ "anansi_bt_sup": {
+  "checked": "fseq anansi sup: BT release f16@1001, orb 1120-1380, hits 1265; TI release f15@938, hits 1195 ms",
+  "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.75 / 0.8 s); orbs leave the hand after the release frame and the web lands with the damage"
+ },
+ "anansi_ti_sup": {
+  "checked": "fseq anansi sup: BT release f16@1001, orb 1120-1380, hits 1265; TI release f15@938, hits 1195 ms",
+  "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.75 / 0.8 s); orbs leave the hand after the release frame and the web lands with the damage"
+ },
+ "aoguang_bt_hyp": {
+  "checked": "arr.py + fsb aoguang hyp: release f12@750 (BT) / f13@813 (TI), whirl on wf 770-1340, jet leaves wf at 1350 (pet's lunge), flies 420 ms, damage number 1765 (BT) / 1840 (TI); second run: jet 1817-2237, hit 2250",
+  "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
+  "status": "done",
+  "what": "today's sheets: creature picture and pearl sigil removed. The ult is a summon (target = the god himself); the summoned dragon (the sim's pet) strikes about 1 s after the release frame. Review fix (finding 1): on the release frame water gathers on the weapon (wf) and stays there as a whirl; when the sim starts the dragon's strike (pending hit of the pet) the whirl pours out as a jet from wf and reaches that victim .01 s before the damage; nothing is aimed at the god himself any more"
+ },
+ "aoguang_bt_sup": {
+  "checked": "fseq aoguang sup: release f11@687, bolts 730-810, damage 840 ms",
+  "remark": "Плохо синхронизирован программный эффект",
+  "status": "done",
+  "what": "the bolts were launched 0.1 s after the release frame and were still flying when the numbers appeared - release kept at the launch time (REL6_TODAY): bolts leave on the release frame, damage on arrival"
+ },
+ "aoguang_ti_hyp": {
+  "checked": "arr.py + fsb aoguang hyp: release f12@750 (BT) / f13@813 (TI), whirl on wf 770-1340, jet leaves wf at 1350 (pet's lunge), flies 420 ms, damage number 1765 (BT) / 1840 (TI); second run: jet 1817-2237, hit 2250",
+  "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
+  "status": "done",
+  "what": "today's sheets: creature picture and pearl sigil removed. The ult is a summon (target = the god himself); the summoned dragon (the sim's pet) strikes about 1 s after the release frame. Review fix (finding 1): on the release frame water gathers on the weapon (wf) and stays there as a whirl; when the sim starts the dragon's strike (pending hit of the pet) the whirl pours out as a jet from wf and reaches that victim .01 s before the damage; nothing is aimed at the god himself any more"
+ },
+ "aoguang_ti_sup": {
+  "checked": "fseq aoguang sup: release f11@687, bolts 730-810, damage 840 ms",
+  "remark": "Плохо синхронизирован программный эффект",
+  "status": "done",
+  "what": "the bolts were launched 0.1 s after the release frame and were still flying when the numbers appeared - release kept at the launch time (REL6_TODAY): bolts leave on the release frame, damage on arrival"
+ },
+ "artemis_bt_atk": {
+  "checked": "sheetview artemis bt atk f3-f11; fseq artemis atk: BT flash f8@450 + arrow 450-510, TI flash f7@390, hit 735 / 705 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "done",
+  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+ },
+ "artemis_bt_hyp": {
+  "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
+  "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
+  "status": "done",
+  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
+ },
+ "artemis_bt_sup": {
+  "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "done",
+  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+ },
+ "artemis_ti_atk": {
+  "checked": "sheetview artemis bt atk f3-f11; fseq artemis atk: BT flash f8@450 + arrow 450-510, TI flash f7@390, hit 735 / 705 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "done",
+  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+ },
+ "artemis_ti_hyp": {
+  "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
+  "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
+  "status": "done",
+  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
+ },
+ "artemis_ti_sup": {
+  "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
+  "remark": "У аниме версии берем вторую версию. анимаций. Плохая синхронизация у програмного эффекта",
+  "status": "done",
+  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+ },
+ "atlas_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "atlas_bt_sup": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "atlas_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "atlas_ti_sup": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "blackbeard_bt_hyp": {
+  "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062 | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): Jolly Roger sigil and beard smoke removed; one read - on the release frame ghostly teal boarding chains with hooks shoot from the hand (wf) to every enemy, bite when the control lands, pull taut and fade | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "blackbeard_ti_hyp": {
+  "checked": "fseq blackbeard hyp: BT release f16@1001, chains 1060-1500, gone by 1610; TI release f17@1062 | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): Jolly Roger sigil and beard smoke removed; one read - on the release frame ghostly teal boarding chains with hooks shoot from the hand (wf) to every enemy, bite when the control lands, pull taut and fade | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "brynhild_bt_atk": {
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms | fseq brynhild atk 0.62 scale 600-1080 ms",
+  "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
+  "status": "done",
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage | no ball / line on an ally seen"
+ },
+ "brynhild_ti_atk": {
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms | fseq brynhild atk 0.62 scale 600-1080 ms",
+  "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
+  "status": "done",
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage | no ball / line on an ally seen"
+ },
+ "demeter_bt_hyp": {
+  "checked": "fseq demeter hyp: only the clip wheat; shots 840, damage 815 ms, wither 970",
+  "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
+  "status": "done",
+  "what": "today's sheets: game wheat field and wheat sigil removed; seed shots from wf and wither kept"
+ },
+ "demeter_ti_hyp": {
+  "checked": "fseq demeter hyp: only the clip wheat; shots 840, damage 815 ms, wither 970",
+  "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
+  "status": "done",
+  "what": "today's sheets: game wheat field and wheat sigil removed; seed shots from wf and wither kept"
+ },
+ "dutchman_bt_atk": {
+  "checked": "fseq dutchman atk: BT release f10@521, fire 650-850, hit 810; TI release f14@729, hit 1010 ms",
+  "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
+  "status": "done",
+  "what": "today's sheets: no leap (both clips strike the ground in place); ghost fire runs from the weapon (wf) on the release frame to the target; anchor-on-chain throw and anchor icon at the hit removed"
+ },
+ "dutchman_ti_atk": {
+  "checked": "fseq dutchman atk: BT release f10@521, fire 650-850, hit 810; TI release f14@729, hit 1010 ms",
+  "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
+  "status": "done",
+  "what": "today's sheets: no leap (both clips strike the ground in place); ghost fire runs from the weapon (wf) on the release frame to the target; anchor-on-chain throw and anchor icon at the hit removed"
+ },
+ "erlang_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "erlang_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "hecate_bt_hyp": {
+  "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
+  "remark": "Программная картинка 3 голов не нужна",
+  "status": "done",
+  "what": "today's sheets: no heads picture, no three flames, no triskele sigil; shots from the hand to the targets kept"
+ },
+ "hecate_bt_sup": {
+  "checked": "fseq hecate sup BT: release f11@687, shots 760-820, damage 850 ms",
+  "remark": "Плохая синхронизация у прогрммныъ эффектов с анимацией",
+  "status": "done",
+  "what": "same fix as Ao Guang super (REL6_TODAY): shots leave on the release frame, damage on arrival"
+ },
+ "hecate_ti_hyp": {
+  "checked": "fseq hecate hyp: no picture; shots ~1150/1010, damage 1255/1130 ms",
+  "remark": "Программная картинка 3 голов не нужна",
+  "status": "done",
+  "what": "today's sheets: no heads picture, no three flames, no triskele sigil; shots from the hand to the targets kept"
+ },
+ "heimdall_ti_atk": {
+  "checked": "ftrace + fsb heimdall atk TI: sheet starts 190 ms, f3@400 with the hit 433, second swing f8@733-f10@950 at the enemy, away 67-1233 ms (was 67-833); BT away 67-833 as before",
+  "remark": "(no owner remark; review finding 8)",
+  "status": "done",
+  "what": "review fix (finding 8): the delayed start of the sheet (Block 1) had moved the second baked swing (f8-f10) to after the leap back; now the god stays at the enemy until frame 11 (R9_STAY heimdall-ti-atk, guarded by the sheet's metrics) and only then leaps back. BT sheet (single swing) unchanged"
+ },
+ "hel_bt_hyp": {
+  "checked": "fseq hel hyp: wisps leave at ~730 ms (release f9@562), «Воскрешение» at 870 ms",
+  "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
+  "status": "done",
+  "what": "today's sheets: ghost warriors, soul picture, hourglass and field sigil removed; at the release soul wisps fly from wf to the allies, then the resurrection"
+ },
+ "hel_ti_hyp": {
+  "checked": "fseq hel hyp: wisps leave at ~730 ms (release f9@562), «Воскрешение» at 870 ms",
+  "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
+  "status": "done",
+  "what": "today's sheets: ghost warriors, soul picture, hourglass and field sigil removed; at the release soul wisps fly from wf to the allies, then the resurrection"
+ },
+ "heracles_bt_hyp": {
+  "checked": "fseq heracles hyp: BT release f13@813, wave 810-970, damage 965; TI release f11@687, damage 840 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): lion sigil, pebble gathering and the club arc at the enemy removed; one read - on the release frame a golden shock wave leaves the club / fist (wf), flies to the victim and lands with the damage and the quake | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "heracles_ti_hyp": {
+  "checked": "fseq heracles hyp: BT release f13@813, wave 810-970, damage 965; TI release f11@687, damage 840 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "done",
+  "what": "today's sheets (Block 3 + 4): lion sigil, pebble gathering and the club arc at the enemy removed; one read - on the release frame a golden shock wave leaves the club / fist (wf), flies to the victim and lands with the damage and the quake | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "horseman_bt_atk": {
+  "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
+  "remark": "Убрать программную маленькую иконку тыквы",
+  "status": "done",
+  "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
+ },
+ "horseman_bt_hyp": {
+  "checked": "fseq horseman hyp: release f9@600, whip 570-850 from the god to the arc, damage 755 ms as the arc passes",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "done",
+  "what": "today's sheets: the reaping arc is swung on a whip of fire from the hand (wf) starting at the release frame; lantern icon over the god removed"
+ },
+ "horseman_bt_sup": {
+  "checked": "fseq horseman sup: BT release f12@750, clots 760-1090, ignite ~1200; TI release f7@584, clots 760-980",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "done",
+  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)"
+ },
+ "horseman_ti_atk": {
+  "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
+  "remark": "Убрать программную маленькую иконку тыквы",
+  "status": "done",
+  "what": "today's sheets: game pumpkin icon at the hand removed (the small pumpkin still seen is baked in the clip); the shot is a fire clot from wf at the release, flame burst at the hit instead of a pumpkin burst"
+ },
+ "horseman_ti_hyp": {
+  "checked": "fseq horseman hyp: release f9@600, whip 570-850 from the god to the arc, damage 755 ms as the arc passes",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "done",
+  "what": "today's sheets: the reaping arc is swung on a whip of fire from the hand (wf) starting at the release frame; lantern icon over the god removed"
+ },
+ "horseman_ti_sup": {
+  "checked": "fseq horseman sup: BT release f12@750, clots 760-1090, ignite ~1200; TI release f7@584, clots 760-980",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "done",
+  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)"
+ },
+ "inti_bt_atk": {
+  "checked": "fseq inti atk: release f12@625 ms, projectile 710-980, hit 950 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s); ray leaves the staff at the release, damage after the flight"
+ },
+ "inti_ti_atk": {
+  "checked": "fseq inti atk: release f12@625 ms, projectile 710-980, hit 950 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s); ray leaves the staff at the release, damage after the flight"
+ },
+ "kali_bt_hyp": {
+  "checked": "fseq kali hyp: TI release f11@687, waves 790-860, damage 850; BT release f17@1062, waves 1140-1210 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Слишком резко дергается в анимации. Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "done",
+  "what": "today's sheets: drawn arms and sigil removed; on the release frame crimson blade waves fan out from her swords (wf) to every enemy and land with the damage; BT sheet 1.5 s (was 0.71 s) | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "kali_bt_sup": {
+  "checked": "fseq kali sup: release f9/f8@600, waves 680-1240, hits 755 / 900 / 1015 / 1155 ms",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "done",
+  "what": "today's sheets: from the release frame a crimson blade wave leaves her swords (wf) for every hit of the series and lands on the victim with that hit (fury glow removed) - who hits whom is readable"
+ },
+ "kali_ti_hyp": {
+  "checked": "fseq kali hyp: TI release f11@687, waves 790-860, damage 850; BT release f17@1062, waves 1140-1210 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "done",
+  "what": "today's sheets: drawn arms and sigil removed; on the release frame crimson blade waves fan out from her swords (wf) to every enemy and land with the damage; BT sheet 1.5 s (was 0.71 s) | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "kali_ti_sup": {
+  "checked": "fseq kali sup: release f9/f8@600, waves 680-1240, hits 755 / 900 / 1015 / 1155 ms",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "done",
+  "what": "today's sheets: from the release frame a crimson blade wave leaves her swords (wf) for every hit of the series and lands on the victim with that hit (fury glow removed) - who hits whom is readable"
+ },
+ "koschei_ti_sup": {
+  "checked": "fseq koschei sup TI: release f15@938, wisps 1000-1100, damage 1090 ms",
+  "remark": "Плохо синхронизированы программные эффекты и аниммация",
+  "status": "done",
+  "what": "Block 1 only: sheet 1.5 s (was 0.96 s); wisps leave after the release frame and the damage lands on arrival"
+ },
+ "lilith_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "Программные эффекты плозихие, полностью поменять",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "llorona_bt_atk": {
+  "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
+  "remark": "Сделать без ближнего удара это умение",
+  "status": "done",
+  "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
+ },
+ "llorona_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "llorona_bt_sup": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "llorona_ti_atk": {
+  "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
+  "remark": "Сделать без ближнего удара это умение",
+  "status": "done",
+  "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
+ },
+ "llorona_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "llorona_ti_sup": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "loki_bt_hyp": {
+  "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Нет связи программного эффекта и урона",
+  "status": "done",
+  "what": "today's sheets: on the release frame green fire streams leave the hand (wf) to every enemy and arrive with the damage; doubles and field sigil removed | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "loki_ti_hyp": {
+  "checked": "fseq loki hyp: BT release f9@562, streams 600-900, damage 815; TI release f14@874, damage 1130 ms | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Нет связи программного эффекта и урона",
+  "status": "done",
+  "what": "today's sheets: on the release frame green fire streams leave the hand (wf) to every enemy and arrive with the damage; doubles and field sigil removed | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "lubu_bt_hyp": {
+  "checked": "fseq lubu hyp from 4450 ms: sheet f9..f20, fire leaves at ~4850 (f14), damage 5035 ms",
+  "remark": "Нет связи програмнного эффекта с анимацией и уроном",
+  "status": "done",
+  "what": "today's sheets: glyph over the god removed; the ult strikes the row 4 s after the cast - 0.5 s before that late hit the strike of the sheet is played again (STG.replayRelease) and fire leaves the halberd (wf) to every enemy, arriving with the damage"
+ },
+ "lubu_bt_sup": {
+  "checked": "fseq lubu sup BT: release f12@750, frames f14..f23 in order, slash at 1040, damage 900 ms",
+  "remark": "Слишком быстро дергается в анимации",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 1.2 s) and runs through without restarting on the hits of the series; the red slash leaves after the release frame"
+ },
+ "lucifer_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "lucifer_bt_sup": {
+  "checked": "not looked at",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "lucifer_ti_sup": {
+  "checked": "not looked at",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "mictlan_bt_hyp": {
+  "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",
+  "remark": "Убрать программную картинку черепа",
+  "status": "done",
+  "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
+ },
+ "mictlan_ti_hyp": {
+  "checked": "fseq mictlan hyp: no picture in 500-1550 ms; fire line at 950, eruptions+damage 1010/950 ms",
+  "remark": "Убрать программную картинку черепа",
+  "status": "done",
+  "what": "today's sheets: no giant skull, no skull sigil; the fire now runs from the staff (wf) to the enemies, eruptions and damage kept"
+ },
+ "poseidon_bt_sup": {
+  "checked": "not looked at",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "poseidon_ti_sup": {
+  "checked": "not looked at",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "ra_bt_atk": {
+  "checked": "fseq ra atk: BT D=1.7",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "partly",
+  "what": "playback was already at the slowest 1.7 s (release frame f4); now the sheet start waits 0.10 s so the release meets the cast. If it still jerks the jerk is inside the clip (needs a re-shoot)"
+ },
+ "ra_ti_atk": {
+  "checked": "fseq ra atk: release f12@625 ms, hit 940 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s)"
+ },
+ "raijin_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "raijin_bt_sup": {
+  "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
+  "remark": "Слишком дерганная анимация?",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 1.11 / 0.85 s); the lightning lands after the release frame with the damage"
+ },
+ "raijin_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "raijin_ti_sup": {
+  "checked": "fseq raijin sup: BT release f13@813, strikes 1010, damage 965; TI release f17@1062, strikes 1190-1280, damage 1220 ms",
+  "remark": "Слишком дерганная анимация?",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 1.11 / 0.85 s); the lightning lands after the release frame with the damage"
+ },
+ "sekhmet_bt_sup": {
+  "checked": "fseq sekhmet sup: BT release f14@874, streams 970-1150, damage 1135; TI release f15@938, damage 1195 ms; close look at 0.9 | fsb sekhmet sup BT 905-1130 ms zoom: streams leave the mouth / head fire at f15 (905), reach the enemies at 1085-1130, damage 1130 | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
+  "status": "done",
+  "what": "today's sheets: on the release frame flame streams leave wf (TI: mouth/head; BT: wf is the staff fire) to every enemy and arrive with the damage; fire along the ground from the feet removed | review fix (finding 3): on the BT sheet the streams start at the mouth point of the sheet (R9_PT sekhmet-bt-sup [.52,.14], helper r9Wp) instead of wf (the staff fire); the table entry is guarded by the sheet's metrics | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "sekhmet_ti_sup": {
+  "checked": "fseq sekhmet sup: BT release f14@874, streams 970-1150, damage 1135; TI release f15@938, damage 1195 ms; close look at 0.9 | fsb agni hyp zoom 580-640 ms (BT + TI): at 580 a small flame the size of the baked staff fire, streams grow from it; loki hyp same code path",
+  "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
+  "status": "done",
+  "what": "today's sheets: on the release frame flame streams leave wf (TI: mouth/head; BT: wf is the staff fire) to every enemy and arrive with the damage; fire along the ground from the feet removed | review fix (finding 7): r9Stream fades its head glow, sprites and core in at the very start - the fan of streams no longer begins with a white blob"
+ },
+ "shango_bt_sup": {
+  "checked": "fseq shango sup: BT release f13@813, bolts 840, damage 835; TI release f14@874, bolts + damage 900 ms",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "done",
+  "what": "the lightning is instant - the release frame now lands together with the bolts and the damage (REL_TODAY shango:sup = 0.73 s; was 0.25 s earlier)"
+ },
+ "shango_ti_sup": {
+  "checked": "fseq shango sup: BT release f13@813, bolts 840, damage 835; TI release f14@874, bolts + damage 900 ms",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "done",
+  "what": "the lightning is instant - the release frame now lands together with the bolts and the damage (REL_TODAY shango:sup = 0.73 s; was 0.25 s earlier)"
+ },
+ "shiva_bt_atk": {
+  "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
+  "remark": "Сделать умение без прыжка к врагу",
+  "status": "done",
+  "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
+ },
+ "shiva_bt_hyp": {
+  "checked": "fseq shiva hyp: BT release f11@687, beam 740-830, damage 845; TI release f14@874, beam 920-1010, damage 1025 ms",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "done",
+  "what": "the beam started 0.2 s after the release frame - release kept at the launch time (REL6_TODAY): the beam leaves the forehead on the release frame and reaches the target with the damage"
+ },
+ "shiva_bt_sup": {
+  "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
+  "remark": "нет связи между анимацией и нанесением урона",
+  "status": "done",
+  "what": "today's sheets: on the release frame a stream of fire leaves the trident (wf), reaches the target with the first hit and holds through the hit series"
+ },
+ "shiva_ti_atk": {
+  "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
+  "remark": "Сделать умение без прыжка к врагу",
+  "status": "done",
+  "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
+ },
+ "shiva_ti_hyp": {
+  "checked": "fseq shiva hyp: BT release f11@687, beam 740-830, damage 845; TI release f14@874, beam 920-1010, damage 1025 ms",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "done",
+  "what": "the beam started 0.2 s after the release frame - release kept at the launch time (REL6_TODAY): the beam leaves the forehead on the release frame and reaches the target with the damage"
+ },
+ "shiva_ti_sup": {
+  "checked": "fseq shiva sup: release f13@813, stream 900-1500, hits 1075-1445 ms",
+  "remark": "нет связи между анимацией и нанесением урона",
+  "status": "done",
+  "what": "today's sheets: on the release frame a stream of fire leaves the trident (wf), reaches the target with the first hit and holds through the hit series"
+ },
+ "silent_bt_hyp": {
+  "checked": "fseq silent hyp: BT release f15@938, wave 990-1060, damage 1090; TI release f16@1001, damage 1160 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и программного эффекта",
+  "status": "done",
+  "what": "today's sheets: sigil with eyes over the god and dash smoke removed; on the release frame a red blade wave leaves the sword (wf) and reaches the victim with the damage, then the cleave | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "silent_ti_hyp": {
+  "checked": "fseq silent hyp: BT release f15@938, wave 990-1060, damage 1090; TI release f16@1001, damage 1160 ms | arr.py: Heracles wave 817-957 / hit 967 (BT), 700-840 / 850 (TI); Silent 950-1090 / 1100, 1017-1157 / 1167; Kali all five waves 1067-1207 / hits 1217, 700-840 / 850; Blackbeard hooks arrive 1157 / control 1167 (BT), 1207 / 1217 (TI)",
+  "remark": "Плохая связь анимации и программного эффекта",
+  "status": "done",
+  "what": "today's sheets: sigil with eyes over the god and dash smoke removed; on the release frame a red blade wave leaves the sword (wf) and reaches the victim with the damage, then the cleave | review fix (finding 6): r9Link ends every flight .01 s before the damage (o.min / o.gap yield: the stagger is squeezed, the flight shortened to .14 s)"
+ },
+ "sting_bt_hyp": {
+  "checked": "fseq sting hyp: chain 200-480, pull 600, release f11@740 + hit 755, hit 930, boom 1115, enemy back by 1460 ms (BT); TI release f13@813, hits 835/1005/1195 | sting_to test: normal run enemy home at 1417 (BT) / 1500 (TI); with the sim's push events dropped: home at 2067 / 2133",
+  "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
+  "status": "done",
+  "what": "today's sheets: chain flies from the hand (wf) to the strongest enemy at the start, pulls him to the god during the wind-up, the release frame (the kick in the new clip) lands with the sim's first hit (REL_TODAY sting:hyp = 0.74 s), then second hit, seal explosion with the last hit, enemy thrown back. The current sheets have no kick yet - the sequence is tied to the release frame, so the new clip drops in | review fix: if the sim's push never comes, the pulled enemy is thrown back on a timeout 1 s after the kick (was: stayed next to the god)"
+ },
+ "sting_ti_hyp": {
+  "checked": "fseq sting hyp: chain 200-480, pull 600, release f11@740 + hit 755, hit 930, boom 1115, enemy back by 1460 ms (BT); TI release f13@813, hits 835/1005/1195 | sting_to test: normal run enemy home at 1417 (BT) / 1500 (TI); with the sim's push events dropped: home at 2067 / 2133",
+  "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
+  "status": "done",
+  "what": "today's sheets: chain flies from the hand (wf) to the strongest enemy at the start, pulls him to the god during the wind-up, the release frame (the kick in the new clip) lands with the sim's first hit (REL_TODAY sting:hyp = 0.74 s), then second hit, seal explosion with the last hit, enemy thrown back. The current sheets have no kick yet - the sequence is tied to the release frame, so the new clip drops in | review fix: if the sim's push never comes, the pulled enemy is thrown back on a timeout 1 s after the kick (was: stayed next to the god)"
+ },
+ "surt_bt_atk": {
+  "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",
+  "remark": "Сделайть умение без прыжка к врагу",
+  "status": "done",
+  "what": "today's sheets: no leap; a fireball leaves wf on the release frame and reaches the target with the damage"
+ },
+ "surt_bt_sup": {
+  "checked": "fseq surt sup BT: release f10@626, fire 690-800, damage 890 ms",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "done",
+  "what": "Block 1 only: sheet 1.5 s (was 0.92 s); the thrown fire leaves after the release frame, damage on arrival"
+ },
+ "surt_ti_atk": {
+  "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",
+  "remark": "Сделайть умение без прыжка к врагу",
+  "status": "done",
+  "what": "today's sheets: no leap; a fireball leaves wf on the release frame and reaches the target with the damage"
+ },
+ "vanhelsing_bt_atk": {
+  "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
+  "remark": "Программный эффект вылетает не из кончика оружия",
+  "status": "done",
+  "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
+ },
+ "vanhelsing_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "vanhelsing_ti_atk": {
+  "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
+  "remark": "Программный эффект вылетает не из кончика оружия",
+  "status": "done",
+  "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
+ },
+ "veles_bt_atk": {
+  "checked": "fseq veles atk: BT strike f12@625 at the enemy, damage 655; TI f9@469, damage 490 ms; no crack, no bolt",
+  "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
+  "status": "done",
+  "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
+ },
+ "veles_bt_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "veles_bt_sup": {
+  "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
+  "remark": "Слишком быстро проходит анимация",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
+ },
+ "veles_ti_atk": {
+  "checked": "fseq veles atk: BT strike f12@625 at the enemy, damage 655; TI f9@469, damage 490 ms; no crack, no bolt",
+  "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
+  "status": "done",
+  "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
+ },
+ "veles_ti_hyp": {
+  "checked": "not looked at",
+  "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
+  "status": "not done",
+  "what": "Block 4 redesign not started. Only the systemic Block 1 timing applies (floor speed + script held until the release frame). Suggested: r9Link + r9Stream / r9Fire from wf in the clip's colour, one read per skill"
+ },
+ "veles_ti_sup": {
+  "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
+  "remark": "Слишком быстро проходит анимация",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
+ },
+ "wukong_bt_atk": {
+  "checked": "fseq wukong atk: BT release f15@781, staff 820-980, hit 945; TI release f12@625, hit 785 ms",
+  "remark": "Непонятное дерганье в анимации и нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: sheet 1.25 s (was 0.64 / 0.8 s); on the release frame a red-and-gold staff visibly grows from the hands (wf) to the target and lands with the damage (was a faint grey line 0.12 s before the gesture)"
+ },
+ "wukong_bt_hyp": {
+  "checked": "fseq wukong hyp: BT release f17@1062, staffs + hits 1325-1575; TI release f12@750, hits from 1010 ms",
+  "remark": "нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: no doubles, no cloud sigil; before every hit of the chain the staff grows from the hands (wf) to that enemy"
+ },
+ "wukong_bt_sup": {
+  "checked": "fseq wukong sup: staffs at each hit 1320-1840 (BT) / 1135-1655 (TI); frames run f17..f23 without jumping to f0 | ftrace wukong sup: BT 1.5 s sheet f0-f22 to 1333, then f23@1517 f24@1700, off at 1883 (hits 1317-1850); TI f20@1250 f21@1333 f22@1417 f23@1517 f24@1600, off at 1700 (hits 1133-1667); no jump back, no idle gap",
+  "remark": "нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: before every hit the staff grows from the hands (wf) to that enemy; the stand no longer restarts the sheet from frame 0 on every hit of the series (contactImpact fix) - a finished sheet is replayed from just before its release | review fix (finding 2): the sheet is never restarted inside the series; from the first hit the rest of the sheet is stretched once to the last hit when the series ends <= .45 s after the sheet (a longer series replays a finished sheet at the floor speed via replayRelease, never at the old fast speed)"
+ },
+ "wukong_ti_atk": {
+  "checked": "fseq wukong atk: BT release f15@781, staff 820-980, hit 945; TI release f12@625, hit 785 ms",
+  "remark": "нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: sheet 1.25 s (was 0.64 / 0.8 s); on the release frame a red-and-gold staff visibly grows from the hands (wf) to the target and lands with the damage (was a faint grey line 0.12 s before the gesture)"
+ },
+ "wukong_ti_hyp": {
+  "checked": "fseq wukong hyp: BT release f17@1062, staffs + hits 1325-1575; TI release f12@750, hits from 1010 ms",
+  "remark": "нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: no doubles, no cloud sigil; before every hit of the chain the staff grows from the hands (wf) to that enemy"
+ },
+ "wukong_ti_sup": {
+  "checked": "fseq wukong sup: staffs at each hit 1320-1840 (BT) / 1135-1655 (TI); frames run f17..f23 without jumping to f0 | ftrace wukong sup: BT 1.5 s sheet f0-f22 to 1333, then f23@1517 f24@1700, off at 1883 (hits 1317-1850); TI f20@1250 f21@1333 f22@1417 f23@1517 f24@1600, off at 1700 (hits 1133-1667); no jump back, no idle gap",
+  "remark": "нет связи с программным эффектом",
+  "status": "done",
+  "what": "today's sheets: before every hit the staff grows from the hands (wf) to that enemy; the stand no longer restarts the sheet from frame 0 on every hit of the series (contactImpact fix) - a finished sheet is replayed from just before its release | review fix (finding 2): the sheet is never restarted inside the series; from the first hit the rest of the sheet is stretched once to the last hit when the series ends <= .45 s after the sheet (a longer series replays a finished sheet at the floor speed via replayRelease, never at the old fast speed)"
+ },
+ "zeus_ti_atk": {
+  "checked": "fseq zeus atk R: f5@700 ms bolt from the hand, hit 710 ms",
+  "remark": "Плохая синхронизация у программного эффекта",
+  "status": "done",
+  "what": "sheet start waits 0.32 s (release frame f5 was shown 0.3 s before the bolt): the bolt now leaves the hand on the release frame"
+ }
+}
