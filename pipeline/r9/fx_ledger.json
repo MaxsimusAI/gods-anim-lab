@@ -151,16 +151,16 @@
   "what": "today's sheets: game wheat field and wheat sigil removed; seed shots from wf and wither kept"
  },
  "dutchman_bt_atk": {
-  "checked": "",
+  "checked": "fseq dutchman atk: BT release f10@521, fire 650-850, hit 810; TI release f14@729, hit 1010 ms",
   "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap (both clips strike the ground in place); ghost fire runs from the weapon (wf) on the release frame to the target; anchor-on-chain throw and anchor icon at the hit removed"
  },
  "dutchman_ti_atk": {
-  "checked": "",
+  "checked": "fseq dutchman atk: BT release f10@521, fire 650-850, hit 810; TI release f14@729, hit 1010 ms",
   "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap (both clips strike the ground in place); ghost fire runs from the weapon (wf) on the release frame to the target; anchor-on-chain throw and anchor icon at the hit removed"
  },
  "erlang_bt_hyp": {
   "checked": "",
@@ -301,10 +301,10 @@
   "what": ""
  },
  "llorona_bt_atk": {
-  "checked": "",
+  "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
   "remark": "Сделать без ближнего удара это умение",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_bt_hyp": {
   "checked": "",
@@ -319,10 +319,10 @@
   "what": ""
  },
  "llorona_ti_atk": {
-  "checked": "",
+  "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
   "remark": "Сделать без ближнего удара это умение",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap / no melee touch; a stream of water (r9Stream, blue, textured) leaves wf on the release frame and reaches the target with the damage"
  },
  "llorona_ti_hyp": {
   "checked": "",
@@ -439,16 +439,16 @@
   "what": ""
  },
  "sekhmet_bt_sup": {
-  "checked": "",
+  "checked": "fseq sekhmet sup: BT release f14@874, streams 970-1150, damage 1135; TI release f15@938, damage 1195 ms; close look at 0.9",
   "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame flame streams leave wf (TI: mouth/head; BT: wf is the staff fire) to every enemy and arrive with the damage; fire along the ground from the feet removed"
  },
  "sekhmet_ti_sup": {
-  "checked": "",
+  "checked": "fseq sekhmet sup: BT release f14@874, streams 970-1150, damage 1135; TI release f15@938, damage 1195 ms; close look at 0.9",
   "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: on the release frame flame streams leave wf (TI: mouth/head; BT: wf is the staff fire) to every enemy and arrive with the damage; fire along the ground from the feet removed"
  },
  "shango_bt_sup": {
   "checked": "",
@@ -463,10 +463,10 @@
   "what": ""
  },
  "shiva_bt_atk": {
-  "checked": "",
+  "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
   "remark": "Сделать умение без прыжка к врагу",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
  },
  "shiva_bt_hyp": {
   "checked": "",
@@ -481,10 +481,10 @@
   "what": ""
  },
  "shiva_ti_atk": {
-  "checked": "",
+  "checked": "fseq shiva atk: BT release f14@729, tongues 850-950, hit 980; TI release f10@521, hit 765 ms; god stays in place",
   "remark": "Сделать умение без прыжка к врагу",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap; three tongues of fire leave the trident (wf) on the release frame and reach the target with the damage (works with any sheet: release frame + wf)"
  },
  "shiva_ti_hyp": {
   "checked": "",
@@ -523,10 +523,10 @@
   "what": ""
  },
  "surt_bt_atk": {
-  "checked": "",
+  "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",
   "remark": "Сделайть умение без прыжка к врагу",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap; a fireball leaves wf on the release frame and reaches the target with the damage"
  },
  "surt_bt_sup": {
   "checked": "",
@@ -535,16 +535,16 @@
   "what": ""
  },
  "surt_ti_atk": {
-  "checked": "",
+  "checked": "fseq surt atk: BT release f12@625, ball 750-850, hit 895; TI release f13@678, hit 940 ms",
   "remark": "Сделайть умение без прыжка к врагу",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: no leap; a fireball leaves wf on the release frame and reaches the target with the damage"
  },
  "vanhelsing_bt_atk": {
-  "checked": "",
+  "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
   "remark": "Программный эффект вылетает не из кончика оружия",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
  },
  "vanhelsing_bt_hyp": {
   "checked": "",
@@ -553,16 +553,16 @@
   "what": ""
  },
  "vanhelsing_ti_atk": {
-  "checked": "",
+  "checked": "fseq vanhelsing atk col 0.8: bolt just off the muzzle tip at 420 ms (release f5@354), hit 700 ms",
   "remark": "Программный эффект вылетает не из кончика оружия",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: the bolt leaves the muzzle (wf) on the release frame; the glow before the shot removed"
  },
  "veles_bt_atk": {
-  "checked": "",
+  "checked": "fseq veles atk: BT strike f12@625 at the enemy, damage 655; TI f9@469, damage 490 ms; no crack, no bolt",
   "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_bt_hyp": {
   "checked": "",
@@ -577,10 +577,10 @@
   "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
  },
  "veles_ti_atk": {
-  "checked": "",
+  "checked": "fseq veles atk: BT strike f12@625 at the enemy, damage 655; TI f9@469, damage 490 ms; no crack, no bolt",
   "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
-  "status": "not done",
-  "what": ""
+  "status": "done",
+  "what": "today's sheets: ground crack and bolt removed; leap + strike with a weapon trail on the release frame, plain hit"
  },
  "veles_ti_hyp": {
   "checked": "",

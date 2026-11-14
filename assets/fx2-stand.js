@@ -5655,6 +5655,78 @@ g.restore();
 });
 const WAVE_OF = { sword: 'crescent', dagger: 'crescent', flamesword: 'crescent', khopesh: 'crescent', crescent: 'crescent', staff: 'crescent', spear: 'lance', trident: 'lance', hammer: 'quake', axe: 'quake', club: 'quake', anchor: 'quake', claw: 'claw' };
 const SIG = {};
+// r9 (14.11 Maxim: «сделать умение без прыжка к врагу», Shiva / Surt / Llorona / Dutchman strikes): on today's sheets a melee
+// basic of these gods is played from the god's place. The sheet's release frame is put `fly` seconds before the sim's hit,
+// `launch(from, to, fly)` draws the projectile from the weapon point (wf) to the target; no leap (see ev()).
+BR.NOLEAP_NEW = new Set(['shiva', 'surt', 'llorona', 'dutchman']);
+// r9Stream: one smooth stream (water, fire, breath, light) from a point to a target. The head runs from `from` to `to` in `fly`
+// seconds, the body is a tapered wavy ribbon that keeps flowing for `hold` seconds and then drains into the target.
+// o: col, core, w (width at the head), arc (side bow, px), wob (wave, px), tex + ramp (sprites that flow along the body: 'flame',
+// 'glow', 'smoke'...), from (function: a moving origin such as the hand), emit(x, y, k) (particles at the head), layer.
+const r9Stream = (F, from, to, fly, o = {}) => {
+const col = o.col || '#ffffff', core = o.core || '#ffffff', w = o.w ?? 8, hold = o.hold ?? 0, drain = o.drain ?? .2, arc = o.arc ?? -12, wob = o.wob ?? 3, N = 16;
+const ph = F.rnd(0, 6), tail = o.tail ?? .5;
+const pt = (k, a) => { const f = o.from ? (o.from() || from) : from, L = Math.hypot(to.x - f.x, to.y - f.y) || 1, nx = -(to.y - f.y) / L, ny = (to.x - f.x) / L, q = Math.sin(Math.PI * k) * arc + Math.sin(k * 9 - a * 14 + ph) * wob * Math.sin(Math.PI * k);
+return { x: lerp(f.x, to.x, k) + nx * q, y: lerp(f.y, to.y, k) + ny * q }; };
+return F.obj(fly + hold + drain, (g, a) => {
+const k1 = EASE['ease-out'](clamp(a / fly, 0, 1)), dq = clamp((a - fly - hold) / drain, 0, 1);
+const k0 = a < fly + hold ? (hold ? 0 : Math.max(0, k1 - tail)) : lerp(hold ? 0 : Math.max(0, 1 - tail), 1, dq);
+if (k1 - k0 < .01)
+return;
+const P = [];
+for (let i = 0; i <= N; i++)
+P.push(pt(lerp(k0, k1, i / N), a));
+g.save();
+g.globalCompositeOperation = 'lighter';
+g.lineCap = 'butt';
+const al = (1 - dq * .6) * (o.a ?? 1), ck = o.coreK ?? .9, lk = o.line ?? 1;
+if (lk > 0)
+for (const [lw, cc, aa] of [[2.6, col, .16 * lk], [1.25, col, .5 * lk], [.42, core, ck * lk]])
+for (let i = 0; i < N; i++) {
+const t = (i + .5) / N, tp = (.3 + .7 * t) * (1 + .12 * Math.sin(a * 22 + i * 1.7));
+g.globalAlpha = aa * al * (.45 + .55 * t);
+g.strokeStyle = cc;
+g.lineWidth = Math.max(.6, w * lw * tp);
+g.beginPath();
+g.moveTo(P[i].x, P[i].y);
+g.lineTo(P[i + 1].x, P[i + 1].y);
+g.stroke();
+}
+if (o.tex) {
+const n = o.n ?? 9, sp = o.speed ?? 2.2;
+for (let i = 0; i < n; i++) {
+const u = ((i / n + a * sp) % 1), k = lerp(k0, k1, u), p = pt(k, a), q = pt(Math.min(1, k + .03), a), s = w * (o.ts ?? 2.4) * (.55 + .75 * u) * (1 + .15 * Math.sin(a * 31 + i * 2.3));
+const edge = Math.min(1, u / .15, (1 - u) / .15);
+g.save();
+g.translate(p.x, p.y);
+g.rotate(Math.atan2(q.y - p.y, q.x - p.x) + Math.PI / 2);
+g.globalAlpha = .8 * al * edge;
+g.drawImage(TX.get(o.tex, o.ramp ? o.ramp[Math.min(o.ramp.length - 1, Math.floor(u * o.ramp.length))] : col), -s * .5, -s * .7, s, s * 1.3);
+g.restore();
+}
+}
+const h = P[N];
+g.globalAlpha = .5 * al;
+g.drawImage(TX.get('glow', col), h.x - w * 2.2, h.y - w * 2.2, w * 4.4, w * 4.4);
+g.globalAlpha = ck * .8 * al;
+g.drawImage(TX.get('glow', core), h.x - w, h.y - w, w * 2, w * 2);
+g.restore();
+if (o.emit && dq <= 0)
+o.emit(h.x, h.y, k1);
+}, o.layer);
+};
+const r9Stand = (F, e, fly, launch) => {
+const u = e.u;
+if (!u || !e.tgt || !BR.NOLEAP_NEW.has(u.hid) || !F.today('atk', u))
+return false;
+Object.defineProperty(F, 'meleeAt', { value: false, configurable: true });   // real projectiles, not the melee swing
+F._r9stand = true;
+const tHit = e.dur || T_MELEE, tRel = Math.max(.05, tHit - fly);
+F.st.playAnim(u, 'atk', tRel);
+F.atkGlowNew(u);
+F.at(F.relDt('atk', tRel), () => launch(F.wp('a', u), F.tc(e.tgt, .45), Math.max(.12, fly - .01)));
+return true;
+};
 function styleFor(id) {
 const H = G.HEROES[id], R = G.ROLES[H.role], W = G.WEAPONS[id], F = G.FXS[id] || {};
 const s = { role: H.role, melee: R.melee, el: H.el };
@@ -8113,7 +8185,7 @@ if (axNew)
 emit(act, e, fe);
 const leapShot = leapNew || t === 'shoot' && !e.aux && LEAP_SHOOT.has(gu.hid);
 const lTgt = leapTgt || fe.tgt;
-if ((t === 'lunge' || leapShot) && lTgt && lTgt !== act.vu && act.F.finLeap && !(act.F.R && act.F.R.noLeap))
+if ((t === 'lunge' || leapShot) && lTgt && lTgt !== act.vu && act.F.finLeap && !(act.F.R && act.F.R.noLeap) && !act.F._r9stand)
 run(act, () => act.F.finLeap(act.vu, lTgt, act.F.t + (leapNew ? act.leapAt : leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42),
 // r9 (14.11 Maxim, Brynhild: «бьет раньше чем оказывается рядом»): the leap of a basic that was a shot is fast (~.24 s) and ends on the strike
 leapNew && act.F.today('atk', act.vu) ? { lead: Math.max(.03, act.leapAt - .31) } : undefined));
@@ -14241,6 +14313,12 @@ col: VL.c, markGlyph: 'k2_veles',
 lunge(F, e) {
 F.st.playAnim(e.u, 'atk', REL_MELEE);
 F.atkGlowNew(e.u);
+if (F.today('atk', e.u)) {
+// r9 (14.11 Maxim: «прыгает вперед и наносит урон, но почему-то по земле бежит разлом и потом молния на противнике»):
+// today's sheets - no ground crack, no bolt; the hit is the leap and the strike (a trail of the weapon on the release frame)
+F.at(F.relDt('atk', REL_MELEE), () => F.weaponTrail(F.wp('a', e.u), { col: VL.c, to: F.tc(e.tgt, .45) }));
+return;
+}
 F.at(REL_MELEE, () => {
 const a = F.feetOf(e.u), f1 = F.feetOf(e.tgt), fly = T_MELEE - REL_MELEE, s = { x: a.x - 14, y: a.y - 3 };
 F.flash(s.x, s.y, 16, VL.bolt, { dur: .2 });
@@ -14253,6 +14331,7 @@ hit(F, e) {
 if (e.src !== 'slash')
 return 'default';
 const p = F.tc(e.u, .45), f = F.feetOf(e.u);
+if (!F.today('atk'))
 F.bolt(f.x + F.rnd(-3, 3), f.y - 2, p.x + F.rnd(-4, 4), p.y, { col: VL.bolt, w: 1, dur: .2, branches: 2 });
 F.hit1(p.x, p.y, { col: VL.c, core: '#eef4ff', s: .9, motif: 'storm', mn: 4 });
 K2.puff(F, f.x, f.y - 4, VL.mist, { a0: .35 });
@@ -17826,6 +17905,10 @@ a: {
 col: '#ff4a1a',
 lunge(F, e) {
 k1Burn(F);
+// r9: from his place - a fireball leaves the hand (wf) on the release frame
+if (r9Stand(F, e, .26, (from, to, fly) => F.shot(from, to, fly, { arc: -14, ease: 'ease-in', trailW: 15, col: '#ff4a1a', trailCol: '#ff3a0a', coreCol: '#ffe9b0', trailLife: .22, head: (g, a) => { HEAD.flame('#ff4a1a', '#ffe9b0', 15)(g, a); g.drawImage(TX.get('glow', '#ff8a2a'), -20, -20, 40, 40); },
+emit: (F2, x, y) => { F.p({ x: x + F.rnd(-4, 4), y: y + F.rnd(-4, 4), vx: F.rnd(-18, 18), vy: -F.rnd(10, 50), drag: 1.5, life: F.rnd(.25, .45), s0: F.rnd(8, 13), s1: 2, tex: 'flame', col: '#ff7a2a', hot: true, a0: .85 }); if (F.rng() < .35) F.p({ x, y, vx: F.rnd(-30, 30), vy: F.rnd(-30, 30), life: F.rnd(.3, .6), s0: 2.4, s1: 1, tex: 'ember', col: '#ffc060' }); } })))
+return;
 e.u.mask = { kind: 'atk', from: 4, to: 8, e: [[.14, .815, .14, .035, .3], [.84, .815, .14, .035, .3]] };
 F.st.playAnim(e.u, 'atk', REL_MELEE);
 F.atkGlowNew(e.u);
@@ -18035,8 +18118,23 @@ return 'default';
 },
 s: {
 col: '#ff5a2a', healCol: '#ffd08a',
+// r9 (14.11 Maxim: «огонь из рта в анимации, а программный эффект из ног»): today's sheets - on the release frame streams of fire
+// leave the mouth (wf) and reach every enemy when the damage lands; no fire along the ground from the feet
+anticip(F, u, k, rel, e) {
+if (!F.today('sup', u))
+return;
+const tR = F.relDt('sup', .5), fly = Math.max(.16, T_SUP - tR - .02);
+F.at(tR, () => F.foes().forEach((t, i) => r9Stream(F, F.wp('s', u), F.tc(t, .5), fly, { from: () => F.wp('s', u), col: '#ff5a2a', core: '#ffe2a0', coreK: .5, line: .45, w: 5, arc: (i - 2) * 5, wob: 4, hold: .14, drain: .2, tex: 'flame', ramp: ['#ffe2a0', '#ffb04a', '#ff6a2a', '#e03a14'], ts: 4.4, n: 13, speed: 1.8,
+emit: (x, y) => { if (F.rng() < .5) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: -F.rnd(10, 60), drag: 1.5, life: F.rnd(.25, .45), s0: F.rnd(6, 10), s1: 1.5, tex: 'flame', col: '#ff8a3a', hot: true, a0: .8 }); } })));
+},
 sup(F, e) {
 F.supDrawn = true;
+if (F.today('sup')) {
+F.allies().forEach(t => { if (t === F.u)
+return; const b = boxOf(t); for (let i = 0; i < 5; i++)
+F.p({ x: b.x + F.rnd(-b.w * .3, b.w * .3), y: b.feet - F.rnd(0, 10), vx: 0, vy: -F.rnd(40, 80), drag: 1, life: F.rnd(.4, .7), s0: 3, s1: 1, tex: 'ember', col: F.pick(['#ffe8a0', '#ffc860']) }); });
+return;
+}
 const f = F.feetOf(F.u), cx = f.x, cy = f.y - 4, sy = .5, R1 = (cy - LAY.eFeet + 26) / sy, dur = .17;
 {
 const w = F.wp('s');
@@ -19090,6 +19188,11 @@ motif: 'embers', glyph: 'k2eye3',
 a: {
 col: '#ff7a2f', core: '#fff0d8', wave: 'lance', markL: 40, hitMotif: 'embers',
 lunge(F, e) {
+// r9: from his place - three tongues of fire leave the trident prongs (wf) on the release frame and close on the target
+if (r9Stand(F, e, .24, (from, to, fly) => { const L = Math.hypot(to.x - from.x, to.y - from.y) || 1, nx = -(to.y - from.y) / L, ny = (to.x - from.x) / L;
+[-1, 0, 1].forEach(q => F.shot({ x: from.x + nx * q * 7, y: from.y + ny * q * 7 }, { x: to.x + nx * q * 2, y: to.y + ny * q * 2 }, fly + Math.abs(q) * .02, { arc: q * 11, ease: 'ease-in', trailW: q ? 6 : 9, col: '#ff7a2f', trailCol: '#ff5a14', coreCol: '#fff0d8', trailLife: .16, head: HEAD.flame('#ff7a2f', '#fff0d8', q ? 8 : 11),
+emit: (F2, x, y) => { if (F.rng() < .7) F.p({ x, y, vx: F.rnd(-14, 14), vy: -F.rnd(10, 40), drag: 1.6, life: F.rnd(.2, .36), s0: F.rnd(5, 8), s1: 1.5, tex: 'flame', col: '#ff9a3a', hot: true, a0: .8 }); } })); }))
+return;
 F.st.playAnim(e.u, 'atk', REL_MELEE);
 F.atkGlowNew(e.u);
 const u = e.u;
@@ -32976,9 +33079,11 @@ shoot(F, e) {
 const u = e.u, T = (nlEv(F, 'hit', x => x.src === 'shot') || { t: T_WIND + T_FLY }).t;
 F.st.playAnim(u, 'atk', REL_SHOT);
 F.atkGlowNew(u);
+const N = F.today('atk', u);   // r9 (14.11 Maxim: «программный эффект вылетает не из кончика оружия»): today's sheets - the bolt leaves the muzzle (wf) on the release frame, no glow before it
+if (!N)
 nlAt(F, .14, () => { const w = vhW(u); F.p({ x: w.x, y: w.y, life: .28, s0: 8, s1: 20, tex: nlTx.gl(), col: '#eef4ff', a0: .95 }); });
-nlAt(F, REL_SHOT, () => {
-const w = vhW(u), to = F.tc(e.tgt, .42), ang = Math.atan2(to.y - w.y, to.x - w.x);
+nlAt(F, N ? F.relDt('atk', REL_SHOT) : REL_SHOT, () => {
+const w = N ? F.wp('a', u) : vhW(u), to = F.tc(e.tgt, .42), ang = Math.atan2(to.y - w.y, to.x - w.x);
 F.flash(w.x, w.y, 16, VH.c, { dur: .16 });
 for (const sg of [-1, 1])
 F.p({ x: w.x + Math.cos(ang + sg * 1.9) * 8, y: w.y + Math.sin(ang + sg * 1.9) * 8, vx: Math.cos(ang + sg * 1.9) * 50, vy: Math.sin(ang + sg * 1.9) * 50, life: .16, s0: 9, s1: 2, tex: 'ember', col: '#ffffff', stretch: .14 });
@@ -34580,6 +34685,10 @@ a: {
 col: DU_G,
 lunge(F, e) {
 const u = e.u;
+// r9 («можно сделать без прыжка»): both clips strike the ground in place - the ghost fire of the strike runs from the weapon (wf) to the target
+if (r9Stand(F, e, .28, (from, to, fly) => F.shot(from, to, fly, { arc: -10, ease: 'ease-in', trailW: 12, col: DU_G, trailCol: DU_G, coreCol: DU_CORE, trailLife: .22, head: HEAD.flame(DU_G, DU_CORE, 13),
+emit: (F2, x, y) => { if (F.rng() < .85) F.p({ x: x + F.rnd(-4, 4), y: y + F.rnd(-3, 3), vx: F.rnd(-15, 15), vy: -F.rnd(15, 50), drag: 1.5, life: F.rnd(.25, .42), s0: F.rnd(7, 11), s1: 1.5, tex: 'flame', col: DU_G, hot: true, a0: .8 }); } })))
+return;
 F.st.playAnim(u, 'atk', REL_MELEE);
 F.atkGlowNew(u);
 const p0 = F.wp('a');
@@ -34604,6 +34713,7 @@ hit(F, e) {
 if (e.src !== 'slash')
 return 'default';
 const t = e.u, p = F.tc(t, .4);
+if (!F._r9stand)
 F.obj(.34, (g, a) => { const al = a > .18 ? Math.max(0, 1 - (a - .18) / .16) : 1; g.save(); g.translate(p.x, p.y + 2); duAnchor(g, 12, al); g.restore(); });
 F.flash(p.x, p.y, 22, DU_G, { dur: .2, k: .9 });
 F.p({ x: p.x, y: p.y, life: .18, s0: 22, s1: 8, tex: 'star4', col: DU_CORE, a0: .8, rot: F.rnd(-.4, .4) });
@@ -36690,6 +36800,10 @@ motif: 'water', glyph: 'w2tear',
 a: {
 col: W2LL,
 lunge(F, e) {
+// r9: from her place - a stream of water leaves the hand / lantern (wf) on the release frame
+if (r9Stand(F, e, .26, (from, to, fly) => r9Stream(F, from, to, fly, { col: '#7fc4f0', core: '#dff2ff', coreK: .5, w: 7, arc: (to.x < from.x ? 1 : -1) * 16, wob: 6, tail: .75, drain: .22, tex: 'smoke', ts: 2.2, n: 10, speed: 2.6,
+emit: (x, y) => { if (F.rng() < .8) F.p({ x: x + F.rnd(-5, 5), y: y + F.rnd(-5, 5), vx: F.rnd(-30, 30), vy: F.rnd(-20, 40), ay: 260, drag: 1, life: F.rnd(.25, .45), s0: F.rnd(2.5, 4), s1: 1, tex: 'drop', col: '#dff4ff', add: false }); } })))
+return;
 F.st.playAnim(e.u, 'atk', REL_MELEE);
 F.atkGlowNew(e.u);
 const t0 = e.t || 0;
