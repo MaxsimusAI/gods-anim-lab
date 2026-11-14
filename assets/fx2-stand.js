@@ -7541,7 +7541,7 @@ BR.boltSync = u => !!(BR.isProposed && u && u.gu && (BR.animOf(BR.SHEETS_ATK, u.
 BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill release time of the NEW sheets (s after the cast starts)
 BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };   // Shango super: the lightning is instant - the release frame lands with the bolts and the damage
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
-BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup']);   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
+BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
@@ -14757,6 +14757,15 @@ const t = e.targets[0];
 if (!t)
 return;
 const from = F.wp('s');
+if (F.today('sup')) {
+// r9 (14.11 Maxim: «плохие программные эффекты, опять не понятно кто кого бьет»): today's sheets - one read: from the release frame a crimson
+// blade wave leaves her swords (wf) for every hit of the series and lands on the victim with that hit
+const u = F.u;
+for (let i = 0; i < 5; i++)
+F.at(i * .137, () => { if (t.alive) F.slashWave(F.wp('s', u), F.tc(t, .45), FLY_S - .01, { col: i % 2 ? KA.pink : KA.c, core: '#ffffff', R: 30, trailW: 9 }); });
+F.supDrawn = true;
+return;
+}
 F.flash(from.x, from.y, 16, KA.c, { dur: .2 });
 kaFury(F, 1);
 F.supDrawn = true;
@@ -14779,6 +14788,12 @@ h: {
 col: KA.c, keep: [0.5, 0.56, 0.23, 0.36],
 anticip(F, u, k, rel, e) {
 k2Cut(u, 'hyp', 6);
+if (F.today('hyp', u)) {
+// r9 («опять не понятно кто кого бьет»): today's sheets - no drawn arms, no sigil. One read: on the release frame a crimson blade wave
+// leaves her swords (wf) to every enemy and lands with the damage
+r9Link(F, u, 'h', e.targets, (from, to, fly, t, i) => F.slashWave(from, to, fly, { col: i % 2 ? KA.pink : KA.c, core: '#ffffff', R: 34, trailW: 10 }), { exp: REL_SUP, gap: .012 });
+return;
+}
 kaArms(F, u, .72);
 F.at(.4, () => k2sigil(F, 'k2_kali', '#ff4a72', { s: 38 }));
 },
