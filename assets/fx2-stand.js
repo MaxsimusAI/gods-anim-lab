@@ -7499,6 +7499,7 @@ const OLD = new Set(["agni", "amaterasu", "anansi", "anubis", "aoguang", "apollo
 BR.OLD_SIG = OLD;
 BR.boltSync = u => !!(BR.isProposed && u && u.gu && (BR.animOf(BR.SHEETS_ATK, u.gu) || {}).isNewSheet);
 BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill release time of the NEW sheets (s after the cast starts)
+BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3) };   // r9: Sting ult - the kick (release frame) lands when the sim deals the first hit
 BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
@@ -7806,6 +7807,11 @@ hitAt = act.leapAt;   // the strike frame lands when the leap arrives
 }
 if (BR.isProposed && BR.REL_NEW && BR.REL_NEW[u.hid + ':' + kind] && (BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu) || {}).isNewSheet)
 hitAt = BR.REL_NEW[u.hid + ':' + kind];
+if (BR.isProposed && BR.REL_TODAY && BR.REL_TODAY[u.hid + ':' + kind]) {   // r9: like REL_NEW, but only for today's sheets («вчера» keeps its timing)
+const A1 = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
+if (A1 && A1.isNewSheet && !A1.isPrevSheet)
+hitAt = BR.REL_TODAY[u.hid + ':' + kind];
+}
 const A = BR.animOf(kind === 'sup' ? BR.SHEETS_SUP : kind === 'hyp' ? BR.SHEETS_HYP : BR.SHEETS_ATK, u.gu);
 // 12.11 Maxim (batch 3): "first the game effect, then the baked burst". The old signatures launch their effect at .5 s
 // (written for the old sheets), the new sheet reached its release at .6 s. Bring the baked release to the script.
@@ -31096,6 +31102,60 @@ F.at(dur * k, () => { F.p({ x, y, vx: F.rnd(-6, 6), vy: -F.rnd(35, 70), ay: -40,
 F.p({ x, y, life: .35, s0: 14, s1: 7, tex: 'glow', col: '#ff7a2a', a0: .5 }); });
 }
 }
+// r9 (14.11 Maxim, Sting ult: «сначала летит цепь к противнику и когда она подтянула врага, в анимации должен происходить удар ногой»).
+// Today's sheets: the chain flies from the hand (wf) to the strongest enemy at the start, pulls him to the god during the wind-up,
+// the kick lands on the release frame (= the sim's first hit), then the seal explodes (last hit) and the enemy is thrown back (push).
+function stHook9(F, u, e) {
+const t = (e.targets || [])[0];
+if (!t)
+return;
+const tK = F.relDt('hyp', T_SUP - .01), tThrow = Math.max(.03, tK - .62), fly = .2, tHook = tThrow + fly, pullD = Math.max(.14, tK - .1 - tHook), end = tK - tThrow;
+F._st9 = { t };
+const Qt = () => { const b = boxOf(t); return { x: b.x, y: b.top + b.h * .42 }; };
+F.at(tThrow, () => {
+const p0 = F.wp('h', u);
+F.burst(p0.x, p0.y, { n: 5, col: ['#ffd27a', '#ff8a2a'], v0: 40, v1: 110, s0: 2.2, l0: .12, l1: .25 });
+F.obj(end + .12, (g, a) => {
+const P = F.wp('h', u), Q = Qt();
+let H = Q, sag = 0;
+if (a < fly) {
+const q = EASE['ease-out'](a / fly);
+H = { x: lerp(P.x, Q.x, q), y: lerp(P.y, Q.y, q) - Math.sin(q * Math.PI) * 14 };
+}
+g.save();
+if (a > end) {
+g.globalAlpha = Math.max(0, 1 - (a - end) / .12);
+sag = 8;
+}
+nfChain(g, P, H, sag, a);
+if (a < fly) {
+g.translate(H.x, H.y);
+g.rotate(Math.atan2(H.y - P.y, H.x - P.x));
+nfKunaiHead(17)(g, a);
+}
+g.restore();
+if (a >= fly && a < end && F.rng() < .7) {
+const k = F.rng();
+F.p({ x: lerp(P.x, H.x, k), y: lerp(P.y, H.y, k), vx: F.rnd(-30, 30), vy: -F.rnd(10, 50), ay: 220, life: F.rnd(.15, .3), s0: 2.2, s1: .5, tex: 'ember', col: F.pick(['#ffd27a', '#ff8a2a']) });
+}
+});
+});
+F.at(tHook, () => {
+const q = Qt(), b0 = boxOf(t), m = boxOf(u), kk = clamp(m.h / Math.max(1, b0.h) * .9, 1, 1.22);
+F.burst(q.x, q.y, { n: 8, col: ['#ffd27a', '#ff8a2a'], v0: 60, v1: 150, s0: 2.6, l0: .15, l1: .3 });
+if (t.homeF || !t.alive)
+return;
+t.homeF = { x: b0.x, top: b0.top, w: b0.w, h: b0.h };
+F.burst(b0.x, b0.feet - 3, { n: 6, tex: 'smoke', col: ['#6a5a50', '#4a4038'], v0: 30, v1: 80, a0: Math.PI * 1.05, a1: Math.PI * 1.95, s0: 7, s1: 14, l0: .35, l1: .6, add: false, alpha: .5, stretch: 0, drag: 3 });
+F.motions.push({ kind: 'pull', u: t, t0: F.t, dur: pullD, dx: m.x + m.w * .2 - b0.x, dy: m.top + m.h * .34 - b0.feet, k: kk });
+});
+F.at(tK, () => {
+const b = boxOf(t), p = { x: b.x, y: b.top + b.h * .62 };
+F.motions.push({ kind: 'nudge', u: F.u, tgt: t, t0: F.t, dur: .26 });
+F.p({ x: p.x, y: p.y, life: .18, s0: 24, s1: 10, tex: 'star4', col: '#fff3c4', a0: .7 });
+F.burst(p.x, p.y, { n: 12, col: ['#ffd27a', '#ff8a2a', '#fff3c4'], v0: 90, v1: 220, a0: -Math.PI * .95, a1: -Math.PI * .05, s0: 2.8, l0: .2, l1: .4 });
+});
+}
 function stKick(F, t, dur = .3) {
 if (F._stKicked || !t)
 return;
@@ -31220,6 +31280,10 @@ h: {
 col: '#ff6a2a', noCharge: true,
 anticip(F, u, k, rel, e) {
 nfBurn(F);
+if (F.today('hyp', u)) {
+stHook9(F, u, e);
+return;
+}
 nfsigil(F, 'sting', '#ff7a2a');
 F.obj(rel + .02, (g, a) => {
 const bu = boxOf(F.u), q = clamp((a - .1) / .25, 0, 1);
@@ -31243,7 +31307,7 @@ F.p({ x: hx, y: hy, vx: -Math.sin(an) * 70, vy: Math.cos(an) * 30, drag: 3, life
 ult(F, e) {
 F.hypDrawn = true;
 const t = (e.targets || [])[0];
-if (!t)
+if (!t || F._st9)
 return;
 const pull = nfEv(F, v => v.type === 'pull' && v.u === t)[0], push = nfEv(F, v => v.type === 'push' && v.u === t)[0];
 const fT = k => F.frameT ? F.frameT('hyp', k) - F.t : null;
@@ -31287,7 +31351,7 @@ F.p({ x: lerp(P.x, Q.x, k), y: lerp(P.y, Q.y, k), vx: F.rnd(-40, 40), vy: -F.rnd
 pull(F, e) {
 const t = e.u, hs = nfEv(F, v => v.type === 'hit' && v.u === t && v.src === 'hyper'), last = hs[hs.length - 1];
 nfSealTag(F, t, last ? last.t : F.t + .7);
-if (!t.homeF) {
+if (!t.homeF && !F._st9) {
 const b0 = boxOf(t), m = boxOf(F.u), k = clamp(m.h / Math.max(1, b0.h) * .9, 1, 1.22);
 t.homeF = { x: b0.x, top: b0.top, w: b0.w, h: b0.h };
 F.after(t, { dur: .28, k: .3, col: '#ff8a3a', tintK: .5 });
@@ -31295,7 +31359,7 @@ F.burst(b0.x, b0.feet - 3, { n: 6, tex: 'smoke', col: ['#6a5a50', '#4a4038'], v0
 F.at(Math.max(0, (F._stPull ?? F.t) - F.t), () => F.motions.push({ kind: 'pull', u: t, t0: F.t, dur: F._stPullD || e.dur || .24, dx: m.x + m.w * .2 - b0.x, dy: m.top + m.h * .34 - b0.feet, k }));
 }
 },
-push(F, e) { F.at(Math.max(0, (F._stKick ?? F.t) - F.t), () => stKick(F, e.u, e.dur)); },
+push(F, e) { if (F._st9) { if (e.u.homeF) F.finPush(e.u, e.dur); return; } F.at(Math.max(0, (F._stKick ?? F.t) - F.t), () => stKick(F, e.u, e.dur)); },
 push0(F, e) {
 const b = boxOf(e.u), p = { x: b.x, y: b.top + b.h * .62 };
 F.motions.push({ kind: 'nudge', u: F.u, tgt: e.u, t0: F.t, dur: .26 });
@@ -31312,6 +31376,10 @@ nfBlast(F, e.u, 1.3);
 return;
 }
 const p = F.tc(e.u, .42), up = n % 2 === 0;
+if (F._st9) {   // r9: the first hit is the kick, the second is the seal burning - no blade marks
+F.hit1(p.x, p.y, { col: '#ff8a3a', core: '#fff3c4', s: n ? .6 : .9, mn: n ? 2 : 4 });
+return;
+}
 F.motions.push({ kind: 'nudge', u: F.u, tgt: e.u, t0: F.t, dur: .22 });
 F.slashMark(p.x, p.y, { col: '#ff8a3a', core: '#fff3c4', L: 58, n: 1, ang: up ? -.75 : .75, sparkN: 10 });
 F.hit1(p.x, p.y, { col: '#ff8a3a', core: '#fff3c4', s: .8, mn: 2 });
