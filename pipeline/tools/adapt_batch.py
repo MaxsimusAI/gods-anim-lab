@@ -175,6 +175,15 @@ def matte_frame(im_rgb, session):
         k_detail = np.where(smoke, 0.0, k_detail)
         k_magic = np.where(smoke, 0.0, k_magic)
     k = np.where(is_dark_floor, 0.0, np.maximum(np.maximum(k_magic, k_detail), k_dark))
+    # 14.11 (Anansi BT ult): a kneeling leg in black trousers got a low body mask for three frames and turned see-through -
+    # pixels darker than the background are kept only by the mask. Opt-in (KL_DARKBODY=1): clearly dark pixels (far from the
+    # background colour, so not a soft floor shadow) that are connected to the solid body count as body.
+    if os.environ.get("KL_DARKBODY") == "1":
+        from scipy import ndimage as _ni
+        dk = (a.mean(axis=2) < g.mean(axis=2) - 12.0) & (diff_max > 45.0)
+        lab, _n = _ni.label(dk | (m > 0.5))
+        keep = np.zeros(_n + 1, bool); keep[np.unique(lab[m > 0.5])] = True; keep[0] = False
+        k = np.maximum(k, np.where(dk & keep[lab], np.clip((diff_max - 45.0) / 25.0, 0.0, 1.0), 0.0))
 
     margin_x = max(8.0, W * 0.035)
     body_x = 1.5
