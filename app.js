@@ -470,7 +470,7 @@
     setSpriteFrame(idleEl, 0, sh.cols || 1, sh.rows || 1);
   }
 
-  function playUnitAnim(arenaObj, u, kind, hitAt) {
+  function playUnitAnim(arenaObj, u, kind, hitAt, wait) {   // wait (r9, new arenas only): the sheet starts that many seconds later
     if (!u || !u.fig || (u.role === 'creature' && !u.hgGod)) return;
     const T = arenaObj.T;
     const tbl = kind === 'sup' ? T.SHEETS_SUP : kind === 'hyp' ? T.SHEETS_HYP : T.SHEETS_ATK;
@@ -504,13 +504,18 @@
 
     const defaultPlay = kind === 'hyp' ? 2.4 : kind === 'sup' ? 2.2 : 1.75;
     const playSec = (hitAt && A.rel) ? Math.min(2.6, Math.max(0.42, hitAt / A.rel)) : (A.play || defaultPlay);
-    el._startT = arenaObj.animClock;
+    el._startT = arenaObj.animClock + (wait > 0 ? wait : 0);
     el._dur = playSec;
     el._active = true;
+    el._wait = wait > 0;
     u.fig.style.zIndex = kind === 'atk' ? '' : '3';
     setSpriteFrame(el, 0, A.cols || 1, A.rows || 1);
 
-    if (!im || (im.complete && im.naturalWidth > 0)) {
+    if (el._wait) {
+      // r9: delayed start - the idle figure stays until stepArenaSprites reaches el._startT
+      el.style.display = 'none';
+      if (u._idleEl) u._idleEl.style.visibility = '';
+    } else if (!im || (im.complete && im.naturalWidth > 0)) {
       el.style.display = 'block';
       if (u._idleEl) u._idleEl.style.visibility = 'hidden';
     } else {
@@ -518,7 +523,7 @@
       el.style.display = 'none';
       if (u._idleEl) u._idleEl.style.visibility = '';
       im.addEventListener('load', () => {
-        if (el._active && el._A === A && arenaObj.animClock < el._startT + el._dur) {
+        if (el._active && !el._wait && el._A === A && arenaObj.animClock < el._startT + el._dur) {
           el.style.display = 'block';
           if (u._idleEl) u._idleEl.style.visibility = 'hidden';
         }
@@ -542,6 +547,12 @@
       const atkNodes = u.fig.querySelectorAll('.atk');
       for (let i = 0; i < atkNodes.length; i++) {
         const ax = atkNodes[i];
+        if (ax._wait && ax._active && ax._A && tNow >= ax._startT) {   // r9: a delayed sheet starts now
+          ax._wait = false;
+          const im2 = preloadImg(ax._A.src);
+          if (!im2 || (im2.complete && im2.naturalWidth > 0)) { ax.style.display = 'block'; if (u._idleEl) u._idleEl.style.visibility = 'hidden'; }
+          else im2.addEventListener('load', () => { if (ax._active && !ax._wait && arenaObj.animClock < ax._startT + ax._dur) { ax.style.display = 'block'; if (u._idleEl) u._idleEl.style.visibility = 'hidden'; } }, { once: true });
+        }
         if (ax.style.display !== 'block' || !ax._A) continue;
         const p = (tNow - ax._startT) / Math.max(0.05, ax._dur);
         if (p >= 1 || !u.alive) {
@@ -860,7 +871,10 @@
           const g = currentGod();
           return !(cfg.key === 'live_bt' && g && g.isNewGod);
         },
-        playAnim: (u, kind, hitAt) => playUnitAnim(arenaObj, u, kind, hitAt),
+        playAnim: (u, kind, hitAt, wait) => playUnitAnim(arenaObj, u, kind, hitAt, cfg.isProposed ? wait : 0),
+        // r9: a new sheet that plays at its floor speed reaches its release frame later than the action's script expects;
+        // fx2 asks the stand to hold the script (sim + game effects) of this arena for that long while the sheet plays.
+        hold: cfg.isProposed ? (sec => { if (sec > 0) { arenaObj.hold = Math.max(arenaObj.hold || 0, sec); arenaObj.holdTotal = (arenaObj.holdTotal || 0) + sec; } }) : null,
         sound: () => {},
         foesOf: u => (arenaObj.B ? SIM.foesOf(arenaObj.B, u) : []),
         sideOf: u => (arenaObj.B ? SIM.sideOf(arenaObj.B, u) : []),
@@ -920,6 +934,7 @@
       }
       clearFloatingDom(a);
       a.animClock = 0;
+      a.hold = 0;
       a.pack = packOf(god, a.key);
 
       const isHiddenLive = (a.key === 'live_bt' && !!god.isNewGod);
@@ -1122,6 +1137,7 @@
           try { a.fx2.stop(); } catch (_) {}
         }
         clearFloatingDom(a);
+        a.hold = 0;
         if (a.focusUnit && a.focusUnit.fig) {
           a.focusUnit.fig.querySelectorAll('.atk').forEach(el => { el._active = false; el.style.display = 'none'; });
           if (a.focusUnit._idleEl) a.focusUnit._idleEl.style.visibility = '';
@@ -1137,6 +1153,8 @@
       if (!a.B || !a.focusUnit) continue;
       // Clear any previous floating banners/numbers and reset lingering FX2 particles before new skill
       clearFloatingDom(a);
+      a.hold = 0;
+      a.holdTotal = 0;
       if (a.fx2) {
         try {
           a.fx2.stop();
@@ -1151,6 +1169,8 @@
       const ev = SIM.triggerSlot(a.B, a.focusUnit, slot);
       handleSimEvents(a, ev);
     }
+    // r9: the auto-repeat waits for the held script as well
+    state.autoWait += Math.max(0, ...state.arenas.map(a => a.hold || 0));
   }
 
   function selectGod(godId) {
@@ -1400,6 +1420,14 @@
   let lastFrameMs = performance.now();
   const readoutEl = document.getElementById('frameReadout');
 
+  // r9: while an arena holds its script (see BR.hold) only the sprites advance; returns the part of dt the script may use.
+  function scriptDt(a, dt) {
+    if (!(a.hold > 0) || !(dt > 0)) return dt;
+    const h = Math.min(a.hold, dt);
+    a.hold -= h;
+    return dt - h;
+  }
+
   function tick(nowMs) {
     const rawDt = Math.min(0.05, Math.max(0, (nowMs - lastFrameMs) / 1000));
     lastFrameMs = nowMs;
@@ -1411,19 +1439,22 @@
       const hiddenLive = (a.key === 'live_bt' && god && god.isNewGod);
       if (hiddenLive || !a.B) continue;
 
+      const sdt = scriptDt(a, dt);   // r9: dt minus the part spent holding the script (always dt in the live arena)
       if (dt > 0) {
         a.animClock += dt;
-        const stepEv = SIM.stepStandBattle(a.B, dt);
-        if (stepEv.length) handleSimEvents(a, stepEv);
+        if (sdt > 0) {
+          const stepEv = SIM.stepStandBattle(a.B, sdt);
+          if (stepEv.length) handleSimEvents(a, stepEv);
+        }
       }
 
       const r = stepArenaSprites(a);
       if (a.key === 'new_bt' && r) bestReadout = r;
       else if (!bestReadout && r) bestReadout = r;
 
-      if (dt > 0 && a.fx2) {
+      if (sdt > 0 && a.fx2) {
         try {
-          a.fx2.frame(dt, a.animClock * 1000);
+          a.fx2.frame(sdt, a.animClock * 1000);
         } catch (err) {
           console.error('fx2.frame error in ' + a.key, err);
         }
@@ -1479,11 +1510,14 @@
       const god = currentGod();
       for (const a of state.arenas) {
         if (a.key === 'live_bt' && god && god.isNewGod) continue;
+        const sdt = scriptDt(a, dtSec);
         a.animClock += dtSec;
-        const ev = SIM.stepStandBattle(a.B, dtSec);
-        if (ev.length) handleSimEvents(a, ev);
+        if (sdt > 0) {
+          const ev = SIM.stepStandBattle(a.B, sdt);
+          if (ev.length) handleSimEvents(a, ev);
+        }
         stepArenaSprites(a);
-        if (a.fx2) a.fx2.frame(dtSec, a.animClock * 1000);
+        if (sdt > 0 && a.fx2) a.fx2.frame(sdt, a.animClock * 1000);
       }
     },
   };

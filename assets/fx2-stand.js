@@ -7431,8 +7431,8 @@ BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does no
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
 const own = gu => godOk(gu) && recipe(gu.hid) && !!(BR.SHEETS_V2[gu.hid] || BR.all) && (!BR.only || BR.only.has(gu.hid));
-const play = (gu, kind, at) => { if (BR.sil && OLD.has(gu.hid) && !BR.SHEETS_V2[gu.hid])
-return; BR.playAnim(gu, kind, at); };
+const play = (gu, kind, at, wait) => { if (BR.sil && OLD.has(gu.hid) && !BR.SHEETS_V2[gu.hid])
+return; if (wait > 0) BR.playAnim(gu, kind, at, wait); else BR.playAnim(gu, kind, at); };
 const REL_FIX = {
 'kitsune:atk': 14, 'kitsune:sup': 13, 'kitsune:hyp': 15,
 'demeter:atk': 6,
@@ -7658,12 +7658,12 @@ W.imgs.set(url, r);
 } return r.ok ? r.im : null; }
 /* Hand-off (Maxim 27.10 / 12.11): a baked sheet effect that is cut by the frame edge is continued outward
    by the engine's own particles, in the colour sampled from the sheet, starting on the frame it reaches the edge. */
-function hoEmit(F, u, A, dur) {
+function hoEmit(F, u, A, dur, lag = 0) {
 const ho = A.ho, n = Math.max(1, (A.frames || 25) - 1), col = ho.col || '#ffffff';
 const EDGE = { top: [0, -1], bottom: [0, 1], left: [-1, 0], right: [1, 0] };
 for (const k in EDGE)
 for (const [i, pos, str] of ho[k] || [])
-F.at(i / n * dur + .001, () => {
+F.at(Math.max(0, i / n * dur - lag) + .001, () => {
 const fr = frameOf(u);
 if (!fr || !fr.atk)
 return;
@@ -7741,12 +7741,38 @@ if (BR.isProposed && A && A.isNewSheet && (kind === 'sup' || kind === 'hyp') && 
 hitAt = .5;
 let at = hitAt;
 if (A && A.rel && hitAt) {
-const rt = relTrue(u.gu, kind, A), dur = clamp(hitAt / rt, .3, 1.7);
+const rt = relTrue(u.gu, kind, A);
+let dur = clamp(hitAt / rt, .3, 1.7), lag = 0, wait = 0;
+// r9 (14.11 Maxim: «слишком быстро дергается анимация»): today's new sheets never play faster than a floor (strike 1.25 s,
+// super / ult 1.5 s). The release frame then comes `lag` seconds later than this action's script expects it, so the stand
+// holds the script of the action (its effects, leap, pending hits, damage numbers) for `lag` while the sheet already plays:
+// gesture -> effect leaves the weapon -> flies -> hit -> damage keep their order. Left arena and «вчера» sheets: as before.
+if (BR.isProposed && BR.hold && A.isNewSheet && !A.isPrevSheet && u === this.focus && F) {
+const atk = kind === 'atk';
+dur = clamp(Math.max(hitAt / rt, atk ? 1.25 : 1.5), .3, atk ? 1.7 : 2);
+if (!act.held) {
+act.held = true;
+lag = Math.max(0, dur * rt - hitAt);
+if (lag > .004)
+BR.hold(lag);
+else
+lag = 0;
+// the opposite case (strikes only): the release frame is so early in the sheet that even the slowest playback shows it
+// before the leap arrives / the shot is due (Brynhild: «бьет в анимации раньше чем оказывается рядом с противником») -
+// the sheet starts later, the god stays in his idle pose until then.
+if (atk && hitAt - dur * rt > .08)
+wait = hitAt - dur * rt;
+}
+}
 at = dur * A.rel;
 if (u === this.focus && F)
-(F.sheetT || (F.sheetT = {}))[kind] = { t0: this.t, dur, rel: rt, frames: A.frames || 25 };
+(F.sheetT || (F.sheetT = {}))[kind] = { t0: this.t - lag + wait, dur, rel: rt, frames: A.frames || 25, lag, wait, exp: hitAt };
 if (u === this.focus && F && A.ho)
-hoEmit(F, u, A, dur);
+hoEmit(F, u, A, dur, lag - wait);
+if (wait) {
+play(u.gu, kind, at, wait);
+return;
+}
 }
 play(u.gu, kind, at);
 },
@@ -8088,7 +8114,9 @@ emit(act, e, fe);
 const leapShot = leapNew || t === 'shoot' && !e.aux && LEAP_SHOOT.has(gu.hid);
 const lTgt = leapTgt || fe.tgt;
 if ((t === 'lunge' || leapShot) && lTgt && lTgt !== act.vu && act.F.finLeap && !(act.F.R && act.F.R.noLeap))
-run(act, () => act.F.finLeap(act.vu, lTgt, act.F.t + (leapNew ? act.leapAt : leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42)));
+run(act, () => act.F.finLeap(act.vu, lTgt, act.F.t + (leapNew ? act.leapAt : leapShot ? (e.windup || 0) + (e.dur || .3) : e.dur || .42),
+// r9 (14.11 Maxim, Brynhild: «бьет раньше чем оказывается рядом»): the leap of a basic that was a shot is fast (~.24 s) and ends on the strike
+leapNew && act.F.today('atk', act.vu) ? { lead: Math.max(.03, act.leapAt - .31) } : undefined));
 if (!act.played)
 play(gu, k === 'a' ? 'atk' : k === 's' ? 'sup' : 'hyp', k === 'a' ? act.melee ? REL_MELEE : REL_SHOT : REL_SUP);
 if (k === 'a' && t !== 'lunge')

@@ -1,0 +1,639 @@
+{
+ "_timing": "Block 1 (new arenas, today's new sheets, focus god only; live arena and «вчера» sheets unchanged): (1) STG.playAnim: sheet duration D = clamp(max(hitAt/rel, floor), .3, max) with floor 1.25 s strike / 1.5 s super+ult and max 1.7 / 2.0. (2) When the release frame D*rel comes later than the script expects (hitAt; .5 for OLD_SIG supers/ults; REL_NEW; leapAt), fx2 calls BR.hold(lag): app.js stops stepping the sim and fx2 of THAT arena for lag seconds while the sprites keep playing (scriptDt in tick/stepManual). So the whole script of the action - anticipation, leap, launch, projectiles, pending hits, damage numbers - runs lag later; order and all sim values are unchanged; nothing else acts on the stand during that time. Lag is 0.06-0.56 s (median 0.23 s; Susanoo BT ult 0.85 s). (3) Strikes whose release frame is too early even at the slowest playback (>0.08 s before the expected moment: Brynhild, Indra, Zeus TI, Heimdall, Ra BT atk): the sheet starts later by that gap (idle pose until then), nothing else moves. (4) LEAP_NEW leap (Brynhild) is fast: starts 0.31 s before the strike instead of at 0.03 s. (5) Auto-repeat wait is extended by the hold.",
+ "agni_bt_hyp": {
+  "checked": "",
+  "remark": "Программная анимация струи огня слишком быстро дергается",
+  "status": "not done",
+  "what": ""
+ },
+ "agni_ti_hyp": {
+  "checked": "",
+  "remark": "Программная анимация струи огня слишком быстро дергается",
+  "status": "not done",
+  "what": ""
+ },
+ "amaterasu_bt_atk": {
+  "checked": "",
+  "remark": "Плохая синхронизация с программный эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "anansi_bt_sup": {
+  "checked": "",
+  "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "anansi_ti_sup": {
+  "checked": "",
+  "remark": "Слишком резкая анимуция и нет синхронизации анимации и программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "aoguang_bt_hyp": {
+  "checked": "",
+  "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
+  "status": "not done",
+  "what": ""
+ },
+ "aoguang_bt_sup": {
+  "checked": "",
+  "remark": "Плохо синхронизирован программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "aoguang_ti_hyp": {
+  "checked": "",
+  "remark": "Плохо синхронизирован программный эффект. Большая картинка существа не нужна",
+  "status": "not done",
+  "what": ""
+ },
+ "aoguang_ti_sup": {
+  "checked": "",
+  "remark": "Плохо синхронизирован программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_bt_atk": {
+  "checked": "",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_bt_hyp": {
+  "checked": "",
+  "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_bt_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_ti_atk": {
+  "checked": "",
+  "remark": "Плохая синхронизация у програмного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_ti_hyp": {
+  "checked": "",
+  "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
+  "status": "not done",
+  "what": ""
+ },
+ "artemis_ti_sup": {
+  "checked": "",
+  "remark": "У аниме версии берем вторую версию. анимаций. Плохая синхронизация у програмного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "atlas_bt_hyp": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "atlas_bt_sup": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "atlas_ti_hyp": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "atlas_ti_sup": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "blackbeard_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "blackbeard_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "brynhild_bt_atk": {
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms",
+  "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
+  "status": "done",
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage"
+ },
+ "brynhild_ti_atk": {
+  "checked": "fseq brynhild atk: idle to 350 ms, leap 390-630, strike f5/f4 at 700 ms, -510K at 700 ms",
+  "remark": "Плохо синхронихипрованная анимация и урон. Она бьет в анимации раньше чем оказывается рядом с противником",
+  "status": "done",
+  "what": "sheet start waits 0.35 / 0.42 s and the leap is fast (0.24 s): the strike frame lands on arrival together with the damage"
+ },
+ "demeter_bt_hyp": {
+  "checked": "",
+  "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
+  "status": "not done",
+  "what": ""
+ },
+ "demeter_ti_hyp": {
+  "checked": "",
+  "remark": "Принять версию 2 и убрать программные ростки пшеницы (они теперь естьв  анимации бога)",
+  "status": "not done",
+  "what": ""
+ },
+ "dutchman_bt_atk": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
+  "status": "not done",
+  "what": ""
+ },
+ "dutchman_ti_atk": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Можно сделать без прыжка",
+  "status": "not done",
+  "what": ""
+ },
+ "erlang_bt_hyp": {
+  "checked": "",
+  "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
+  "status": "not done",
+  "what": ""
+ },
+ "erlang_ti_hyp": {
+  "checked": "",
+  "remark": "В программной анимации не понятно что летит. Слишком резко и не заметно",
+  "status": "not done",
+  "what": ""
+ },
+ "hecate_bt_hyp": {
+  "checked": "",
+  "remark": "Программная картинка 3 голов не нужна",
+  "status": "not done",
+  "what": ""
+ },
+ "hecate_bt_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация у прогрммныъ эффектов с анимацией",
+  "status": "not done",
+  "what": ""
+ },
+ "hecate_ti_hyp": {
+  "checked": "",
+  "remark": "Программная картинка 3 голов не нужна",
+  "status": "not done",
+  "what": ""
+ },
+ "hel_bt_hyp": {
+  "checked": "",
+  "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
+  "status": "not done",
+  "what": ""
+ },
+ "hel_ti_hyp": {
+  "checked": "",
+  "remark": "Слишком большие программные картинки. Лучше их полностью убрать",
+  "status": "not done",
+  "what": ""
+ },
+ "heracles_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "heracles_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_bt_atk": {
+  "checked": "",
+  "remark": "Убрать программную маленькую иконку тыквы",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_bt_hyp": {
+  "checked": "",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_bt_sup": {
+  "checked": "",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_ti_atk": {
+  "checked": "",
+  "remark": "Убрать программную маленькую иконку тыквы",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_ti_hyp": {
+  "checked": "",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "not done",
+  "what": ""
+ },
+ "horseman_ti_sup": {
+  "checked": "",
+  "remark": "Нет связи между анимацией умения и уроном",
+  "status": "not done",
+  "what": ""
+ },
+ "inti_bt_atk": {
+  "checked": "fseq inti atk: release f12@625 ms, projectile 710-980, hit 950 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s); ray leaves the staff at the release, damage after the flight"
+ },
+ "inti_ti_atk": {
+  "checked": "fseq inti atk: release f12@625 ms, projectile 710-980, hit 950 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s); ray leaves the staff at the release, damage after the flight"
+ },
+ "kali_bt_hyp": {
+  "checked": "",
+  "remark": "Слишком резко дергается в анимации. Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "not done",
+  "what": ""
+ },
+ "kali_bt_sup": {
+  "checked": "",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "not done",
+  "what": ""
+ },
+ "kali_ti_hyp": {
+  "checked": "",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "not done",
+  "what": ""
+ },
+ "kali_ti_sup": {
+  "checked": "",
+  "remark": "Плохие прогрманные эффекты, опять не понятно кто кого бьет",
+  "status": "not done",
+  "what": ""
+ },
+ "koschei_ti_sup": {
+  "checked": "",
+  "remark": "Плохо синхронизированы программные эффекты и аниммация",
+  "status": "not done",
+  "what": ""
+ },
+ "lilith_ti_hyp": {
+  "checked": "",
+  "remark": "Программные эффекты плозихие, полностью поменять",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_bt_atk": {
+  "checked": "",
+  "remark": "Сделать без ближнего удара это умение",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_bt_hyp": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_bt_sup": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_ti_atk": {
+  "checked": "",
+  "remark": "Сделать без ближнего удара это умение",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_ti_hyp": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "llorona_ti_sup": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "loki_bt_hyp": {
+  "checked": "",
+  "remark": "Нет связи программного эффекта и урона",
+  "status": "not done",
+  "what": ""
+ },
+ "loki_ti_hyp": {
+  "checked": "",
+  "remark": "Нет связи программного эффекта и урона",
+  "status": "not done",
+  "what": ""
+ },
+ "lubu_bt_hyp": {
+  "checked": "",
+  "remark": "Нет связи програмнного эффекта с анимацией и уроном",
+  "status": "not done",
+  "what": ""
+ },
+ "lubu_bt_sup": {
+  "checked": "",
+  "remark": "Слишком быстро дергается в анимации",
+  "status": "not done",
+  "what": ""
+ },
+ "lucifer_bt_hyp": {
+  "checked": "",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": ""
+ },
+ "lucifer_bt_sup": {
+  "checked": "",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": ""
+ },
+ "lucifer_ti_sup": {
+  "checked": "",
+  "remark": "Программный эффект не синхронизирован с анимацией и выглядит плохо",
+  "status": "not done",
+  "what": ""
+ },
+ "mictlan_bt_hyp": {
+  "checked": "",
+  "remark": "Убрать программную картинку черепа",
+  "status": "not done",
+  "what": ""
+ },
+ "mictlan_ti_hyp": {
+  "checked": "",
+  "remark": "Убрать программную картинку черепа",
+  "status": "not done",
+  "what": ""
+ },
+ "poseidon_bt_sup": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "poseidon_ti_sup": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "ra_bt_atk": {
+  "checked": "fseq ra atk: BT D=1.7",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "partly",
+  "what": "playback was already at the slowest 1.7 s (release frame f4); now the sheet start waits 0.10 s so the release meets the cast. If it still jerks the jerk is inside the clip (needs a re-shoot)"
+ },
+ "ra_ti_atk": {
+  "checked": "fseq ra atk: release f12@625 ms, hit 940 ms",
+  "remark": "Слишком быстро дергается анимация",
+  "status": "done",
+  "what": "sheet plays 1.25 s (was 0.77 s)"
+ },
+ "raijin_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "raijin_bt_sup": {
+  "checked": "",
+  "remark": "Слишком дерганная анимация?",
+  "status": "not done",
+  "what": ""
+ },
+ "raijin_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и програмного эффекта. Программный эффект плохой",
+  "status": "not done",
+  "what": ""
+ },
+ "raijin_ti_sup": {
+  "checked": "",
+  "remark": "Слишком дерганная анимация?",
+  "status": "not done",
+  "what": ""
+ },
+ "sekhmet_bt_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
+  "status": "not done",
+  "what": ""
+ },
+ "sekhmet_ti_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация. Огонь из рта в анимации, а программных эффект из ног",
+  "status": "not done",
+  "what": ""
+ },
+ "shango_bt_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "shango_ti_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_bt_atk": {
+  "checked": "",
+  "remark": "Сделать умение без прыжка к врагу",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_bt_sup": {
+  "checked": "",
+  "remark": "нет связи между анимацией и нанесением урона",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_ti_atk": {
+  "checked": "",
+  "remark": "Сделать умение без прыжка к врагу",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "shiva_ti_sup": {
+  "checked": "",
+  "remark": "нет связи между анимацией и нанесением урона",
+  "status": "not done",
+  "what": ""
+ },
+ "silent_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "silent_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая связь анимации и программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "sting_bt_hyp": {
+  "checked": "",
+  "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
+  "status": "not done",
+  "what": ""
+ },
+ "sting_ti_hyp": {
+  "checked": "",
+  "remark": "В анимации должен бить ногой вперед. Сначала летит цепь к противниу и когда она подтянула врага, в анимации должен происходить удар ногой",
+  "status": "not done",
+  "what": ""
+ },
+ "surt_bt_atk": {
+  "checked": "",
+  "remark": "Сделайть умение без прыжка к врагу",
+  "status": "not done",
+  "what": ""
+ },
+ "surt_bt_sup": {
+  "checked": "",
+  "remark": "Плохая синхронизация программного эффекта",
+  "status": "not done",
+  "what": ""
+ },
+ "surt_ti_atk": {
+  "checked": "",
+  "remark": "Сделайть умение без прыжка к врагу",
+  "status": "not done",
+  "what": ""
+ },
+ "vanhelsing_bt_atk": {
+  "checked": "",
+  "remark": "Программный эффект вылетает не из кончика оружия",
+  "status": "not done",
+  "what": ""
+ },
+ "vanhelsing_bt_hyp": {
+  "checked": "",
+  "remark": "Плохой программный эффект",
+  "status": "not done",
+  "what": ""
+ },
+ "vanhelsing_ti_atk": {
+  "checked": "",
+  "remark": "Программный эффект вылетает не из кончика оружия",
+  "status": "not done",
+  "what": ""
+ },
+ "veles_bt_atk": {
+  "checked": "",
+  "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
+  "status": "not done",
+  "what": ""
+ },
+ "veles_bt_hyp": {
+  "checked": "",
+  "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
+  "status": "not done",
+  "what": ""
+ },
+ "veles_bt_sup": {
+  "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
+  "remark": "Слишком быстро проходит анимация",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
+ },
+ "veles_ti_atk": {
+  "checked": "",
+  "remark": "Программных эффект не соответствует тому, что делает бог. Он прыгает вперед и наносит урон, но почемуто оновременно с этим по земле бедит разлом и потом молния на противнике",
+  "status": "not done",
+  "what": ""
+ },
+ "veles_ti_hyp": {
+  "checked": "",
+  "remark": "Плохая синхронизация програмного эффекта и у програмнного эффекта вид не вау и другой цвет",
+  "status": "not done",
+  "what": ""
+ },
+ "veles_ti_sup": {
+  "checked": "fseq veles sup: release f17@1062 / f15@938 ms, shield number at 1320 / 1200 ms",
+  "remark": "Слишком быстро проходит анимация",
+  "status": "done",
+  "what": "sheet plays 1.5 s (was 0.71 / 0.80 s); shield lands after the release"
+ },
+ "wukong_bt_atk": {
+  "checked": "",
+  "remark": "Непонятное дерганье в анимации и нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "wukong_bt_hyp": {
+  "checked": "",
+  "remark": "нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "wukong_bt_sup": {
+  "checked": "",
+  "remark": "нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "wukong_ti_atk": {
+  "checked": "",
+  "remark": "нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "wukong_ti_hyp": {
+  "checked": "",
+  "remark": "нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "wukong_ti_sup": {
+  "checked": "",
+  "remark": "нет связи с программным эффектом",
+  "status": "not done",
+  "what": ""
+ },
+ "zeus_ti_atk": {
+  "checked": "fseq zeus atk R: f5@700 ms bolt from the hand, hit 710 ms",
+  "remark": "Плохая синхронизация у программного эффекта",
+  "status": "done",
+  "what": "sheet start waits 0.32 s (release frame f5 was shown 0.3 s before the bolt): the bolt now leaves the hand on the release frame"
+ }
+}
