@@ -353,42 +353,42 @@
    -0.62
   ],
   "wf": [
-   0.5,
-   0.437
+   0.515,
+   0.463
   ],
-  "maxDiff": 16.18,
+  "maxDiff": 33.15,
   "fig": {
-   "top": 0.0972,
-   "foot": 0.9907,
-   "ax": 0.5
+   "top": 0.1389,
+   "foot": 0.9911,
+   "ax": 0.5147
   },
   "defects": [],
   "crop": null,
   "ho": null,
   "q": 91,
-  "bodyPx": 197,
-  "bodyPxF": 196.57,
+  "bodyPx": 187,
+  "bodyPxF": 187.48,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 317.0,
    "ramMb": 3.46,
-   "kbPct": 111,
-   "ramPct": 60
+   "kbPct": 106,
+   "ramPct": 59
   },
   "mob": {
    "file": "agni-bt-idle-mob.webp",
-   "w": 98,
+   "w": 97,
    "h": 220,
-   "kb": 352.1,
-   "ramMb": 2.06
+   "kb": 334.7,
+   "ramMb": 2.04
   },
   "lite": {
    "file": "agni-bt-idle-lite.webp",
-   "w": 69,
+   "w": 68,
    "h": 154,
-   "kb": 205.8,
-   "ramMb": 1.01
+   "kb": 191.8,
+   "ramMb": 1.0
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -398,184 +398,97 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 14,
-  "rel": 0.583,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   0.206,
-   -0.829
+   0.034,
+   -1.018
   ],
   "wf": [
-   0.8,
-   0.29
+   0.55,
+   0.08
   ],
-  "maxDiff": 38.61,
+  "maxDiff": 40.84,
   "fig": {
-   "top": 0.1458,
-   "foot": 0.9912,
-   "ax": 0.4801
+   "top": 0.0965,
+   "foot": 0.9907,
+   "ax": 0.4986
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "TB",
   "ho": {
    "top": [
     [
      11,
-     0.195,
-     0.28
-    ],
-    [
-     12,
-     0.183,
-     0.52
-    ],
-    [
-     13,
-     0.228,
-     0.17
-    ],
-    [
-     14,
-     0.397,
-     0.59
-    ],
-    [
-     15,
-     0.687,
+     0.657,
      1.0
     ],
     [
-     16,
-     0.711,
-     0.98
-    ],
-    [
-     17,
-     0.602,
-     0.25
-    ],
-    [
-     19,
-     0.188,
-     0.12
-    ]
-   ],
-   "left": [
-    [
-     9,
-     0.192,
-     0.16
-    ],
-    [
-     10,
-     0.152,
-     0.4
-    ],
-    [
-     11,
-     0.115,
-     0.27
-    ],
-    [
      12,
-     0.096,
-     0.22
+     0.636,
+     1.0
     ],
     [
      13,
-     0.114,
-     0.11
+     0.596,
+     1.0
     ],
     [
      14,
-     0.166,
-     0.11
+     0.621,
+     1.0
     ],
     [
      15,
-     0.157,
-     0.13
-    ],
-    [
-     16,
-     0.144,
-     0.13
-    ],
-    [
-     17,
-     0.163,
-     0.05
+     0.572,
+     0.75
     ]
    ],
    "right": [
     [
-     7,
-     0.327,
+     5,
+     0.458,
+     0.07
+    ],
+    [
+     6,
+     0.447,
      0.13
     ],
     [
-     8,
-     0.307,
-     0.15
-    ],
-    [
-     9,
-     0.307,
+     7,
+     0.444,
      0.12
-    ],
-    [
-     10,
-     0.293,
-     0.24
-    ],
-    [
-     11,
-     0.301,
-     0.22
-    ],
-    [
-     12,
-     0.332,
-     0.17
-    ],
-    [
-     13,
-     0.323,
-     0.18
-    ],
-    [
-     14,
-     0.201,
-     0.24
     ]
    ],
-   "col": "#fe9e70"
+   "col": "#ffa751"
   },
-  "q": 74,
-  "bodyPx": 186,
-  "bodyPxF": 185.99,
+  "q": 72,
+  "bodyPx": 197,
+  "bodyPxF": 196.72,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 211.0,
    "ramMb": 4.24,
-   "kbPct": 115,
-   "ramPct": 59
+   "kbPct": 119,
+   "ramPct": 65
   },
   "mob": {
    "file": "agni-bt-sup-mob.webp",
-   "w": 120,
+   "w": 132,
    "h": 220,
-   "kb": 242.0,
-   "ramMb": 2.52
+   "kb": 251.0,
+   "ramMb": 2.77
   },
   "lite": {
    "file": "agni-bt-sup-lite.webp",
-   "w": 84,
+   "w": 92,
    "h": 154,
-   "kb": 137.0,
-   "ramMb": 1.23
+   "kb": 139.2,
+   "ramMb": 1.35
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -588,12 +501,12 @@
   "impact": 8,
   "rel": 0.333,
   "wpt": [
-   -0.128,
-   -0.586
+   -0.172,
+   -1.095
   ],
   "wf": [
-   0.329,
-   0.471
+   0.27,
+   0.02
   ],
   "maxDiff": 53.2,
   "fig": {
@@ -1972,95 +1885,154 @@
   "frames": 25,
   "cols": 5,
   "rows": 5,
-  "impact": 15,
-  "rel": 0.625,
+  "impact": 11,
+  "rel": 0.458,
   "wpt": [
-   -0.019,
-   -0.755
+   0.043,
+   -0.522
   ],
   "wf": [
-   0.54,
-   0.338
+   0.55,
+   0.52
   ],
-  "maxDiff": 36.43,
+  "maxDiff": 56.08,
   "fig": {
-   "top": 0.1263,
-   "foot": 0.991,
-   "ax": 0.5659
+   "top": 0.0885,
+   "foot": 0.9906,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
   ],
-  "crop": null,
+  "crop": "T",
   "ho": {
    "top": [
     [
-     8,
-     0.691,
-     0.14
+     6,
+     0.382,
+     0.12
     ],
     [
-     9,
-     0.689,
-     0.16
-    ],
-    [
-     10,
-     0.691,
+     7,
+     0.53,
      0.17
     ],
     [
-     11,
-     0.688,
+     8,
+     0.411,
+     0.26
+    ],
+    [
+     9,
+     0.512,
      0.21
     ],
     [
-     12,
-     0.69,
-     0.42
+     10,
+     0.534,
+     0.17
+    ]
+   ],
+   "left": [
+    [
+     4,
+     0.343,
+     0.05
     ],
     [
-     13,
-     0.687,
-     0.32
+     5,
+     0.453,
+     0.08
     ],
     [
-     14,
-     0.687,
-     0.22
+     6,
+     0.538,
+     0.16
     ],
     [
-     15,
-     0.686,
+     7,
+     0.54,
+     0.07
+    ],
+    [
+     8,
+     0.398,
+     0.11
+    ],
+    [
+     9,
+     0.511,
+     0.11
+    ],
+    [
+     10,
+     0.537,
      0.1
     ]
    ],
-   "col": "#ffc08f"
+   "right": [
+    [
+     4,
+     0.207,
+     0.07
+    ],
+    [
+     5,
+     0.358,
+     0.14
+    ],
+    [
+     6,
+     0.536,
+     0.29
+    ],
+    [
+     7,
+     0.532,
+     0.13
+    ],
+    [
+     8,
+     0.455,
+     0.07
+    ],
+    [
+     9,
+     0.536,
+     0.09
+    ],
+    [
+     10,
+     0.569,
+     0.1
+    ]
+   ],
+   "col": "#ff9b39"
   },
-  "q": 87,
-  "bodyPx": 190,
-  "bodyPxF": 190.23,
+  "q": 86,
+  "bodyPx": 198,
+  "bodyPxF": 198.46,
   "v": 21,
   "live": {
    "key": "hyp",
    "kb": 349.1,
    "ramMb": 5.19,
-   "kbPct": 117,
-   "ramPct": 57
+   "kbPct": 120,
+   "ramPct": 67
   },
   "mob": {
    "file": "anansi-bt-hyp-mob.webp",
-   "w": 141,
+   "w": 167,
    "h": 220,
-   "kb": 409.9,
-   "ramMb": 2.96
+   "kb": 418.8,
+   "ramMb": 3.5
   },
   "lite": {
    "file": "anansi-bt-hyp-lite.webp",
-   "w": 99,
+   "w": 117,
    "h": 154,
-   "kb": 228.9,
-   "ramMb": 1.45
+   "kb": 227.9,
+   "ramMb": 1.72
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
@@ -7608,25 +7580,25 @@
  },
  "atlas_ti_sup": {
   "id": "atlas_ti_sup",
-  "srcRes": "262x420",
+  "srcRes": "760x1220",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 16,
   "rel": 0.667,
   "wpt": [
-   0.169,
-   -0.578
+   0.18,
+   -0.579
   ],
   "wf": [
-   0.766,
-   0.46
+   0.783,
+   0.465
   ],
-  "maxDiff": 77.18,
+  "maxDiff": 79.15,
   "fig": {
-   "top": 0.0865,
-   "foot": 0.9714,
-   "ax": 0.4771
+   "top": 0.0884,
+   "foot": 0.9834,
+   "ax": 0.4778
   },
   "defects": [
    "raw_edge_clip"
@@ -7636,306 +7608,359 @@
    "top": [
     [
      19,
-     0.46,
-     0.29
+     0.467,
+     0.28
     ],
     [
      20,
-     0.493,
-     0.15
+     0.517,
+     0.13
     ],
     [
      21,
-     0.474,
+     0.476,
      0.11
     ]
    ],
    "bottom": [
     [
      8,
+     0.492,
+     1.0
+    ],
+    [
+     9,
      0.481,
-     0.78
+     1.0
     ],
     [
      10,
-     0.587,
-     0.43
+     0.485,
+     1.0
     ],
     [
      11,
-     0.602,
-     0.39
+     0.479,
+     1.0
     ],
     [
      12,
-     0.599,
-     0.41
+     0.474,
+     1.0
     ],
     [
      13,
-     0.611,
-     0.36
+     0.48,
+     1.0
+    ],
+    [
+     14,
+     0.48,
+     1.0
+    ],
+    [
+     15,
+     0.468,
+     1.0
+    ],
+    [
+     16,
+     0.475,
+     1.0
+    ],
+    [
+     17,
+     0.479,
+     1.0
+    ],
+    [
+     18,
+     0.482,
+     1.0
+    ],
+    [
+     19,
+     0.483,
+     1.0
+    ],
+    [
+     20,
+     0.483,
+     1.0
     ],
     [
      21,
-     0.618,
-     0.35
+     0.473,
+     1.0
     ],
     [
      22,
-     0.453,
-     0.06
+     0.465,
+     0.12
     ]
    ],
    "left": [
     [
      8,
-     0.913,
+     0.92,
      0.08
     ],
     [
      9,
-     0.864,
-     0.2
+     0.873,
+     0.19
     ],
     [
      10,
-     0.862,
-     0.2
+     0.872,
+     0.19
     ],
     [
      11,
-     0.864,
-     0.21
+     0.873,
+     0.19
     ],
     [
      12,
-     0.862,
-     0.21
+     0.872,
+     0.19
     ],
     [
      13,
-     0.864,
-     0.19
+     0.875,
+     0.18
     ],
     [
      14,
-     0.866,
-     0.19
+     0.877,
+     0.18
     ],
     [
      15,
-     0.867,
-     0.19
+     0.876,
+     0.18
     ],
     [
      16,
-     0.867,
-     0.19
+     0.875,
+     0.18
     ],
     [
      17,
-     0.867,
-     0.18
+     0.874,
+     0.19
     ],
     [
      18,
-     0.868,
-     0.18
+     0.873,
+     0.17
     ],
     [
      19,
-     0.868,
+     0.873,
      0.18
     ],
     [
      20,
-     0.871,
-     0.17
+     0.876,
+     0.18
     ],
     [
      21,
-     0.871,
-     0.09
+     0.885,
+     0.08
     ],
     [
      22,
-     0.899,
-     0.14
+     0.912,
+     0.13
     ]
    ],
-   "col": "#9dc6ff"
+   "col": "#9cc0ff"
   },
-  "q": 58,
-  "bodyPx": 178,
-  "budget": {
-   "kb": 132.0,
-   "liveRam": 9.18,
-   "liveKb": 604.0
+  "q": 64,
+  "bodyPx": 197,
+  "bodyPxF": 196.9,
+  "v": 21,
+  "live": {
+   "key": "sup",
+   "kb": 164.2,
+   "ramMb": 1.92,
+   "kbPct": 119,
+   "ramPct": 127
   },
   "mob": {
    "file": "atlas-ti-sup-mob.webp",
-   "w": 104,
-   "h": 201,
-   "kb": 129.5,
-   "ramMb": 1.99
+   "w": 116,
+   "h": 220,
+   "kb": 196.0,
+   "ramMb": 2.43
   },
   "lite": {
    "file": "atlas-ti-sup-lite.webp",
-   "w": 73,
-   "h": 141,
-   "kb": 72.9,
-   "ramMb": 0.98
-  }
+   "w": 81,
+   "h": 154,
+   "kb": 106.3,
+   "ramMb": 1.19
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_bt_atk": {
   "id": "blackbeard_bt_atk",
-  "srcRes": "282x420",
+  "srcRes": "796x1188",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 10,
   "rel": 0.417,
   "wpt": [
-   -0.119,
-   -1.023
+   -0.123,
+   -1.027
   ],
   "wf": [
-   0.355,
-   0.128
+   0.35,
+   0.123
   ],
-  "maxDiff": 40.35,
+  "maxDiff": 38.45,
   "fig": {
-   "top": 0.1472,
-   "foot": 0.9903,
-   "ax": 0.5322
+   "top": 0.1454,
+   "foot": 0.9914,
+   "ax": 0.5345
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": null,
-  "q": 58,
-  "bodyPx": 148,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 78,
+  "bodyPx": 186,
+  "bodyPxF": 186.12,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 120,
+   "ramPct": 92
   },
   "mob": {
    "file": "blackbeard-bt-atk-mob.webp",
-   "w": 99,
-   "h": 175,
-   "kb": 105.6,
-   "ramMb": 1.65
+   "w": 124,
+   "h": 220,
+   "kb": 233.0,
+   "ramMb": 2.6
   },
   "lite": {
    "file": "blackbeard-bt-atk-lite.webp",
-   "w": 69,
-   "h": 122,
-   "kb": 62.0,
-   "ramMb": 0.8
-  }
+   "w": 87,
+   "h": 154,
+   "kb": 127.4,
+   "ramMb": 1.28
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_bt_hyp": {
   "id": "blackbeard_bt_hyp",
-  "srcRes": "282x420",
+  "srcRes": "796x1188",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 16,
   "rel": 0.667,
   "wpt": [
-   0.291,
-   -0.867
+   0.296,
+   -0.817
   ],
   "wf": [
-   0.873,
-   0.259
+   0.877,
+   0.294
   ],
-  "maxDiff": 36.78,
+  "maxDiff": 34.54,
   "fig": {
-   "top": 0.1472,
-   "foot": 0.9903,
-   "ax": 0.4637
+   "top": 0.1372,
+   "foot": 0.9913,
+   "ax": 0.4622
   },
-  "defects": [
-   "raw_edge_clip"
-  ],
+  "defects": [],
   "crop": null,
   "ho": {
    "top": [
     [
      16,
-     0.772,
-     0.33
+     0.767,
+     0.49
     ],
     [
      17,
-     0.761,
-     0.77
+     0.734,
+     0.39
     ],
     [
      18,
-     0.745,
-     0.86
+     0.739,
+     0.08
     ],
     [
      19,
-     0.752,
-     0.82
+     0.778,
+     0.83
     ],
     [
      20,
-     0.647,
-     0.34
+     0.621,
+     0.28
     ]
    ],
    "right": [
     [
      16,
-     0.448,
-     0.11
+     0.445,
+     0.09
     ],
     [
      17,
-     0.328,
-     0.3
+     0.386,
+     0.17
     ],
     [
      18,
-     0.195,
-     0.31
+     0.189,
+     0.28
     ],
     [
      19,
-     0.193,
-     0.21
+     0.189,
+     0.2
     ]
    ],
-   "col": "#7efef2"
+   "col": "#74fff1"
   },
-  "q": 58,
-  "bodyPx": 143,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 72,
+  "bodyPx": 188,
+  "bodyPxF": 187.9,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 119,
+   "ramPct": 99
   },
   "mob": {
    "file": "blackbeard-bt-hyp-mob.webp",
-   "w": 102,
-   "h": 170,
-   "kb": 107.7,
-   "ramMb": 1.65
+   "w": 134,
+   "h": 220,
+   "kb": 230.9,
+   "ramMb": 2.81
   },
   "lite": {
    "file": "blackbeard-bt-hyp-lite.webp",
-   "w": 71,
-   "h": 119,
-   "kb": 61.7,
-   "ramMb": 0.81
-  }
+   "w": 94,
+   "h": 154,
+   "kb": 125.1,
+   "ramMb": 1.38
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_bt_idle": {
   "id": "blackbeard_bt_idle",
@@ -7986,25 +8011,25 @@
  },
  "blackbeard_bt_sup": {
   "id": "blackbeard_bt_sup",
-  "srcRes": "282x420",
+  "srcRes": "796x1188",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 15,
   "rel": 0.625,
   "wpt": [
-   0.275,
-   -0.831
+   0.283,
+   -0.829
   ],
   "wf": [
-   0.841,
-   0.242
+   0.855,
+   0.241
   ],
-  "maxDiff": 41.3,
+  "maxDiff": 38.79,
   "fig": {
-   "top": 0.0896,
-   "foot": 0.9896,
-   "ax": 0.4435
+   "top": 0.0864,
+   "foot": 0.9908,
+   "ax": 0.4436
   },
   "defects": [],
   "crop": null,
@@ -8012,70 +8037,70 @@
    "right": [
     [
      10,
-     0.209,
-     0.16
-    ],
-    [
-     12,
-     0.242,
-     0.07
+     0.214,
+     0.31
     ],
     [
      13,
-     0.234,
-     0.08
+     0.23,
+     0.1
     ],
     [
      15,
-     0.236,
-     0.58
+     0.235,
+     0.57
     ]
    ],
-   "col": "#8efffd"
+   "col": "#86fbff"
   },
-  "q": 58,
-  "bodyPx": 150,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 71,
+  "bodyPx": 199,
+  "bodyPxF": 198.97,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 120,
+   "ramPct": 101
   },
   "mob": {
    "file": "blackbeard-bt-sup-mob.webp",
-   "w": 104,
-   "h": 167,
-   "kb": 106.5,
-   "ramMb": 1.66
+   "w": 137,
+   "h": 220,
+   "kb": 233.2,
+   "ramMb": 2.87
   },
   "lite": {
    "file": "blackbeard-bt-sup-lite.webp",
-   "w": 73,
-   "h": 117,
-   "kb": 64.9,
-   "ramMb": 0.81
-  }
+   "w": 96,
+   "h": 154,
+   "kb": 125.7,
+   "ramMb": 1.41
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_ti_atk": {
   "id": "blackbeard_ti_atk",
-  "srcRes": "326x420",
+  "srcRes": "836x1076",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 9,
   "rel": 0.375,
   "wpt": [
-   0.352,
-   -0.459
+   0.353,
+   -0.461
   ],
   "wf": [
-   0.901,
-   0.575
+   0.903,
+   0.574
   ],
-  "maxDiff": 58.04,
+  "maxDiff": 57.21,
   "fig": {
-   "top": 0.0859,
-   "foot": 0.9903,
-   "ax": 0.4985
+   "top": 0.0865,
+   "foot": 0.9905,
+   "ax": 0.4994
   },
   "defects": [
    "raw_edge_clip"
@@ -8085,55 +8110,60 @@
    "right": [
     [
      9,
-     0.23,
-     0.06
+     0.276,
+     0.08
     ]
    ],
-   "col": "#6dfff0"
+   "col": "#6ffff1"
   },
-  "q": 70,
-  "bodyPx": 134,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 75,
+  "bodyPx": 199,
+  "bodyPxF": 198.88,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 120,
+   "ramPct": 129
   },
   "mob": {
    "file": "blackbeard-ti-atk-mob.webp",
-   "w": 117,
-   "h": 148,
-   "kb": 117.9,
-   "ramMb": 1.65
+   "w": 174,
+   "h": 220,
+   "kb": 232.5,
+   "ramMb": 3.65
   },
   "lite": {
    "file": "blackbeard-ti-atk-lite.webp",
-   "w": 82,
-   "h": 104,
-   "kb": 52.3,
-   "ramMb": 0.81
-  }
+   "w": 122,
+   "h": 154,
+   "kb": 128.2,
+   "ramMb": 1.79
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_ti_hyp": {
   "id": "blackbeard_ti_hyp",
-  "srcRes": "326x420",
+  "srcRes": "836x1076",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 17,
   "rel": 0.708,
   "wpt": [
-   0.252,
+   0.253,
    -0.818
   ],
   "wf": [
-   0.815,
+   0.807,
    0.251
   ],
-  "maxDiff": 45.4,
+  "maxDiff": 44.85,
   "fig": {
-   "top": 0.0859,
-   "foot": 0.9903,
-   "ax": 0.5113
+   "top": 0.0865,
+   "foot": 0.9896,
+   "ax": 0.5063
   },
   "defects": [
    "raw_edge_clip"
@@ -8143,67 +8173,72 @@
    "top": [
     [
      14,
-     0.765,
-     0.72
+     0.759,
+     0.74
     ],
     [
      15,
-     0.75,
-     0.51
+     0.744,
+     0.5
     ],
     [
      16,
-     0.749,
+     0.743,
      0.4
     ],
     [
      17,
-     0.731,
-     0.48
+     0.724,
+     0.49
     ],
     [
      18,
-     0.75,
-     0.59
+     0.741,
+     0.6
     ],
     [
      19,
-     0.717,
-     0.64
+     0.713,
+     0.65
     ],
     [
      20,
-     0.687,
-     0.38
+     0.697,
+     0.31
     ]
    ],
-   "col": "#4ffffd"
+   "col": "#50ffff"
   },
-  "q": 58,
-  "bodyPx": 137,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 66,
+  "bodyPx": 199,
+  "bodyPxF": 198.68,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 118,
+   "ramPct": 124
   },
   "mob": {
    "file": "blackbeard-ti-hyp-mob.webp",
-   "w": 114,
-   "h": 152,
-   "kb": 102.6,
-   "ramMb": 1.65
+   "w": 167,
+   "h": 220,
+   "kb": 229.0,
+   "ramMb": 3.5
   },
   "lite": {
    "file": "blackbeard-ti-hyp-lite.webp",
-   "w": 80,
-   "h": 106,
-   "kb": 61.8,
-   "ramMb": 0.81
-  }
+   "w": 117,
+   "h": 154,
+   "kb": 126.4,
+   "ramMb": 1.72
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_ti_idle": {
   "id": "blackbeard_ti_idle",
-  "srcRes": "326x420",
+  "srcRes": "836x1076",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -8214,70 +8249,80 @@
    -0.62
   ],
   "wf": [
-   0.525,
-   0.401
+   0.527,
+   0.4
   ],
-  "maxDiff": 37.73,
+  "maxDiff": 36.95,
   "fig": {
-   "top": 0.0415,
-   "foot": 0.9873,
-   "ax": 0.5248
+   "top": 0.04,
+   "foot": 0.988,
+   "ax": 0.5268
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
-  "bodyPx": 178,
-  "budget": {
-   "kb": 159.5,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 91,
+  "bodyPx": 198,
+  "bodyPxF": 198.13,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 347.3,
+   "ramMb": 4.76,
+   "kbPct": 100,
+   "ramPct": 59
   },
   "mob": {
    "file": "blackbeard-ti-idle-mob.webp",
-   "w": 125,
-   "h": 188,
-   "kb": 135.3,
-   "ramMb": 2.24
+   "w": 140,
+   "h": 209,
+   "kb": 348.1,
+   "ramMb": 2.79
   },
   "lite": {
    "file": "blackbeard-ti-idle-lite.webp",
-   "w": 88,
-   "h": 132,
-   "kb": 80.5,
-   "ramMb": 1.11
-  }
+   "w": 98,
+   "h": 146,
+   "kb": 205.6,
+   "ramMb": 1.36
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "blackbeard_ti_sup": {
   "id": "blackbeard_ti_sup",
-  "srcRes": "326x420",
+  "srcRes": "836x1076",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 7,
   "rel": 0.292,
   "wpt": [
-   0.279,
-   -0.871
+   0.281,
+   -0.87
   ],
   "wf": [
-   0.822,
-   0.203
+   0.829,
+   0.204
   ],
-  "maxDiff": 48.37,
+  "maxDiff": 47.21,
   "fig": {
-   "top": 0.0859,
-   "foot": 0.9903,
-   "ax": 0.4785
+   "top": 0.0865,
+   "foot": 0.9905,
+   "ax": 0.4859
   },
   "defects": [],
   "crop": null,
   "ho": {
    "top": [
     [
+     8,
+     0.455,
+     0.05
+    ],
+    [
      12,
-     0.855,
-     0.39
+     0.85,
+     0.45
     ]
    ],
    "right": [
@@ -8287,29 +8332,34 @@
      0.35
     ]
    ],
-   "col": "#61fff8"
+   "col": "#64fff9"
   },
-  "q": 58,
-  "bodyPx": 139,
-  "budget": {
-   "kb": 118.4,
-   "liveRam": 7.59,
-   "liveKb": 541.7
+  "q": 70,
+  "bodyPx": 199,
+  "bodyPxF": 198.88,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 194.4,
+   "ramMb": 2.83,
+   "kbPct": 118,
+   "ramPct": 121
   },
   "mob": {
    "file": "blackbeard-ti-sup-mob.webp",
-   "w": 113,
-   "h": 154,
-   "kb": 101.3,
-   "ramMb": 1.66
+   "w": 163,
+   "h": 220,
+   "kb": 229.7,
+   "ramMb": 3.42
   },
   "lite": {
    "file": "blackbeard-ti-sup-lite.webp",
-   "w": 79,
-   "h": 108,
-   "kb": 62.1,
-   "ramMb": 0.81
-  }
+   "w": 114,
+   "h": 154,
+   "kb": 127.0,
+   "ramMb": 1.67
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "brynhild_bt_atk": {
   "id": "brynhild_bt_atk",
@@ -10757,25 +10807,25 @@
  },
  "dracula_bt_atk": {
   "id": "dracula_bt_atk",
-  "srcRes": "316x420",
+  "srcRes": "836x1112",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 12,
   "rel": 0.5,
   "wpt": [
-   -0.01,
-   -0.595
+   -0.026,
+   -0.597
   ],
   "wf": [
-   0.479,
-   0.489
+   0.457,
+   0.484
   ],
-  "maxDiff": 20.78,
+  "maxDiff": 19.54,
   "fig": {
    "top": 0.146,
-   "foot": 0.9927,
-   "ax": 0.4936
+   "foot": 0.9844,
+   "ax": 0.4952
   },
   "defects": [
    "raw_edge_clip"
@@ -10786,79 +10836,89 @@
     [
      12,
      0.501,
-     0.31
+     0.29
     ]
    ],
-   "col": "#ffa8a0"
+   "col": "#ffa7a0"
   },
-  "q": 58,
-  "bodyPx": 186,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "q": 85,
+  "bodyPx": 184,
+  "bodyPxF": 184.45,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 168.4,
+   "ramMb": 3.1,
+   "kbPct": 120,
+   "ramPct": 85
   },
   "mob": {
    "file": "dracula-bt-atk-mob.webp",
-   "w": 126,
+   "w": 125,
    "h": 220,
-   "kb": 109.7,
-   "ramMb": 2.64
+   "kb": 201.4,
+   "ramMb": 2.62
   },
   "lite": {
    "file": "dracula-bt-atk-lite.webp",
    "w": 88,
    "h": 154,
-   "kb": 64.5,
+   "kb": 110.8,
    "ramMb": 1.29
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dracula_bt_hyp": {
   "id": "dracula_bt_hyp",
-  "srcRes": "316x420",
+  "srcRes": "836x1112",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 13,
   "rel": 0.542,
   "wpt": [
-   -0.053,
-   -0.597
+   0.071,
+   -0.634
   ],
   "wf": [
-   0.461,
-   0.443
+   0.606,
+   0.412
   ],
-  "maxDiff": 24.29,
+  "maxDiff": 23.65,
   "fig": {
-   "top": 0.0862,
-   "foot": 0.9719,
-   "ax": 0.524
+   "top": 0.0884,
+   "foot": 0.973,
+   "ax": 0.522
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
-  "bodyPx": 180,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "q": 68,
+  "bodyPx": 195,
+  "bodyPxF": 194.61,
+  "v": 21,
+  "live": {
+   "key": "hyp",
+   "kb": 172.3,
+   "ramMb": 4.34,
+   "kbPct": 120,
+   "ramPct": 79
   },
   "mob": {
    "file": "dracula-bt-hyp-mob.webp",
-   "w": 152,
-   "h": 203,
-   "kb": 118.3,
-   "ramMb": 2.94
+   "w": 164,
+   "h": 220,
+   "kb": 206.4,
+   "ramMb": 3.44
   },
   "lite": {
    "file": "dracula-bt-hyp-lite.webp",
-   "w": 106,
-   "h": 142,
-   "kb": 70.0,
-   "ramMb": 1.44
-  }
+   "w": 115,
+   "h": 154,
+   "kb": 111.1,
+   "ramMb": 1.69
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dracula_bt_idle": {
   "id": "dracula_bt_idle",
@@ -10909,74 +10969,25 @@
  },
  "dracula_bt_sup": {
   "id": "dracula_bt_sup",
-  "srcRes": "316x420",
+  "srcRes": "836x1112",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 16,
   "rel": 0.667,
   "wpt": [
-   0.085,
-   -0.807
+   0.089,
+   -0.823
   ],
   "wf": [
-   0.581,
-   0.309
+   0.587,
+   0.296
   ],
-  "maxDiff": 28.59,
+  "maxDiff": 28.14,
   "fig": {
-   "top": 0.146,
-   "foot": 0.9927,
-   "ax": 0.4853
-  },
-  "defects": [
-   "raw_edge_clip"
-  ],
-  "crop": null,
-  "ho": null,
-  "q": 58,
-  "bodyPx": 172,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
-  },
-  "mob": {
-   "file": "dracula-bt-sup-mob.webp",
-   "w": 152,
-   "h": 203,
-   "kb": 119.6,
-   "ramMb": 2.94
-  },
-  "lite": {
-   "file": "dracula-bt-sup-lite.webp",
-   "w": 106,
-   "h": 142,
-   "kb": 66.5,
-   "ramMb": 1.44
-  }
- },
- "dracula_ti_atk": {
-  "id": "dracula_ti_atk",
-  "srcRes": "350x420",
-  "frames": 25,
-  "cols": 5,
-  "rows": 5,
-  "impact": 11,
-  "rel": 0.458,
-  "wpt": [
-   0.07,
-   -0.486
-  ],
-  "wf": [
-   0.567,
-   0.541
-  ],
-  "maxDiff": 47.1,
-  "fig": {
-   "top": 0.0865,
-   "foot": 0.9714,
-   "ax": 0.4913
+   "top": 0.1463,
+   "foot": 0.9917,
+   "ax": 0.4865
   },
   "defects": [
    "raw_edge_clip"
@@ -10985,92 +10996,170 @@
   "ho": {
    "top": [
     [
-     11,
-     0.387,
-     0.09
+     15,
+     0.69,
+     0.06
     ],
     [
-     12,
-     0.414,
-     0.06
+     17,
+     0.697,
+     0.14
     ]
    ],
-   "col": "#ff636e"
+   "col": "#fe1131"
   },
-  "q": 46,
-  "bodyPx": 172,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "q": 72,
+  "bodyPx": 186,
+  "bodyPxF": 185.99,
+  "v": 21,
+  "live": {
+   "key": "hyp",
+   "kb": 172.3,
+   "ramMb": 4.34,
+   "kbPct": 119,
+   "ramPct": 80
+  },
+  "mob": {
+   "file": "dracula-bt-sup-mob.webp",
+   "w": 165,
+   "h": 220,
+   "kb": 205.1,
+   "ramMb": 3.46
+  },
+  "lite": {
+   "file": "dracula-bt-sup-lite.webp",
+   "w": 115,
+   "h": 154,
+   "kb": 113.4,
+   "ramMb": 1.69
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
+ },
+ "dracula_ti_atk": {
+  "id": "dracula_ti_atk",
+  "srcRes": "892x1068",
+  "frames": 25,
+  "cols": 5,
+  "rows": 5,
+  "impact": 11,
+  "rel": 0.458,
+  "wpt": [
+   0.032,
+   -0.481
+  ],
+  "wf": [
+   0.526,
+   0.55
+  ],
+  "maxDiff": 54.0,
+  "fig": {
+   "top": 0.0861,
+   "foot": 0.9801,
+   "ax": 0.4914
+  },
+  "defects": [
+   "raw_edge_clip"
+  ],
+  "crop": null,
+  "ho": {
+   "top": [
+    [
+     10,
+     0.418,
+     0.15
+    ],
+    [
+     11,
+     0.411,
+     0.38
+    ]
+   ],
+   "col": "#fe3342"
+  },
+  "q": 63,
+  "bodyPx": 194,
+  "bodyPxF": 194.0,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 168.4,
+   "ramMb": 3.1,
+   "kbPct": 120,
+   "ramPct": 120
   },
   "mob": {
    "file": "dracula-ti-atk-mob.webp",
-   "w": 159,
-   "h": 194,
-   "kb": 128.7,
-   "ramMb": 2.94
+   "w": 180,
+   "h": 217,
+   "kb": 201.4,
+   "ramMb": 3.73
   },
   "lite": {
    "file": "dracula-ti-atk-lite.webp",
-   "w": 111,
-   "h": 136,
-   "kb": 76.9,
-   "ramMb": 1.44
-  }
+   "w": 126,
+   "h": 152,
+   "kb": 102.7,
+   "ramMb": 1.83
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dracula_ti_hyp": {
   "id": "dracula_ti_hyp",
-  "srcRes": "350x420",
+  "srcRes": "892x1068",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 9,
   "rel": 0.375,
   "wpt": [
-   0.126,
-   -0.588
+   0.127,
+   -0.607
   ],
   "wf": [
-   0.633,
-   0.441
+   0.632,
+   0.442
   ],
-  "maxDiff": 28.64,
+  "maxDiff": 28.22,
   "fig": {
-   "top": 0.0561,
-   "foot": 0.9899,
-   "ax": 0.5
+   "top": 0.087,
+   "foot": 0.9904,
+   "ax": 0.496
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": null,
-  "q": 46,
-  "bodyPx": 175,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "q": 62,
+  "bodyPx": 192,
+  "bodyPxF": 192.42,
+  "v": 21,
+  "live": {
+   "key": "hyp",
+   "kb": 172.3,
+   "ramMb": 4.34,
+   "kbPct": 120,
+   "ramPct": 84
   },
   "mob": {
    "file": "dracula-ti-hyp-mob.webp",
-   "w": 165,
-   "h": 187,
-   "kb": 127.3,
-   "ramMb": 2.94
+   "w": 180,
+   "h": 213,
+   "kb": 206.2,
+   "ramMb": 3.66
   },
   "lite": {
    "file": "dracula-ti-hyp-lite.webp",
-   "w": 115,
-   "h": 131,
-   "kb": 76.6,
-   "ramMb": 1.44
-  }
+   "w": 126,
+   "h": 149,
+   "kb": 108.8,
+   "ramMb": 1.79
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dracula_ti_idle": {
   "id": "dracula_ti_idle",
-  "srcRes": "350x420",
+  "srcRes": "892x1068",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -11081,183 +11170,205 @@
    -0.62
   ],
   "wf": [
-   0.5,
-   0.394
+   0.502,
+   0.393
   ],
-  "maxDiff": 25.75,
+  "maxDiff": 25.4,
   "fig": {
-   "top": 0.0292,
-   "foot": 0.9897,
-   "ax": 0.5
+   "top": 0.0266,
+   "foot": 0.9898,
+   "ax": 0.5022
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
+  "q": 87,
   "bodyPx": 198,
-  "budget": {
-   "kb": 172.3,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "bodyPxF": 198.42,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 244.3,
+   "ramMb": 6.03,
+   "kbPct": 117,
+   "ramPct": 47
   },
   "mob": {
    "file": "dracula-ti-idle-mob.webp",
-   "w": 147,
+   "w": 144,
    "h": 206,
-   "kb": 147.8,
-   "ramMb": 2.89
+   "kb": 285.3,
+   "ramMb": 2.83
   },
   "lite": {
    "file": "dracula-ti-idle-lite.webp",
-   "w": 103,
+   "w": 101,
    "h": 144,
-   "kb": 86.0,
-   "ramMb": 1.41
-  }
+   "kb": 158.8,
+   "ramMb": 1.39
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dracula_ti_sup": {
   "id": "dracula_ti_sup",
-  "srcRes": "350x420",
+  "srcRes": "892x1068",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 14,
   "rel": 0.583,
   "wpt": [
-   0.266,
-   -0.799
+   0.287,
+   -0.87
   ],
   "wf": [
-   0.75,
-   0.269
+   0.777,
+   0.204
   ],
-  "maxDiff": 23.3,
+  "maxDiff": 24.89,
   "fig": {
-   "top": 0.0881,
-   "foot": 0.9903,
-   "ax": 0.4262
+   "top": 0.087,
+   "foot": 0.9904,
+   "ax": 0.4266
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": null,
-  "q": 46,
-  "bodyPx": 184,
-  "budget": {
-   "kb": 127.8,
-   "liveRam": 13.47,
-   "liveKb": 585.0
+  "q": 61,
+  "bodyPx": 199,
+  "bodyPxF": 198.75,
+  "v": 21,
+  "live": {
+   "key": "hyp",
+   "kb": 172.3,
+   "ramMb": 4.34,
+   "kbPct": 117,
+   "ramPct": 79
   },
   "mob": {
    "file": "dracula-ti-sup-mob.webp",
-   "w": 151,
-   "h": 204,
-   "kb": 133.8,
-   "ramMb": 2.94
+   "w": 163,
+   "h": 220,
+   "kb": 201.8,
+   "ramMb": 3.42
   },
   "lite": {
    "file": "dracula-ti-sup-lite.webp",
-   "w": 106,
-   "h": 143,
-   "kb": 75.9,
-   "ramMb": 1.45
-  }
+   "w": 114,
+   "h": 154,
+   "kb": 110.0,
+   "ramMb": 1.67
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dutchman_bt_atk": {
   "id": "dutchman_bt_atk",
-  "srcRes": "328x420",
+  "srcRes": "844x1080",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 10,
   "rel": 0.417,
   "wpt": [
-   0.085,
-   -0.348
+   0.124,
+   -0.42
   ],
   "wf": [
-   0.672,
-   0.678
+   0.724,
+   0.617
   ],
-  "maxDiff": 42.77,
+  "maxDiff": 40.38,
   "fig": {
-   "top": 0.1272,
-   "foot": 0.9714,
-   "ax": 0.5677
+   "top": 0.1267,
+   "foot": 0.9721,
+   "ax": 0.571
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
   "ho": {
+   "top": [
+    [
+     9,
+     0.587,
+     0.16
+    ]
+   ],
    "bottom": [
     [
      10,
-     0.611,
+     0.616,
      1.0
     ],
     [
      11,
-     0.58,
+     0.591,
      1.0
     ],
     [
      12,
-     0.582,
+     0.588,
      1.0
     ],
     [
      13,
-     0.599,
+     0.601,
      1.0
     ],
     [
      14,
-     0.62,
+     0.619,
      1.0
     ],
     [
      15,
-     0.401,
+     0.395,
      1.0
     ],
     [
      18,
-     0.565,
-     0.07
+     0.566,
+     0.11
     ]
    ],
    "left": [
     [
      18,
-     0.733,
-     0.07
+     0.737,
+     0.08
     ]
    ],
-   "col": "#91fed4"
+   "col": "#87ffd5"
   },
-  "q": 58,
-  "bodyPx": 165,
-  "budget": {
-   "kb": 147.1,
-   "liveRam": 11.45,
-   "liveKb": 673.4
+  "q": 83,
+  "bodyPx": 186,
+  "bodyPxF": 185.99,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 270.4,
+   "ramMb": 5.74,
+   "kbPct": 118,
+   "ramPct": 55
   },
   "mob": {
    "file": "dutchman-bt-atk-mob.webp",
-   "w": 134,
-   "h": 195,
-   "kb": 138.0,
-   "ramMb": 2.49
+   "w": 151,
+   "h": 220,
+   "kb": 319.6,
+   "ramMb": 3.17
   },
   "lite": {
    "file": "dutchman-bt-atk-lite.webp",
-   "w": 94,
-   "h": 136,
-   "kb": 78.5,
-   "ramMb": 1.22
-  }
+   "w": 106,
+   "h": 154,
+   "kb": 178.0,
+   "ramMb": 1.56
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dutchman_bt_hyp": {
   "id": "dutchman_bt_hyp",
@@ -11319,7 +11430,7 @@
  },
  "dutchman_bt_idle": {
   "id": "dutchman_bt_idle",
-  "srcRes": "328x420",
+  "srcRes": "844x1080",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -11331,38 +11442,43 @@
   ],
   "wf": [
    0.504,
-   0.419
+   0.418
   ],
-  "maxDiff": 23.95,
+  "maxDiff": 23.97,
   "fig": {
-   "top": 0.0685,
-   "foot": 0.9896,
-   "ax": 0.5038
+   "top": 0.0674,
+   "foot": 0.9909,
+   "ax": 0.5037
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 52,
+  "q": 91,
   "bodyPx": 198,
-  "budget": {
-   "kb": 198.3,
-   "liveRam": 11.45,
-   "liveKb": 673.4
+  "bodyPxF": 197.63,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 403.0,
+   "ramMb": 5.71,
+   "kbPct": 114,
+   "ramPct": 53
   },
   "mob": {
    "file": "dutchman-bt-idle-mob.webp",
    "w": 148,
-   "h": 215,
-   "kb": 188.5,
-   "ramMb": 3.03
+   "h": 214,
+   "kb": 460.4,
+   "ramMb": 3.02
   },
   "lite": {
    "file": "dutchman-bt-idle-lite.webp",
    "w": 104,
    "h": 150,
-   "kb": 106.5,
+   "kb": 252.9,
    "ramMb": 1.49
-  }
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dutchman_bt_sup": {
   "id": "dutchman_bt_sup",
@@ -11573,7 +11689,7 @@
  },
  "dutchman_ti_idle": {
   "id": "dutchman_ti_idle",
-  "srcRes": "310x420",
+  "srcRes": "828x1120",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -11584,39 +11700,44 @@
    -0.62
   ],
   "wf": [
-   0.52,
-   0.394
+   0.532,
+   0.395
   ],
-  "maxDiff": 23.84,
+  "maxDiff": 24.92,
   "fig": {
-   "top": 0.0363,
-   "foot": 0.9772,
-   "ax": 0.5201
+   "top": 0.0344,
+   "foot": 0.9837,
+   "ax": 0.5319
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 58,
+  "q": 91,
   "bodyPx": 198,
-  "budget": {
-   "kb": 198.3,
-   "liveRam": 11.45,
-   "liveKb": 673.4
+  "bodyPxF": 198.4,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 403.0,
+   "ramMb": 5.71,
+   "kbPct": 101,
+   "ramPct": 49
   },
   "mob": {
    "file": "dutchman-ti-idle-mob.webp",
-   "w": 146,
-   "h": 210,
-   "kb": 164.8,
-   "ramMb": 2.92
+   "w": 141,
+   "h": 209,
+   "kb": 405.3,
+   "ramMb": 2.81
   },
   "lite": {
    "file": "dutchman-ti-idle-lite.webp",
-   "w": 102,
-   "h": 147,
-   "kb": 97.6,
-   "ramMb": 1.43
-  }
+   "w": 99,
+   "h": 146,
+   "kb": 231.9,
+   "ramMb": 1.38
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "dutchman_ti_sup": {
   "id": "dutchman_ti_sup",
@@ -12371,24 +12492,24 @@
  },
  "hecate_bt_atk": {
   "id": "hecate_bt_atk",
-  "srcRes": "348x420",
+  "srcRes": "884x1068",
   "frames": 25,
   "cols": 5,
   "rows": 5,
   "impact": 13,
   "rel": 0.542,
   "wpt": [
-   -0.202,
-   -1.017
+   -0.205,
+   -1.028
   ],
   "wf": [
-   0.224,
-   0.12
+   0.218,
+   0.11
   ],
-  "maxDiff": 27.07,
+  "maxDiff": 26.43,
   "fig": {
-   "top": 0.1345,
-   "foot": 0.9903,
+   "top": 0.1344,
+   "foot": 0.9914,
    "ax": 0.5
   },
   "defects": [
@@ -12399,80 +12520,75 @@
    "top": [
     [
      12,
-     0.214,
-     0.7
-    ],
-    [
-     13,
-     0.198,
+     0.211,
      0.85
     ],
     [
+     13,
+     0.207,
+     0.96
+    ],
+    [
      14,
-     0.189,
-     0.99
+     0.195,
+     1.0
     ],
     [
      15,
-     0.204,
-     0.79
+     0.217,
+     0.47
     ],
     [
      16,
-     0.199,
-     0.65
+     0.196,
+     0.67
     ],
     [
      17,
      0.22,
-     0.18
-    ],
-    [
-     18,
-     0.22,
-     0.07
-    ],
-    [
-     19,
-     0.213,
-     0.44
+     0.13
     ]
    ],
    "left": [
     [
      12,
-     0.082,
-     0.11
+     0.086,
+     0.22
     ],
     [
      13,
-     0.039,
-     0.16
+     0.041,
+     0.18
     ]
    ],
-   "col": "#c581ff"
+   "col": "#c485ff"
   },
-  "q": 64,
-  "bodyPx": 188,
-  "budget": {
-   "kb": 231.9,
-   "liveRam": 16.54,
-   "liveKb": 1061.2
+  "q": 78,
+  "bodyPx": 189,
+  "bodyPxF": 188.54,
+  "v": 21,
+  "live": {
+   "key": "atk",
+   "kb": 244.0,
+   "ramMb": 3.92,
+   "kbPct": 119,
+   "ramPct": 73
   },
   "mob": {
    "file": "hecate-bt-atk-mob.webp",
-   "w": 138,
+   "w": 137,
    "h": 220,
-   "kb": 220.1,
-   "ramMb": 2.9
+   "kb": 290.3,
+   "ramMb": 2.87
   },
   "lite": {
    "file": "hecate-bt-atk-lite.webp",
-   "w": 97,
+   "w": 96,
    "h": 154,
-   "kb": 126.2,
-   "ramMb": 1.42
-  }
+   "kb": 159.2,
+   "ramMb": 1.41
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "hecate_bt_hyp": {
   "id": "hecate_bt_hyp",
@@ -12559,7 +12675,7 @@
  },
  "hecate_bt_idle": {
   "id": "hecate_bt_idle",
-  "srcRes": "348x420",
+  "srcRes": "884x1068",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -12573,36 +12689,41 @@
    0.509,
    0.423
   ],
-  "maxDiff": 23.8,
+  "maxDiff": 22.92,
   "fig": {
-   "top": 0.076,
-   "foot": 0.9896,
-   "ax": 0.5095
+   "top": 0.075,
+   "foot": 0.9908,
+   "ax": 0.509
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 76,
+  "q": 90,
   "bodyPx": 198,
-  "budget": {
-   "kb": 312.5,
-   "liveRam": 16.54,
-   "liveKb": 1061.2
+  "bodyPxF": 197.81,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 351.6,
+   "ramMb": 5.18,
+   "kbPct": 117,
+   "ramPct": 58
   },
   "mob": {
    "file": "hecate-bt-idle-mob.webp",
-   "w": 149,
-   "h": 217,
-   "kb": 275.1,
-   "ramMb": 3.08
+   "w": 147,
+   "h": 216,
+   "kb": 410.0,
+   "ramMb": 3.03
   },
   "lite": {
    "file": "hecate-bt-idle-lite.webp",
-   "w": 104,
-   "h": 152,
-   "kb": 145.9,
-   "ramMb": 1.51
-  }
+   "w": 103,
+   "h": 151,
+   "kb": 231.6,
+   "ramMb": 1.48
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "hecate_bt_sup": {
   "id": "hecate_bt_sup",
@@ -13000,7 +13121,7 @@
  },
  "hecate_ti_idle": {
   "id": "hecate_ti_idle",
-  "srcRes": "230x420",
+  "srcRes": "716x1308",
   "frames": 25,
   "cols": 5,
   "rows": 5,
@@ -13011,39 +13132,44 @@
    -0.62
   ],
   "wf": [
-   0.462,
+   0.459,
    0.419
   ],
-  "maxDiff": 40.18,
+  "maxDiff": 38.5,
   "fig": {
-   "top": 0.0673,
-   "foot": 0.9918,
-   "ax": 0.462
+   "top": 0.0686,
+   "foot": 0.9903,
+   "ax": 0.459
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 82,
+  "q": 91,
   "bodyPx": 198,
-  "budget": {
-   "kb": 312.5,
-   "liveRam": 16.54,
-   "liveKb": 1061.2
+  "bodyPxF": 198.17,
+  "v": 21,
+  "live": {
+   "key": "idle",
+   "kb": 351.6,
+   "ramMb": 5.18,
+   "kbPct": 93,
+   "ramPct": 40
   },
   "mob": {
    "file": "hecate-ti-idle-mob.webp",
-   "w": 100,
-   "h": 214,
-   "kb": 276.3,
-   "ramMb": 2.04
+   "w": 101,
+   "h": 215,
+   "kb": 328.6,
+   "ramMb": 2.07
   },
   "lite": {
    "file": "hecate-ti-idle-lite.webp",
-   "w": 70,
+   "w": 71,
    "h": 150,
-   "kb": 132.8,
-   "ramMb": 1.0
-  }
+   "kb": 193.4,
+   "ramMb": 1.02
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
  },
  "hecate_ti_sup": {
   "id": "hecate_ti_sup",
@@ -46123,6 +46249,158 @@
    "w": 126,
    "h": 128,
    "kb": 117.1,
+   "ramMb": 1.54
+  },
+  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
+ },
+ "ares_ti_sup": {
+  "id": "ares_ti_sup",
+  "srcRes": "928x956",
+  "frames": 25,
+  "cols": 5,
+  "rows": 5,
+  "impact": 14,
+  "rel": 0.583,
+  "wpt": [
+   0.395,
+   -0.647
+  ],
+  "wf": [
+   0.837,
+   0.446
+  ],
+  "maxDiff": 56.65,
+  "fig": {
+   "top": 0.1515,
+   "foot": 0.9851,
+   "ax": 0.5022
+  },
+  "defects": [
+   "raw_edge_clip"
+  ],
+  "crop": null,
+  "ho": {
+   "top": [
+    [
+     12,
+     0.421,
+     0.52
+    ],
+    [
+     13,
+     0.348,
+     0.39
+    ],
+    [
+     14,
+     0.31,
+     0.28
+    ],
+    [
+     15,
+     0.353,
+     0.36
+    ],
+    [
+     16,
+     0.318,
+     0.52
+    ],
+    [
+     17,
+     0.524,
+     0.48
+    ],
+    [
+     18,
+     0.481,
+     0.76
+    ],
+    [
+     19,
+     0.582,
+     0.33
+    ],
+    [
+     20,
+     0.472,
+     0.29
+    ]
+   ],
+   "bottom": [
+    [
+     10,
+     0.15,
+     0.35
+    ],
+    [
+     11,
+     0.173,
+     0.42
+    ],
+    [
+     12,
+     0.158,
+     0.39
+    ],
+    [
+     13,
+     0.158,
+     0.37
+    ],
+    [
+     14,
+     0.159,
+     0.34
+    ],
+    [
+     15,
+     0.158,
+     0.37
+    ],
+    [
+     16,
+     0.157,
+     0.33
+    ],
+    [
+     17,
+     0.15,
+     0.35
+    ]
+   ],
+   "right": [
+    [
+     9,
+     0.748,
+     0.09
+    ]
+   ],
+   "col": "#ff7a55"
+  },
+  "q": 55,
+  "bodyPx": 153,
+  "bodyPxF": 152.55,
+  "v": 21,
+  "live": {
+   "key": "sup",
+   "kb": 173.4,
+   "ramMb": 3.81,
+   "kbPct": 120,
+   "ramPct": 82
+  },
+  "mob": {
+   "file": "ares-ti-sup-mob.webp",
+   "w": 180,
+   "h": 183,
+   "kb": 207.3,
+   "ramMb": 3.14
+  },
+  "lite": {
+   "file": "ares-ti-sup-lite.webp",
+   "w": 126,
+   "h": 128,
+   "kb": 113.5,
    "ramMb": 1.54
   },
   "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %)"
