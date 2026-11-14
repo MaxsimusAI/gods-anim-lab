@@ -1534,7 +1534,8 @@
    69,
    72
   ],
-  "fit": true
+  "fit": true,
+  "darkbody": true
  },
  "ares_ti_atk": {
   "idx": [
@@ -1595,7 +1596,8 @@
    69,
    72
   ],
-  "fit": true
+  "fit": true,
+  "darkbody": true
  },
  "ares_ti_sup": {
   "idx": [
@@ -1625,7 +1627,8 @@
    69,
    72
   ],
-  "fit": true
+  "fit": true,
+  "darkbody": true
  },
  "ares_bt_hyp": {
   "idx": [
@@ -1655,7 +1658,8 @@
    65,
    68
   ],
-  "fit": true
+  "fit": true,
+  "darkbody": true
  },
  "ares_ti_hyp": {
   "idx": [
@@ -1685,7 +1689,8 @@
    69,
    72
   ],
-  "fit": true
+  "fit": true,
+  "darkbody": true
  },
  "atlas_bt_atk": {
   "idx": [
@@ -7173,5 +7178,8 @@
   ],
   "k": 12,
   "fit": true
+ },
+ "ares_bt_idle": {
+  "darkbody": true
  }
 }
