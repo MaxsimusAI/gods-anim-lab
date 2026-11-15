@@ -18130,10 +18130,10 @@ F.supDrawn = true;
 const hits = FX_QUERY_K_FIRE1(F).filter(ev => ev.type === 'superHit' && ev.kind === 'multiHit' && ev.targets && ev.targets[0]), me = F.u;
 let prev = null;
 hits.forEach((ev, i) => {
-const t = ev.targets[0], self = i === 0, side = t.slot <= 1 ? 1 : -1, col = i % 2 ? '#3fdc5a' : '#ff8a2a', dt = Math.max(0, ev.t - F.t - .12);
+const t = ev.targets[0], self = i === 0, side = t.slot <= 1 ? 1 : -1, col = i % 2 ? '#3fdc5a' : '#ff8a2a', tHit = ev.t - F.t, dt = BR.isProposed ? Math.max(F.relDt('sup', 0), tHit - .12) : Math.max(0, tHit - .12);
 F.at(dt, () => {
 const bt = boxOf(t), here = { x: bt.x + side * bt.w * .62, y: bt.top + bt.h * .5 };
-if (prev) {
+if (prev && !BR.isProposed) {
 const a0 = prev;
 for (let k = 0; k < 10; k++)
 F.at(k * .007, () => { const q = k / 9; F.p({ x: lerp(a0.x, here.x, q), y: lerp(a0.y, here.y, q) - Math.sin(q * Math.PI) * 14, vx: F.rnd(-10, 10), vy: F.rnd(-10, 10), drag: 3, life: .25, s0: 3.4, s1: .6, tex: 'ember', col: F.pick(['#6aff7a', '#ff9a3a', '#ffd27a']) }); });
@@ -18144,7 +18144,7 @@ return;
 if (BR.isProposed) {   // r10 (G4: translucent copies of Loki over the targets - forbidden for every hero, 13.11): a blade of fire
 // leaves his dagger (wf) and reaches this target exactly with its hit
 const from = F.wp('s', me), to = F.tc(t, .45);
-F.shot(from, to, .12, { arc: side * 18, ease: 'ease-in', trailW: 7, col, trailCol: col, coreCol: '#fff0d8', trailLife: .14, head: HEAD.flame(col, '#fff0d8', 12) });
+F.shot(from, to, Math.max(.06, tHit - dt), { arc: side * 18, ease: 'ease-in', trailW: 7, col, trailCol: col, coreCol: '#fff0d8', trailLife: .14, head: HEAD.flame(col, '#fff0d8', 12) });
 return;
 }
 k1Puff(F, here.x, here.y, .55);
@@ -18174,7 +18174,7 @@ r9Link(F, u, 'h', e.targets, (from, to, fly, t, i) => r9Fire(F, from, to, fly, {
 return;
 }
 for (const side of [-1, 1])
-F.at(.1, () => k1Ghost(F, u, { col: '#3fdc5a', side: -side, dur: .62, out: .7, k: .55, h: b.h * .78, x: a => b.x + side * b.w * .44 * EASE['ease-out'](clamp(a / .2, 0, 1)), feet: () => b.feet }));
+if (!BR.isProposed) F.at(.1, () => k1Ghost(F, u, { col: '#3fdc5a', side: -side, dur: .62, out: .7, k: .55, h: b.h * .78, x: a => b.x + side * b.w * .44 * EASE['ease-out'](clamp(a / .2, 0, 1)), feet: () => b.feet }));
 F.at(.1, () => k1Puff(F, b.x, b.top + b.h * .55, .8));
 for (const side of [-1, 1])
 F.at(.62, () => k1Puff(F, b.x + side * b.w * .44, b.top + b.h * .5, .5));
@@ -18195,7 +18195,7 @@ return 'default';
 chain(F, e) {
 const real = F.k1hid && F.foes().find(x => x.hid === F.k1hid), src = real || e.u, me = F.u, c = F.k1c = G.HEROES[src.hid] ? G.HEROES[src.hid].fx : '#3fb8d8', bt = boxOf(src), b0 = boxOf(me), k = clamp(src.row / me.row, .6, 1);
 const side = src.slot < 2 ? 1 : -1, tx = bt.x + side * bt.w * .6;
-k1Ghost(F, me, { col: '#3fdc5a', side: -side, dur: .3, out: .75, k: .9, h: lerp(b0.h, me.fh * k, .5), x: a => lerp(b0.x, tx, EASE['ease-in-out'](clamp(a / .14, 0, 1))), feet: a => lerp(b0.feet, bt.feet + 2, EASE['ease-in-out'](clamp(a / .14, 0, 1))) - Math.sin(Math.PI * clamp(a / .14, 0, 1)) * 40 });
+if (!BR.isProposed) k1Ghost(F, me, { col: '#3fdc5a', side: -side, dur: .3, out: .75, k: .9, h: lerp(b0.h, me.fh * k, .5), x: a => lerp(b0.x, tx, EASE['ease-in-out'](clamp(a / .14, 0, 1))), feet: a => lerp(b0.feet, bt.feet + 2, EASE['ease-in-out'](clamp(a / .14, 0, 1))) - Math.sin(Math.PI * clamp(a / .14, 0, 1)) * 40 });
 F.at(.14, () => {
 const p = F.tc(src, .42), m = F.tc(me, .4);
 F.flash(p.x, p.y, 26, c, { dur: .3, k: .85 });
@@ -19130,7 +19130,7 @@ move: true, col: '#ff3f3f',
 onMove(F, e) {
 F.supDrawn = true;
 e.u.mask = { kind: 'sup', from: 12, to: 21, e: [[.95, .41, .3, .2, .55]] };
-F.at(F.today('sup', F.u) ? Math.max(0, F.relDt('sup', .56) - .04) : .56, () => {   // r10 review: today's sheet - the cry starts on the strike frame
+F.at(F.today('sup', F.u) ? F.relDt('sup', .56) : .56, () => {   // r10 review: today's sheet - the cry starts on the strike frame
 const b = boxOf(F.u), m = { x: b.x, y: b.top + b.h * .12 };
 F.flash(m.x, m.y, 26, '#ff4a3a', { dur: .25 });
 k2cry(F, m, -1, { col: '#ff3f3f', core: '#ffc0b0', n: 3, dur: .26, rx: 92, ry: Math.abs(m.y - LAY.eFeet) * .55 + 30 });
@@ -28141,8 +28141,8 @@ F.shot(from, to, fly, { arc: -30 + i * 14, ease: 'ease-in', trailW: 10, col: HM.
 F.at(fly, () => { ND.ignite(F, t, 1.1);
 // r10 (G4 review: the first burn tick comes ~.7 s after the clots land on calm enemies): the hit enemies keep burning
 // visibly until and through the first ticks, so the numbers pop on burning targets
-for (let k = 1; k <= 11; k++)
-F.at(k * .22, () => { if (!t.alive) return; const f = F.feetOf(t); ND.flames(F, f.x, f.y - 4, { n: 9, w: f.w * .2, h: f.h * .7, s: 1 }); });
+for (let k = 1; k <= 28; k++)
+F.at(k * .24, () => { if (!t.alive) return; const f = F.feetOf(t); ND.flames(F, f.x, f.y - 4, { n: 9, w: f.w * .2, h: f.h * .7, s: 1 }); });
 }); })); });
 return;
 }
