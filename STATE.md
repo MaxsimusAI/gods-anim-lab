@@ -153,6 +153,29 @@ Maxim marked all 52 gods on the stand (read from his browser, not pasted): 323 �
   OPEN for Maxim: the new arenas now WAIT for the clip's real release frame (stand-only hold, up to ~0.9 s); in the game
   this needs a per-skill wind-up time — a fight-timing decision that is his.
 
+## 16.11 night — round r10 (Maxim 01:56 «добавить недостающие анимации… всё перепроверить… синхронизировано»; site v126)
+
+- His marks (read from his Chrome 02:00): all 394 «принять» → statuses ok (`pipeline/r10/marks_1611.json`); new notes:
+  `pipeline/r10/notes_1611.json`.
+- The 9 empty slots are filled on art redrawn by ChatGPT (tasks 120/121 in the game folder `chatgpt/tasks`): Lilith BT
+  (closed dress), Loki TI (our BT Loki in anime style; the old one looked like the film character → Kling refused «copyright»),
+  Lu Bu TI (halberd upright). With Maxim's «Переснять 3 ролика» the accepted Lilith BT strike and Loki TI idle/ult were
+  re-shot on the new art too, so every slot of these god-styles has one design. All 12 published v126 with status "new".
+  Prompts `pipeline/r10/`, ids `pipeline/r10/kling_tasks_1611.json`; sources `Kling тест\workspace\mp4-zzzzz-v126-r10.tar`,
+  new tight pictures `Kling тест\workspace\tight-r10\` (tight.tar still holds the old ones for these three).
+  Reviewer notes Maxim should see: Lilith BT strike — two takes, the staff touches the frame edge a few frames, and Kling
+  opened the gown slit in the lunge; Loki TI strike — the dagger hand leaves the left edge ~0.25 s; Lu Bu TI strike — the
+  blade tip leaves the top 2 frames in the recovery.
+- Kling credits r10: 2 (image) + 120 (Lu Bu on a Kling-edited picture, NOT used: Maxim 02:33 «зачем тратишь… ждём ChatGPT»)
+  + 270 + 120 + 150 + 60 = 722; 5 refused takes refunded.
+- Game effects (code commit c95b601, two fresh-eyes code reviews, findings fixed): Poseidon strike fast leap on today's sheet
+  (strike frame = damage); Surt super crescent from the blade at the release (REL6_TODAY); Artemis strike/super release frames
+  re-read (the shot, not the draw); Artemis ult constellation from the release, no crescent at the hit; La Llorona BT super
+  effect from the top of the mist; Thor/Ares super slam on the hit (REL_TODAY + new BR.WAIT_TODAY); Horseman super targets
+  keep burning until the first tick. G4 of 59 god:slot pairs with his effect remarks: `/home/claude/kl/r10/g4_verdicts.json`
+  (session only) — remaining WATCH items are about LOOK (thin lines, tiny dots), listed in the report to Maxim.
+- pub1 needs commit 66ef083 in the shallow clone: `git fetch --depth=1 origin 66ef08303d306d36a1fbcea33dcadc47ea8ea75c`.
+
 ## Status map — the single place where the state of every clip is shown
 
 `assets/status-data.js` (built by `pipeline/tools/build_status.py` on every publish). To change a status: edit

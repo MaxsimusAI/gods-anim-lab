@@ -18141,6 +18141,12 @@ F.at(k * .007, () => { const q = k / 9; F.p({ x: lerp(a0.x, here.x, q), y: lerp(
 prev = here;
 if ((self && F.moved === true) || Math.abs(boxOf(me).x - bt.x) < bt.w * 1.1)
 return;
+if (BR.isProposed) {   // r10 (G4: translucent copies of Loki over the targets - forbidden for every hero, 13.11): a blade of fire
+// leaves his dagger (wf) and reaches this target exactly with its hit
+const from = F.wp('s', me), to = F.tc(t, .45);
+F.shot(from, to, .12, { arc: side * 18, ease: 'ease-in', trailW: 7, col, trailCol: col, coreCol: '#fff0d8', trailLife: .14, head: HEAD.flame(col, '#fff0d8', 12) });
+return;
+}
 k1Puff(F, here.x, here.y, .55);
 const k = clamp(t.row / me.row, .6, 1), h = me.fh * k;
 k1Ghost(F, me, { col, side, dur: .3, out: .6, h, x: a => bt.x + side * (bt.w * .6 - EASE['ease-out'](clamp(a / .14, 0, 1)) * 10), feet: () => bt.feet + 2 });
@@ -19124,7 +19130,7 @@ move: true, col: '#ff3f3f',
 onMove(F, e) {
 F.supDrawn = true;
 e.u.mask = { kind: 'sup', from: 12, to: 21, e: [[.95, .41, .3, .2, .55]] };
-F.at(F.today('sup', F.u) ? F.relDt('sup', .56) + .06 : .56, () => {   // r10 review: today's sheet - the cry starts on the strike frame
+F.at(F.today('sup', F.u) ? Math.max(0, F.relDt('sup', .56) - .04) : .56, () => {   // r10 review: today's sheet - the cry starts on the strike frame
 const b = boxOf(F.u), m = { x: b.x, y: b.top + b.h * .12 };
 F.flash(m.x, m.y, 26, '#ff4a3a', { dur: .25 });
 k2cry(F, m, -1, { col: '#ff3f3f', core: '#ffc0b0', n: 3, dur: .26, rx: 92, ry: Math.abs(m.y - LAY.eFeet) * .55 + 30 });
@@ -26477,7 +26483,9 @@ F.st.playAnim(e.u, 'atk', REL_SHOT);
 F.atkGlowNew(e.u);
 const fly = T_WIND + T_HEAL - REL_SHOT;
 LIL.scrape(F, 'a', REL_SHOT);
-F.at(REL_SHOT, () => { const from = LIL.ring(F, 'a'), to = F.tc(e.tgt, .3); F.flash(from.x, from.y, 12, LIL.C, { dur: .18 }); F.shot(from, to, fly, { arc: -46, ease: 'ease-in-out', trailW: 3, col: LIL.C, trailCol: LIL.C, trailLife: .16, head: LIL.featherHead(19), emit: (() => { const lv = {}; return (F2, x, y) => { if (NC.rate(F, lv, 12) > 0)
+// r10 (G4: the feather left her chest, before the gesture): today's sheet - it leaves the gem / hand (wf) on the release frame, bigger
+const tod = F.today('atk', e.u), tL = tod ? F.relDt('atk', REL_SHOT) : REL_SHOT;
+F.at(tL, () => { const from = tod ? F.wp('a') : LIL.ring(F, 'a'), to = F.tc(e.tgt, .3); F.flash(from.x, from.y, tod ? 18 : 12, LIL.C, { dur: .18 }); F.shot(from, to, tod ? Math.max(.2, fly - (tL - REL_SHOT)) : fly, { arc: -46, ease: 'ease-in-out', trailW: tod ? 6 : 3, col: LIL.C, trailCol: LIL.C, trailLife: .16, head: LIL.featherHead(tod ? 26 : 19), emit: (() => { const lv = {}; return (F2, x, y) => { if (NC.rate(F, lv, 12) > 0)
 LIL.mist(F, x, y, .45, { a0: .45 }); }; })() }); });
 LIL.watchReflect(F);
 },
@@ -27152,7 +27160,12 @@ for (let i = 0; i < 3; i++)
 F.at(.12 + i * .16, () => { const f = F.feetOf(F.u), x = f.x + (i % 2 ? 9 : -9); F.flash(x, f.y - 2, 12, LB.EMB, { dur: .2, layer: 'under' }); F.burst(x, f.y - 2, { n: 5, a0: -Math.PI * .9, a1: -Math.PI * .1, v0: 50, v1: 120, col: [LB.GOLD, LB.EMB], s0: 2, l0: .15, l1: .3, ay: 300 }); NC.dust(F, x, f.y, 1, .7, { col: '#5a3426' }); });
 const d = NC.ev(F, x => x.type === 'dash' && x.u === F.u)[0], t = d ? d.tgt : e.targets[0];
 F.at(.5, () => { const f = F.feetOf(F.u); F.flash(f.x, f.y - 4, 22, LB.R, { dur: .3, layer: 'under' }); F.mo(f.x, f.y - 4, 'embers', 6, .8); });
-if (t)
+if (t && F.today('sup', u)) {   // r10 (G4: damage appeared before anything left Lu Bu): today's sheet - the fire hare leaves the
+// halberd / fist (wf) on the release frame and reaches the target exactly with the first super hit
+const h0 = NC.ev(F, x => x.type === 'hit' && x.src === 'super')[0], tR = F.relDt('sup', .5), tH = h0 ? Math.max(tR + .1, h0.t - F.t) : tR + .18;
+F.at(tR, () => { const w = F.wp('s', u), b = F.feetOf(t); LB.hare(F, { x: w.x, y: w.y }, { x: b.x + 10, y: b.y + 6 }, Math.max(.1, tH - tR)); });
+}
+else if (t)
 NC.when(F, d ? d.t : T_SUP, () => { const a = F.feetOf(F.u), b = F.feetOf(t); LB.hare(F, { x: a.x, y: a.y - 2 }, { x: b.x + 10, y: b.y + 6 }, .18); });
 const tt = NC.ev(F, x => x.type === 'taunt' && x.u === F.u)[0];
 if (tt) {
@@ -28129,7 +28142,7 @@ F.at(fly, () => { ND.ignite(F, t, 1.1);
 // r10 (G4 review: the first burn tick comes ~.7 s after the clots land on calm enemies): the hit enemies keep burning
 // visibly until and through the first ticks, so the numbers pop on burning targets
 for (let k = 1; k <= 11; k++)
-F.at(k * .22, () => { if (!t.alive) return; const f = F.feetOf(t); ND.flames(F, f.x, f.y - 4, { n: 5, w: f.w * .14, h: f.h * .42, s: .8 }); });
+F.at(k * .22, () => { if (!t.alive) return; const f = F.feetOf(t); ND.flames(F, f.x, f.y - 4, { n: 9, w: f.w * .2, h: f.h * .7, s: 1 }); });
 }); })); });
 return;
 }
