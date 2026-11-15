@@ -18,7 +18,7 @@ nav a{color:#cfc5b3;text-decoration:none;font-size:12px;border-left:3px solid va
 .skh{display:flex;align-items:center;gap:10px}.skh img{width:46px;height:46px;border-radius:8px;object-fit:cover;border:1px solid #4a4048}.skh small{display:block;color:var(--mu);font-size:11px}.skh b{font-size:15px}
 .mk{margin-left:auto;font-size:11px;font-weight:700;padding:3px 8px;border-radius:20px;white-space:nowrap}.mk-i{background:#21402a;color:#9fe0a8}.mk-n{background:#33302f;color:#c8c0b4}.mk-s{background:#4a2420;color:#ffb3a3}
 .sk i{display:block;font-style:normal;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);margin-bottom:2px}.sk p{margin:0}
-.now p{color:#fff}.art p{color:#e7c98b;font-size:12px}.prob p{color:#ffb3a3;font-size:13px}.prop{background:#1f2a22;border-radius:6px;padding:6px 8px}.prop p{color:#c7f0cd}
+.now p{color:#fff}.art p{color:#e7c98b;font-size:12px}.prob p{color:#ffb3a3;font-size:13px}.artp{background:#2a2414;border-radius:6px;padding:6px 8px}.artp p{color:#f0d79a;font-size:13px}.artp b{display:inline-block;min-width:26px;color:#e2bd6a}.prop{background:#1f2a22;border-radius:6px;padding:6px 8px}.prop p{color:#c7f0cd}
 textarea{width:100%;min-height:54px;background:#151316;color:var(--tx);border:1px solid #4a4048;border-radius:6px;padding:6px 8px;font:13px system-ui;resize:vertical}textarea:focus{outline:none;border-color:var(--gd)}
 textarea.has{border-color:#c9973f;background:#1d1912}
 .save{position:fixed;right:18px;bottom:16px;background:#2a2318;border:1px solid #6b5434;color:#e2bd6a;padding:8px 14px;border-radius:20px;font-size:13px;cursor:pointer;z-index:9}
@@ -29,6 +29,7 @@ svg text{fill:#a59a8a;font:11px system-ui}
 <header><h1>Баланс умений — 52 бога, от старта до максимальной прокачки</h1>
 <p class="sub">Все числа — как в Пантеоне игры, через тире «на старте – на максимуме». <b>Старт</b>: новый бог I★1, умение I★1, без бонусов. <b>Максимум</b>: бог XX★5, все три умения XX★5, зачарование всех трёх дорожек до конца (+95% атаки и здоровья), полный набор артефактов XX (+60%). Не учтены бонусы аккаунта: VIP-корона, стихии клана, реликвии режимов — с ними в игре ещё чуть больше. Под каждым умением — пометка, предложение, кнопки «Нравится / Не нравится» и поле для комментария. Всё сохраняется само.</p></header>
 <div class="sum">
+ <div class="box"><h3>Артефакты: связь с умением вместо вампиризма</h3><p>Сейчас у 97 умений из 156 бонус артефактов — «бог восстанавливает здоровье на 15% / 25% урона», у остальных — общее «сильнее на 40%».</p><p>Предложение: у каждого умения два бонуса, оба про само умение. <b style="color:#e2bd6a">XV</b> — усиливает его эффект (больше шанс, дольше, сильнее). <b style="color:#e2bd6a">XX</b> — продолжает его (эффект ещё на соседа, новая цель, добавка к тому же действию). Вампиризм убирается. Числа — примерные, подгоню после вашего выбора.</p></div>
  <div class="box"><h3>Рост ровный: серая звезда = божественной</h3>
   <svg viewBox="0 0 300 135" width="100%"><polyline points="0,83 3,82 6,82 9,81 12,80 15,79 18,79 21,78 24,77 27,76 30,76 33,75 36,74 39,73 42,73 45,72 48,71 51,71 54,70 57,69 60,68 63,68 66,67 69,66 72,65 75,65 78,64 81,63 84,62 87,62 90,61 93,60 96,59 99,59 102,58 105,57 108,57 111,56 114,55 117,54 120,54 123,53 126,52 129,51 132,51 135,50 138,49 141,48 144,48 147,47 150,46 153,45 156,45 159,44 162,43 165,42 168,42 171,41 174,40 177,40 180,39 183,38 186,37 189,37 192,36 195,35 198,34 201,34 204,33 207,32 210,31 213,31 216,30 219,29 222,28 225,28 228,27 231,26 234,26 237,25 240,24 243,23 246,23 249,22 252,21 255,20 258,20 261,19 264,18 267,17 270,17 273,16 276,15 279,14 282,14 285,13 288,12 291,11 294,11 297,10" fill="none" stroke="#d06a4a" stroke-width="2.5"/><polyline points="0,83 3,83 6,83 9,83 12,83 15,83 18,83 21,83 24,83 27,82 30,82 33,82 36,82 39,82 42,82 45,81 48,81 51,81 54,81 57,80 60,80 63,80 66,79 69,79 72,79 75,78 78,78 81,78 84,77 87,77 90,76 93,76 96,75 99,75 102,74 105,74 108,73 111,73 114,72 117,72 120,71 123,71 126,70 129,69 132,69 135,68 138,67 141,67 144,66 147,65 150,64 153,64 156,63 159,62 162,61 165,61 168,60 171,59 174,58 177,57 180,56 183,55 186,54 189,53 192,53 195,52 198,51 201,50 204,49 207,48 210,47 213,45 216,44 219,43 222,42 225,41 228,40 231,39 234,38 237,37 240,35 243,34 246,33 249,32 252,30 255,29 258,28 261,27 264,25 267,24 270,23 273,21 276,20 279,19 282,17 285,16 288,14 291,13 294,11 297,10" fill="none" stroke="#5f9f6f" stroke-width="2.5" stroke-dasharray="5 4"/>
   <text x="2" y="132">I★1</text><text x="262" y="132">XX★5</text><text x="4" y="14" style="fill:#d06a4a">— сейчас: +2% за каждую ступень</text><text x="4" y="30" style="fill:#5f9f6f">- - предложение: дорогие ступени дают больше</text></svg>
@@ -50,7 +51,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/amaterasu-a.webp" alt=""><div><small>Обычный удар</small><b>Солнечный луч</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 19–10,6M урона и соседнего врага на 9–5,3M урона.<br>У цели 7,5–15 сек на 10–20% меньше шанс критического удара.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Снижение шанса крита у цели сильнее: −30% вместо −20%.<br><b>XX</b> Снижение шанса крита получает и задетый соседний враг.</p></div>
   <div class="prob"><i>Оценка</i><p>Снижение шанса крита врага — почти незаметно.</p></div>
   <div class="prop"><i>Предложение</i><p>Заменить: ослепление — 20% атак цели мимо на 8 сек.</p></div>
   <div class="vote" data-v="amaterasu:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -58,7 +60,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/amaterasu-s.webp" alt=""><div><small>Супер-удар</small><b>Зеркало Ята</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует трёх случайных врагов на 28–15,9M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Бьёт не трёх, а четырёх случайных врагов.<br><b>XX</b> Задетые враги 6 сек атакуют на 10% медленнее — их слепит отражённый свет.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём случайным.</p></div>
   <div class="prop"><i>Предложение</i><p>Зеркало Ята: отражает следующий супер врага обратно (8 сек ожидания).</p></div>
   <div class="vote" data-v="amaterasu:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -66,7 +69,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/amaterasu-h.webp" alt=""><div><small>Ульта</small><b>Выход из грота</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 39–22,1M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Все задетые враги 8 сек имеют на 20% меньше шанс крита, как от её обычного удара.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Выход из грота: 10 сек свет — союзники +20% урона, враги −20% меткости.</p></div>
   <div class="vote" data-v="amaterasu:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -77,7 +81,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/apollo-a.webp" alt=""><div><small>Обычный удар</small><b>Золотая стрела</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 18–10,2M урона.<br>С шансом 10–20% стрела прошивает цель и бьёт соседнего врага.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс прошить цель выше: 30% вместо 20%.<br><b>XX</b> Прошивающая стрела бьёт соседа в полную силу, а не как простой удар по соседу.</p></div>
   <div class="prob"><i>Оценка</i><p>Прострел соседа 10→20%.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый пятый выстрел прошивает весь ряд.</p></div>
   <div class="vote" data-v="apollo:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -85,7 +90,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/apollo-s.webp" alt=""><div><small>Супер-удар</small><b>Солнечная стрела</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует самого раненого врага на 72–40,8M урона.<br>По цели со щитом удар на 20% сильнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по цели со щитом сильнее: +40% вместо +20%.<br><b>XX</b> Если цель не погибла, следующий удар Аполлона по ней — критический.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по раненому +20% по щиту.</p></div>
   <div class="prop"><i>Предложение</i><p>X: снимает щит. XX: убийство супером сбрасывает его подготовку атаки.</p></div>
   <div class="vote" data-v="apollo:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -93,7 +99,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/apollo-h.webp" alt=""><div><small>Ульта</small><b>Солнечная колесница</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует одного врага на 104–58,8M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар на 20% сильнее.<br><b>XX</b> Если цель погибла, колесница сразу бьёт следующего самого раненого врага на половину урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Один удар — ничего кроме цифры.</p></div>
   <div class="prop"><i>Предложение</i><p>Колесница: проезжает по ряду, поджигает 8 сек. XX: огонь лечит союзников рядом.</p></div>
   <div class="vote" data-v="apollo:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -104,7 +111,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/athena-a.webp" alt=""><div><small>Обычный удар</small><b>Удар копья</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 9–4,8M урона.<br>С шансом 10–20% Афина 5–10 сек возвращает нападающему 15–30% урона от его ударов.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс отражения выше: 30% вместо 20%.<br><b>XX</b> Отражение получает и союзник, которого сейчас бьют сильнее всех.</p></div>
   <div class="prob"><i>Оценка</i><p>Отражение урона — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: отражает 10% 6 сек. XX: отражение на всех союзников рядом.</p></div>
   <div class="vote" data-v="athena:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -112,7 +120,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/athena-s.webp" alt=""><div><small>Супер-удар</small><b>Эгида</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Даёт каждому союзнику щит на 8,4–25% его макс. здоровья.<br>Одному случайному союзнику щит двойной.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Двойной щит получают два союзника вместо одного.<br><b>XX</b> Пока щит Эгиды цел, союзник не может быть оглушён.</p></div>
   <div class="prob"><i>Оценка</i><p>Щит всем 8→25%.</p></div>
   <div class="prop"><i>Предложение</i><p>X: двойной щит получает самый раненый (не случайный). XX: при поломке щита — оглушение нападавшего 1 сек.</p></div>
   <div class="vote" data-v="athena:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -120,7 +129,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/athena-h.webp" alt=""><div><small>Ульта</small><b>Взгляд Горгоны</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Обращает всех врагов в камень на 2–4 сек.<br>Окаменевшие получают на 25% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Окаменение длится на 1 сек дольше.<br><b>XX</b> Окаменевшие получают не на 25%, а на 40% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Окаменение всех 2→4 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: камень 1 враг. X: ряд. XX: все враги, окаменевшие получают +40%.</p></div>
   <div class="vote" data-v="athena:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -131,7 +141,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/brynhild-a.webp" alt=""><div><small>Обычный удар</small><b>Копьё</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Усиливает союзника на 43–128% урона на 3,5–7 сек и атакует на 1–809K урона.<br>Если благословение уже у всех, атакует на 7–3,9M урона.<br>С шансом 10–20% случайный союзник 3,5–7 сек наносит на 20–59,6% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Случайный союзник с шансом получает усиление на 3 сек дольше.<br><b>XX</b> Вместо одного случайного союзника усиление получают двое.</p></div>
   <div class="prob"><i>Оценка</i><p>Благословение 128% на 7 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>+40% на 12 сек.</p></div>
   <div class="vote" data-v="brynhild:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -139,7 +150,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/brynhild-s.webp" alt=""><div><small>Супер-удар</small><b>Избранный</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Даёт каждому союзнику щит на 15,1–45% его макс. здоровья.<br>Самый сильный союзник 2,5–5 сек наносит на 74,1–220,8% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Самому сильному союзнику — ещё +30% к его усилению урона.<br><b>XX</b> Самый сильный союзник ещё и получает двойной щит.</p></div>
   <div class="prob"><i>Оценка</i><p>Щит всем + сильнейшему +221% на 5 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 30%, +60% на 12 сек.</p></div>
   <div class="vote" data-v="brynhild:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -147,7 +159,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/brynhild-h.webp" alt=""><div><small>Ульта</small><b>Вальхалла</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Следующие 2–4 сек погибающие союзники сражаются ещё 3 сек, не получая урона, затем уходят навсегда.<br>Действует на каждого бога один раз за бой.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Вальхалла длится на 1,5 сек дольше.<br><b>XX</b> Союзник, ушедший в Вальхаллу, в эти 3 сек наносит на 50% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Павшие сражаются ещё 3 сек — интересно.</p></div>
   <div class="prop"><i>Предложение</i><p>Окно 2 → 8 сек, бой павших 3 → 6 сек.</p></div>
   <div class="vote" data-v="brynhild:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -158,7 +171,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/vanhelsing-a.webp" alt=""><div><small>Обычный удар</small><b>Арбалет</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 19–10,7M урона.<br>С шансом 10–20% наносит богам Тьмы на 50% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс бить богов Тьмы сильнее выше: 30% вместо 20%.<br><b>XX</b> По богам Тьмы обычный удар всегда сильнее на 25% (без шанса), шанс даёт ещё +50%.</p></div>
   <div class="prob"><i>Оценка</i><p>Шанс +50% по Тьме.</p></div>
   <div class="prop"><i>Предложение</i><p>Всегда +25% по Тьме, XX +50%.</p></div>
   <div class="vote" data-v="vanhelsing:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -166,7 +180,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/vanhelsing-s.webp" alt=""><div><small>Супер-удар</small><b>Святая вода</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 67–37,9M урона.<br>Лечение цели 2,5–5 сек слабее на 45,7–90%.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Лечение цели слабее на 3 сек дольше.<br><b>XX</b> Святая вода брызгает на соседей цели: их лечение тоже слабее.</p></div>
   <div class="prob"><i>Оценка</i><p>Запрет лечения 90% — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок 5 → 10 сек.</p></div>
   <div class="vote" data-v="vanhelsing:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -174,7 +189,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/vanhelsing-h.webp" alt=""><div><small>Ульта</small><b>Осиновый кол</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 116–65,7M урона.<br>По богам Тьмы удар в полтора раза сильнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по богам Тьмы не в 1,5, а в 2 раза сильнее.<br><b>XX</b> Бог Тьмы, убитый колом, не перерождается.</p></div>
   <div class="prob"><i>Оценка</i><p>Один удар, по Тьме ×1,5.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: цель Тьмы не может воскреснуть.</p></div>
   <div class="vote" data-v="vanhelsing:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -185,7 +201,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/zeus-a.webp" alt=""><div><small>Обычный удар</small><b>Молния</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 23–13,3M урона.<br>Разряд перескакивает на 1–3 других врагов, нанося им половину урона.<br>С шансом 10–20% оглушает цель на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Разряд перескакивает на 2–4 врагов вместо 1–3.<br><b>XX</b> Оглушение от молнии может получить и враг, на которого перескочил разряд.</p></div>
   <div class="prob"><i>Оценка</i><p>Цепная молния — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: перескок на 1. X: на 2. XX: на 3 и оглушение 1 сек на последнем.</p></div>
   <div class="vote" data-v="zeus:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -193,7 +210,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/zeus-s.webp" alt=""><div><small>Супер-удар</small><b>Гнев Олимпа</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 18–10,2M урона.<br>Каждого врага с шансом 20% оглушает на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс оглушить каждого врага выше: 30% вместо 20%.<br><b>XX</b> Оглушённые Гневом Олимпа получают на 20% больше урона, пока стоят.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + шанс оглушения 20%.</p></div>
   <div class="prop"><i>Предложение</i><p>Шанс 15% → 50% к XX, срок 3 сек постоянный.</p></div>
   <div class="vote" data-v="zeus:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -201,7 +219,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/zeus-h.webp" alt=""><div><small>Ульта</small><b>Молния Титаномахии</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 42–23,6M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Каждый враг с шансом 25% оглушён на 2 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Только удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Титаномахия: 3 волны молний по 4 сек, каждая сильнее. XX: оглушает выживших.</p></div>
   <div class="vote" data-v="zeus:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -212,7 +231,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/indra-a.webp" alt=""><div><small>Обычный удар</small><b>Громовой разряд</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 25–14,4M урона и соседнего врага на 13–7,2M урона.<br>С шансом 7,5–15% бьёт цель второй раз и задевает её соседа на половину урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс второго удара выше: 22,5% вместо 15%.<br><b>XX</b> Второй удар бьёт в полную силу, а не на половину.</p></div>
   <div class="prob"><i>Оценка</i><p>Двойной удар 7,5→15%.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: второй удар оглушает на 1 сек.</p></div>
   <div class="vote" data-v="indra:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -220,7 +240,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/indra-s.webp" alt=""><div><small>Супер-удар</small><b>Ваджра</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует самого сильного врага, минуя стража, на 111–63,2M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ваджра бьёт на 20% сильнее.<br><b>XX</b> Ваджра снимает с цели щит перед ударом.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по сильнейшему, минуя стража.</p></div>
   <div class="prop"><i>Предложение</i><p>Ваджра: снижает защиту цели на 20% на 10 сек. XX: пробивает щит.</p></div>
   <div class="vote" data-v="indra:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -228,7 +249,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/indra-h.webp" alt=""><div><small>Ульта</small><b>Убийство Вритры</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует врага на 170–96,5M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар на 20% сильнее.<br><b>XX</b> Если враг пережил удар, он 6 сек получает на 25% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Один удар.</p></div>
   <div class="prop"><i>Предложение</i><p>Убийство Вритры: удар + 10 сек отряд бьёт цель на 30% сильнее. XX: при убийстве — повтор по новой цели.</p></div>
   <div class="vote" data-v="indra:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -239,7 +261,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/inti-a.webp" alt=""><div><small>Обычный удар</small><b>Солнечный дар</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит союзника с наименьшим здоровьем на 12–7M, если оно ниже 75%, и атакует на 1–813K урона.<br>Если раненых нет, атакует на 5–2,7M урона.<br>С шансом 10–20% лечение на 50% сильнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс усиленного лечения выше: 30% вместо 20%.<br><b>XX</b> Усиленное лечение ещё и снимает с союзника одно проклятие.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + шанс +50%.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: перелечивание становится щитом.</p></div>
   <div class="vote" data-v="inti:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -247,7 +270,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/inti-s.webp" alt=""><div><small>Супер-удар</small><b>Восход / Полдень</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Чередует два действия.<br>Восход лечит каждого союзника на 7–4,1M.<br>В полдень отряд 5–10 сек наносит на 9,7–28,8% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда в полдень длится на 3 сек дольше.<br><b>XX</b> Восход, кроме лечения, даёт каждому союзнику щит на 10% макс. здоровья.</p></div>
   <div class="prob"><i>Оценка</i><p>Чередование лечения и усиления — интересно.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: только Восход. X: открывается Полдень. XX: оба сразу.</p></div>
   <div class="vote" data-v="inti:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -255,7 +279,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/inti-h.webp" alt=""><div><small>Ульта</small><b>Золотой полдень</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ждёт, пока здоровье союзника упадёт ниже 40%, но не дольше 10 сек.<br>Лечит каждого союзника на 18,5–55,1% макс. здоровья.<br>Даёт каждому союзнику щит на 5,6–16,5% его макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Щит после лечения прочнее на 40%.<br><b>XX</b> Ульта срабатывает раньше: ждёт падения здоровья ниже 50%, а не 40%.</p></div>
   <div class="prob"><i>Оценка</i><p>Копия ульты Ра (лечение + щит при опасности).</p></div>
   <div class="prop"><i>Предложение</i><p>Сделать отличие: Золотой полдень — 10 сек отряд неуязвим к контролю.</p></div>
   <div class="vote" data-v="inti:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -266,7 +291,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/ra-a.webp" alt=""><div><small>Обычный удар</small><b>Свет Ра</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит союзника с наименьшим здоровьем на 11–6,2M, если оно ниже 75%, и атакует на 2–853K урона.<br>Если раненых нет, атакует на 4–2,4M урона.<br>С шансом 10–20% лечение даёт союзнику ещё и щит на 9,8–29,1% макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс дать щит выше: 30% вместо 20%.<br><b>XX</b> Щит от лечения получает и второй самый раненый союзник.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + шанс щита.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: щит на весь отряд при лечении ниже 30%.</p></div>
   <div class="vote" data-v="ra:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -274,7 +300,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/ra-s.webp" alt=""><div><small>Супер-удар</small><b>Сияние Ра</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит каждого союзника на 8–4,5M.<br>Самого раненого союзника лечит на 20% больше.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Самого раненого лечит не на 20%, а на 50% больше.<br><b>XX</b> Сияние снимает с каждого союзника одно проклятие.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение всех + раненому больше.</p></div>
   <div class="prop"><i>Предложение</i><p>X: снимает 1 проклятие. XX: снимает все проклятия.</p></div>
   <div class="vote" data-v="ra:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -282,7 +309,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/ra-h.webp" alt=""><div><small>Ульта</small><b>Ладья миллионов лет</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ждёт, пока здоровье союзника упадёт ниже 40%, но не дольше 10 сек.<br>Лечит каждого союзника на 16,7–49,7% макс. здоровья.<br>Даёт каждому союзнику щит на 5–14,9% его макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Щит после лечения прочнее на 40%.<br><b>XX</b> Павший в ближайшие 3 сек союзник встаёт с 30% здоровья (раз за бой).</p></div>
   <div class="prob"><i>Оценка</i><p>Ждёт опасности — умная ульта.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: лечит 20%. XX: + неуязвимость 2 сек самому раненому.</p></div>
   <div class="vote" data-v="ra:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -293,7 +321,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/heimdall-a.webp" alt=""><div><small>Обычный удар</small><b>Меч Хёвуд</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 24–13,4M урона.<br>С шансом 7,5–15% удар задевает ещё одного случайного врага.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс задеть второго врага выше: 22,5% вместо 15%.<br><b>XX</b> Задетый второй враг получает полный урон, а не обычный удар по соседу.</p></div>
   <div class="prob"><i>Оценка</i><p>Задевает ещё одного с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый 3-й удар — по двум.</p></div>
   <div class="vote" data-v="heimdall:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -301,7 +330,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/heimdall-s.webp" alt=""><div><small>Супер-удар</small><b>Гьяллархорн</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует четырёх случайных врагов на 32–18,2M урона.<br>Отряд 3,5–7 сек наносит на 16,7–49,9% больше урона.<br>Остальные союзники почти сразу атакуют общим залпом.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда длится на 2 сек дольше.<br><b>XX</b> В общем залпе союзники бьют на 30% сильнее.</p></div>
   <div class="prob"><i>Оценка</i><p>Залп всех союзников — интересно.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: залп без усиления. XX: усиление 7 сек → 12 сек.</p></div>
   <div class="vote" data-v="heimdall:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -309,7 +339,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/heimdall-h.webp" alt=""><div><small>Ульта</small><b>Зов Рагнарёка</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Отряд 2,5–5 сек наносит на 41,9–124,7% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда сильнее: +40% к числу.<br><b>XX</b> Рог зовёт и павших: переродившиеся существа союзников тоже получают усиление.</p></div>
   <div class="prob"><i>Оценка</i><p>Только усиление урона 125% на 5 сек — слишком сильное и короткое.</p></div>
   <div class="prop"><i>Предложение</i><p>Зов Рагнарёка: +40% урона на 15 сек; XX — +60% и отряд не боится контроля.</p></div>
   <div class="vote" data-v="heimdall:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -320,7 +351,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/houyi-a.webp" alt=""><div><small>Обычный удар</small><b>Стрела Хоу И</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 23–13,2M урона.<br>Каждая десятая стрела наносит втрое больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Втрое сильнее бьёт каждая восьмая стрела, а не десятая.<br><b>XX</b> Тройная стрела прошивает цель и бьёт соседа на половину урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Каждая 10-я стрела ×3.</p></div>
   <div class="prop"><i>Предложение</i><p>X: каждая 7-я. XX: каждая 5-я.</p></div>
   <div class="vote" data-v="houyi:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -328,7 +360,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/houyi-s.webp" alt=""><div><small>Супер-удар</small><b>Девять солнц</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Четыре раза атакует случайных врагов на 28–15,9M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не четыре, а пять выстрелов.<br><b>XX</b> Каждое «солнце» с шансом 15% поджигает цель на 4 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>4 случайных выстрела.</p></div>
   <div class="prop"><i>Предложение</i><p>Девять солнц: 9 стрел, каждая сжигает 5% защиты цели на 10 сек.</p></div>
   <div class="vote" data-v="houyi:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -336,7 +369,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/houyi-h.webp" alt=""><div><small>Ульта</small><b>Падение солнц</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует врага на 132–74,8M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар на 20% сильнее.<br><b>XX</b> Если цель погибла, остаток урона переходит на случайного врага.</p></div>
   <div class="prob"><i>Оценка</i><p>Один удар.</p></div>
   <div class="prop"><i>Предложение</i><p>Падение солнц: по солнцу на каждого врага; XX — враг без солнца получает два.</p></div>
   <div class="vote" data-v="houyi:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -347,7 +381,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/erlang-a.webp" alt=""><div><small>Обычный удар</small><b>Трёхконечный клинок</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 17–9,9M урона.<br>Его удар проходит сквозь уклонение, двойников и невидимость.<br>Небесный пёс раз в 4 сек кусает задний ряд врагов.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Небесный пёс кусает раз в 3 сек вместо 4.<br><b>XX</b> Укус пса снимает с врага благословение.</p></div>
   <div class="prob"><i>Оценка</i><p>Пёс + удар сквозь уклонение.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="erlang:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -355,7 +390,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/erlang-s.webp" alt=""><div><small>Супер-удар</small><b>Луч третьего глаза</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 51–29,1M урона.<br>Снимает с цели щиты и благословения.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Луч бьёт на 20% сильнее.<br><b>XX</b> Снятые с цели щиты и благословения переходят Эрлану.</p></div>
   <div class="prob"><i>Оценка</i><p>Снимает щиты и благословения.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="erlang:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -363,7 +399,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/erlang-h.webp" alt=""><div><small>Ульта</small><b>Семьдесят три превращения</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Повторяет последний супер-удар врагов по его отряду с силой Эрлана.<br>Если такого удара не было, атакует каждого врага на 18–10,1M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Повторённый супер-удар на 25% сильнее.<br><b>XX</b> Повторяет не один, а два последних супер-удара врагов.</p></div>
   <div class="prob"><i>Оценка</i><p>Повторяет последний вражеский супер.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: повторяет два последних.</p></div>
   <div class="vote" data-v="erlang:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -374,7 +411,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/anansi-a.webp" alt=""><div><small>Обычный удар</small><b>Укус серпов</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 11–6,4M урона.<br>С шансом 7,5–15% цель пропускает следующее действие.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс заставить пропустить действие выше: 22,5% вместо 15%.<br><b>XX</b> Пропуск действия перескакивает по паутине и на соседа цели.</p></div>
   <div class="prob"><i>Оценка</i><p>Пропуск действия 7,5→15%.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 10%. XX: пропустивший действие теряет и благословение.</p></div>
   <div class="vote" data-v="anansi:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -382,7 +420,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/anansi-s.webp" alt=""><div><small>Супер-удар</small><b>Паутина обмана</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Трижды атакует случайных врагов, минуя стражей, на 11–6,1M урона.<br>Все враги 5–10 сек наносят на 12,1–36,2% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не три, а четыре удара мимо стражей.<br><b>XX</b> Ослабление врагов длится на 3 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Три удара + слабое ослабление.</p></div>
   <div class="prop"><i>Предложение</i><p>X: удары выбирают цели без щита. XX: каждый удар крадёт 10% заряда ульты.</p></div>
   <div class="vote" data-v="anansi:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -390,7 +429,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/anansi-h.webp" alt=""><div><small>Ульта</small><b>Кража историй</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 9–5,3M урона.<br>Отряд лечится на нанесённый урон.<br>Крадёт у врагов щиты, себе не больше 30% своего макс. здоровья.<br>Крадёт у врагов лучшее благословение, не дольше чем на 6 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Крадёт щиты до 45% своего макс. здоровья вместо 30%.<br><b>XX</b> Крадёт не одно, а два лучших благословения.</p></div>
   <div class="prob"><i>Оценка</i><p>Кража щитов и благословений — живая механика.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: крадёт только щит. X: + благословение. XX: краденое получает весь отряд.</p></div>
   <div class="vote" data-v="anansi:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -401,7 +441,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/veles-a.webp" alt=""><div><small>Обычный удар</small><b>Посох Нави</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 19–10,6M урона.<br>С шансом 7,5–15% цель промахивается следующей атакой.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс промаха цели выше: 22,5% вместо 15%.<br><b>XX</b> Промахнувшийся враг ещё и 3 сек атакует на 20% медленнее.</p></div>
   <div class="prob"><i>Оценка</i><p>Промах с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: промахнувшийся теряет заряд ульты.</p></div>
   <div class="vote" data-v="veles:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -409,7 +450,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/veles-s.webp" alt=""><div><small>Супер-удар</small><b>Медвежья шкура</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Даёт себе щит на 20,1–60% макс. здоровья.<br>Следующие 12,6–15,6 сек его удары задевают и соседей цели.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удары по соседям цели длятся на 4 сек дольше.<br><b>XX</b> Пока цел щит медвежьей шкуры, удары по соседям в полную силу.</p></div>
   <div class="prob"><i>Оценка</i><p>Щит + удары по соседям 12,6→15,6 сек — хорошее длинное состояние.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 30→50%.</p></div>
   <div class="vote" data-v="veles:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -417,7 +459,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/veles-h.webp" alt=""><div><small>Ульта</small><b>Пробуждение Нави</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Воскрешает павшего союзника с 100% здоровья.<br>Если павших нет, все враги 2,5–5 сек наносят на 31,3–70% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ослабление врагов (если павших нет) длится на 2 сек дольше.<br><b>XX</b> Воскрешённый союзник 5 сек неуязвим.</p></div>
   <div class="prob"><i>Оценка</i><p>Воскрешение 100% уже на старте.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: 30%. XX: 100%. Ослабление 20→40% на 6→12 сек.</p></div>
   <div class="vote" data-v="veles:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -428,7 +471,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/horseman-a.webp" alt=""><div><small>Обычный удар</small><b>Бросок горящей тыквы</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 24–13,7M урона.<br>С шансом 10–20% поджигает цель на 3–6 сек по 7–4,1M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс поджога выше: 30% вместо 20%.<br><b>XX</b> Огонь тыквы перекидывается на соседа цели.</p></div>
   <div class="prob"><i>Оценка</i><p>Поджог с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: поджог всегда.</p></div>
   <div class="vote" data-v="horseman:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -436,7 +480,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/horseman-s.webp" alt=""><div><small>Супер-удар</small><b>Скачка</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Проносится сквозь ряд врагов и 2–4 сек неуязвим.<br>Поджигает трёх случайных врагов на 3–6 сек по 13–7,3M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Поджигает четырёх врагов вместо трёх.<br><b>XX</b> Пока горят, враги атакуют на 15% медленнее — пугаются.</p></div>
   <div class="prob"><i>Оценка</i><p>Неуязвимость + поджог трёх.</p></div>
   <div class="prop"><i>Предложение</i><p>Неуязвимость 3 сек со старта.</p></div>
   <div class="vote" data-v="horseman:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -444,7 +489,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/horseman-h.webp" alt=""><div><small>Ульта</small><b>Жатва Лощины</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 40–22,5M урона.<br>Кто падёт в ближайшую секунду, переродится на 10 сек позже.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Перерождение павших откладывается на 15 сек вместо 10.<br><b>XX</b> Каждый задетый враг с шансом 25% 3 сек в страхе и не атакует.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + задержка перерождения на 1 сек окна.</p></div>
   <div class="prop"><i>Предложение</i><p>Окно 1 сек слишком мало: 6 сек со старта.</p></div>
   <div class="vote" data-v="horseman:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -455,7 +501,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/hecate-a.webp" alt=""><div><small>Обычный удар</small><b>Порча</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ослабляет врага на 30–70% урона на 2,5–5 сек и атакует его на 1–811K урона.<br>Если проклятие уже у всех, атакует на 5–2,7M урона.<br>С шансом 12,5–25% проклятие перескакивает ещё на одного врага.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс перескока проклятия выше: 37,5% вместо 25%.<br><b>XX</b> Проклятие может перескочить два раза подряд.</p></div>
   <div class="prob"><i>Оценка</i><p>Ослабление 70% упирается в потолок уже к середине прокачки — дальше рост пустой.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление держать 20→40%, зато срок 6→12 сек. XX: перескок на второго врага всегда.</p></div>
   <div class="vote" data-v="hecate:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -463,7 +510,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/hecate-s.webp" alt=""><div><small>Супер-удар</small><b>Тройное проклятие</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 6–3,5M урона.<br>Каждый враг получает одну случайную печать.<br>Слабость снижает его урон на 43,6–70% на 2,5–5 сек.<br>Немота 3,5–7 сек запрещает ему супер-удар и ульту.<br>Хрупкость увеличивает получаемый им урон на 10,9–21,8% на 5–10 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Каждый враг получает не одну, а две разные печати.<br><b>XX</b> Немота длится на 3 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Случайная печать интересна, но слабость 70% снова в потолке.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: 1 печать. X: 2 печати. XX: все 3 печати на каждом враге.</p></div>
   <div class="vote" data-v="hecate:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -471,7 +519,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/hecate-h.webp" alt=""><div><small>Ульта</small><b>Перекрёсток миров</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 7–4M урона.<br>Все враги 2,5–5 сек наносят на 38,2–70% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ослабление врагов длится на 2 сек дольше.<br><b>XX</b> Проклятые этой ультой получают на 15% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + ослабление 70% на 5 сек — дублирует супер.</p></div>
   <div class="prop"><i>Предложение</i><p>Перекрёсток: 8 сек враги атакуют случайную цель (в т.ч. своих). Сила растёт сроком.</p></div>
   <div class="vote" data-v="hecate:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -482,7 +531,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/dracula-a.webp" alt=""><div><small>Обычный удар</small><b>Укус</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 16–9,3M урона.<br>С шансом 12,5–25% удар лечит Дракулу на нанесённый урон.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс лечиться ударом выше: 37,5% вместо 25%.<br><b>XX</b> Лишнее лечение сверх полного здоровья становится щитом.</p></div>
   <div class="prob"><i>Оценка</i><p>Вампиризм с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: лишнее лечение становится щитом.</p></div>
   <div class="vote" data-v="dracula:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -490,7 +540,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/dracula-s.webp" alt=""><div><small>Супер-удар</small><b>Стая</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Четыре раза атакует случайных врагов на 28–16M урона.<br>Каждый удар лечит его на нанесённый урон.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не четыре, а пять укусов стаи.<br><b>XX</b> Лишнее лечение сверх полного здоровья достаётся самому раненому союзнику.</p></div>
   <div class="prob"><i>Оценка</i><p>4 удара с лечением.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: стая на 8 сек кусает сама.</p></div>
   <div class="vote" data-v="dracula:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -498,7 +549,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/dracula-h.webp" alt=""><div><small>Ульта</small><b>Князь ночи</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Дракула 3,5–7 сек атакует на 22–44% чаще.<br>Каждый его удар 2,5–5 сек лечит его на 44–88% нанесённого урона.<br>Все враги 3,5–7 сек наносят на 17,6–52,4% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Дракула атакует чаще: +66% вместо +44%.<br><b>XX</b> Ослабление врагов длится на 3 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Ускорение, вампиризм, ослабление — богатая ульта.</p></div>
   <div class="prop"><i>Предложение</i><p>Сроки 7 → 12 сек, силу снизить.</p></div>
   <div class="vote" data-v="dracula:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -509,7 +561,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/kali-a.webp" alt=""><div><small>Обычный удар</small><b>Клинок Кали</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 11–6,3M урона.<br>Каждый удар подряд по одной цели сильнее на 10%, не больше чем на 50%.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удары подряд по цели растут до +75%, а не до +50%.<br><b>XX</b> Если цель погибла, набранная прибавка не сбрасывается, а переходит на новую цель.</p></div>
   <div class="prob"><i>Оценка</i><p>Нарастание урона по одной цели — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Шаг 10% и потолок 50% → XX: потолок 100%.</p></div>
   <div class="vote" data-v="kali:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -517,7 +570,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/kali-s.webp" alt=""><div><small>Супер-удар</small><b>Танец разрушения</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Пять раз атакует самого раненого врага на 8–4,4M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не пять, а шесть ударов.<br><b>XX</b> Последний удар добивает раненого врага с 15% здоровья.</p></div>
   <div class="prob"><i>Оценка</i><p>5 ударов по раненому.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: при убийстве остаток ударов уходит в следующего.</p></div>
   <div class="vote" data-v="kali:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -525,7 +579,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/kali-h.webp" alt=""><div><small>Ульта</small><b>Пляска Кали</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 21–12,1M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Каждый удар по врагу засчитывается как удар подряд для её обычных ударов (+10%).</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Пляска Кали: 8 сек каждое убийство повторяет пляску. XX: + Кали неуязвима к контролю.</p></div>
   <div class="vote" data-v="kali:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -536,7 +591,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/nightmare-a.webp" alt=""><div><small>Обычный удар</small><b>Серп сна</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 19–10,5M урона и соседнего врага на 9–5,3M урона.<br>С шансом 7,5–15% усыпляет цель на 2–4 сек.<br>По спящим его обычный удар втрое сильнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс усыпить выше: 22,5% вместо 15%.<br><b>XX</b> Сон перекидывается и на задетого соседа.</p></div>
   <div class="prob"><i>Оценка</i><p>Сон + тройной урон по спящим — связка.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить; сон 3 сек со старта.</p></div>
   <div class="vote" data-v="nightmare:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -544,7 +600,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/nightmare-s.webp" alt=""><div><small>Супер-удар</small><b>Колыбельная</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Усыпляет всех врагов на 2–4 сек, урон будит.<br>По спящим обычный удар Кошмара втрое сильнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Сон длится на 1 сек дольше.<br><b>XX</b> Удар Кошмара не будит спящего.</p></div>
   <div class="prob"><i>Оценка</i><p>Сон всех — связка с обычным ударом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: спящие получают кошмар — урон каждую секунду.</p></div>
   <div class="vote" data-v="nightmare:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -552,7 +609,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/nightmare-h.webp" alt=""><div><small>Ульта</small><b>Кошмар наяву</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Усыпляет всех врагов на 2–4 сек.<br>Подготовка атаки у всех врагов откатывается на 20%.<br>Атакует одного спящего врага на 187–105,9M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Подготовка атаки у врагов откатывается на 30%, а не на 20%.<br><b>XX</b> Бьёт не одного, а двух спящих врагов.</p></div>
   <div class="prob"><i>Оценка</i><p>Сон + удар по одному.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: удар по каждому спящему.</p></div>
   <div class="vote" data-v="nightmare:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -563,7 +621,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/koschei-a.webp" alt=""><div><small>Обычный удар</small><b>Тёмная волшба</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 20–11,3M урона и соседнего врага на 10–5,7M урона.<br>Трижды за бой переживает смертельный удар, оставаясь с 25% здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Переживая смертельный удар, остаётся с 40% здоровья, а не с 25%.<br><b>XX</b> Пережив смертельный удар, 2 сек неуязвим.</p></div>
   <div class="prob"><i>Оценка</i><p>Три бессмертия сразу на старте — прокачке нечего открывать.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: 10% шанс пережить смерть 1 раз. X: 1 гарантированное. XX: 2 гарантированных + шанс 30% на третье.</p></div>
   <div class="vote" data-v="koschei:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -571,7 +630,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/koschei-s.webp" alt=""><div><small>Супер-удар</small><b>Мёртвая вода</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует трёх случайных врагов на 21–12M урона.<br>Лечит себя на весь нанесённый урон.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Бьёт четырёх врагов вместо трёх.<br><b>XX</b> Лишнее лечение сверх полного здоровья становится щитом.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём + лечение.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: лишнее лечение копит «иглу» — +1 бессмертие за бой.</p></div>
   <div class="vote" data-v="koschei:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -579,7 +639,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/koschei-h.webp" alt=""><div><small>Ульта</small><b>Бессмертие</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Кощей неуязвим 2–4 сек.<br>Атакует каждого врага на 16–8,9M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Неуязвимость на 1 сек дольше.<br><b>XX</b> Возвращает один уже потраченный раз «пережить смертельный удар».</p></div>
   <div class="prob"><i>Оценка</i><p>Неуязвимость 2→4 сек + удар.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: если Кощей пал в ульту — возвращает ему одно бессмертие.</p></div>
   <div class="vote" data-v="koschei:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -590,7 +651,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/lilith-a.webp" alt=""><div><small>Обычный удар</small><b>Ночной дар</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Усиливает союзника на 48–143% урона на 3,5–7 сек и атакует на 1–799K урона.<br>Если благословение уже у всех, атакует на 8–4,3M урона.<br>Её благословение 5–10 сек даёт союзнику вампиризм 12,5–25%.<br>С шансом 10–20% благословлённый союзник отражает первый контроль во врага.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Вампиризм от благословения выше: 37,5% вместо 25%.<br><b>XX</b> Шанс отразить контроль выше: 35% вместо 20%.</p></div>
   <div class="prob"><i>Оценка</i><p>Благословение + вампиризм + отражение контроля — богато.</p></div>
   <div class="prop"><i>Предложение</i><p>Сила 143% слишком высокая, срок 7 сек: +50% на 12 сек.</p></div>
   <div class="vote" data-v="lilith:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -598,7 +660,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lilith-s.webp" alt=""><div><small>Супер-удар</small><b>Непокорные</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Снимает с отряда контроль и проклятия.<br>Отряд 2,5–5 сек наносит на 50–149% больше урона.<br>Всё это время контроль на союзниках отскакивает во врага.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда длится на 2 сек дольше.<br><b>XX</b> Отскочивший контроль длится вдвое дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Очищение + отражение контроля.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок 5 → 10 сек, усиление 149% → 50%.</p></div>
   <div class="vote" data-v="lilith:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -606,7 +669,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lilith-h.webp" alt=""><div><small>Ульта</small><b>Соблазн</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Самый сильный враг 2–4 сек сражается за её отряд в полную силу.<br>Этот враг 5–10 сек получает на 18,8–37,5% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Соблазн длится на 1 сек дольше.<br><b>XX</b> Соблазнённый враг бьёт по своим супер-ударом, если он у него готов.</p></div>
   <div class="prob"><i>Оценка</i><p>Переманивает врага — сильная идея.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 3 сек, XX 8 сек.</p></div>
   <div class="vote" data-v="lilith:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -617,7 +681,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/lucifer-a.webp" alt=""><div><small>Обычный удар</small><b>Свет Денницы</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 23–13,1M урона и соседнего врага на 12–6,5M урона.<br>С шансом 10–20% благословение цели становится проклятием той же силы.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс обратить благословение выше: 30% вместо 20%.<br><b>XX</b> Если благословения нет, цель 4 сек наносит на 15% меньше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Благословение врага → проклятие.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить; XX — шанс 30%.</p></div>
   <div class="vote" data-v="lucifer:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -625,7 +690,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lucifer-s.webp" alt=""><div><small>Супер-удар</small><b>Утренняя звезда</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 144–81,5M урона.<br>Благословение цели становится проклятием той же силы.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар на 20% сильнее.<br><b>XX</b> Обращает благословение и у соседей цели.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар + переворот благословения цели.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: переворачивает и щит в урон.</p></div>
   <div class="vote" data-v="lucifer:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -633,7 +699,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lucifer-h.webp" alt=""><div><small>Ульта</small><b>Падение Денницы</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 50–28,2M урона.<br>Благословения всех врагов становятся проклятиями той же силы.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Обращённые проклятия длятся вдвое дольше благословений.</p></div>
   <div class="prob"><i>Оценка</i><p>Переворот всех благословений.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="lucifer:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -644,7 +711,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/mictlan-a.webp" alt=""><div><small>Обычный удар</small><b>Могильный холод</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ослабляет врага на 30–70% урона на 2,5–5 сек и атакует его на 2–962K урона.<br>Если проклятие уже у всех, атакует на 6–3,2M урона.<br>С шансом 10–20% замораживает цель на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс заморозить выше: 30% вместо 20%.<br><b>XX</b> Замороженный враг получает на 20% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Ослабление 70% в потолке; заморозка 2→4 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление 20→40% на 6→12 сек; заморозка 3 сек со старта, XX — на соседа тоже.</p></div>
   <div class="vote" data-v="mictlan:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -652,7 +720,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/mictlan-s.webp" alt=""><div><small>Супер-удар</small><b>Врата Миктлана</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 6–3,3M урона.<br>Все враги 2,5–5 сек наносят на 40,1–70% меньше урона.<br>Павший в ближайшие 3–6 сек не перерождается.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Запрет перерождения длится на 3 сек дольше.<br><b>XX</b> Павший в эти секунды враг не воскрешается и чужими умениями.</p></div>
   <div class="prob"><i>Оценка</i><p>Запрет перерождения — редкая механика, хорошая.</p></div>
   <div class="prop"><i>Предложение</i><p>Запрет 6 сек со старта; XX — до конца боя для одного павшего.</p></div>
   <div class="vote" data-v="mictlan:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -660,7 +729,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/mictlan-h.webp" alt=""><div><small>Ульта</small><b>Девятый круг</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 18–9,9M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Каждый задетый враг 6 сек атакует на 15% медленнее — могильный холод.</p></div>
   <div class="prob"><i>Оценка</i><p>Просто удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Девятый круг: враги с &lt;25% здоровья умирают, их души лечат отряд. Порог 10% → 25% к XX.</p></div>
   <div class="vote" data-v="mictlan:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -671,7 +741,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/hel-a.webp" alt=""><div><small>Обычный удар</small><b>Мёртвое касание</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 23–13,1M урона и соседнего врага на 12–6,5M урона.<br>С шансом 10–20% лечение цели 3,5–7 сек слабее на 25–50%.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ослабление лечения сильнее: 75% вместо 50%.<br><b>XX</b> Ослабленное лечение получает и задетый сосед.</p></div>
   <div class="prob"><i>Оценка</i><p>Шанс и срок просто удваиваются от старта к максимуму.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: −25% лечения цели 4 сек. X: эффект на всех, по кому прошёл удар с соседом. XX: павший под этим эффектом не перерождается 10 сек.</p></div>
   <div class="vote" data-v="hel:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -679,7 +750,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/hel-s.webp" alt=""><div><small>Супер-удар</small><b>Хватка Хельхейма</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 211–119,6M урона.<br>Оглушает цель на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Оглушение длится на 1 сек дольше.<br><b>XX</b> Оглушённая цель получает на 25% больше урона, пока стоит.</p></div>
   <div class="prob"><i>Оценка</i><p>Одиночный удар + оглушение 2→4 сек: короткий контроль.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: оглушение 3 сек. X: оглушённый получает на 20% больше урона от Тьмы. XX: оглушение перескакивает на второго врага.</p></div>
   <div class="vote" data-v="hel:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -687,7 +759,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/hel-h.webp" alt=""><div><small>Ульта</small><b>Воинство Хельхейма</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Воскрешает павшего союзника с 71,1–100% здоровья.<br>Если павших нет, душа 20 сек ждёт павшего и воскрешает его.<br>Если за это время никто не пал, даёт каждому союзнику щит на 21,3–63,6% макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Щит отряду (если никто не пал) прочнее на 40%.<br><b>XX</b> Душа ждёт павшего 30 сек вместо 20.</p></div>
   <div class="prob"><i>Оценка</i><p>Хорошая идея (воскрешение или душа), но 71% здоровья уже на старте.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: воскрешает с 30%. X: 60% и щит. XX: 100% + воскрешённый 6 сек неуязвим.</p></div>
   <div class="vote" data-v="hel:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -698,7 +771,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/aoguang-a.webp" alt=""><div><small>Обычный удар</small><b>Водяной вихрь</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 28–15,6M урона и соседнего врага на 14–7,8M урона.<br>Цель 10–20 сек атакует на 5–10% медленнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Замедление цели сильнее: 15% вместо 10%.<br><b>XX</b> Замедление получает и задетый сосед.</p></div>
   <div class="prob"><i>Оценка</i><p>Замедление 5→10% на 10→20 сек — длинный слабый эффект, как вы хотели.</p></div>
   <div class="prop"><i>Предложение</i><p>Можно оставить; XX: замедление складывается до 3 раз.</p></div>
   <div class="vote" data-v="aoguang:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -706,7 +780,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/aoguang-s.webp" alt=""><div><small>Супер-удар</small><b>Дыхание дракона</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 70–39,6M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Дыхание бьёт на 20% сильнее.<br><b>XX</b> Каждый задетый враг 6 сек атакует на 10% медленнее.</p></div>
   <div class="prob"><i>Оценка</i><p>Только удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Дыхание дракона: оставляет водяную воронку на 8 сек — замедление 20%.</p></div>
   <div class="vote" data-v="aoguang:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -714,7 +789,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/aoguang-h.webp" alt=""><div><small>Ульта</small><b>Жемчужина дракона</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Призывает лазурного дракона на 5–10 сек.<br>Атака дракона равна 80–238,4% от атаки бога, но не ниже собственной атаки существа.<br>Если дракон ещё жив, срок продлевается.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Дракон живёт на 3 сек дольше.<br><b>XX</b> Удары дракона замедляют врагов, как её обычный удар.</p></div>
   <div class="prob"><i>Оценка</i><p>Призыв дракона — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: дракон 6 сек. X: 10 сек. XX: два дракона.</p></div>
   <div class="vote" data-v="aoguang:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -725,7 +801,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/artemis-a.webp" alt=""><div><small>Обычный удар</small><b>Лунная стрела</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 16–9,3M урона.<br>Каждая третья стрела бьёт дважды.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Дважды бьёт каждая вторая стрела, а не третья.<br><b>XX</b> Двойная стрела бьёт вторым выстрелом соседа.</p></div>
   <div class="prob"><i>Оценка</i><p>Каждая третья стрела дважды — понятно и ровно.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: каждая 4-я. X: 3-я. XX: 2-я.</p></div>
   <div class="vote" data-v="artemis:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -733,7 +810,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/artemis-s.webp" alt=""><div><small>Супер-удар</small><b>Лунный залп</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Делит 74–41,8M урона поровну между живыми врагами, каждому не меньше 15–8,4M.<br>Каждая стрела с шансом 25% критическая.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс крита каждой стрелы выше: 40% вместо 25%.<br><b>XX</b> Каждому врагу не меньше 25% общего урона, а не 15%.</p></div>
   <div class="prob"><i>Оценка</i><p>Делит урон между врагами.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: при одном враге — критический удар всегда.</p></div>
   <div class="vote" data-v="artemis:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -741,7 +819,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/artemis-h.webp" alt=""><div><small>Ульта</small><b>Охота на Ориона</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель на 85–48,2M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар на 20% сильнее.<br><b>XX</b> Удар по цели — всегда критический.</p></div>
   <div class="prob"><i>Оценка</i><p>Один удар.</p></div>
   <div class="prop"><i>Предложение</i><p>Охота: метка 10 сек — по цели все бьют на 30% сильнее; при её смерти Артемида повторяет ульту.</p></div>
   <div class="vote" data-v="artemis:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -752,7 +831,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/atlas-a.webp" alt=""><div><small>Обычный удар</small><b>Удар кулаком</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 29–16,7M урона.<br>С шансом 7,5–15% все враги 2–4 сек атакуют только его.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс заставить всех бить в себя выше: 22,5% вместо 15%.<br><b>XX</b> Пока враги бьют в него, Атлант получает на 25% меньше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Провокация всех с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: провокация + щит себе.</p></div>
   <div class="vote" data-v="atlas:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -760,7 +840,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/atlas-s.webp" alt=""><div><small>Супер-удар</small><b>Опора мира</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Удары по остальным союзникам 2–4 сек уходят в Атланта и становятся вдвое слабее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удары по союзникам уходят в Атланта на 1 сек дольше.<br><b>XX</b> Перенесённые удары ослабевают не вдвое, а втрое.</p></div>
   <div class="prob"><i>Оценка</i><p>Принимает удары за отряд вдвое слабее.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок 2 → 6 сек со старта.</p></div>
   <div class="vote" data-v="atlas:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -768,7 +849,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/atlas-h.webp" alt=""><div><small>Ульта</small><b>Небо падает</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Трижды атакует каждого врага на 22–12,4M урона.<br>Оглушает всех врагов на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Оглушение длится на 1 сек дольше.<br><b>XX</b> Не три, а четыре удара по каждому врагу.</p></div>
   <div class="prob"><i>Оценка</i><p>3 удара по всем + оглушение.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: оглушение 4 сек всегда.</p></div>
   <div class="vote" data-v="atlas:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -779,7 +861,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/aphrodite-a.webp" alt=""><div><small>Обычный удар</small><b>Дар пены</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Усиливает союзника на 30–89% урона на 3,5–7 сек и атакует на 2–858K урона.<br>Если благословение уже у всех, атакует на 5–2,9M урона.<br>С шансом 10–20% случайный враг влюбляется и 2–4 сек не атакует.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс влюбить врага выше: 30% вместо 20%.<br><b>XX</b> Влюблённый враг ещё и лечит её отряд своим ударом.</p></div>
   <div class="prob"><i>Оценка</i><p>Благословение + влюблённость.</p></div>
   <div class="prop"><i>Предложение</i><p>Сила 89% → 40% на 12 сек.</p></div>
   <div class="vote" data-v="aphrodite:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -787,7 +870,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/aphrodite-s.webp" alt=""><div><small>Супер-удар</small><b>Красота</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Самого раненого союзника 2–4 сек никто не атакует.<br>Отряд 3,5–7 сек наносит на 24,4–72,6% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Раненого союзника не атакуют на 1 сек дольше.<br><b>XX</b> Защищённого союзника лечит на 20% его макс. здоровья.</p></div>
   <div class="prob"><i>Оценка</i><p>Защита раненого + усиление.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок защиты 2 → 4 сек со старта.</p></div>
   <div class="vote" data-v="aphrodite:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -795,7 +879,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/aphrodite-h.webp" alt=""><div><small>Ульта</small><b>Пена морская</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит каждого союзника на 24,6–73,3% макс. здоровья.<br>Все враги влюбляются и 2–4 сек не атакуют.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Влюблённость длится на 1 сек дольше.<br><b>XX</b> Влюблённые враги получают на 20% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + влюблённость всех.</p></div>
   <div class="prop"><i>Предложение</i><p>Влюблённость 3 сек со старта, XX 6 сек.</p></div>
   <div class="vote" data-v="aphrodite:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -806,7 +891,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/llorona-a.webp" alt=""><div><small>Обычный удар</small><b>Ледяное касание</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 17–9,8M урона.<br>Удары по ней с шансом 35% проходят насквозь, не раня.<br>Здоровья у неё на 25% больше, чем у других стражей.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс пропустить удар насквозь выше: 45% вместо 35%.<br><b>XX</b> Удар, прошедший насквозь, с шансом 50% замедляет нападавшего на 3 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Удары проходят насквозь 35% — сильная защита.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 15%, XX 35%.</p></div>
   <div class="vote" data-v="llorona:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -814,7 +900,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/llorona-s.webp" alt=""><div><small>Супер-удар</small><b>Плач</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Все враги 2–4 сек атакуют только её.<br>Ударивший её враг 4 сек наносит на 30% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Все бьют только её на 1 сек дольше.<br><b>XX</b> Ударивший её враг ослаблен не на 30%, а на 45%.</p></div>
   <div class="prob"><i>Оценка</i><p>Провокация + ослабление ударившего.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок провокации 4 сек со старта.</p></div>
   <div class="vote" data-v="llorona:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -822,7 +909,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/llorona-h.webp" alt=""><div><small>Ульта</small><b>Утопленница</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Утягивает самого опасного врага под воду.<br>Оглушает его на 2–4 сек.<br>Топит его 3–6 сек по 24–13,8M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Утопление длится на 2 сек дольше.<br><b>XX</b> Утопленница утягивает и второго самого опасного врага (на половину урона).</p></div>
   <div class="prob"><i>Оценка</i><p>Утопление — хорошая ульта.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="llorona:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -833,7 +921,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/dutchman-a.webp" alt=""><div><small>Обычный удар</small><b>Удар якорем</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 23–12,9M урона.<br>С шансом 7,5–15% цель 2–4 сек атакует только его.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс заставить цель бить в себя выше: 22,5% вместо 15%.<br><b>XX</b> Привязанная цель в это время наносит на 20% меньше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Провокация с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: провокация всегда при ударе.</p></div>
   <div class="vote" data-v="dutchman:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -841,7 +930,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/dutchman-s.webp" alt=""><div><small>Супер-удар</small><b>Мёртвый штиль</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Даёт себе щит на 26,8–80% макс. здоровья.<br>Все враги 2–4 сек атакуют только его.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Все бьют только его на 1 сек дольше.<br><b>XX</b> Пока цел щит, каждый ударивший его враг 3 сек атакует медленнее на 15%.</p></div>
   <div class="prob"><i>Оценка</i><p>Щит 80% + провокация 2→4 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 40%, провокация 6 сек.</p></div>
   <div class="vote" data-v="dutchman:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -849,7 +939,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/dutchman-h.webp" alt=""><div><small>Ульта</small><b>Корабль-призрак</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 52–29,4M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Задетые враги 3 сек атакуют только его — призрачный абордаж.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем — страж без защитной ульты.</p></div>
   <div class="prop"><i>Предложение</i><p>Корабль-призрак: 8 сек забирает 30% урона по союзникам на себя.</p></div>
   <div class="vote" data-v="dutchman:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -860,7 +951,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/poseidon-a.webp" alt=""><div><small>Обычный удар</small><b>Бросок трезубца</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 28–15,9M урона и соседнего врага на 14–8M урона.<br>С шансом 10–20% подготовка атаки цели откатывается на 15%.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс отката подготовки выше: 30% вместо 20%.<br><b>XX</b> Откат подготовки сильнее: 25% вместо 15%.</p></div>
   <div class="prob"><i>Оценка</i><p>Откат подготовки 15% с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: откат 30%.</p></div>
   <div class="vote" data-v="poseidon:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -868,7 +960,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/poseidon-s.webp" alt=""><div><small>Супер-удар</small><b>Цунами</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 23–13,1M урона.<br>Крайние в ряду получают на 30% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Крайние в ряду получают +50% вместо +30%.<br><b>XX</b> Волна откатывает подготовку атаки всем врагам на 10%.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем, крайним +30%.</p></div>
   <div class="prop"><i>Предложение</i><p>Цунами отбрасывает: подготовка всех врагов −20%. XX: −40%.</p></div>
   <div class="vote" data-v="poseidon:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -876,7 +969,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/poseidon-h.webp" alt=""><div><small>Ульта</small><b>Землетрясение</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 57–32,3M урона.<br>Оглушает всех врагов на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Оглушение длится на 1 сек дольше.<br><b>XX</b> Оглушённые получают на 20% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + оглушение 2→4 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Оглушение 3 сек со старта; XX — землетрясение повторяется через 4 сек слабее.</p></div>
   <div class="vote" data-v="poseidon:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -887,7 +981,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/raijin-a.webp" alt=""><div><small>Обычный удар</small><b>Гром / Ветер</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 14–7,8M урона.<br>Райдзин бьёт молнией одну цель, Фудзин вихрем слабее бьёт весь ряд.<br>Братья сменяются после супер-удара.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Вихрь Фудзина по ряду на 25% сильнее.<br><b>XX</b> Молния Райдзина с шансом 15% оглушает цель на 2 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Два брата — две роли.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="raijin:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -895,7 +990,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/raijin-s.webp" alt=""><div><small>Супер-удар</small><b>Барабаны / Мешок ветров</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Райдзин атакует цель и её соседей на 45–25,3M урона каждому и оглушает их на 2–4 сек.<br>Фудзин откладывает атаки всех врагов на 1 сек, а союзники 3–6 сек уклоняются от следующего удара.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Оглушение Райдзина на 1 сек дольше.<br><b>XX</b> Уклонение Фудзина срабатывает дважды.</p></div>
   <div class="prob"><i>Оценка</i><p>Разные суперы братьев.</p></div>
   <div class="prop"><i>Предложение</i><p>Уклонение 3→6 сек — оставить.</p></div>
   <div class="vote" data-v="raijin:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -903,7 +999,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/raijin-h.webp" alt=""><div><small>Ульта</small><b>Буря</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 23–13,1M урона.<br>Все враги 5–10 сек атакуют на 12,4–24,8% медленнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Замедление врагов сильнее: 35% вместо 25%.<br><b>XX</b> Буря и через 10 сек ещё раз бьёт каждого врага на треть урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Замедление всех 12→25% на 5→10 сек — длинный эффект.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="raijin:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -914,7 +1011,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/susanoo-a.webp" alt=""><div><small>Обычный удар</small><b>Кусанаги</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 19–11M урона.<br>С шансом 10–20% удар задевает соседа цели.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс задеть соседа выше: 30% вместо 20%.<br><b>XX</b> Удар по соседу в полную силу.</p></div>
   <div class="prob"><i>Оценка</i><p>Задевает соседа с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый 4-й удар — по ряду.</p></div>
   <div class="vote" data-v="susanoo:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -922,7 +1020,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/susanoo-s.webp" alt=""><div><small>Супер-удар</small><b>Восемь голов</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>От четырёх до восьми раз атакует самого раненого врага на 17–9,5M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> От пяти до восьми ударов вместо четырёх–восьми.<br><b>XX</b> Если цель погибла, остальные головы бьют следующего раненого.</p></div>
   <div class="prob"><i>Оценка</i><p>4–8 ударов по раненому.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 3–5, XX 6–10 ударов.</p></div>
   <div class="vote" data-v="susanoo:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -930,7 +1029,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/susanoo-h.webp" alt=""><div><small>Ульта</small><b>Разрубание Ороти</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует врага на 106–59,9M урона.<br>При 30% здоровья или меньше добивает его.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Порог добивания выше: 40% вместо 30%.<br><b>XX</b> Добив врага, Сусаноо сразу бьёт следующего на половину урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар + добивание ниже 30%.</p></div>
   <div class="prop"><i>Предложение</i><p>Порог 20% → 35% к XX.</p></div>
   <div class="vote" data-v="susanoo:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -941,7 +1041,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/blackbeard-a.webp" alt=""><div><small>Обычный удар</small><b>Пистоли</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 27–15,5M урона.<br>С шансом 10–20% сразу стреляет второй раз.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс второго выстрела выше: 30% вместо 20%.<br><b>XX</b> Второй выстрел с шансом 25% бьёт и соседа цели.</p></div>
   <div class="prob"><i>Оценка</i><p>Второй выстрел с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый 3-й выстрел двойной.</p></div>
   <div class="vote" data-v="blackbeard:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -949,7 +1050,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/blackbeard-s.webp" alt=""><div><small>Супер-удар</small><b>Бортовой залп</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 54–30,5M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Залп на 20% сильнее.<br><b>XX</b> Каждый задетый враг с шансом 20% теряет щит.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Бортовой залп: снижает защиту всех на 15% на 10 сек.</p></div>
   <div class="vote" data-v="blackbeard:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -957,7 +1059,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/blackbeard-h.webp" alt=""><div><small>Ульта</small><b>Абордаж</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Все враги 2–4 сек скованы цепями и не атакуют.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Цепи держат на 1 сек дольше.<br><b>XX</b> Скованные получают на 20% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Цепи 2→4 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Цепи 3 сек; XX — скованные получают +30% урона.</p></div>
   <div class="vote" data-v="blackbeard:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -968,7 +1071,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/heracles-a.webp" alt=""><div><small>Обычный удар</small><b>Палица</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 15–8,7M урона.<br>Всегда атакует самого сильного врага.<br>С шансом 10–20% оглушает цель на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс оглушить выше: 30% вместо 20%.<br><b>XX</b> Оглушённый сильнейший враг ещё и теряет 10% подготовки атаки.</p></div>
   <div class="prob"><i>Оценка</i><p>Бьёт сильнейшего + шанс оглушения.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="heracles:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -976,7 +1080,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/heracles-s.webp" alt=""><div><small>Супер-удар</small><b>Шкура Немейского льва</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Даёт себе щит на 26,8–80% макс. здоровья.<br>Атакует каждого врага на 29–16,4M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Пока цел щит, Геракла нельзя оглушить.</p></div>
   <div class="prob"><i>Оценка</i><p>Щит 80% + удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 40% на 10 сек.</p></div>
   <div class="vote" data-v="heracles:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -984,7 +1089,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/heracles-h.webp" alt=""><div><small>Ульта</small><b>Двенадцать подвигов</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует самого сильного врага на 39–22,4M урона.<br>Его удары по этому врагу 2,5–5 сек втрое сильнее.<br>Если этот враг падёт за это время, Геракл до конца боя наносит на 25% больше урона и выбирает нового.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Утроенные удары длятся на 2 сек дольше.<br><b>XX</b> Прибавка урона за подвиг: +40% вместо +25%.</p></div>
   <div class="prob"><i>Оценка</i><p>Подвиги — охота на сильнейшего.</p></div>
   <div class="prop"><i>Предложение</i><p>Окно ×3 урона 2,5→5 сек мало: 8 сек.</p></div>
   <div class="vote" data-v="heracles:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -995,7 +1101,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/demeter-a.webp" alt=""><div><small>Обычный удар</small><b>Терновый шип</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 20–11,3M урона и соседнего врага на 10–5,7M урона.<br>Цель 7,5–15 сек атакует на 10–20% медленнее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Замедление цели сильнее: 30% вместо 20%.<br><b>XX</b> Замедление получает и задетый сосед.</p></div>
   <div class="prob"><i>Оценка</i><p>Замедление 10→20% на 7,5→15 сек — длинный эффект.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить; XX: замедление и на соседа.</p></div>
   <div class="vote" data-v="demeter:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1003,7 +1110,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/demeter-s.webp" alt=""><div><small>Супер-удар</small><b>Терновый шквал</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 17–9,5M урона.<br>Все враги истекают кровью 3–6 сек по 5–3M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Кровотечение длится на 2 сек дольше.<br><b>XX</b> Пока враги истекают кровью, их лечение слабее на 30%.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар + кровотечение 3→6 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Кровотечение 8 сек со старта; XX — снижает лечение на 30%.</p></div>
   <div class="vote" data-v="demeter:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1011,7 +1119,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/demeter-h.webp" alt=""><div><small>Ульта</small><b>Проклятие Эрисихтона</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 32–18,1M урона.<br>Отряд лечится на нанесённый урон.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Лечение отряда сверх полного здоровья становится щитом.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + отряд лечится.</p></div>
   <div class="prop"><i>Предложение</i><p>Голод Эрисихтона: 10 сек враги не получают лечения. XX: + отряд лечится.</p></div>
   <div class="vote" data-v="demeter:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1022,7 +1131,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/jekyll-a.webp" alt=""><div><small>Обычный удар</small><b>Трость / кулак Хайда</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 24–13,7M урона.<br>Хайд бьёт сильнее.<br>Хайд с шансом 7,5–15% оглушает цель на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс оглушения у Хайда выше: 22,5% вместо 15%.<br><b>XX</b> Джекилл тоже может оглушить, с половинным шансом.</p></div>
   <div class="prob"><i>Оценка</i><p>Хайд сильнее.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="jekyll:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1030,7 +1140,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/jekyll-s.webp" alt=""><div><small>Супер-удар</small><b>Эликсир</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Становится Хайдом на 5–10 сек.<br>Хайд наносит на 80% больше урона, здоровья у него на 30% больше, атакует на 30% быстрее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Эффект длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Хайд держится на 3 сек дольше.<br><b>XX</b> Хайд атакует на 50% быстрее вместо 30%.</p></div>
   <div class="prob"><i>Оценка</i><p>Превращение в Хайда.</p></div>
   <div class="prop"><i>Предложение</i><p>Хайд 8 сек со старта, XX 15 сек.</p></div>
   <div class="vote" data-v="jekyll:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1038,7 +1149,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/jekyll-h.webp" alt=""><div><small>Ульта</small><b>Срыв</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Хайд атакует цель и её соседей на 85–48,2M урона каждому.<br>Затем Джекилл 3 сек наносит на 30% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар Хайда на 20% сильнее.<br><b>XX</b> После срыва Джекилл не слабеет.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар + слабость Джекилла после.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: слабость убрать.</p></div>
   <div class="vote" data-v="jekyll:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1049,7 +1161,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/quetzalcoatl-a.webp" alt=""><div><small>Обычный удар</small><b>Нефритовое перо</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 29–16,4M урона и соседнего врага на 14–8,2M урона.<br>С шансом 7,5–15% сдувает с цели щит.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс сдуть щит выше: 22,5% вместо 15%.<br><b>XX</b> Сдутый щит переходит союзнику с наименьшим здоровьем.</p></div>
   <div class="prob"><i>Оценка</i><p>Сдувает щит с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: сдутый щит переходит союзнику.</p></div>
   <div class="vote" data-v="quetzalcoatl:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1057,7 +1170,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/quetzalcoatl-s.webp" alt=""><div><small>Супер-удар</small><b>Пернатый вихрь</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 23–12,9M урона.<br>Все враги 5–10 сек наносят на 8–23,7% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ослабление врагов длится на 3 сек дольше.<br><b>XX</b> Вихрь сдувает с каждого врага по одному благословению.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + ослабление 8→24% на 5→10 сек — длинный, хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="quetzalcoatl:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1065,7 +1179,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/quetzalcoatl-h.webp" alt=""><div><small>Ульта</small><b>Пятое солнце</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 62–35,3M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Задетые враги 4 сек атакуют на 20% медленнее.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Пятое солнце: 4 солнца поочерёдно 12 сек — огонь, ветер, вода, ягуар (разные эффекты).</p></div>
   <div class="vote" data-v="quetzalcoatl:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1076,7 +1191,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/silent-a.webp" alt=""><div><small>Обычный удар</small><b>Тесак</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 36–20,6M урона.<br>Медленный удар тесаком наносит на 80% больше урона.<br>Всегда атакует свою жертву, минуя стражей и провокации.<br>Здоровья у него на 25% больше.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Медленный удар тесаком: +110% вместо +80%.<br><b>XX</b> Жертва, пока Молчун её преследует, получает на 10% больше урона от всех.</p></div>
   <div class="prob"><i>Оценка</i><p>Своя жертва, мимо стражей.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="silent:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1084,7 +1200,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/silent-s.webp" alt=""><div><small>Супер-удар</small><b>Не остановить</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Его 2–4 сек нельзя оглушить, усыпить и напугать.<br>Получаемый урон 2,5–5 сек меньше на 37,5–75%.<br>Его удары 2,5–5 сек лечат его на 50–90% нанесённого урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Нельзя оглушить на 1,5 сек дольше.<br><b>XX</b> Снижение получаемого урона длится на 2 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>−75% входящего урона на 5 сек — упирается в защиту.</p></div>
   <div class="prop"><i>Предложение</i><p>−35% на 10 сек.</p></div>
   <div class="vote" data-v="silent:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1092,7 +1209,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/silent-h.webp" alt=""><div><small>Ульта</small><b>Казнь</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует жертву на 142–80,4M урона.<br>Если жертва пала, выбирает новую и до конца боя атакует на 30% быстрее.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по жертве на 20% сильнее.<br><b>XX</b> Ускорение за павшую жертву: +45% вместо +30%.</p></div>
   <div class="prob"><i>Оценка</i><p>Казнь + ускорение за убийство.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="silent:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1103,7 +1221,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/persephone-a.webp" alt=""><div><small>Обычный удар</small><b>Весна / Подземье</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит союзника с наименьшим здоровьем на 8–4,5M, если оно ниже 95%, и атакует на 1–840K урона.<br>Если раненых нет, атакует на 5–2,8M урона.<br>Весной лечит, в подземье проклинает, облик меняется каждые 12 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Облик меняется каждые 9 сек вместо 12.<br><b>XX</b> В подземье её проклятие ещё и снижает лечение цели на 30%.</p></div>
   <div class="prob"><i>Оценка</i><p>Смена облика каждые 12 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="persephone:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1111,7 +1230,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/persephone-s.webp" alt=""><div><small>Супер-удар</small><b>Весенний расцвет / Гранат</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Весной лечит каждого союзника на 21–11,9M.<br>В подземье все враги 2,5–5 сек наносят на 26,2–70% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Весеннее лечение на 25% сильнее.<br><b>XX</b> Гранат: ослабление врагов длится на 2 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение или ослабление 70%.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление 25→40% на 6→12 сек.</p></div>
   <div class="vote" data-v="persephone:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1119,7 +1239,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/persephone-h.webp" alt=""><div><small>Ульта</small><b>Возвращение</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит каждого союзника на 19,2–57,3% макс. здоровья.<br>Все враги 3,5–7 сек наносят на 19,6–58,5% меньше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ослабление врагов длится на 2 сек дольше.<br><b>XX</b> Лечение сверх полного здоровья становится щитом.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + ослабление 58% на 7 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление 25% на 12 сек.</p></div>
   <div class="vote" data-v="persephone:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1130,7 +1251,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/wukong-a.webp" alt=""><div><small>Обычный удар</small><b>Удар посоха</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 14–7,7M урона.<br>С шансом 7,5–15% двойник повторяет удар.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс двойника повторить удар выше: 22,5% вместо 15%.<br><b>XX</b> Двойник бьёт не ту же цель, а соседнюю.</p></div>
   <div class="prob"><i>Оценка</i><p>Двойник повторяет удар — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 10%. XX: двойник остаётся на 6 сек.</p></div>
   <div class="vote" data-v="wukong:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1138,7 +1260,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/wukong-s.webp" alt=""><div><small>Супер-удар</small><b>Посох Жуи</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Пять раз атакует случайных врагов на 12–7M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не пять, а шесть ударов посоха.<br><b>XX</b> Каждый удар с шансом 10% оглушает на 1 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>5 случайных ударов.</p></div>
   <div class="prop"><i>Предложение</i><p>X: удары по раненым. XX: последний удар оглушает.</p></div>
   <div class="vote" data-v="wukong:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1146,7 +1269,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/wukong-h.webp" alt=""><div><small>Ульта</small><b>72 превращения</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Наносит 12 ударов по случайным врагам на 11–6M урона каждый.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не 12, а 15 ударов.<br><b>XX</b> Каждый 4-й удар бьёт и соседей цели.</p></div>
   <div class="prob"><i>Оценка</i><p>12 случайных ударов — те же «много ударов».</p></div>
   <div class="prop"><i>Предложение</i><p>72 превращения: 8 сек Укун неуязвим и бьёт каждые 0,5 сек; XX — с ним 2 двойника.</p></div>
   <div class="vote" data-v="wukong:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1157,7 +1281,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/thor-a.webp" alt=""><div><small>Обычный удар</small><b>Удар молота</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 15–8,6M урона.<br>С шансом 10–20% молния перескакивает на соседа цели, нанося половину урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс перескока молнии выше: 30% вместо 20%.<br><b>XX</b> Перескочившая молния бьёт в полную силу.</p></div>
   <div class="prob"><i>Оценка</i><p>Молния на соседа с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый 4-й удар — молния на весь ряд.</p></div>
   <div class="vote" data-v="thor:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1165,7 +1290,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/thor-s.webp" alt=""><div><small>Супер-удар</small><b>Удар Мьёльнира</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель и её соседей на 65–36,8M урона каждому.<br>Даёт себе щит на 26,8–80% макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по цели и соседям на 20% сильнее.<br><b>XX</b> Пока цел щит, каждый ударивший Тора получает молнию на 20% урона Тора.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём + щит себе 80%.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 30% на старте, 50% на XX, но держится 10 сек.</p></div>
   <div class="vote" data-v="thor:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1173,7 +1299,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/thor-h.webp" alt=""><div><small>Ульта</small><b>Ярость Мьёльнира</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Наносит 8 ударов по случайным врагам на 21–12,1M урона каждый.<br>Каждый удар с шансом 5–10% оглушает на 2–4 сек.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс оглушения каждым ударом выше: 15% вместо 10%.<br><b>XX</b> Оглушённые этой ультой получают на 20% больше урона.</p></div>
   <div class="prob"><i>Оценка</i><p>8 ударов + шанс оглушения 5→10%.</p></div>
   <div class="prop"><i>Предложение</i><p>Шанс 10%→25%; XX: оглушённые получают двойной удар.</p></div>
   <div class="vote" data-v="thor:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1184,7 +1311,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/agni-a.webp" alt=""><div><small>Обычный удар</small><b>Семь языков пламени</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 21–11,7M урона.<br>Языки пламени бьют ещё до двух случайных врагов на половину урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Языки пламени бьют до трёх врагов вместо двух.<br><b>XX</b> Языки пламени с шансом 20% поджигают на 4 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Языки пламени на двух случайных — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: до четырёх врагов.</p></div>
   <div class="vote" data-v="agni:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1192,7 +1320,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/agni-s.webp" alt=""><div><small>Супер-удар</small><b>Жертвенный огонь</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует трёх случайных врагов на 30–17M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Бьёт четырёх врагов вместо трёх.<br><b>XX</b> Задетые враги горят 4 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём случайным.</p></div>
   <div class="prop"><i>Предложение</i><p>Жертвенный огонь: тратит 10% своего здоровья — удар вдвое сильнее.</p></div>
   <div class="vote" data-v="agni:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1200,7 +1329,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/agni-h.webp" alt=""><div><small>Ульта</small><b>Всесожжение</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 42–23,6M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Все задетые враги горят 6 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем.</p></div>
   <div class="prop"><i>Предложение</i><p>Всесожжение: огонь 8 сек, усиливается с каждой секундой.</p></div>
   <div class="vote" data-v="agni:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1211,7 +1341,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/ares-a.webp" alt=""><div><small>Обычный удар</small><b>Копьё Ареса</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 16–9M урона.<br>Каждое убийство до конца боя даёт Аресу на 5% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Прибавка за убийство: +8% вместо +5%.<br><b>XX</b> Прибавка за убийство даётся и за убийства союзников рядом.</p></div>
   <div class="prob"><i>Оценка</i><p>+5% урона за убийство до конца боя.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: +10% и + скорость атаки.</p></div>
   <div class="vote" data-v="ares:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1219,7 +1350,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/ares-s.webp" alt=""><div><small>Супер-удар</small><b>Боевой клич</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 15–8,5M урона.<br>Отряд 2,5–5 сек наносит на 45,5–135,6% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда длится на 2 сек дольше.<br><b>XX</b> Пока действует клич, союзники не могут быть напуганы.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + отряду +136% урона на 5 сек — пик силы, короткий.</p></div>
   <div class="prop"><i>Предложение</i><p>+40% на 12 сек.</p></div>
   <div class="vote" data-v="ares:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1227,7 +1359,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/ares-h.webp" alt=""><div><small>Ульта</small><b>Жажда войны</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Отряд 2,5–5 сек наносит на 75,9–226% больше урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Усиление союзников сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Усиление отряда сильнее: +30% к числу.<br><b>XX</b> Каждый павший в это время враг продлевает усиление на 1 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Только +226% урона отряду на 5 сек — то же, что супер, сильнее.</p></div>
   <div class="prop"><i>Предложение</i><p>Жажда войны: 10 сек каждое убийство союзника продлевает усиление и лечит отряд.</p></div>
   <div class="vote" data-v="ares:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1238,7 +1371,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/sting-a.webp" alt=""><div><small>Обычный удар</small><b>Метательные клинки</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 10–5,6M урона.<br>С шансом 10–20% ставит на цель огненную печать, которая через 2 сек взрывается на 150% урона удара.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс поставить печать выше: 30% вместо 20%.<br><b>XX</b> Печать взрывается и по соседям цели на половину урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Огненная печать.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="sting:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1246,7 +1380,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/sting-s.webp" alt=""><div><small>Супер-удар</small><b>Цепь печатей</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ставит огненные печати на трёх врагов.<br>Через 2 сек печати взрываются на 13–7,3M урона каждому.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Печати на четырёх врагов вместо трёх.<br><b>XX</b> Взрыв печати оглушает на 1 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Печати на трёх.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: на всех.</p></div>
   <div class="vote" data-v="sting:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1254,7 +1389,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/sting-h.webp" alt=""><div><small>Ульта</small><b>Огненный крюк</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Подтаскивает цепью самого сильного врага и оглушает его на 2–4 сек.<br>Дважды атакует его на 9–5,1M урона.<br>Взрывает печать на 18–10,2M урона и отбрасывает его обратно.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Контроль длится дольше на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Оглушение на 1 сек дольше.<br><b>XX</b> После крюка на цели остаётся новая печать.</p></div>
   <div class="prob"><i>Оценка</i><p>Крюк + печать — зрелищно.</p></div>
   <div class="prop"><i>Предложение</i><p>Оглушение 3 сек со старта.</p></div>
   <div class="vote" data-v="sting:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1265,7 +1401,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/kitsune-a.webp" alt=""><div><small>Обычный удар</small><b>Лисий огонь</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Ослабляет врага на 25–70% урона на 2,5–5 сек и атакует его на 2–875K урона.<br>Если проклятие уже у всех, атакует на 5–2,9M урона.<br>С шансом 10–20% на 4–8 сек появляется лисий двойник и принимает следующий удар по ней.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс призвать двойника выше: 30% вместо 20%.<br><b>XX</b> Двойник, приняв удар, ослабляет ударившего на 30% на 3 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Ослабление 70% в потолке + двойник.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление 20→40% на 6→12 сек.</p></div>
   <div class="vote" data-v="kitsune:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1273,7 +1410,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/kitsune-s.webp" alt=""><div><small>Супер-удар</small><b>Девять хвостов</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Все враги 2,5–5 сек наносят на 59,9–70% меньше урона.<br>Три лисьих двойника на 4–8 сек принимают по одному удару каждый.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Ослабление врагов сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не три, а четыре лисьих двойника.<br><b>XX</b> Ослабление врагов длится на 2 сек дольше.</p></div>
   <div class="prob"><i>Оценка</i><p>Ослабление всех 70% + двойники — снова потолок.</p></div>
   <div class="prop"><i>Предложение</i><p>Ослабление 25% на 10 сек, двойников 1 → 3.</p></div>
   <div class="vote" data-v="kitsune:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1281,7 +1419,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/kitsune-h.webp" alt=""><div><small>Ульта</small><b>Лисья свадьба</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит каждого союзника на 10,3–30,6% макс. здоровья.<br>Даёт каждому союзнику лисьего двойника на 3–6 сек, он принимает один удар.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Лечение отряда на 25% сильнее.<br><b>XX</b> Лисий двойник союзника принимает не один, а два удара.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + двойник каждому.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="kitsune:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1292,7 +1431,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/loki-a.webp" alt=""><div><small>Обычный удар</small><b>Удар кинжала</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 15–8,5M урона.<br>С шансом 10–20% цель следующей атакой бьёт случайного бойца, даже своего.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс обмана выше: 30% вместо 20%.<br><b>XX</b> Обманутая цель бьёт по своим всегда, а не по случайному бойцу.</p></div>
   <div class="prob"><i>Оценка</i><p>Цель бьёт своего — весёлая механика.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт 8%. XX: 25% и на 2 удара.</p></div>
   <div class="vote" data-v="loki:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1300,7 +1440,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/loki-s.webp" alt=""><div><small>Супер-удар</small><b>Пламя обмана</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Четыре раза атакует на 20–11,5M урона, случайно одного врага или разных.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не четыре, а пять ударов.<br><b>XX</b> Каждый удар с шансом 15% заставляет цель ударить своих.</p></div>
   <div class="prob"><i>Оценка</i><p>4 удара случайно.</p></div>
   <div class="prop"><i>Предложение</i><p>Пламя обмана: каждый удар с шансом крадёт благословение цели.</p></div>
   <div class="vote" data-v="loki:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1308,7 +1449,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/loki-h.webp" alt=""><div><small>Ульта</small><b>Облик обмана</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Повторяет супер-удар случайного вражеского бога с силой Локи.<br>Если вражеских богов нет, атакует каждого врага на 25–14,1M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон сильнее на 25%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон сильнее на 25%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Повторённый супер-удар врага на 25% сильнее.<br><b>XX</b> Украденный супер-удар враг не может применить 6 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Повторяет чужой супер — отличная идея.</p></div>
   <div class="prop"><i>Предложение</i><p>Старт: копирует супер. X: копирует ульту врага. XX: две копии подряд.</p></div>
   <div class="vote" data-v="loki:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1319,7 +1461,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/lubu-a.webp" alt=""><div><small>Обычный удар</small><b>Небесная алебарда</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 11–6,4M урона.<br>За каждого врага, бьющего его, наносит на 15% больше урона, не больше чем на 45%.<br>С шансом 10–20% удар задевает соседей цели.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> За каждого бьющего его врага +20% урона, не больше +60%.<br><b>XX</b> Шанс задеть соседей выше: 30% вместо 20%.</p></div>
   <div class="prob"><i>Оценка</i><p>Сильнее, чем больше врагов бьёт его.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить.</p></div>
   <div class="vote" data-v="lubu:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1327,7 +1470,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lubu-s.webp" alt=""><div><small>Супер-удар</small><b>Тысяча ли</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует цель и её соседей на 24–13,5M урона каждому.<br>Все враги 2–4 сек атакуют только его.<br>Даёт себе щит на 21,8–65% макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по цели и соседям на 20% сильнее.<br><b>XX</b> Пока цел щит, атакующие его враги получают ответ на 15% его урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём + провокация + щит 65%.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 35% на 10 сек.</p></div>
   <div class="vote" data-v="lubu:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1335,7 +1479,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/lubu-h.webp" alt=""><div><small>Ульта</small><b>Трое против одного</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Все враги 2–4 сек атакуют только его.<br>Урон по нему 2–4 сек меньше на 20,3–40,6%.<br>В конце атакует каждого врага на 25–14M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Снижение урона по нему сильнее: +40% к числу.<br><b>XX</b> Финальный удар сильнее на 10% за каждый принятый удар, до +50%.</p></div>
   <div class="prob"><i>Оценка</i><p>Провокация + −41% урона + удар в конце.</p></div>
   <div class="prop"><i>Предложение</i><p>Срок 4 → 8 сек.</p></div>
   <div class="vote" data-v="lubu:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1346,7 +1491,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/sekhmet-a.webp" alt=""><div><small>Обычный удар</small><b>Целебный жар</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит союзника с наименьшим здоровьем на 14–7,7M, если оно ниже 75%, и атакует на 2–885K урона.<br>Если раненых нет, атакует на 5–2,9M урона.<br>С шансом 12,5–25% лечение обжигает ближайшего врага на 3–1,5M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 30%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс обжечь врага лечением выше: 37,5% вместо 25%.<br><b>XX</b> Ожог бьёт не одного ближайшего, а двух врагов.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечение + шанс обжечь.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждое лечение обжигает.</p></div>
   <div class="vote" data-v="sekhmet:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1354,7 +1500,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/sekhmet-s.webp" alt=""><div><small>Супер-удар</small><b>Пламя исцеления</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Лечит каждого союзника на 16–9,3M.<br>Обжигает каждого врага на 11–6,2M урона.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Лечение сильнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Ожог врагов на 25% сильнее.<br><b>XX</b> Обожжённые враги 4 сек лечатся на 30% слабее.</p></div>
   <div class="prob"><i>Оценка</i><p>Лечит своих и жжёт врагов — хорошо.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: огонь 6 сек вместо одного удара.</p></div>
   <div class="vote" data-v="sekhmet:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1362,7 +1509,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/sekhmet-h.webp" alt=""><div><small>Ульта</small><b>Красное пиво</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 7–4M урона.<br>Отряд лечится на нанесённый урон.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар по каждому врагу на 20% сильнее.<br><b>XX</b> Лечение отряда сверх полного здоровья становится щитом.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + отряд лечится — то же, что у Деметры.</p></div>
   <div class="prop"><i>Предложение</i><p>Красное пиво: враги 6 сек «пьяны» — 30% атак мимо; XX — 50%.</p></div>
   <div class="vote" data-v="sekhmet:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1373,7 +1521,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/surt-a.webp" alt=""><div><small>Обычный удар</small><b>Огненный меч</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 28–15,7M урона.<br>Поджигает цель на 3–6 сек по 6–3,1M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Поджог длится на 2 сек дольше.<br><b>XX</b> Горящая цель получает на 15% больше урона от Сурта.</p></div>
   <div class="prob"><i>Оценка</i><p>Поджог 3→6 сек.</p></div>
   <div class="prop"><i>Предложение</i><p>Поджог 6 сек со старта, XX — 10 сек и складывается.</p></div>
   <div class="vote" data-v="surt:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1381,7 +1530,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/surt-s.webp" alt=""><div><small>Супер-удар</small><b>Меч Сумерек</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует самого раненого врага на 74–42,1M урона, минуя 15% защиты.<br>Поджигает цель на 3–6 сек по 7–3,9M урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Удар минует 30% защиты вместо 15%.<br><b>XX</b> Поджог перекидывается на соседей цели.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по раненому + поджог.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: добивает подожжённую цель ниже 20%.</p></div>
   <div class="vote" data-v="surt:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1389,7 +1539,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/surt-h.webp" alt=""><div><small>Ульта</small><b>Сожжение мира</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует каждого врага на 48–27,3M урона.<br>Поджигает всех врагов на 3–6 сек по 2–910K урона в секунду.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Урон со временем сильнее на 50%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Поджог всех врагов длится на 2 сек дольше.<br><b>XX</b> Горящие враги лечатся на 40% слабее.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по всем + поджог.</p></div>
   <div class="prop"><i>Предложение</i><p>Сожжение мира: огонь на поле 10 сек, кто стоит — горит.</p></div>
   <div class="vote" data-v="surt:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1400,7 +1551,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/shango-a.webp" alt=""><div><small>Обычный удар</small><b>Удар топора</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 13–7,1M урона.<br>С шансом 7,5–15% бьёт дважды.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс бить дважды выше: 22,5% вместо 15%.<br><b>XX</b> Второй удар топора оглушает на 1 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>Двойной удар 7,5→15%.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: двойной удар оглушает на 1 сек.</p></div>
   <div class="vote" data-v="shango:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1408,7 +1560,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/shango-s.webp" alt=""><div><small>Супер-удар</small><b>Топор грома</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует трёх случайных врагов на 46–26,1M урона.<br>Даёт себе щит на 23,5–70% макс. здоровья.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Щит прочнее на 40%.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Щит прочнее на 40%.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Бьёт четырёх врагов вместо трёх.<br><b>XX</b> Пока цел щит, каждый ударивший Шанго получает удар грома на 20% его урона.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по трём + щит 70%.</p></div>
   <div class="prop"><i>Предложение</i><p>Щит 30→50% на 10 сек.</p></div>
   <div class="vote" data-v="shango:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1416,7 +1569,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/shango-h.webp" alt=""><div><small>Ульта</small><b>Гром небес</b></div><span class="mk mk-s">Скучное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Наносит 6 ударов по случайным врагам на 21–12M урона каждый.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Не 6, а 8 ударов.<br><b>XX</b> Каждый удар с шансом 10% оглушает на 1 сек.</p></div>
   <div class="prob"><i>Оценка</i><p>6 случайных ударов.</p></div>
   <div class="prop"><i>Предложение</i><p>Гром небес: каждый удар бьёт и соседа; XX — молния остаётся на поле 6 сек.</p></div>
   <div class="vote" data-v="shango:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1427,7 +1581,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
  <div class="gr"><div class="sk">
   <div class="skh"><img src="assets/balance/shiva-a.webp" alt=""><div><small>Обычный удар</small><b>Тришула</b></div><span class="mk mk-n">Обычное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует на 21–11,7M урона.<br>С шансом 7,5–15% бьёт трижды.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 15% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Шанс бить трижды выше: 22,5% вместо 15%.<br><b>XX</b> Третий удар снижает защиту цели на 5%, как Тандава.</p></div>
   <div class="prob"><i>Оценка</i><p>Тройной удар с шансом.</p></div>
   <div class="prop"><i>Предложение</i><p>XX: каждый 5-й удар тройной.</p></div>
   <div class="vote" data-v="shiva:a"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1435,7 +1590,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/shiva-s.webp" alt=""><div><small>Супер-удар</small><b>Тандава</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Шесть раз атакует цель на 12–6,7M урона.<br>Каждый удар до конца боя снижает защиту цели на 5%, не больше чем на 30%.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Снижение защиты до 45% вместо 30%.<br><b>XX</b> Снижение защиты получают и соседи цели (вполовину).</p></div>
   <div class="prob"><i>Оценка</i><p>Снижает защиту до конца боя — хорошо (длинный эффект).</p></div>
   <div class="prop"><i>Предложение</i><p>Потолок 30% → 50% к XX.</p></div>
   <div class="vote" data-v="shiva:s"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
@@ -1443,7 +1599,8 @@ svg text{fill:#a59a8a;font:11px system-ui}
 </div><div class="sk">
   <div class="skh"><img src="assets/balance/shiva-h.webp" alt=""><div><small>Ульта</small><b>Третий глаз</b></div><span class="mk mk-i">Интересное</span></div>
   <div class="now"><i>От старта до максимума</i><p>Атакует врага с наибольшим уроном в секунду на 82–46,2M урона.<br>При 30% здоровья или меньше добивает его.</p></div>
-  <div class="art"><i>Артефакты, полный набор</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="art"><i>Артефакт сейчас</i><p>Бог восстанавливает здоровье на 25% нанесённого урона.</p></div>
+  <div class="artp"><i>Артефакты — предложение</i><p><b>XV</b> Порог добивания выше: 40% вместо 30%.<br><b>XX</b> Добив врага, Шива 6 сек атакует на 30% быстрее.</p></div>
   <div class="prob"><i>Оценка</i><p>Удар по самому опасному + добивание.</p></div>
   <div class="prop"><i>Предложение</i><p>Оставить; XX — порог добивания 40%.</p></div>
   <div class="vote" data-v="shiva:h"><button type="button" data-x="1">👍 Нравится</button><button type="button" data-x="-1">👎 Не нравится</button></div>
