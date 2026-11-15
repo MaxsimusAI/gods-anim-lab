@@ -901,7 +901,12 @@
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": "rt1"
+  "r4": "rt1",
+  "wf": [
+   0.82,
+   0.37
+  ],
+  "rel_by_eye": 9
  },
  "artemis_ti_hyp": {
   "imp": 29,
@@ -915,14 +920,24 @@
   "k": 5,
   "v0": 4,
   "v1": 68,
-  "r4": "rt1"
+  "r4": "rt1",
+  "wf": [
+   0.78,
+   0.25
+  ],
+  "rel_by_eye": 7
  },
  "artemis_ti_sup": {
   "imp": 29,
   "k": 9,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": true,
+  "wf": [
+   0.83,
+   0.2
+  ],
+  "rel_by_eye": 13
  },
  "artemis_bt_hyp": {
   "imp": 39,
@@ -936,7 +951,12 @@
   "k": 9,
   "v0": 4,
   "v1": 68,
-  "r4": true
+  "r4": true,
+  "wf": [
+   0.8,
+   0.25
+  ],
+  "rel_by_eye": 13
  },
  "houyi_ti_hyp": {
   "imp": 40,
@@ -3325,7 +3345,12 @@
    68
   ],
   "k": 15,
-  "fit": true
+  "fit": true,
+  "wf": [
+   0.5,
+   0.04
+  ],
+  "rel_by_eye": 15
  },
  "llorona_bt_hyp": {
   "idx": [
@@ -6083,5 +6108,72 @@
    0.86
   ],
   "rel_by_eye": 14
+ },
+ "loki_ti_atk": {
+  "darkbody": 22,
+  "wf": [
+   0.03,
+   0.37
+  ],
+  "rel_by_eye": 8
+ },
+ "loki_ti_sup": {
+  "darkbody": 22,
+  "wf": [
+   0.9,
+   0.05
+  ],
+  "rel_by_eye": 9
+ },
+ "lubu_ti_hyp": {
+  "bg": "robust",
+  "wf": [
+   0.24,
+   0.17
+  ],
+  "rel_by_eye": 12
+ },
+ "lilith_bt_hyp": {
+  "wf": [
+   0.79,
+   0.21
+  ],
+  "rel_by_eye": 13
+ },
+ "lilith_bt_sup": {
+  "wf": [
+   0.14,
+   0.13
+  ],
+  "rel_by_eye": 13
+ },
+ "loki_ti_hyp": {
+  "wf": [
+   0.62,
+   0.1
+  ],
+  "rel_by_eye": 10
+ },
+ "lubu_ti_atk": {
+  "wf": [
+   0.78,
+   0.31
+  ],
+  "rel_by_eye": 13
+ },
+ "lubu_ti_sup": {
+  "wf": [
+   0.88,
+   0.45
+  ],
+  "rel_by_eye": 11
+ },
+ "lilith_bt_atk": {
+  "bg": "robust",
+  "wf": [
+   0.15,
+   0.47
+  ],
+  "rel_by_eye": 13
  }
 }

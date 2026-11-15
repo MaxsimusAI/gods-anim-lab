@@ -9,9 +9,9 @@
 "agni_ti_atk": "ok",
 "agni_bt_sup": "ok",
 "anansi_bt_hyp": "ok",
-"loki_ti_idle": "ok",
-"loki_ti_hyp": "ok",
-"lilith_bt_atk": "ok",
+"loki_ti_idle": "new",
+"loki_ti_hyp": "new",
+"lilith_bt_atk": "new",
 "_comment2": "loki_ti_* and lilith_bt_*: old sheets on art that Maxim is having redrawn - to re-shoot after the redraw.",
 "mictlan_bt_idle": "ok",
 "mictlan_ti_idle": "ok",
@@ -404,5 +404,14 @@
 "aoguang_ti_hyp": "ok",
 "shango_bt_sup": "ok",
 "shango_ti_sup": "ok",
-"atlas_bt_atk": "ok"
+"atlas_bt_atk": "ok",
+"lilith_bt_idle": "new",
+"lilith_bt_sup": "new",
+"lilith_bt_hyp": "new",
+"loki_ti_atk": "new",
+"loki_ti_sup": "new",
+"lubu_ti_idle": "new",
+"lubu_ti_atk": "new",
+"lubu_ti_sup": "new",
+"lubu_ti_hyp": "new"
 }
