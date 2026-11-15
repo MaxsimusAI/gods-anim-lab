@@ -3536,7 +3536,12 @@
    72
   ],
   "k": 12,
-  "fit": true
+  "fit": true,
+  "wf": [
+   0.8,
+   0.48
+  ],
+  "rel_by_eye": 12
  },
  "lubu_bt_hyp": {
   "idx": [
