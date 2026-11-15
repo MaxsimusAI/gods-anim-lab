@@ -71,7 +71,9 @@ his turn comes. In brackets: where and when he saw it.
 45. Does the game draw a large picture or icon over the fight (skull, three heads, creature, pumpkin, big portraits)?
     He wants them removed, also where the clip does not carry the symbol. (Mictlan, Hecate, Ao Guang, Horseman, Hel, 14.11)
 46. Does the god leap to the enemy in a skill that reads better from his place? (Shiva, Surt, Llorona, Dutchman atk, 14.11)
-47. In melee: does the strike in the clip happen before the god has arrived at the enemy? (Brynhild atk, 14.11)
+47. In melee: does the strike in the clip happen before the god has arrived at the enemy? (Brynhild atk, 14.11; Poseidon atk, 16.11)
+48. Is the release frame of the sheet set earlier than the moment the arrow / effect really leaves the weapon (bow still drawn at the release frame)? (Artemis atk and sup, 16.11)
+49. Does the game effect start lower than the place where the baked effect ends (mist leaving the top → game effect from the top)? (Llorona BT sup, 16.11)
 
 ## Ideas Maxim proposed or praised
 

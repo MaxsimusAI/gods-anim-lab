@@ -60,13 +60,15 @@
   "checked": "sheetview artemis bt atk f3-f11; fseq artemis atk: BT flash f8@450 + arrow 450-510, TI flash f7@390, hit 735 / 705 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
   "remark": "Плохая синхронизация у програмного эффекта",
   "status": "done",
-  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+  "what": "the metric release frame was wrong (f5: the arrow is still on the string) - release frame set by eye (R9_REL: BT f8, TI f7); the game arrow now leaves on the baked flash | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame",
+  "r10": "r10 16.11: release f9 (flash at the arrow), was f5; TI atk f7"
  },
  "artemis_bt_hyp": {
   "checked": "fseq artemis hyp: only the clip moon; arrow 790, hit 820 ms",
   "remark": "Берем эту версию. Убираем программную луну (зачем она, если в анимации уже есть луна?)",
   "status": "done",
-  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept"
+  "what": "today's sheets: game moon removed (clip has its own); Orion mark, arrow and hit kept",
+  "r10": "r10 16.11: constellation from the release (REL6_TODAY, faster star step so all 8 are up before the hit); no crescent symbol at the hit"
  },
  "artemis_bt_sup": {
   "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
@@ -90,7 +92,8 @@
   "checked": "sheetview artemis bt sup f6-f14; fseq artemis sup: arrows leave at 840 (f14), damage 970 / 900 ms | arr.py artemis atk / sup: same timing as before the change (BT atk D 1.25 hold 32 ms, TI atk D 1.32; sup hold 213 / 150 ms)",
   "remark": "У аниме версии берем вторую версию. анимаций. Плохая синхронизация у програмного эффекта",
   "status": "done",
-  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame"
+  "what": "release frame set by eye (R9_REL: BT f13, TI f12 - the three arrows stay on the bow until then) and the release kept at the launch time (REL6_TODAY); game moon over the god removed; arrows leave when the baked arrows disappear and the damage lands on arrival | review fix (findings 11, 12): the by-eye release frames (R9_REL) are keyed by the sheet file and guarded by the sheet's metrics (impact|wf) - a re-cut or a new take falls back to the metric frame",
+  "r10": "r10 16.11: release frame was the draw (f9) - set to the shot f13 by eye, wf at the arrow heads; BT the same"
  },
  "atlas_bt_hyp": {
   "checked": "fsb 0.85 M, 0.5 R + arr.py: BT release f11@687, volleys leave 712/782/852, land 992/1112/1232, hits 1005/1135/1250; TI release f13@813, leave 838/908/978, land 1118/1238/1358, hits 1135/1265/1380 | review fix: fsb 0.85 M, 0.5 R + arr.py: BT release 687, stars leave 700-783, land ~1000 / ~1120 / ~1240, hits 1017 / 1133 / 1267; TI release 813, leave 817-917, land ~1122 / ~1245 / ~1365, hits 1133 / 1250 / 1383",
@@ -240,7 +243,8 @@
   "checked": "fseq horseman sup: BT release f12@750, clots 760-1090, ignite ~1200; TI release f7@584, clots 760-980",
   "remark": "Нет связи между анимацией умения и уроном",
   "status": "done",
-  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)"
+  "what": "today's sheets: on the release frame three fire clots leave the hand (wf), fly to the three enemies the skill ignites and set them on fire (the burn then ticks there)",
+  "r10": "r10 16.11 (G4 FAIL «нет связи между анимацией умения и уроном»): the hit enemies keep burning until the first burn ticks"
  },
  "horseman_ti_atk": {
   "checked": "fseq horseman atk col: release f15/f16, fire streak 900-1100, hit 1100/1160 ms; sheetview f11-f18 shows the baked pumpkin",
@@ -324,7 +328,8 @@
   "checked": "fsb 0.85 M / 0.8 R: BT release f15@938, streams 950-1228, coils from 1228, taunt 1237; TI release f10@626, streams land 915, taunt 925 | review fix: fsb 0.8 M: super 1200-1470, ult 1250-1450",
   "remark": "Плохой программный эффект",
   "status": "done",
-  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core)."
+  "what": "today's sheets: tear drops, gather wisps and thin wail arcs removed. On the release frame the clip's ghostly water flows from her hand (BT wf) / the crest of her water curtain (TI, R9_PT by eye) in a foamy pale-blue stream to every enemy and winds around him (r9Stream + r9Coil): the enemies are tied to her (taunt). Release expected .45 s REVIEW FIX: coils thicker and blue (w 7.5 super, 9.5 ult; r9Coil draws a coloured body with a thin light core).",
+  "r10": "r10 16.11 «должен быть выше, где в анимации заканчивается»: wf moved to the top of the mist (0.5, 0.04)"
  },
  "llorona_ti_atk": {
   "checked": "fseq llorona atk: BT release f16@834, stream 900-1120, hit 1095; TI release f7@365, hit 630 ms; close look at 0.9 scale",
@@ -643,5 +648,21 @@
   "remark": "Плохая синхронизация у программного эффекта",
   "status": "done",
   "what": "sheet start waits 0.32 s (release frame f5 was shown 0.3 s before the bolt): the bolt now leaves the hand on the release frame"
+ },
+ "poseidon_bt_atk": {
+  "status": "done",
+  "r10": "r10 16.11 «бьет раньше чем успевает долететь»: fast leap on today's sheet (BR.LEAP_NEW + LEAP_TODAY_ONLY), strike frame f12 lands with the damage (.68/.70 s), trident flash on the strike frame; «вчера» unchanged"
+ },
+ "surt_ti_sup": {
+  "status": "done",
+  "r10": "r10 16.11 «плохая синхронизация»: today's sheet - sup() at the release (REL6_TODAY), fire crescent from the blade (wf); anticip no longer restarts the sheet"
+ },
+ "thor_bt_sup": {
+  "status": "done",
+  "r10": "r10 16.11 (G4: .25 s with nothing between the slam and the damage): REL_TODAY + WAIT_TODAY - slam frame on the hit; ground crack on the slam frame"
+ },
+ "ares_bt_sup": {
+  "status": "done",
+  "r10": "r10 16.11 (G4: same gap): REL_TODAY - strike on the hit; the cry starts on the strike frame"
  }
 }

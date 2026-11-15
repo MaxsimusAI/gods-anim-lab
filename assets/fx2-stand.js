@@ -7759,13 +7759,17 @@ BR.REL_NEW = { 'vanhelsing:sup': .45, 'vanhelsing:hyp': .5 };   // per-skill rel
 // r9, today's sheets only: the time (s after the cast starts) at which the script expects the release frame of the skill.
 // Sting ult: the kick (release frame) lands when the sim deals the first hit. Shango super: the lightning is instant - the release
 // frame lands with the bolts and the damage.
-BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3) };
+BR.REL_TODAY = { 'sting:hyp': +(T_SUP - .01).toFixed(3), 'shango:sup': +(T_SUP - .02).toFixed(3), 'thor:sup': +(T_SUP - .02).toFixed(3), 'ares:sup': +(T_SUP - .02).toFixed(3) };
+// r10 (G4: ~.25 s with nothing on screen between the slam frame and the damage): these supers may start their sheet later so the slam lands on the hit
+BR.WAIT_TODAY = new Set(['thor:sup', 'ares:sup']);
 // r9 Block 4b: redesigned effects that leave wf on the release frame and must be seen travelling - the release frame is expected .3 s
 // before the sim's hit (T_SUP), so the flight takes ~.29 s instead of .15 s
 Object.assign(BR.REL_TODAY, { 'lucifer:sup': .45, 'lucifer:hyp': .45, 'lilith:hyp': .45, 'raijin:hyp': .45, 'llorona:sup': .45, 'llorona:hyp': .45, 'atlas:sup': .45, 'atlas:hyp': .45, 'vanhelsing:hyp': .45, 'erlang:hyp': .45 });
 // r9: OLD_SIG skills whose projectiles are launched by sup() / ult() (called at REL_SUP = .6 s), not at .5 s: today's sheets keep the release at .6 s
-BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp']);
-BR.LEAP_NEW = new Set(['brynhild']);   // 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target   // gods whose signatures use absolute times written for the old sheets (launch at .5 s)
+BR.REL6_TODAY = new Set(['aoguang:sup', 'hecate:sup', 'shiva:hyp', 'artemis:sup', 'kali:sup', 'kali:hyp', 'surt:sup', 'artemis:hyp']);   // r10: + Surt super (sup() at .6 s)
+BR.LEAP_NEW = new Set(['brynhild', 'poseidon']);   // r10 (16.11 Maxim, Poseidon: «бьет раньше чем успевает долететь») - fast leap, strike frame on arrival
+BR.LEAP_TODAY_ONLY = new Set(['poseidon']);
+// 13.11 Maxim: a strike in place does not tell who hits whom - melee-looking basics leap to the target
 const godOk = gu => !!(gu && !gu.reborn && !gu.pet && !gu.monster && !gu.trial && !gu.hgGod && !gu.dummy && gu.role !== 'creature');
 const recipe = id => !!SIG[id] && !!G.HEROES[id] && (NEWSTYLE[id] ? !!G.HEROES[id].pv2 : OLD.has(id));
 const own = gu => godOk(gu) && recipe(gu.hid) && !!(BR.SHEETS_V2[gu.hid] || BR.all) && (!BR.only || BR.only.has(gu.hid));
@@ -8105,7 +8109,7 @@ lag = 0;
 // the opposite case (strikes only): the release frame is so early in the sheet that even the slowest playback shows it
 // before the leap arrives / the shot is due (Brynhild: «бьет в анимации раньше чем оказывается рядом с противником») -
 // the sheet starts later, the god stays in his idle pose until then.
-if (atk && hitAt - dur * rt > .08)
+if ((atk || BR.WAIT_TODAY && BR.WAIT_TODAY.has(u.hid + ':' + kind)) && hitAt - dur * rt > .08)
 wait = hitAt - dur * rt;
 }
 }
@@ -8497,7 +8501,8 @@ fe.hyp = { name: nm.name || '', kind: HYP_KIND[fx] || fx || 'annihilate' };
 }
 // 13.11 Maxim: a spear swung in place does not tell who is being hit. Melee-looking basics on the new sheets leap to the
 // enemy: a plain 'shoot' leaps to its target; a support 'cast' (buff to an ally) leaps to the enemy of its auxiliary shot.
-const leapOk = BR.isProposed && !e.aux && e.fx !== 'mad' && BR.LEAP_NEW && BR.LEAP_NEW.has(gu.hid) && (BR.animOf(BR.SHEETS_ATK, gu) || {}).isNewSheet;
+const leapOk = BR.isProposed && !e.aux && e.fx !== 'mad' && BR.LEAP_NEW && BR.LEAP_NEW.has(gu.hid) && (BR.animOf(BR.SHEETS_ATK, gu) || {}).isNewSheet
+&& (!BR.LEAP_TODAY_ONLY.has(gu.hid) || act.F.today('atk', act.vu));   // r10: Poseidon's fast leap only on today's sheet («вчера» keeps LEAP_SHOOT)
 const axNew = leapOk && t === 'cast' && batch && batch.find ? batch.find(x => x && x.type === 'shoot' && x.aux && x.u === e.u && x.tgt && x.tgt !== e.u) : null;
 const leapNew = !!axNew || leapOk && t === 'shoot';
 let leapTgt = null;
@@ -15673,7 +15678,7 @@ move: true, col: '#b9a2ff', keep: [.48, .4, .36, .44],
 onMove(F, e) {
 F.supDrawn = true;
 F.at(.32, () => KE.crackle(F, () => F.wp('s'), .34, { col: '#d8ccff', r: 20, n: 1, gap: .07 }));
-F.at(.69, () => {
+F.at(F.today('sup', F.u) ? F.relDt('sup', .69) : .69, () => {   // r10 review: today's sheet - the ground crack on the slam frame
 const b = boxOf(F.u), c = { x: b.x - b.w * .06, y: b.feet - 2 };
 F.decal(c.x, c.y, 44, '#b9a2ff', { cracks: 9, dur: 1.5 });
 F.flash(c.x, c.y - 8, 30, '#c8b8ff', { dur: .22 });
@@ -18348,6 +18353,7 @@ s: {
 col: '#ff4a1a', noCharge: true, keep: [.5, .48, .27, .58],
 anticip(F, u) {
 k1Burn(F);
+if (!(BR.isProposed && F.today('sup', u)))   // r10: today's sheet is played once by super() (REL6_TODAY), not restarted here
 F.st.playAnim(u, 'sup', .384);
 for (let i = 0; i < 10; i++)
 F.at(.16 + i * .035, () => { const w = F.wp('s'); k1Tongue(F, w.x + F.rnd(-8, 8), w.y + F.rnd(-6, 10), { v0: 30, v1: 70, s0: 8, s1: 13, l0: .2, l1: .35 }); });
@@ -18362,7 +18368,10 @@ const b = boxOf(F.u), c = { x: b.x, y: b.top + b.h * .55 }, to = F.tc(t, .45), f
 const w = F.wp('s');
 k1Sparks(F, w.x, w.y, { n: 10, s: 5, v0: 60, v1: 150, ay: 380 });
 }
-k1FireCrescent(F, { x: c.x + b.w * .3, y: c.y - b.h * .3 }, to, FLY_S, { R: 30, arc: -14, onHit: undefined });
+// r10 (16.11 Maxim, Surt super: «плохая синхронизация программного эффекта»): on today's sheets the fire crescent leaves the
+// burning blade (wf) at the release frame, not a point beside the chest
+const w0 = BR.isProposed && F.today && F.today('sup', F.u) ? F.wp('s') : null;
+k1FireCrescent(F, w0 ? { x: w0.x, y: w0.y } : { x: c.x + b.w * .3, y: c.y - b.h * .3 }, to, FLY_S, { R: w0 ? 38 : 30, arc: -14, onHit: undefined });
 FX_IMPACT_K_FIRE1(F, t, FLY_S, () => {
 k1FireCross(F, to, 84);
 F.flash(to.x, to.y, 30, '#ff5a1a', { dur: .28, k: .8 });
@@ -19115,7 +19124,7 @@ move: true, col: '#ff3f3f',
 onMove(F, e) {
 F.supDrawn = true;
 e.u.mask = { kind: 'sup', from: 12, to: 21, e: [[.95, .41, .3, .2, .55]] };
-F.at(.56, () => {
+F.at(F.today('sup', F.u) ? F.relDt('sup', .56) + .06 : .56, () => {   // r10 review: today's sheet - the cry starts on the strike frame
 const b = boxOf(F.u), m = { x: b.x, y: b.top + b.h * .12 };
 F.flash(m.x, m.y, 26, '#ff4a3a', { dur: .25 });
 k2cry(F, m, -1, { col: '#ff3f3f', core: '#ffc0b0', n: 3, dur: .26, rx: 92, ry: Math.abs(m.y - LAY.eFeet) * .55 + 30 });
@@ -23565,7 +23574,7 @@ g.stroke();
 g.restore();
 }, o.layer);
 const kwOrion = (F, t, o) => {
-const order = [2, 0, 1, 3, 4, 5, 6, 7], appear = order.map((si, i) => o.t0 + i * .05);
+const order = [2, 0, 1, 3, 4, 5, 6, 7], appear = order.map((si, i) => o.t0 + i * (o.step ?? .05));
 order.forEach((si, i) => F.at(appear[i], () => { const b = boxOf(t), R = b.h * .58, x = b.x + ORION.S[si][0] * R, y = b.top + b.h * .46 + ORION.S[si][1] * R; F.p({ x, y, life: .22, s0: 20, s1: 4, tex: 'star4', col: '#ffffff', a0: .9 }); }));
 F.obj(o.tMark + .22, (g, a) => {
 const b = boxOf(t), cx = b.x, cy = b.top + b.h * .46, R = b.h * .58;
@@ -23658,7 +23667,9 @@ if (!F.today('hyp', u))   // r9 (14.11 Maxim «убираем программн
 F.at(.12, () => kwMoon(F, LAY.W / 2 + 30, LAY.eF(94), 30, .8, { in: .25, out: .62, rot: -.55, k: .95 }));
 void 'sigil';
 const tHit = KW.until(F, t) ?? T_SUP, tMark = KW.until(F, t, 'mark') ?? tHit + .15;
-kwOrion(F, t, { t0: .26, tHit, tMark });
+// r10 (G4: the constellation was drawn on the target before the shot): today's sheet - it starts at the release frame
+{ const tod = F.today('hyp', u), t0 = tod ? F.relDt('hyp', .26) : .26;   // r10 review: all 8 stars are up before the hit
+kwOrion(F, t, { t0, step: tod ? clamp((tHit - t0 - .05) / 8, .012, .05) : .05, tHit, tMark }); }
 },
 ult(F, e) {
 const t = e.targets[0];
@@ -23674,6 +23685,7 @@ if (e.src !== 'hyper')
 return 'default';
 const t = e.u, p = F.tc(t, .45), f = F.feetOf(t), w = F.wp('h'), ang = Math.atan2(p.y - w.y, p.x - w.x);
 F.pillar(f.x, f.y, f.y + 24, f.w * .5, AR.c2, { dur: .7, core: '#ffffff', rise: .1, k: .8 });
+if (!F.today('hyp'))   // r10 (14.11 Maxim: no game moon - the clip has its own): no crescent symbol at the hit on today's sheet
 kwMoonHit(F, p, ang, 2);
 F.burst(p.x, p.y, { n: 12, tex: KW.tx('shard'), col: ['#ffffff', '#cfe8ff', '#9fd0ff'], v0: 80, v1: 220, s0: 6, s1: 2, ay: 420, drag: 1, l0: .35, l1: .6, stretch: 0, vr: 9, add: true });
 F.decal(f.x, f.y, 36, AR.c2, { cracks: 6, dur: 1.1 });
@@ -23920,12 +23932,14 @@ const u = e.u, t = e.tgt;
 F.st.playAnim(u, 'atk', REL_SHOT);
 F.atkGlowNew(u);
 const fly = T_WIND + T_FLY - REL_SHOT;
-F.at(REL_SHOT, () => {
+// r10: with the fast leap on today's sheet the trident flash comes on the strike frame, not before the swing
+const tPo = BR.isProposed && F.today('atk', u) && BR.LEAP_TODAY_ONLY && BR.LEAP_TODAY_ONLY.has(u.hid) ? F.relDt('atk', REL_SHOT) : REL_SHOT;
+F.at(tPo, () => {
 const from = F.wp('a'), to = F.tc(t, .42);
 F.flash(from.x, from.y, 14, PO.c, { dur: .16 });
 if (u._leap)
 return;
-KW.bolt(F, from, to, fly, { arc: (to.x < from.x ? 1 : -1) * 16, thick: 5, jetCol: '#5fe6da', life: .15, head: kwTridentHead(13), emit: kwDrip(.7) });
+KW.bolt(F, from, to, Math.max(.05, fly - (tPo - REL_SHOT)), { arc: (to.x < from.x ? 1 : -1) * 16, thick: 5, jetCol: '#5fe6da', life: .15, head: kwTridentHead(13), emit: kwDrip(.7) });
 });
 FX_QUERY_K_WATER1(F).filter(x => x.type === 'charge' && x.u === t).forEach(() => kwKnock(F, t));
 },
@@ -28111,7 +28125,12 @@ const tR = F.relDt('sup', REL_SUP), T = (e.targets || []).filter(t => t && t.ali
 F.at(tR, () => { const from = F.wp('s', u);
 T.forEach((t, i) => F.at(i * .05, () => { const to = F.tc(t, .45), fly = .3;
 F.shot(from, to, fly, { arc: -30 + i * 14, ease: 'ease-in', trailW: 10, col: HM.c, trailCol: '#ff7a1a', coreCol: '#fff0c0', trailLife: .16, head: HEAD.flame(HM.c, '#fff0c0', 13), emit: hmEmit });
-F.at(fly, () => ND.ignite(F, t, 1.1)); })); });
+F.at(fly, () => { ND.ignite(F, t, 1.1);
+// r10 (G4 review: the first burn tick comes ~.7 s after the clots land on calm enemies): the hit enemies keep burning
+// visibly until and through the first ticks, so the numbers pop on burning targets
+for (let k = 1; k <= 11; k++)
+F.at(k * .22, () => { if (!t.alive) return; const f = F.feetOf(t); ND.flames(F, f.x, f.y - 4, { n: 5, w: f.w * .14, h: f.h * .42, s: .8 }); });
+}); })); });
 return;
 }
 ND.leafWind(F, .05, 1.75);

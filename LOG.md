@@ -258,3 +258,18 @@ See `remarks_ru.md` next to this file.
   · Lilith TI strike: fourth cut (sturdier background estimate) still leaves a gray rectangle around the orb → the old
     take stays for good. Thor BT super retake: body turns blue under the lightning in the cut → dropped.
     Nightmare BT ult retake: clean with the sturdier background estimate → on the stand as «Версия 2».
+
+### 16.11 night — round r10 (Maxim 01:56 «добавить недостающие анимации… всё перепроверить… программные эффекты, всё синхронизировано»)
+- His marks read from his Chrome (localStorage, 02:00): all 394 marks are «принять» (80 changed since 14.11, incl. the 13
+  twice-failed clips — the old takes stay, accepted) → `pipeline/r10/marks_1611.json`, statuses "ok". New notes on the r9
+  takes (`pipeline/r10/notes_1611.json`): Poseidon BT/TI strike «Плохая синхронизация анимации и урона. Герой бьет раньше чем
+  успевает долететь до врага, а удар в анимации уже прошел»; La Llorona BT super «Плохая синхронизация программного эффекта. Он
+  должен быть выше, где в анимации заканчивается»; Surt TI super «Плохая синхронизация программного эффекта»; Artemis TI super
+  «…Плохая синхронизация у програмного эффекта».
+- Missing slots (9): Lilith BT idle/sup/hyp and Loki TI atk/sup — Kling refused all five takes on the current art
+  («copyright restrictions», credits refunded) → ChatGPT task 121 (Lilith BT: closed dress; Loki TI: anime version of our BT
+  Loki). Lu Bu TI: the horizontal halberd makes the picture 137 % of the frame width (figure would be stored at 154 px) →
+  ChatGPT task 120 (halberd upright). A Kling image edit with the halberd upright was made and four takes shot (122 credits).
+- 02:33 Maxim: «Зачем ты кучу тратишь ресурсов на генерации, если ты сам же сделал задание для чат GPT, и мы ждем, когда он его
+  нарисует» → no Kling credits for a god whose art is being redrawn until the new art arrives; the four Lu Bu TI takes
+  (`/home/claude/kl/b2/mp4/lubu_ti_*.mp4`, session only, ids `pipeline/r10/kling_tasks_1611.json`) are NOT published.

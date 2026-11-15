@@ -1,0 +1,1578 @@
+{
+"mictlan_bt_idle": [
+"ok",
+435
+],
+"mictlan_ti_idle": [
+"ok",
+378
+],
+"mictlan_bt_atk": [
+"ok",
+393
+],
+"mictlan_ti_atk": [
+"ok",
+392
+],
+"mictlan_bt_sup": [
+"ok",
+392
+],
+"mictlan_ti_sup": [
+"ok",
+385
+],
+"mictlan_bt_hyp": [
+"ok",
+388
+],
+"mictlan_ti_hyp": [
+"ok",
+387
+],
+"lucifer_ti_idle": [
+"ok",
+388
+],
+"lucifer_bt_idle": [
+"ok",
+441
+],
+"lucifer_bt_atk": [
+"ok",
+233
+],
+"lucifer_ti_atk": [
+"ok",
+234
+],
+"lucifer_bt_sup": [
+"ok",
+232
+],
+"lucifer_ti_sup": [
+"ok",
+227
+],
+"lucifer_bt_hyp": [
+"ok",
+286
+],
+"lucifer_ti_hyp": [
+"ok",
+288
+],
+"lilith_ti_idle": [
+"ok",
+337
+],
+"lilith_ti_atk": [
+"ok",
+214
+],
+"lilith_ti_sup": [
+"ok",
+211
+],
+"lilith_ti_hyp": [
+"ok",
+226
+],
+"koschei_ti_idle": [
+"ok",
+392
+],
+"koschei_bt_idle": [
+"ok",
+372
+],
+"koschei_bt_atk": [
+"ok",
+273
+],
+"koschei_ti_atk": [
+"ok",
+274
+],
+"koschei_bt_sup": [
+"ok",
+273
+],
+"koschei_ti_sup": [
+"ok",
+260
+],
+"koschei_bt_hyp": [
+"ok",
+262
+],
+"koschei_ti_hyp": [
+"ok",
+274
+],
+"nightmare_ti_idle": [
+"ok",
+302
+],
+"nightmare_bt_idle": [
+"ok",
+336
+],
+"nightmare_bt_atk": [
+"ok",
+224
+],
+"nightmare_ti_atk": [
+"ok",
+234
+],
+"nightmare_bt_sup": [
+"ok",
+240
+],
+"nightmare_ti_sup": [
+"ok",
+242
+],
+"nightmare_bt_hyp": [
+"ok",
+240
+],
+"nightmare_ti_hyp": [
+"ok",
+238
+],
+"kali_ti_idle": [
+"ok",
+360
+],
+"kali_ti_atk": [
+"ok",
+299
+],
+"kali_bt_atk": [
+"ok",
+303
+],
+"kali_ti_sup": [
+"ok",
+301
+],
+"kali_bt_sup": [
+"ok",
+297
+],
+"kali_ti_hyp": [
+"ok",
+297
+],
+"kali_bt_hyp": [
+"ok",
+297
+],
+"dracula_ti_idle": [
+"ok",
+292
+],
+"dracula_bt_idle": [
+"ok",
+285
+],
+"dracula_bt_atk": [
+"ok",
+201
+],
+"dracula_ti_atk": [
+"ok",
+201
+],
+"dracula_bt_sup": [
+"ok",
+205
+],
+"dracula_ti_sup": [
+"ok",
+204
+],
+"dracula_ti_hyp": [
+"ok",
+204
+],
+"dracula_bt_hyp": [
+"ok",
+206
+],
+"hecate_ti_idle": [
+"ok",
+348
+],
+"hecate_bt_idle": [
+"ok",
+410
+],
+"hecate_ti_atk": [
+"ok",
+292
+],
+"hecate_bt_atk": [
+"ok",
+290
+],
+"hecate_ti_sup": [
+"ok",
+286
+],
+"hecate_bt_sup": [
+"ok",
+288
+],
+"hecate_bt_hyp": [
+"ok",
+264
+],
+"hecate_ti_hyp": [
+"ok",
+269
+],
+"horseman_ti_idle": [
+"ok",
+296
+],
+"horseman_bt_idle": [
+"ok",
+299
+],
+"horseman_bt_atk": [
+"ok",
+185
+],
+"horseman_ti_atk": [
+"ok",
+185
+],
+"horseman_bt_sup": [
+"ok",
+185
+],
+"horseman_ti_sup": [
+"ok",
+188
+],
+"horseman_bt_hyp": [
+"ok",
+188
+],
+"horseman_ti_hyp": [
+"ok",
+187
+],
+"veles_bt_idle": [
+"ok",
+393
+],
+"veles_ti_idle": [
+"ok",
+327
+],
+"veles_bt_atk": [
+"ok",
+304
+],
+"veles_ti_atk": [
+"ok",
+309
+],
+"veles_bt_sup": [
+"ok",
+310
+],
+"veles_ti_sup": [
+"ok",
+310
+],
+"veles_ti_hyp": [
+"ok",
+310
+],
+"veles_bt_hyp": [
+"ok",
+294
+],
+"anansi_bt_idle": [
+"ok",
+482
+],
+"anansi_ti_idle": [
+"ok",
+340
+],
+"anansi_ti_atk": [
+"ok",
+318
+],
+"anansi_bt_atk": [
+"ok",
+318
+],
+"anansi_bt_sup": [
+"ok",
+319
+],
+"anansi_ti_sup": [
+"ok",
+317
+],
+"anansi_bt_hyp": [
+"ok",
+419
+],
+"anansi_ti_hyp": [
+"ok",
+405
+],
+"thor_ti_idle": [
+"ok",
+383
+],
+"thor_bt_idle": [
+"ok",
+400
+],
+"thor_ti_atk": [
+"ok",
+232
+],
+"thor_bt_atk": [
+"ok",
+213
+],
+"thor_bt_sup": [
+"ok",
+112
+],
+"thor_ti_sup": [
+"ok",
+235
+],
+"thor_bt_hyp": [
+"ok",
+230
+],
+"thor_ti_hyp": [
+"ok",
+236
+],
+"wukong_bt_idle": [
+"ok",
+418
+],
+"wukong_ti_idle": [
+"ok",
+346
+],
+"wukong_bt_atk": [
+"ok",
+276
+],
+"wukong_ti_atk": [
+"ok",
+276
+],
+"wukong_bt_sup": [
+"ok",
+278
+],
+"wukong_ti_sup": [
+"ok",
+273
+],
+"wukong_bt_hyp": [
+"ok",
+277
+],
+"wukong_ti_hyp": [
+"ok",
+274
+],
+"persephone_ti_idle": [
+"ok",
+259
+],
+"persephone_bt_idle": [
+"ok",
+345
+],
+"persephone_bt_atk": [
+"ok",
+238
+],
+"persephone_ti_atk": [
+"ok",
+239
+],
+"persephone_bt_sup": [
+"ok",
+239
+],
+"persephone_ti_sup": [
+"ok",
+238
+],
+"persephone_ti_hyp": [
+"ok",
+229
+],
+"persephone_bt_hyp": [
+"ok",
+235
+],
+"silent_bt_idle": [
+"ok",
+421
+],
+"silent_ti_idle": [
+"ok",
+296
+],
+"silent_bt_atk": [
+"ok",
+241
+],
+"silent_ti_atk": [
+"ok",
+153
+],
+"silent_bt_sup": [
+"ok",
+259
+],
+"silent_ti_sup": [
+"ok",
+254
+],
+"silent_bt_hyp": [
+"ok",
+233
+],
+"silent_ti_hyp": [
+"ok",
+258
+],
+"quetzalcoatl_bt_idle": [
+"ok",
+450
+],
+"quetzalcoatl_ti_idle": [
+"ok",
+355
+],
+"quetzalcoatl_bt_atk": [
+"ok",
+356
+],
+"quetzalcoatl_ti_atk": [
+"ok",
+353
+],
+"quetzalcoatl_bt_sup": [
+"ok",
+390
+],
+"quetzalcoatl_ti_sup": [
+"ok",
+386
+],
+"quetzalcoatl_bt_hyp": [
+"ok",
+355
+],
+"quetzalcoatl_ti_hyp": [
+"ok",
+354
+],
+"jekyll_bt_idle": [
+"ok",
+220
+],
+"jekyll_ti_idle": [
+"ok",
+228
+],
+"jekyll_bt_atk": [
+"ok",
+142
+],
+"jekyll_ti_atk": [
+"ok",
+141
+],
+"jekyll_bt_sup": [
+"ok",
+138
+],
+"jekyll_ti_sup": [
+"ok",
+157
+],
+"jekyll_bt_hyp": [
+"ok",
+142
+],
+"jekyll_ti_hyp": [
+"ok",
+168
+],
+"heracles_bt_idle": [
+"ok",
+395
+],
+"heracles_ti_idle": [
+"ok",
+388
+],
+"heracles_bt_atk": [
+"ok",
+240
+],
+"heracles_ti_atk": [
+"ok",
+242
+],
+"heracles_bt_sup": [
+"ok",
+240
+],
+"heracles_ti_sup": [
+"ok",
+244
+],
+"heracles_bt_hyp": [
+"ok",
+248
+],
+"heracles_ti_hyp": [
+"ok",
+246
+],
+"blackbeard_bt_idle": [
+"ok",
+398
+],
+"blackbeard_ti_idle": [
+"ok",
+348
+],
+"blackbeard_bt_atk": [
+"ok",
+233
+],
+"blackbeard_ti_atk": [
+"ok",
+216
+],
+"blackbeard_bt_sup": [
+"ok",
+230
+],
+"blackbeard_ti_sup": [
+"ok",
+230
+],
+"susanoo_bt_idle": [
+"ok",
+390
+],
+"susanoo_ti_idle": [
+"ok",
+377
+],
+"susanoo_bt_atk": [
+"ok",
+213
+],
+"susanoo_ti_atk": [
+"ok",
+187
+],
+"susanoo_bt_sup": [
+"ok",
+208
+],
+"susanoo_ti_sup": [
+"ok",
+209
+],
+"susanoo_bt_hyp": [
+"ok",
+212
+],
+"susanoo_ti_hyp": [
+"ok",
+214
+],
+"raijin_ti_idle": [
+"ok",
+400
+],
+"raijin_bt_idle": [
+"ok",
+423
+],
+"raijin_bt_atk": [
+"ok",
+293
+],
+"raijin_ti_atk": [
+"ok",
+297
+],
+"raijin_ti_sup": [
+"ok",
+304
+],
+"raijin_bt_sup": [
+"ok",
+305
+],
+"raijin_ti_hyp": [
+"ok",
+503
+],
+"raijin_bt_hyp": [
+"ok",
+506
+],
+"poseidon_bt_idle": [
+"ok",
+382
+],
+"poseidon_ti_idle": [
+"ok",
+470
+],
+"poseidon_bt_atk": [
+"ok",
+274
+],
+"poseidon_ti_atk": [
+"ok",
+274
+],
+"poseidon_bt_sup": [
+"ok",
+331
+],
+"poseidon_ti_sup": [
+"ok",
+331
+],
+"poseidon_bt_hyp": [
+"ok",
+307
+],
+"poseidon_ti_hyp": [
+"ok",
+330
+],
+"dutchman_bt_idle": [
+"ok",
+460
+],
+"dutchman_ti_idle": [
+"ok",
+378
+],
+"dutchman_bt_sup": [
+"ok",
+314
+],
+"dutchman_ti_sup": [
+"ok",
+323
+],
+"dutchman_bt_atk": [
+"ok",
+320
+],
+"dutchman_ti_atk": [
+"ok",
+321
+],
+"dutchman_bt_hyp": [
+"ok",
+321
+],
+"dutchman_ti_hyp": [
+"ok",
+323
+],
+"llorona_bt_idle": [
+"ok",
+286
+],
+"llorona_ti_idle": [
+"ok",
+284
+],
+"llorona_bt_atk": [
+"ok",
+218
+],
+"llorona_ti_atk": [
+"ok",
+221
+],
+"llorona_ti_sup": [
+"ok",
+225
+],
+"llorona_bt_sup": [
+"ok",
+225
+],
+"llorona_bt_hyp": [
+"ok",
+128
+],
+"llorona_ti_hyp": [
+"ok",
+260
+],
+"aphrodite_bt_idle": [
+"ok",
+416
+],
+"aphrodite_ti_idle": [
+"ok",
+348
+],
+"aphrodite_bt_atk": [
+"ok",
+288
+],
+"aphrodite_ti_atk": [
+"ok",
+279
+],
+"aphrodite_bt_sup": [
+"ok",
+279
+],
+"aphrodite_ti_sup": [
+"ok",
+281
+],
+"aphrodite_bt_hyp": [
+"ok",
+286
+],
+"aphrodite_ti_hyp": [
+"ok",
+287
+],
+"atlas_bt_idle": [
+"ok",
+289
+],
+"atlas_ti_idle": [
+"ok",
+300
+],
+"atlas_ti_atk": [
+"ok",
+222
+],
+"atlas_ti_sup": [
+"ok",
+195
+],
+"atlas_bt_sup": [
+"ok",
+194
+],
+"atlas_bt_hyp": [
+"ok",
+219
+],
+"atlas_ti_hyp": [
+"ok",
+221
+],
+"aoguang_bt_idle": [
+"ok",
+372
+],
+"aoguang_ti_idle": [
+"ok",
+433
+],
+"aoguang_bt_atk": [
+"ok",
+268
+],
+"aoguang_ti_atk": [
+"ok",
+274
+],
+"aoguang_bt_sup": [
+"ok",
+272
+],
+"aoguang_ti_sup": [
+"ok",
+273
+],
+"shiva_bt_idle": [
+"ok",
+425
+],
+"shiva_ti_idle": [
+"ok",
+391
+],
+"shiva_bt_atk": [
+"ok",
+336
+],
+"shiva_ti_atk": [
+"ok",
+333
+],
+"shiva_bt_sup": [
+"ok",
+338
+],
+"shiva_ti_sup": [
+"ok",
+337
+],
+"shiva_ti_hyp": [
+"ok",
+332
+],
+"shiva_bt_hyp": [
+"ok",
+333
+],
+"shango_ti_idle": [
+"ok",
+358
+],
+"shango_bt_idle": [
+"ok",
+387
+],
+"shango_bt_atk": [
+"ok",
+272
+],
+"shango_ti_atk": [
+"ok",
+273
+],
+"shango_bt_hyp": [
+"ok",
+269
+],
+"shango_ti_hyp": [
+"ok",
+271
+],
+"surt_bt_idle": [
+"ok",
+396
+],
+"surt_ti_idle": [
+"ok",
+363
+],
+"surt_bt_atk": [
+"ok",
+256
+],
+"surt_ti_atk": [
+"ok",
+260
+],
+"surt_bt_sup": [
+"ok",
+271
+],
+"surt_ti_sup": [
+"ok",
+272
+],
+"surt_bt_hyp": [
+"ok",
+271
+],
+"surt_ti_hyp": [
+"ok",
+274
+],
+"sekhmet_bt_idle": [
+"ok",
+303
+],
+"sekhmet_ti_idle": [
+"ok",
+275
+],
+"sekhmet_bt_atk": [
+"ok",
+244
+],
+"sekhmet_ti_atk": [
+"ok",
+247
+],
+"sekhmet_bt_sup": [
+"ok",
+250
+],
+"sekhmet_ti_sup": [
+"ok",
+248
+],
+"sekhmet_bt_hyp": [
+"ok",
+247
+],
+"sekhmet_ti_hyp": [
+"ok",
+243
+],
+"lubu_bt_idle": [
+"ok",
+415
+],
+"lubu_bt_atk": [
+"ok",
+261
+],
+"lubu_bt_sup": [
+"ok",
+256
+],
+"lubu_bt_hyp": [
+"ok",
+254
+],
+"loki_bt_idle": [
+"ok",
+296
+],
+"loki_ti_idle": [
+"ok",
+227
+],
+"loki_bt_atk": [
+"ok",
+210
+],
+"loki_bt_sup": [
+"ok",
+195
+],
+"loki_bt_hyp": [
+"ok",
+218
+],
+"loki_ti_hyp": [
+"ok",
+206
+],
+"sting_bt_idle": [
+"ok",
+290
+],
+"sting_ti_idle": [
+"ok",
+268
+],
+"sting_bt_atk": [
+"ok",
+182
+],
+"sting_ti_atk": [
+"ok",
+182
+],
+"sting_bt_sup": [
+"ok",
+182
+],
+"sting_ti_sup": [
+"ok",
+182
+],
+"sting_bt_hyp": [
+"ok",
+193
+],
+"sting_ti_hyp": [
+"ok",
+186
+],
+"ares_bt_idle": [
+"ok",
+332
+],
+"ares_ti_idle": [
+"ok",
+397
+],
+"ares_bt_atk": [
+"ok",
+213
+],
+"ares_ti_atk": [
+"ok",
+213
+],
+"ares_bt_sup": [
+"ok",
+208
+],
+"ares_ti_sup": [
+"ok",
+206
+],
+"ares_bt_hyp": [
+"ok",
+211
+],
+"ares_ti_hyp": [
+"ok",
+210
+],
+"agni_bt_idle": [
+"ok",
+327
+],
+"agni_ti_idle": [
+"ok",
+367
+],
+"agni_bt_atk": [
+"ok",
+252
+],
+"agni_ti_atk": [
+"ok",
+239
+],
+"agni_bt_sup": [
+"ok",
+251
+],
+"agni_ti_sup": [
+"ok",
+251
+],
+"agni_bt_hyp": [
+"ok",
+251
+],
+"agni_ti_hyp": [
+"ok",
+253
+],
+"erlang_bt_idle": [
+"ok",
+377
+],
+"erlang_ti_idle": [
+"ok",
+467
+],
+"erlang_bt_atk": [
+"ok",
+276
+],
+"erlang_ti_atk": [
+"ok",
+271
+],
+"erlang_bt_sup": [
+"ok",
+175
+],
+"erlang_ti_sup": [
+"ok",
+210
+],
+"erlang_bt_hyp": [
+"ok",
+291
+],
+"erlang_ti_hyp": [
+"ok",
+241
+],
+"houyi_bt_idle": [
+"ok",
+499
+],
+"houyi_ti_idle": [
+"ok",
+447
+],
+"houyi_bt_atk": [
+"ok",
+341
+],
+"houyi_ti_atk": [
+"ok",
+355
+],
+"houyi_bt_sup": [
+"ok",
+360
+],
+"houyi_ti_sup": [
+"ok",
+358
+],
+"houyi_bt_hyp": [
+"ok",
+351
+],
+"houyi_ti_hyp": [
+"ok",
+356
+],
+"heimdall_bt_idle": [
+"ok",
+348
+],
+"heimdall_ti_idle": [
+"ok",
+358
+],
+"heimdall_bt_atk": [
+"ok",
+258
+],
+"heimdall_ti_atk": [
+"ok",
+253
+],
+"heimdall_bt_sup": [
+"ok",
+246
+],
+"heimdall_ti_sup": [
+"ok",
+249
+],
+"heimdall_bt_hyp": [
+"ok",
+176
+],
+"heimdall_ti_hyp": [
+"ok",
+259
+],
+"ra_bt_idle": [
+"ok",
+426
+],
+"ra_ti_idle": [
+"ok",
+440
+],
+"ra_bt_atk": [
+"ok",
+290
+],
+"ra_bt_sup": [
+"ok",
+290
+],
+"ra_ti_sup": [
+"ok",
+303
+],
+"ra_bt_hyp": [
+"ok",
+299
+],
+"ra_ti_hyp": [
+"ok",
+296
+],
+"inti_bt_idle": [
+"ok",
+344
+],
+"inti_ti_idle": [
+"ok",
+390
+],
+"inti_bt_sup": [
+"ok",
+122
+],
+"inti_ti_sup": [
+"ok",
+285
+],
+"inti_bt_hyp": [
+"ok",
+285
+],
+"inti_ti_hyp": [
+"ok",
+286
+],
+"indra_bt_idle": [
+"ok",
+342
+],
+"indra_ti_idle": [
+"ok",
+359
+],
+"indra_bt_atk": [
+"ok",
+228
+],
+"indra_ti_atk": [
+"ok",
+230
+],
+"indra_bt_sup": [
+"ok",
+236
+],
+"indra_ti_sup": [
+"ok",
+230
+],
+"indra_bt_hyp": [
+"ok",
+231
+],
+"indra_ti_hyp": [
+"ok",
+145
+],
+"vanhelsing_bt_idle": [
+"ok",
+307
+],
+"vanhelsing_ti_idle": [
+"ok",
+308
+],
+"vanhelsing_bt_atk": [
+"ok",
+192
+],
+"vanhelsing_ti_atk": [
+"ok",
+85
+],
+"vanhelsing_bt_sup": [
+"ok",
+88
+],
+"vanhelsing_ti_sup": [
+"ok",
+90
+],
+"vanhelsing_ti_hyp": [
+"ok",
+187
+],
+"vanhelsing_bt_hyp": [
+"ok",
+194
+],
+"brynhild_bt_idle": [
+"ok",
+388
+],
+"brynhild_ti_idle": [
+"ok",
+316
+],
+"brynhild_bt_atk": [
+"ok",
+310
+],
+"brynhild_ti_atk": [
+"ok",
+301
+],
+"brynhild_bt_sup": [
+"ok",
+307
+],
+"brynhild_ti_sup": [
+"ok",
+307
+],
+"brynhild_bt_hyp": [
+"ok",
+303
+],
+"brynhild_ti_hyp": [
+"ok",
+128
+],
+"apollo_bt_idle": [
+"ok",
+432
+],
+"apollo_ti_idle": [
+"ok",
+428
+],
+"apollo_bt_atk": [
+"ok",
+305
+],
+"apollo_ti_atk": [
+"ok",
+304
+],
+"apollo_bt_sup": [
+"ok",
+305
+],
+"apollo_ti_sup": [
+"ok",
+308
+],
+"apollo_bt_hyp": [
+"ok",
+305
+],
+"amaterasu_bt_idle": [
+"ok",
+441
+],
+"amaterasu_ti_idle": [
+"ok",
+369
+],
+"amaterasu_bt_atk": [
+"ok",
+280
+],
+"amaterasu_ti_atk": [
+"ok",
+284
+],
+"amaterasu_ti_sup": [
+"ok",
+198
+],
+"amaterasu_bt_sup": [
+"ok",
+328
+],
+"hel_bt_idle": [
+"ok",
+446
+],
+"hel_ti_idle": [
+"ok",
+288
+],
+"hel_bt_atk": [
+"ok",
+317
+],
+"hel_ti_atk": [
+"ok",
+312
+],
+"hel_bt_sup": [
+"ok",
+322
+],
+"hel_ti_sup": [
+"ok",
+318
+],
+"hel_bt_hyp": [
+"ok",
+345
+],
+"hel_ti_hyp": [
+"ok",
+345
+],
+"demeter_bt_idle": [
+"ok",
+367
+],
+"demeter_ti_idle": [
+"ok",
+326
+],
+"demeter_bt_atk": [
+"ok",
+164
+],
+"demeter_ti_atk": [
+"ok",
+187
+],
+"demeter_bt_sup": [
+"ok",
+224
+],
+"demeter_ti_sup": [
+"ok",
+182
+],
+"zeus_bt_idle": [
+"ok",
+366
+],
+"zeus_ti_idle": [
+"ok",
+428
+],
+"zeus_bt_atk": [
+"ok",
+293
+],
+"zeus_ti_atk": [
+"ok",
+291
+],
+"zeus_bt_sup": [
+"ok",
+288
+],
+"zeus_ti_sup": [
+"ok",
+290
+],
+"zeus_bt_hyp": [
+"ok",
+295
+],
+"artemis_bt_idle": [
+"ok",
+324
+],
+"artemis_ti_idle": [
+"ok",
+346
+],
+"artemis_bt_atk": [
+"ok",
+289
+],
+"artemis_ti_atk": [
+"ok",
+286
+],
+"artemis_bt_sup": [
+"ok",
+286
+],
+"athena_bt_idle": [
+"ok",
+365
+],
+"athena_ti_idle": [
+"ok",
+354
+],
+"athena_bt_sup": [
+"ok",
+274
+],
+"athena_ti_sup": [
+"ok",
+273
+],
+"athena_bt_hyp": [
+"ok",
+276
+],
+"athena_ti_hyp": [
+"ok",
+274
+],
+"kitsune_bt_idle": [
+"ok",
+550
+],
+"kitsune_ti_idle": [
+"ok",
+378
+],
+"kitsune_bt_atk": [
+"ok",
+323
+],
+"kitsune_ti_atk": [
+"ok",
+331
+],
+"kitsune_bt_sup": [
+"ok",
+339
+],
+"kitsune_bt_hyp": [
+"ok",
+331
+],
+"kitsune_ti_hyp": [
+"ok",
+332
+],
+"kali_bt_idle": [
+"ok",
+413
+],
+"blackbeard_ti_hyp": [
+"ok",
+103
+],
+"blackbeard_bt_hyp": [
+"ok",
+227
+],
+"ra_ti_atk": [
+"ok",
+301
+],
+"aoguang_bt_hyp": [
+"ok",
+268
+],
+"aoguang_ti_hyp": [
+"ok",
+273
+],
+"shango_bt_sup": [
+"ok",
+257
+],
+"shango_ti_sup": [
+"ok",
+272
+],
+"kitsune_ti_sup": [
+"ok",
+317
+],
+"atlas_bt_atk": [
+"ok",
+218
+],
+"lilith_bt_atk": [
+"ok",
+122
+]
+}
