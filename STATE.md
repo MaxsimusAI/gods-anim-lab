@@ -176,6 +176,20 @@ Maxim marked all 52 gods on the stand (read from his browser, not pasted): 323 �
   (session only) — remaining WATCH items are about LOOK (thin lines, tiny dots), listed in the report to Maxim.
 - pub1 needs commit 66ef083 in the shallow clone: `git fetch --depth=1 origin 66ef08303d306d36a1fbcea33dcadc47ea8ea75c`.
 
+## 16.11 evening — Kitsune BT re-cut (Maxim «слишком высветлена»; site v130-v131, no credits)
+
+- The four BT sheets re-cut from the same takes: tone fitted on the art registered onto video frame 1 (the quantile tone step
+  had lifted her mid tones by ~6 L), fur-key matte (solid tails without the gray rim of `solid_fix.py`). Same 25 moments,
+  release frames, `wf` and `ho`. Status "new", «вчера» = the 14-15.11 cut. Game: sheets + changed SHEETS_V2 fields handed to
+  the integration coordinator (task 200), not committed to the game here. No fresh-eyes reviewer was available in this
+  session (no agent tool): the frame-by-frame comparison old vs new was done by the executor only → a reviewer or Maxim's look.
+- `Kling тест` is no longer at `C:\Users\h p\Desktop\Kling тест` (access refused: folder not found). The four Kitsune BT sources
+  were downloaded again from the Kling history (ids: BT idle = the 13.11 idle retake AXBHYK…, atk/sup/hyp = `jobs_v2.json`
+  of 12.11) and live only in this session (`/home/claude/kl/b2/mp4`). Ask Maxim where the folder went before the next re-cut.
+- OPEN: the same tone lift may sit in other BT sheets cut with the quantile step (gods whose light parts the mask drops: white
+  fur, white robes, wings). `b3/tone_check.py` measures a sheet against its registered art; on 16.11 Athena, Artemis, Zeus,
+  Demeter, Hel matched their art within ~1 L on whole-figure quantiles (Kitsune was +9 at the median).
+
 ## Status map — the single place where the state of every clip is shown
 
 `assets/status-data.js` (built by `pipeline/tools/build_status.py` on every publish). To change a status: edit

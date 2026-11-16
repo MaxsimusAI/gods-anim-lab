@@ -237,3 +237,20 @@ blue). BiRefNet matting needs more than the 6 GB of the workspace — isnet stay
   alone. Throughput then is about 8-12 clips an hour.
 - `b3/pub1.sh` ignores uncommitted files under `pipeline/r9/`; `r9/kl/pubnew.sh` = notes for Maxim (`note.py`, status
   "new") + `pub1.sh`.
+
+## 16.11 — tone and fur options (Kitsune BT re-cut)
+
+- `"tone": "aligned"` (override, read by `b3/sharp_batch4.sh` → `KL_TONE`): `sharp_prep.py` registers the art onto video frame 1
+  (SIFT + similarity transform, needs ≥ 60 inlier matches; the lab's `art/f0/<god>.webp` gives ~100, the game art ~570; `"tone_art"`
+  = another art path) and fits the lightness curve pixel to pixel; the 60 % rule is kept, saturation is never lowered. Use it
+  wherever the mask model drops light parts of the figure (the quantile step then lifts the whole sheet).
+- `"furkey": 1` (override → `KL_FURKEY`, `tools/adapt_batch.py` `matte_frame`): colour-key matte against the flat gray
+  background; every pixel the background cannot reach from the frame edge is solid (shaded fur between overlapping tails);
+  next to light fur, unsaturated pixels not lighter than the background are background (shaded undersides); the half-transparent
+  fur outline takes the colour of the nearest light fur pixel and an alpha projected between background and that colour (no dark
+  or gray rim). Replaces `solid_fix.py` for clips whose source video exists.
+- `b3/tone_check.py <art.webp> <sheet.webp>...` — frame 0 of each sheet against the art (bbox-aligned): mean L and contrast
+  difference. More than ±2 L off = PATTERNS check 50.
+- `b3/pub1.sh`: `FREEZE_CUR=1` makes «вчера» the sheet published NOW (a second cut of the same accepted take must be compared
+  with the first cut, not with the 66ef083 sheet); `PUB_TRAILER` = the commit trailer lines of the current session.
+

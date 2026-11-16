@@ -273,3 +273,20 @@ See `remarks_ru.md` next to this file.
 - 02:33 Maxim: «Зачем ты кучу тратишь ресурсов на генерации, если ты сам же сделал задание для чат GPT, и мы ждем, когда он его
   нарисует» → no Kling credits for a god whose art is being redrawn until the new art arrives; the four Lu Bu TI takes
   (`/home/claude/kl/b2/mp4/lubu_ti_*.mp4`, session only, ids `pipeline/r10/kling_tasks_1611.json`) are NOT published.
+
+### 16.11 evening — Kitsune BT re-cut (site v130-v131, no credits)
+- Maxim 16.11 (relayed by the coordinator of the game integration, task 200): «исправь бога Кицунэ. Она сейчас сделана очень
+  плохо, слишком высветлена. Надо заново ее вырезать из роликов по нашим правилам и вставить в игру».
+  What he saw → what he wants: the BT Kitsune in the game looks washed out (milky robe, gray tails with a gray rim) →
+  the same takes, cut again, with the tone of her art.
+- Cause found: the B3 tone step matched lightness QUANTILES of the whole art against the part of the video figure that the mask
+  model keeps; the white tails that the mask drops made the video look darker than it is, so the curve lifted every mid tone
+  (video median 53 → 73 of 255). Registered pixel to pixel (SIFT, 573 matches, correlation 0.996), Kitsune's video frame 1 already
+  has the art's tone (curve = identity within 4 levels). On top, the 14.11 tail repair (`solid_fix.py`) filled the half-transparent
+  fur with the lifted background gray → gray rim and gray tails on the dark arena.
+- CLIP: Kitsune BT idle/atk/sup/hyp re-cut from the same Kling takes (sources downloaded again from the Kling history: the
+  `Kling тест` folder is no longer on Maxim's desktop), same 25 moments, same release frames and `wf`; tone fitted on the
+  registered art (`"tone": "aligned"`, 60 % rule kept), fur-key matte (`"furkey": 1`: solid tails, no gray rim), super hue to
+  sky blue as before. Status "new" (waits for his look); «вчера» = the 14-15.11 cut. Card: `cards/kitsune.md`.
+- CHECK: PATTERNS check 50.
+

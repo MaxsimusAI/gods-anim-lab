@@ -6,7 +6,7 @@ IDEA. Recipes and questions — never bans on a means.
 ## Checks
 
 One question per thing Maxim saw; "yes" always means the defect is there. The fresh-eyes reviewer asks 1-22 for every new
-clip of every god (skill, gate G2) and 23-35, 41-47 on the stand (gate G4); 36-40 on every new or re-cut sheet, and all of them for the published clips of a god when
+clip of every god (skill, gate G2) and 23-35, 41-47 on the stand (gate G4); 36-40 and 50 on every new or re-cut sheet, and all of them for the published clips of a god when
 his turn comes. In brackets: where and when he saw it.
 
 **Action clips**
@@ -74,6 +74,7 @@ his turn comes. In brackets: where and when he saw it.
 47. In melee: does the strike in the clip happen before the god has arrived at the enemy? (Brynhild atk, 14.11; Poseidon atk, 16.11)
 48. Is the release frame of the sheet set earlier than the moment the arrow / effect really leaves the weapon (bow still drawn at the release frame)? (Artemis atk and sup, 16.11)
 49. Does the game effect start lower than the place where the baked effect ends (mist leaving the top → game effect from the top)? (Llorona BT sup, 16.11)
+50. Next to the god's art (and to Athena / Artemis) at phone size, does the sheet look lighter, milkier or grayer than the art - lifted mid tones, gray blacks, a gray rim around white parts? Measure with `b3/tone_check.py` (mean L more than ±2 off the art = yes). (Kitsune BT, 16.11 «слишком высветлена»)
 
 ## Ideas Maxim proposed or praised
 

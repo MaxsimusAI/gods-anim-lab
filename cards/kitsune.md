@@ -101,3 +101,18 @@ game_fx: the fires fly from the tips of the tails to every enemy (as BT, v29)
 
 Decision 13.11 22:05: Kitsune BT super and ult — the 12.11 takes (sharp cut) are «сейчас» (v33); the 13.11 BT ult was
 called «ещё хуже», the super is his own idea. The mask in the ult: ask before any re-shoot (protected take).
+
+```
+re-cut 16.11 (site v130-v131), all four BT slots: kitsune_bt_idle, kitsune_bt_atk, kitsune_bt_sup, kitsune_bt_hyp
+remark: 16.11 «исправь бога Кицунэ. Она сейчас сделана очень плохо, слишком высветлена. Надо заново ее вырезать из роликов по нашим правилам и вставить в игру»
+takes: the same protected takes (BT idle = 13.11 R2 idle retake; atk/sup/hyp = 12.11), sources downloaded again from the Kling history
+cut: overrides "tone": "aligned" (curve fitted on the art registered onto frame 1, 60 %), "furkey": 1 (colour-key matte on the flat
+  gray: tails solid, soft fur edge without the gray rim); super: hue to sky blue (hue_fix.py, ref = the 14.11 sheet); top-edge
+  hand-off map (ho) of atk/sup/hyp kept from the 14.11 cut (same moments; the detector threshold depends on the tone)
+numbers (frame 0 vs the registered art, mean L / contrast sd): before +5.1..+6.2 L / +7 %, now -0.9..-0.2 L / +2..+4 %
+stored figure (bodyPx) idle 192 (was 191), atk 188 (191), sup 176 (176), hyp 192 (191); frame idle 169x220 (165), atk 173x220
+  (177), sup 163x220, hyp 163x220 (162)
+file KB mob: idle 430 (551), atk 336 (323), sup 336 (339), hyp 334 (331); vs live: 96 / 120 / 119 / 119 %; RAM 60 / 111 / 105 / 105 %
+status: new — waits for his look; «вчера» = the 14-15.11 cut
+```
+
