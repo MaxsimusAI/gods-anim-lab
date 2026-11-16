@@ -765,7 +765,9 @@
   "wf": [
    0.7,
    0.3
-  ]
+  ],
+  "furkey": 1,
+  "tone": "aligned"
  },
  "kitsune_bt_sup": {
   "imp": 23,
@@ -776,7 +778,9 @@
   "wf": [
    0.5,
    0.04
-  ]
+  ],
+  "furkey": 1,
+  "tone": "aligned"
  },
  "kitsune_bt_hyp": {
   "imp": 26,
@@ -787,7 +791,9 @@
   "wf": [
    0.27,
    0.08
-  ]
+  ],
+  "furkey": 1,
+  "tone": "aligned"
  },
  "kitsune_ti_sup": {
   "imp": 29,
@@ -6180,5 +6186,9 @@
    0.47
   ],
   "rel_by_eye": 13
+ },
+ "kitsune_bt_idle": {
+  "furkey": 1,
+  "tone": "aligned"
  }
 }

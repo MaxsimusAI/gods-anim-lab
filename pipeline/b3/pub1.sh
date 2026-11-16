@@ -48,7 +48,17 @@ json.dump(d,open(p,'w',encoding='utf-8'),ensure_ascii=False,indent=1); print(d['
 PY
 )
 # Freeze "yesterday" (= the sheet published before this redo, commit 66ef083 = site v20) before the first overwrite (switch, §9)
+# FREEZE_CUR=1 (16.11, Kitsune BT re-cut): «вчера» becomes the sheet published NOW (the accepted take's previous cut), not the
+# 66ef083 one - used when the same accepted take is re-cut and Maxim must compare the two cuts.
 for c in "$@"; do s=$(echo $c | tr _ -)
+  if [ "${FREEZE_CUR:-0}" = 1 ]; then
+    for t in mob lite; do cp $R/assets/sheets/$s-$t.webp $R/assets/sheets/v20/$s-$t.webp; done
+    python3 - "$c" <<PY
+import json,sys
+c=sys.argv[1]; P=json.load(open('$K/work/metrics_pub.json')); p='$K/work/metrics_v20.json'; M=json.load(open(p))
+M[c]=P[c]; json.dump(M,open(p,'w'),indent=1)
+PY
+  fi
   for t in mob lite; do
     if [ ! -e $R/assets/sheets/v20/$s-$t.webp ] && (cd $R && git cat-file -e 66ef083:assets/sheets/$s-$t.webp 2>/dev/null); then
       (cd $R && git show 66ef083:assets/sheets/$s-$t.webp > assets/sheets/v20/$s-$t.webp); fi
@@ -91,8 +101,7 @@ N=$(grep -E '^\+' $B/diff.txt | grep -ciE -f $K/b3/secret_patterns.txt || true)
 if [ "${N:-0}" != "0" ]; then echo "SECRET-LIKE CONTENT STAGED ($N lines)"; false; fi
 git -c user.name="Claude" -c user.email="noreply@anthropic.com" commit -q -m "v$V: $MSG
 
-Co-Authored-By: Claude Fable 5.2 <noreply@anthropic.com>
-Claude-Session: https://claude.ai/code/session_01TwtrTNyQfNBK2Qkg35sMvM"
+${PUB_TRAILER:-Co-Authored-By: Claude <noreply@anthropic.com>}"
 trap - ERR INT TERM HUP
 git -c push.negotiate=true push -q origin HEAD || { echo "PUSH FAILED - committed locally as v$V, not live"; exit 1; }
 for i in $(seq 1 8); do

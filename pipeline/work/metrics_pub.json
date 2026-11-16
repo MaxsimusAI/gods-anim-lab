@@ -22312,89 +22312,50 @@
   "impact": 5,
   "rel": 0.208,
   "wpt": [
-   0.167,
-   -0.783
+   0.166,
+   -0.797
   ],
   "wf": [
    0.7,
    0.3
   ],
-  "maxDiff": 68.82,
+  "maxDiff": 58.33,
   "fig": {
-   "top": 0.1121,
-   "foot": 0.9782,
+   "top": 0.1268,
+   "foot": 0.9797,
    "ax": 0.5203
   },
   "defects": [
    "raw_edge_clip"
   ],
   "crop": null,
-  "ho": {
-   "top": [
-    [
-     4,
-     0.637,
-     0.3
-    ],
-    [
-     11,
-     0.585,
-     0.54
-    ],
-    [
-     12,
-     0.534,
-     0.55
-    ],
-    [
-     13,
-     0.518,
-     0.55
-    ],
-    [
-     14,
-     0.559,
-     0.31
-    ],
-    [
-     15,
-     0.547,
-     0.2
-    ],
-    [
-     16,
-     0.566,
-     0.09
-    ]
-   ],
-   "col": "#87a6ff"
-  },
-  "q": 62,
-  "bodyPx": 191,
-  "bodyPxF": 190.54,
+  "ho": null,
+  "q": 79,
+  "bodyPx": 188,
+  "bodyPxF": 187.64,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 112,
-   "ramPct": 113
+   "kbPct": 120,
+   "ramPct": 111
   },
   "mob": {
    "file": "kitsune-bt-atk-mob.webp",
-   "w": 177,
+   "w": 173,
    "h": 220,
-   "kb": 323.3,
-   "ramMb": 3.71
+   "kb": 336.1,
+   "ramMb": 3.63
   },
   "lite": {
    "file": "kitsune-bt-atk-lite.webp",
-   "w": 124,
+   "w": 121,
    "h": 154,
-   "kb": 189.3,
-   "ramMb": 1.82
+   "kb": 181.2,
+   "ramMb": 1.78
   },
-  "prep": "13.11 test: full frames, LAB tone match to art (60%), NL-means denoise, unsharp 0.9/70, tuned WebP (filter 20), cap 120% of live + solid_fix 14.11 (see-through white fur made solid)"
+  "prep": "sharp cut 16.11 (full frames, denoise, tone curve fitted on the art registered onto frame 1 (60 %), fur key matte: solid tails, no gray rim, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_bt_hyp": {
   "id": "kitsune_bt_hyp",
@@ -22405,18 +22366,18 @@
   "impact": 9,
   "rel": 0.375,
   "wpt": [
-   -0.253,
-   -1.052
+   -0.252,
+   -1.047
   ],
   "wf": [
    0.27,
    0.08
   ],
-  "maxDiff": 54.83,
+  "maxDiff": 46.05,
   "fig": {
-   "top": 0.125,
+   "top": 0.1206,
    "foot": 0.9911,
-   "ax": 0.567
+   "ax": 0.5656
   },
   "defects": [
    "raw_edge_clip"
@@ -22427,92 +22388,87 @@
     [
      9,
      0.254,
-     0.74
+     0.73
     ],
     [
      10,
-     0.256,
-     0.81
+     0.255,
+     0.8
     ],
     [
      11,
-     0.244,
-     0.84
+     0.216,
+     0.44
     ],
     [
      12,
-     0.222,
-     0.53
+     0.236,
+     0.37
     ],
     [
      13,
-     0.245,
-     0.5
+     0.247,
+     0.44
     ],
     [
      14,
-     0.247,
-     0.56
+     0.248,
+     0.48
     ],
     [
      15,
-     0.242,
-     0.54
-    ],
-    [
-     16,
-     0.244,
-     0.56
-    ],
-    [
-     17,
-     0.245,
-     0.54
-    ],
-    [
-     18,
-     0.248,
+     0.238,
      0.49
     ],
     [
-     19,
-     0.254,
-     0.4
+     16,
+     0.243,
+     0.49
     ],
     [
-     20,
-     0.271,
-     0.25
+     17,
+     0.243,
+     0.48
+    ],
+    [
+     18,
+     0.256,
+     0.26
+    ],
+    [
+     19,
+     0.269,
+     0.13
     ]
    ],
-   "col": "#91cfff"
+   "col": "#83d3fe"
   },
-  "q": 62,
-  "bodyPx": 191,
-  "bodyPxF": 190.54,
+  "q": 77,
+  "bodyPx": 192,
+  "bodyPxF": 191.51,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 114,
-   "ramPct": 104
+   "kbPct": 119,
+   "ramPct": 105
   },
   "mob": {
    "file": "kitsune-bt-hyp-mob.webp",
-   "w": 162,
+   "w": 163,
    "h": 220,
-   "kb": 330.9,
-   "ramMb": 3.4
+   "kb": 333.5,
+   "ramMb": 3.42
   },
   "lite": {
    "file": "kitsune-bt-hyp-lite.webp",
-   "w": 113,
+   "w": 114,
    "h": 154,
-   "kb": 181.9,
-   "ramMb": 1.66
+   "kb": 184.5,
+   "ramMb": 1.67
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + solid_fix 14.11 (see-through white fur made solid)"
+  "prep": "sharp cut 16.11 (full frames, denoise, tone curve fitted on the art registered onto frame 1 (60 %), fur key matte: solid tails, no gray rim, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_bt_idle": {
   "id": "kitsune_bt_idle",
@@ -22527,44 +22483,44 @@
    -0.62
   ],
   "wf": [
-   0.512,
-   0.447
+   0.517,
+   0.445
   ],
-  "maxDiff": 50.54,
+  "maxDiff": 43.04,
   "fig": {
-   "top": 0.1167,
+   "top": 0.1131,
    "foot": 0.9871,
-   "ax": 0.512
+   "ax": 0.5175
   },
   "defects": [],
   "crop": null,
   "ho": null,
-  "q": 86,
-  "bodyPx": 191,
-  "bodyPxF": 191.49,
+  "q": 91,
+  "bodyPx": 192,
+  "bodyPxF": 192.28,
   "v": 21,
   "live": {
    "key": "idle",
    "kb": 445.3,
    "ramMb": 5.92,
-   "kbPct": 120,
-   "ramPct": 58
+   "kbPct": 96,
+   "ramPct": 60
   },
   "mob": {
    "file": "kitsune-bt-idle-mob.webp",
-   "w": 165,
+   "w": 169,
    "h": 220,
-   "kb": 550.5,
-   "ramMb": 3.46
+   "kb": 429.6,
+   "ramMb": 3.55
   },
   "lite": {
    "file": "kitsune-bt-idle-lite.webp",
-   "w": 115,
+   "w": 118,
    "h": 154,
-   "kb": 295.2,
-   "ramMb": 1.69
+   "kb": 258.0,
+   "ramMb": 1.73
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + solid_fix 14.11 (see-through white fur made solid)"
+  "prep": "sharp cut 16.11 (full frames, denoise, tone curve fitted on the art registered onto frame 1 (60 %), fur key matte: solid tails, no gray rim, unsharp, tuned WebP, cap 120 %)"
  },
  "kitsune_bt_sup": {
   "id": "kitsune_bt_sup",
@@ -22576,16 +22532,16 @@
   "rel": 0.375,
   "wpt": [
    -0.019,
-   -1.17
+   -1.165
   ],
   "wf": [
    0.5,
    0.04
   ],
-  "maxDiff": 72.85,
+  "maxDiff": 61.45,
   "fig": {
-   "top": 0.1755,
-   "foot": 0.9735,
+   "top": 0.1721,
+   "foot": 0.9736,
    "ax": 0.5203
   },
   "defects": [
@@ -22601,58 +22557,58 @@
     ],
     [
      11,
-     0.476,
-     0.59
+     0.492,
+     0.56
     ],
     [
      12,
-     0.491,
-     0.59
+     0.501,
+     0.58
     ],
     [
      13,
-     0.511,
-     0.7
+     0.512,
+     0.59
     ],
     [
      14,
-     0.502,
-     0.42
+     0.507,
+     0.32
     ],
     [
      15,
-     0.511,
-     0.38
+     0.505,
+     0.15
     ]
    ],
-   "col": "#6dfffb"
+   "col": "#56fff9"
   },
-  "q": 66,
+  "q": 85,
   "bodyPx": 176,
-  "bodyPxF": 175.56,
+  "bodyPxF": 176.33,
   "v": 21,
   "live": {
    "key": "atk",
    "kb": 281.1,
    "ramMb": 3.27,
-   "kbPct": 115,
+   "kbPct": 119,
    "ramPct": 105
   },
   "mob": {
    "file": "kitsune-bt-sup-mob.webp",
    "w": 163,
    "h": 220,
-   "kb": 339.0,
+   "kb": 335.6,
    "ramMb": 3.42
   },
   "lite": {
    "file": "kitsune-bt-sup-lite.webp",
    "w": 114,
    "h": 154,
-   "kb": 187.0,
+   "kb": 186.9,
    "ramMb": 1.67
   },
-  "prep": "sharp cut 13.11 (full frames, denoise, tone to art for BT, unsharp, tuned WebP, cap 120 %) + hue to sky blue (hue_fix.py) + solid_fix 14.11 (see-through white fur made solid)"
+  "prep": "sharp cut 16.11 (full frames, denoise, tone curve fitted on the art registered onto frame 1 (60 %), fur key matte: solid tails, no gray rim, unsharp, tuned WebP, cap 120 %) + hue to sky blue (hue_fix.py, ref = the 14.11 sheet)"
  },
  "kitsune_ti_atk": {
   "id": "kitsune_ti_atk",

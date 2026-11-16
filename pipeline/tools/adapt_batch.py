@@ -229,6 +229,48 @@ def matte_frame(im_rgb, session):
     aa = np.clip(al, 0.15, 1.0)[..., None]
     c = np.where(al[..., None] < 0.995, (a - (1.0 - aa) * g) / aa, a)
     c = np.clip(c, 0, 255)
+    # 16.11 (Kitsune BT, Maxim «сделана очень плохо, слишком высветлена»): white fur on the flat gray background. The mask model
+    # keeps the tails see-through (14.11 remark) and calls the soft fur edge, which is half background, solid: a gray rim on
+    # the game's dark background. Opt-in (override "furkey": 1): the matte becomes a colour key against the flat background,
+    # and every pixel the background cannot reach from the frame edge (shaded fur between overlapping tails) is solid.
+    if os.environ.get("KL_FURKEY") == "1":
+        from scipy import ndimage as _ni4
+        d = np.abs(a - g).max(axis=2)
+        key = np.clip((d - 7.0) / 23.0, 0.0, 1.0)
+        fig = np.maximum(key, np.where(m > 0.5, m, 0.0) * (d > 4.0))       # the mask still counts where the colour leaves the background
+        # the shaded underside of a tail fades into the background a little DARKER than it: unmixed against the gray it turns
+        # into a dark ragged rim. Next to white fur, unsaturated pixels not lighter than the background are background.
+        _fur = (a.mean(axis=2) > g.mean(axis=2) + 25.0) & (sat < 45.0)
+        _near = _ni4.binary_dilation(_fur, iterations=max(6, int(H * 0.04)))
+        _shade = _near & (a.mean(axis=2) < g.mean(axis=2) + 4.0) & (sat < 30.0) & (d < 40.0)
+        fig = np.where(_shade, 0.0, fig)
+        lab4, n4 = _ni4.label(fig < 0.5)
+        border = np.unique(np.concatenate([lab4[0], lab4[-1], lab4[:, 0], lab4[:, -1]]))
+        outside = np.isin(lab4, border[border > 0])
+        holes = (fig < 0.5) & ~outside
+        hl, hn = _ni4.label(holes)
+        if hn:   # an enclosed patch that is plainly background (flat, background colour, big) stays open (arm against the waist)
+            area = _ni4.sum(np.ones_like(d), hl, index=np.arange(1, hn + 1)); md = _ni4.mean(d, hl, index=np.arange(1, hn + 1))
+            open_ = np.zeros(hn + 1, bool); open_[1:] = (area > H * W * 0.002) & (md < 5.0)
+            holes &= ~open_[hl]
+        al2 = np.where(_ni4.binary_erosion(fig >= 0.5, iterations=2) | holes, 1.0, fig)   # solid inside, soft only on the outline
+        al2 = np.maximum(al2 * fx_body[None, :], k * fx_magic[None, :] * (d > 7.0))   # baked effects as before, minus flat-gray noise
+        aa = np.clip(al2, 0.15, 1.0)[..., None]
+        c = np.clip(np.where(al2[..., None] < 0.995, (a - (1.0 - aa) * g) / aa, a), 0, 255)
+        # on the fur outline the unmixing above blows a warm shade into dark brown: there the colour is the nearest solid fur
+        # pixel and the alpha is how far the pixel sits from the background toward that colour (no dark rim, soft fur edge)
+        _part = (al2 > 0.0) & (al2 < 0.99) & _near
+        if _part.any():
+            _sol = (al2 >= 0.99) & _fur              # the nearest LIGHT fur: the shade there is fur fading out, not a darker colour
+            _, (_iy, _ix) = _ni4.distance_transform_edt(~_sol, return_indices=True)
+            F = a[_iy, _ix]; FB = F - g; IB = a - g
+            nn = (FB * FB).sum(axis=2)
+            ap = np.clip((IB * FB).sum(axis=2) / np.maximum(nn, 1.0), 0.0, 1.0)
+            ok = _part & (nn > 900.0) & (sat < 60.0)
+            al2 = np.where(ok, ap, al2); c = np.where(ok[..., None], F, c)
+        out = np.dstack([c, np.clip(al2 * 255.0, 0, 255)]).astype(np.uint8)
+        out[out[..., 3] < 6] = 0
+        return out, m
     out = np.dstack([c, np.clip(al * 255.0, 0, 255)]).astype(np.uint8)
     out[out[..., 3] < 6] = 0
     return out, m
