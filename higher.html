@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Высшие богини · анимации Kling</title>
+<link rel="icon" type="image/webp" href="assets/ui/ports/kitsune.webp">
+<style>
+/* VOICE: a quiet review bench of the game's own night palette; the clips are the only colour.
+   IDEA: a battle-board under glass: each goddess on her own plinth, then one small fight.
+   PICTURE: the clips themselves and a portrait mini-fight where the game effect continues the strike.
+   COLOUR and TYPE: deep indigo night, warm gold labels; Forum titles, Golos Text body (as the higher-goddess pages).
+   LAYOUT: one band per goddess: four plinths in a row (now in game, idle, entrance, skill), the fight beside them. */
+:root{color-scheme:dark;--bg:#12101a;--panel:#1c1927;--panel2:#24202f;--line:#363046;--ink:#efe9dc;--mute:#a49cb6;--gold:#d8b160;--ok:#5cc591;--warn:#f2a544}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 "Golos Text",system-ui,sans-serif;overflow-x:clip}
+h1,h2,h3{font-family:Forum,Georgia,serif;font-weight:400;margin:0;text-wrap:balance}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.05}
+h2{font-size:30px;line-height:1.05}
+a{color:var(--gold)}
+.wrap{max-width:1240px;margin:0 auto;padding:18px max(3vw,14px) 40px}
+.top{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:end;justify-content:space-between;margin-bottom:14px}
+.lead{color:var(--mute);max-width:70ch;margin:6px 0 0}
+.ctl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.ctl span{color:var(--mute);font-size:13px;margin-right:2px}
+.btn{min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font:inherit;cursor:pointer}
+.btn[aria-pressed=true]{border-color:var(--gold);color:var(--gold)}
+.btn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.god{border-top:1px solid var(--line);padding:22px 0 8px}
+.ghead{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;margin-bottom:12px}
+.ghead p{margin:0;color:var(--mute)}
+.ghead b{color:var(--gold);font-weight:600}
+.grid{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,1.25fr);gap:16px;align-items:start}
+.cells{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cell{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px 8px 10px;display:flex;flex-direction:column;gap:6px}
+.cell h3{font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:600;color:var(--gold)}
+.cell.live h3{color:var(--mute)}
+.cell canvas{width:100%;aspect-ratio:3/4;border-radius:10px;display:block;background:#0c0b12}
+.cell .sub{font-size:12.5px;color:var(--mute);line-height:1.35}
+.cell .row{display:flex;gap:6px;flex-wrap:wrap}
+.cell .row .btn{min-height:32px;padding:0 10px;font-size:12.5px}
+.fight{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:8px;display:flex;flex-direction:column;gap:8px}
+.fight canvas{width:100%;aspect-ratio:9/14;border-radius:10px;display:block}
+.fight .row{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.fight h3{font-family:"Golos Text",system-ui,sans-serif;font-size:13px;font-weight:600;color:var(--gold)}
+.notes{margin:10px 0 0;padding:10px 14px;background:var(--panel);border:1px solid var(--line);border-radius:14px}
+.notes ul{margin:4px 0 0;padding-left:18px}
+.notes li{margin:3px 0}
+.foot{color:var(--mute);font-size:13px;margin-top:18px}
+@media(max-width:980px){.grid{grid-template-columns:minmax(0,1fr)}.fight{max-width:420px}}
+@media(max-width:600px){.cells{grid-template-columns:repeat(2,minmax(0,1fr))}h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){.btn{transition:none}}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Forum&family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <div>
+      <h1>Высшие богини · анимации Kling</h1>
+      <p class="lead">Три ролика на богиню: ожидание, появление (без первого кадра, кончается картинкой) и умение (первый кадр = последний). Справа маленький бой: богиня появляется, бьёт, и новый эффект игры продолжает её удар.</p>
+    </div>
+    <div class="ctl" role="group" aria-label="Скорость">
+      <span>Скорость</span>
+      <button class="btn" type="button" data-spd="1" aria-pressed="true">1×</button>
+      <button class="btn" type="button" data-spd="0.5" aria-pressed="false">0,5×</button>
+      <button class="btn" type="button" data-spd="0.25" aria-pressed="false">0,25×</button>
+      <span style="margin-left:10px">Фон роликов</span>
+      <button class="btn" type="button" data-bg="dark" aria-pressed="true">тёмный</button>
+      <button class="btn" type="button" data-bg="gray" aria-pressed="false">серый</button>
+    </div>
+  </div>
+  <div id="gods"></div>
+  <p class="foot"><a href="index.html">← Анимации обычных богов</a> · только стиль «Битвы титанов»: аниме-версии высших богинь ещё не нарисованы.</p>
+</main>
+<script src="assets/hg/hg-data.js?v=1"></script>
+<script src="assets/hg/hg-stand.js?v=1"></script>
+</body>
+</html>

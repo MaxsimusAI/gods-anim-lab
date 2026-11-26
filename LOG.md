@@ -290,3 +290,16 @@ See `remarks_ru.md` next to this file.
   sky blue as before. Status "new" (waits for his look); «вчера» = the 14-15.11 cut. Card: `cards/kitsune.md`.
 - CHECK: PATTERNS check 50.
 
+
+## 26.11.2026 — higher goddesses (new section `higher.html`)
+
+Maxim, 20:43, verbatim: «Нужно 1. Анимация ожидания для высшего бога 2. Анимация появления. Где нет первого кадра, а есть только
+последний (текущая картина) 3. Анимация удара - Где первый и последний кадр одинаковый. В ожидании, появлении и умении - эффекты
+внутри анимации. Красивые, сочные, подходящие богу. Анимация из умения должна продолжаться в бою программных эффектом (новым, сейчас
+плохие). Продумай это связь. Сделай промты и попробуй сделать первых двух богов». 20:43: «Доступ к клинг по апи или мсп разрешаю».
+Context: the 20 accepted higher-goddess designs of tasks 229–235 (game repo), BT style only (no anime versions drawn yet).
+First two: Order (Порядок) and Plague (Чума), as proposed in chat at 20:3x (he answered with the list above).
+- Slots for a higher goddess: `idle` (first = last frame), `app` (entrance: NO first frame, the tail frame = the accepted picture),
+  `atk` (the skill strike, first = last). Kling 4.0, 3 s, 720p; input = tight picture of the accepted portrait on flat gray 127
+  (side 15 %, top 9 %, bottom 3 %). Prompts: `pipeline/hg/prompts/`. Game effect = new, continues the clip from its release frame
+  (`assets/hg/hg-stand.js`, `FX.<god>`).
