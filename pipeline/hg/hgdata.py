@@ -1,4 +1,7 @@
 # Build assets/hg/hg-data.js for the review page from the cut metadata and the release frames set by eye (rel.json).
+# rel.json per skill: rel = the release frame, wf = where the game effect starts (a point of the frame, 0..1); rel2/wf2 = a second
+# point and its frame when the skill has two parts. Which part uses which is up to each FX in hg-stand.js: Order — lances from wf
+# at rel2, shields from wf2 at rel; Life — petals from wf at rel, blossoms from wf2 at rel2. Paths are relative to /home/claude/hgk.
 import json, shutil, os
 REPO = '/home/claude/gods-anim-lab'
 V = json.load(open('ver.json'))

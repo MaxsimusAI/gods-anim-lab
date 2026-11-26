@@ -163,11 +163,20 @@ FX.fate = { // «Неизбежность»: her own golden arrow leaves the cli
   dur: 6.9,
   pics: ['assets/hg/new/fate-arrow.webp', 'assets/hg/new/fate-thread.webp'],
   target: 2, fl: 0.36,
+  arc(S, T, enemies) {   // the control point of the arrow's arc: the first one whose path keeps clear of every other enemy
+    const y = Math.min(S.y, T.y) - 120, others = enemies.filter((e, i) => i !== this.target);
+    for (const dx of [-8, -40, 30, -75, 60, -110, 95]) {
+      const c = { x: S.x + dx, y }; let ok = true;
+      for (let k = 0; k <= 40 && ok; k++) { const p = bez(S, c, T, k / 40); ok = others.every(e => Math.hypot(p.x - e.x, p.y - e.y) > 27); }
+      if (ok) return c;
+    }
+    return { x: S.x - 8, y };
+  },
   hits(F) { return [{ who: 'e', i: this.target, at: this.fl, n: '-7 900', c: '#ffe2a0' }]; },
   draw(ctx, F, t) {
     const S = F.wf, T = F.enemies[this.target], AR = this.pics[0], TH = this.pics[1], fl = this.fl;
     // the arrow goes on up where the beam left the clip, turns above the row of enemies and falls on its target from above
-    const c = { x: S.x - 8, y: Math.min(S.y, T.y) - 120 }, din = Math.atan2(T.y - c.y, T.x - c.x), back = 18;
+    const c = this.arc(S, T, F.enemies), din = Math.atan2(T.y - c.y, T.x - c.x), back = 18;
     const E0 = { x: T.x - Math.cos(din) * back, y: T.y - Math.sin(din) * back };   // the flight ends where the stuck arrow stays: head in the target
     const dirAt = v => { const p = bez(S, c, E0, v), q = bez(S, c, E0, Math.max(0, v - 0.02)); return Math.atan2(p.y - q.y, p.x - q.x); };
     const u = t / fl, fade = clamp(1 - (u - 1) * fl / 0.15, 0, 1);
@@ -219,7 +228,7 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
       for (let k = 0; k < 7; k++) {
         const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, a0 = (R() - 0.5) * 6.28, pic = PE[k % 2];
         const s0 = 13 + 3 * (k % 3);
-        if (u > 0 && u < 1) { const p = bez(S, c, E, ease(u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), s0, spin * u + k, 0.95, false); }
+        if (u > 0 && u < 1) { const p = bez(S, c, E, u * u * (3 - 2 * u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), s0, spin * u + k, 0.95, false); }
         const h = t - (t0 + fl);   // on landing the petal keeps turning and shrinks smoothly while it scatters
         if (h > 0 && h < 0.6) sprite(ctx, pic, E.x + Math.cos(a0 + k) * 22 * ease(h / 0.6), E.y + Math.sin(a0 + k) * 16 * ease(h / 0.6) + 10 * h, s0 + (12 - s0) * ease(Math.min(1, h / 0.2)), spin * (1 + h) + k, 0.95 * (1 - h / 0.6), false);
       }
@@ -246,7 +255,7 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
 const FW = 360, FH = 560;
 function layout() {
   const enemies = [], allies = [];
-  for (let i = 0; i < 5; i++) { enemies.push({ x: 44 + i * 68, y: 92 }); allies.push({ x: 44 + i * 68, y: 508 }); }
+  for (let i = 0; i < 5; i++) { enemies.push({ x: 44 + i * 68, y: 76 }); allies.push({ x: 44 + i * 68, y: 508 }); }
   return { enemies, allies, ax: 180, foot: 446, figH: 282 };   // the lowest frame edge (Order's entrance) stays above the allies' bars
 }
 function token(ctx, p, col, hp) {
@@ -271,19 +280,20 @@ function arenaBg(ctx) {
 function build(G) {
   const sec = document.createElement('section'); sec.className = 'god'; sec.id = G.id;
   const cellsHtml = [
-    ['live', 'В игре сейчас', G.live ? '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="atk" aria-pressed="false">удар</button></div>' : '<div class="sub">В папке игры её листов нет — сравнивать не с чем.</div>'],
+    ...(G.live ? [['live', 'В игре сейчас', '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="atk" aria-pressed="false">удар</button></div>']] : []),
     ['idle', 'Ожидание', '<div class="sub">первый кадр = последний</div>'],
     ['app', 'Появление', (G.nu.app2 ? '<div class="row"><button class="btn" type="button" data-v="app:app" aria-pressed="true">новое</button><button class="btn" type="button" data-v="app:app2" aria-pressed="false">прежнее</button></div>' : '') + '<div class="sub">первого кадра нет, кончается картинкой</div>'],
     ['atk', 'Умение', (G.nu.atk2 ? '<div class="row"><button class="btn" type="button" data-v="atk:atk" aria-pressed="true">вариант 1</button><button class="btn" type="button" data-v="atk:atk2" aria-pressed="false">вариант 2</button></div>' : '') + '<div class="sub">первый кадр = последний</div>'],
   ].map(c => `<div class="cell ${c[0] === 'live' ? 'live' : ''}"><h3>${c[1]}</h3><canvas data-c="${c[0]}" width="${CELL.w}" height="${CELL.h}" aria-label="${G.name}: ${c[1]}"></canvas>${c[2]}</div>`).join('');
   sec.innerHTML = `<div class="ghead"><h2>${G.name}</h2><p><b>${G.skill}.</b> ${G.desc}</p></div>
-    <div class="grid"><div><div class="cells">${cellsHtml}</div><div class="notes"><b>Что смотреть</b><ul>${G.notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>
+    <div class="grid"><div>${G.live ? '' : '<p class="nolive">В игре её листов нет — сравнивать не с чем.</p>'}<div class="cells${G.live ? '' : ' three'}">${cellsHtml}</div><div class="notes"><b>Что смотреть</b><ul>${G.notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>
     <div class="fight"><div class="row"><h3>В бою: появление → умение → эффект игры → уход</h3><button class="btn" type="button" data-again>Ещё раз</button></div>
     <canvas data-c="fight" width="360" height="560" aria-label="${G.name}: бой"></canvas><div class="sub" style="font-size:12.5px;color:var(--mute)">${G.fxNote}</div></div></div>`;
   document.getElementById('gods').appendChild(sec);
-  const st = { live: 'idle', atk: 'atk', app: 'app', t0: performance.now() / 1000, simT: 0, fightT0: 0 };
+  const st = { live: 'idle', atk: 'atk', app: 'app', t0: performance.now() / 1000, simT: 0, fightT0: 0, cellT0: { app: 0, atk: 0 } };
   sec.querySelectorAll('[data-v]').forEach(b => b.addEventListener('click', () => {   // a take switch inside one cell: slot:key
-    const [slot, key] = b.dataset.v.split(':'); st[slot] = key; st.fightT0 = st.simT;
+    const [slot, key] = b.dataset.v.split(':'); if (st[slot] === key) return;
+    st[slot] = key; st.fightT0 = st.simT; st.cellT0[slot] = st.simT;   // the cell and the fight start the chosen take from its beginning
     sec.querySelectorAll(`[data-v^="${slot}:"]`).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
   }));
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
@@ -305,7 +315,7 @@ function drawCell(ctx, sh, t, mode, cell) {   // mode: loop | once (entrance: ho
   drawFrame(ctx, sh, i, P);
 }
 function drawLive(V, t) {
-  const { G, C, st } = V, ctx = C.live.ctx, K = V.cell; cellBg(ctx, CELL.w, CELL.h, K.foot);
+  const { G, C, st } = V; if (!C.live) return; const ctx = C.live.ctx, K = V.cell; cellBg(ctx, CELL.w, CELL.h, K.foot);
   if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, K.ax, K.foot, K.figH); drawFrame(ctx, s, 0, P); } return; }
   const sh = G.live[st.live] || G.live.idle, P = place(sh, K.ax, K.foot, K.figH), u = t - st.liveT;
   drawFrame(ctx, sh, sh === G.live.idle ? frameAt(sh, u % sh.dur) : (u % (sh.dur + 0.8) < sh.dur ? frameAt(sh, u % (sh.dur + 0.8)) : 0), P);
@@ -341,8 +351,8 @@ function frame() {
     try {
       drawLive(V, sim);
       drawCell(V.C.idle.ctx, N.idle, sim, 'loop', V.cell);
-      drawCell(V.C.app.ctx, N[V.st.app] || N.app, sim, 'once', V.cell);
-      drawCell(V.C.atk.ctx, N[V.st.atk] || N.atk, sim, 'strike', V.cell);
+      drawCell(V.C.app.ctx, N[V.st.app] || N.app, sim - V.st.cellT0.app, 'once', V.cell);
+      drawCell(V.C.atk.ctx, N[V.st.atk] || N.atk, sim - V.st.cellT0.atk, 'strike', V.cell);
       drawFight(V, sim - V.st.fightT0);
     } catch (e) { if (!V.err) { V.err = 1; console.error(V.G.id, e); } }
   }
