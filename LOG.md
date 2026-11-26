@@ -383,3 +383,8 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   the switch as «прежнее»). CHECK: PATTERNS 54–57. IDEA: entrance kinds per goddess (PATTERNS ideas).
 - 27.11 ~01:00: v5 shot for all four (12 jobs × 2 = 24 clips, 720 credits) and published. Page: each goddess is scaled to fill
   her cells (no empty band above), cells 330×370; Order's entrance has a «новое / прежнее» switch (the protected take of 26.11).
+- 27.11 ~02:10: two fresh-eyes reviews of the v5 page code; fixed: figures were not larger on wide screens (now goddesses without
+  live sheets get 3 cells, +50 %; fight column 320–360 px), empty band partly left (union of all frames is still the fit), Plague's
+  clots and Life's petals started off the censer / flower (release points; all clots leave within the release frame; petal
+  streams start at the flower's edge), Fate's arrow and Order's second lance passed through other enemies (arc chosen on the
+  drawn path with the most room), take switch restarts its cell, enemies higher and damage numbers kept inside the fight.

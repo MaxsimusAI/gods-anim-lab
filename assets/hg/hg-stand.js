@@ -68,7 +68,16 @@ function sprite(ctx, src, x, y, h, rot, a, add) {   // a picture centred on x, y
 function number(ctx, x, y, txt, col, t) {   // a damage number that rises and fades
   if (t < 0 || t > 1) return;
   ctx.save(); ctx.globalAlpha = 1 - Math.pow(t, 2); ctx.font = '700 15px "Golos Text",system-ui,sans-serif'; ctx.textAlign = 'center';
-  ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.8)'; ctx.strokeText(txt, x, y - 26 * ease(t)); ctx.fillStyle = col; ctx.fillText(txt, x, y - 26 * ease(t)); ctx.restore();
+  ctx.lineWidth = 3; ctx.strokeStyle = 'rgba(0,0,0,.8)'; const yy = Math.max(14, y - 20 * ease(t)); ctx.strokeText(txt, x, yy); ctx.fillStyle = col; ctx.fillText(txt, x, yy); ctx.restore();
+}
+function clearArc(S, T, others, dxs, lift) {   // the control point (offsets from the middle) whose arc S→T keeps most room past others
+  let best = null;
+  for (const dx of dxs) {
+    const c = { x: (S.x + T.x) / 2 + dx, y: Math.min(S.y, T.y) - lift }; let m = Infinity;
+    for (let k = 0; k <= 32; k++) { const p = bez(S, c, T, k / 32); for (const o of others) m = Math.min(m, Math.hypot(p.x - o.x, p.y - o.y)); }
+    if (!best || m > best.m + 4) best = { m, c };   // the first candidate wins unless another gives clearly more room
+  }
+  return best.c;
 }
 function bez(a, c, b, t) { const u = 1 - t; return { x: u * u * a.x + 2 * u * t * c.x + t * t * b.x, y: u * u * a.y + 2 * u * t * c.y + t * t * b.y }; }
 
@@ -81,7 +90,7 @@ FX.order = { // «Закон защиты»: the light of the spear leaves the t
   draw(ctx, F, t) {
     const tip = F.wf, sh = F.wf2, SH = this.pics[0], LA = this.pics[1];
     [1, 3].forEach((e, k) => {   // lances: her own blade in blue flame, cut from the clip, with a trail of the same flame
-      const T = F.enemies[e], t0 = F.lag2 + 0.04 + k * 0.09, fl = 0.32, u = (t - t0) / fl, c = { x: (tip.x + T.x) / 2 + (k ? 26 : -26), y: Math.min(tip.y, T.y) - 18 };
+      const T = F.enemies[e], t0 = F.lag2 + 0.04 + k * 0.09, fl = 0.32, u = (t - t0) / fl, c = clearArc(tip, T, F.enemies.filter((x, j) => j !== e), [k ? 26 : -26, k ? 60 : -60, 0, k ? -40 : 40, k ? 95 : -95], 18);
       if (u > 0 && u < 1) {
         const R = rnd(71 + k), path = v => bez(tip, c, T, v * v * (3 - 2 * v) * 0.35 + v * 0.65);
         for (let s = 16; s >= 1; s--) {
@@ -128,13 +137,13 @@ FX.plague = { // «Печать чумы»: clots of her green fire fly from whe
   pics: ['assets/hg/new/plague-fire.webp'],
   hits(F) {
     const out = [];
-    F.enemies.forEach((E, i) => { const at = i * 0.06 + 0.6; out.push({ who: 'e', i, at, n: '-1 860', c: '#c8ff9a' }); for (let k = 1; k <= 4; k++) out.push({ who: 'e', i, at: at + k, n: '-310', c: '#9cff4a', small: 1 }); });
+    F.enemies.forEach((E, i) => { const at = i * 0.02 + 0.6; out.push({ who: 'e', i, at, n: '-1 860', c: '#c8ff9a' }); for (let k = 1; k <= 4; k++) out.push({ who: 'e', i, at: at + k, n: '-310', c: '#9cff4a', small: 1 }); });
     return out;
   },
   draw(ctx, F, t) {
     const S = F.wf, FI = this.pics[0];
     F.enemies.forEach((E, i) => {
-      const t0 = i * 0.06, fl = 0.6, u = (t - t0) / fl, c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.25, y: Math.min(S.y, E.y) - 40 };
+      const t0 = i * 0.02, fl = 0.6, u = (t - t0) / fl, c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.25, y: Math.min(S.y, E.y) - 40 };
       if (u > 0 && u < 1) {   // the clot: her fire, a burning head and a continuous trail of the same fire
         const R = rnd(13 + i);
         for (let s = 26; s >= 1; s--) {
@@ -163,14 +172,20 @@ FX.fate = { // «Неизбежность»: her own golden arrow leaves the cli
   dur: 6.9,
   pics: ['assets/hg/new/fate-arrow.webp', 'assets/hg/new/fate-thread.webp'],
   target: 2, fl: 0.36,
-  arc(S, T, enemies) {   // the control point of the arrow's arc: the first one whose path keeps clear of every other enemy
+  arc(S, T, enemies) {   // the control point of the arrow's arc: the most room past every other enemy on the path really drawn
     const y = Math.min(S.y, T.y) - 120, others = enemies.filter((e, i) => i !== this.target);
-    for (const dx of [-8, -40, 30, -75, 60, -110, 95]) {
-      const c = { x: S.x + dx, y }; let ok = true;
-      for (let k = 0; k <= 40 && ok; k++) { const p = bez(S, c, T, k / 40); ok = others.every(e => Math.hypot(p.x - e.x, p.y - e.y) > 27); }
-      if (ok) return c;
+    let best = null;
+    for (let dx = -120; dx <= 120; dx += 15) {
+      const c = { x: S.x + dx, y }, d = Math.atan2(T.y - c.y, T.x - c.x), E0 = { x: T.x - Math.cos(d) * 18, y: T.y - Math.sin(d) * 18 };
+      let m = Infinity;
+      for (let k = 0; k <= 48; k++) {
+        const v = k / 48, p = bez(S, c, E0, v);
+        for (const e of others) m = Math.min(m, Math.hypot(p.x - e.x, p.y - e.y));
+        if (v < 0.7) m = Math.min(m, Math.hypot(p.x - T.x, p.y - T.y) + 6);   // not through the target itself on the way
+      }
+      if (!best || m > best.m) best = { m, c };
     }
-    return { x: S.x - 8, y };
+    return best.c;
   },
   hits(F) { return [{ who: 'e', i: this.target, at: this.fl, n: '-7 900', c: '#ffe2a0' }]; },
   draw(ctx, F, t) {
@@ -224,11 +239,11 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
   draw(ctx, F, t) {
     const S = F.wf, P2 = F.wf2 || F.wf, PE = [this.pics[0], this.pics[1]], BL = this.pics[2];
     F.enemies.forEach((E, i) => {   // a stream of her petals to each enemy
-      const R = rnd(31 + i), c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.2, y: Math.min(S.y, E.y) - 34 };
+      const R = rnd(31 + i), dd = Math.hypot(E.x - S.x, E.y - S.y) || 1, S0 = { x: S.x + (E.x - S.x) / dd * 28, y: S.y + (E.y - S.y) / dd * 28 }, c = { x: (S0.x + E.x) / 2 + (E.x - S0.x) * 0.35, y: Math.min(S0.y, E.y) - 20 };
       for (let k = 0; k < 7; k++) {
         const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, a0 = (R() - 0.5) * 6.28, pic = PE[k % 2];
         const s0 = 13 + 3 * (k % 3);
-        if (u > 0 && u < 1) { const p = bez(S, c, E, u * u * (3 - 2 * u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), s0, spin * u + k, 0.95, false); }
+        if (u > 0 && u < 1) { const p = bez(S0, c, E, u * u * (3 - 2 * u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), s0, spin * u + k, 0.95, false); }
         const h = t - (t0 + fl);   // on landing the petal keeps turning and shrinks smoothly while it scatters
         if (h > 0 && h < 0.6) sprite(ctx, pic, E.x + Math.cos(a0 + k) * 22 * ease(h / 0.6), E.y + Math.sin(a0 + k) * 16 * ease(h / 0.6) + 10 * h, s0 + (12 - s0) * ease(Math.min(1, h / 0.2)), spin * (1 + h) + k, 0.95 * (1 - h / 0.6), false);
       }
@@ -339,7 +354,7 @@ function drawFight(V, t) {
   else if (u < end) drawFrame(ctx, N.idle, frameAt(N.idle, (u < S ? u - A : u - S - D) % I), P);
   if (u >= rel) fx.draw(ctx, F, u - rel);
   L.enemies.forEach((p, i) => hpBar(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1))); L.allies.forEach((p, i) => hpBar(ctx, p, '#5cc591', clamp(hp.a[i], 0, 1)));
-  hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 40, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
+  hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 36, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
 }
 
 const VIEWS = HG.map(build);
