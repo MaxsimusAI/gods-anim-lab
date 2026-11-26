@@ -325,3 +325,6 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   entrance haze in frame 1 and a straight cut on the top of Plague's column → haze cleanup in frames 1–3, longer top fade;
   `?v=` bumped; newest IntersectionObserver entry; readable load-error text. Remaining, told to Maxim: the light of the spear and the
   fountain cloud reach the top edge for ~1 s; a short ray glint on the shield in Order v3b.
+- 26.11 22:27, Maxim on the size question (verbatim): «Для высших можно больше». Decision: higher goddesses may exceed the 14 MB
+  phone limit per god (now ~20–21 MB for idle + entrance + skill, ~1.3–1.7 MB of files); files are still compressed as far as the
+  look allows. Not a rule for ordinary gods.
