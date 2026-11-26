@@ -303,3 +303,11 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   `atk` (the skill strike, first = last). Kling 4.0, 3 s, 720p; input = tight picture of the accepted portrait on flat gray 127
   (side 15 %, top 9 %, bottom 3 %). Prompts: `pipeline/hg/prompts/`. Game effect = new, continues the clip from its release frame
   (`assets/hg/hg-stand.js`, `FX.<god>`).
+- 26.11 ~22:00, fresh-eyes review of v1 (code + six clips): the live «удар» button froze the page (wrong key); programmatic scales and a
+  drawn shield (rejected: vfx-preferences «Programmatic scales were called cartoonish», «never draw objects with primitive outlines»);
+  Plague's projectiles read as small balls on a string; idles without leg action (D5); Order's skill with starbursts on the shield and
+  the ground (A3); sheet edges visible as straight cuts in the air; gray haze in frame 0 of both entrances; leftover gray smoke.
+  Done: code fixes; retakes (one change each) — Order idle and Plague idle (the leg action named), Order skill (the light described as a
+  glow on the spear and the shield); cutter v2 (crop per clip at one scale, entrance frame 0 empty, edge fade, specks dropped, desmoke on
+  the entrances, strong desmoke on Plague's skill); game effects rebuilt from real pictures: Order's own shield cut from her portrait,
+  Plague's own green fire cut from her entrance clip; no scales, no seal.

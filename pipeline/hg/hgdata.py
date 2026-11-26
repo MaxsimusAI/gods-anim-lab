@@ -6,10 +6,10 @@ REL = json.load(open('rel.json'))          # {god: {rel: sheet frame, wf: [x,y],
 GODS = [
  {'id': 'order', 'name': 'Порядок', 'skill': 'Закон защиты', 'desc': 'Атакует двух врагов. Даёт каждому союзнику щит на 8 сек.', 'fx': 'order',
   'live': json.load(open('live_order.json')),
-  'fxNote': 'В момент удара копьём о землю с острия вылетают два синих копья света в двух врагов (на враге вспыхивают весы), а со щита к каждому союзнику летит синий щит и встаёт на нём куполом.'},
+  'fxNote': 'После удара копьём о землю свет копья уходит вверх, и из этой точки два копья света падают на двух врагов и разбиваются о них на кристаллы. Со щита к каждому союзнику летит её щит и растворяется на нём в плёнку света.'},
  {'id': 'plague', 'name': 'Чума', 'skill': 'Печать чумы', 'desc': 'Атакует каждого врага. Каждый враг получает ещё урон за 4 сек.', 'fx': 'plague',
   'live': None,
-  'fxNote': 'Во вспышке на кадиле из него вылетают ядовитые сгустки ко всем врагам; на каждом враге загорается печать чумы со знаком её маски и 4 секунды бьёт ядом (четыре вспышки, четыре числа).'},
+  'fxNote': 'Во вспышке на кадиле из него вылетают сгустки её зелёного огня ко всем врагам; на каждом враге огонь горит 4 секунды и вспыхивает на каждом ударе яда (четыре вспышки, четыре числа).'},
 ]
 NOTES = json.load(open('notes.json'))
 out = []
@@ -19,8 +19,8 @@ for G in [g for g in GODS if __import__('os').path.exists(f'sheets/{g["id"]}.jso
     nu = {}
     for slot in ('idle', 'app', 'atk'):
         dst = f'assets/hg/new/{G["id"]}-bt-{slot}.webp'; shutil.copy(m[slot]['file'], f'{REPO}/{dst}')
-        nu[slot] = {'src': f'{dst}?v={V["v"]}', 'cols': 5, 'rows': 5, 'n': 25, 'fw': m['fw'], 'fh': m['fh'], 'dur': 3.0, 'fig': m['fig']}
-    r = REL[G['id']]; nu['atk'].update({'rel': r['rel'], 'wf': r['wf']}); 
+        S = m[slot]; nu[slot] = {'src': f'{dst}?v={V["v"]}', 'cols': 5, 'rows': 5, 'n': 25, 'fw': S['fw'], 'fh': S['fh'], 'dur': 3.0, 'fig': S['fig']}
+    r = REL[G['id']]; nu['atk'].update({'rel': r['rel'], 'wf': r['wf']}); nu['atk'].update({'rel2': r['rel2']} if 'rel2' in r else {}); 
     if r.get('wf2'): nu['atk']['wf2'] = r['wf2']
     G = dict(G, nu=nu, notes=NOTES[G['id']])
     out.append(G)

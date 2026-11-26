@@ -5,7 +5,7 @@
 'use strict';
 const SPEED = { v: 1 }, BG = { v: 'dark' };
 const IMG = {};
-function img(src) { if (!IMG[src]) { const i = new Image(); i.decoding = 'async'; i.src = src; IMG[src] = i; } return IMG[src]; }
+function img(src) { if (!IMG[src]) { const i = new Image(); i.decoding = 'async'; i.onerror = () => { i.failed = true; }; i.src = src; IMG[src] = i; } return IMG[src]; }
 function ready(sh) { const i = img(sh.src); return i.complete && i.naturalWidth > 0; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const ease = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
@@ -17,7 +17,10 @@ function place(sh, ax, footY, figH) {   // where a sheet frame goes so that its 
   return { sc, x0: ax - f.ax * sh.fw * sc, y0: footY - f.foot * sh.fh * sc, w: sh.fw * sc, h: sh.fh * sc };
 }
 function drawFrame(ctx, sh, i, P, alpha) {
-  if (!ready(sh)) return;
+  if (!ready(sh)) {
+    if (img(sh.src).failed) { ctx.save(); ctx.fillStyle = '#e8675f'; ctx.font = '600 13px "Golos Text",system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('лист не загрузился', P.x0 + P.w / 2, P.y0 + P.h / 2); ctx.restore(); }
+    return;
+  }
   i = clamp(Math.floor(i), 0, sh.n - 1);
   ctx.save(); if (alpha !== undefined) ctx.globalAlpha = alpha;
   ctx.drawImage(img(sh.src), (i % sh.cols) * sh.fw, Math.floor(i / sh.cols) * sh.fh, sh.fw, sh.fh, P.x0, P.y0, P.w, P.h);
@@ -39,34 +42,17 @@ function cellBg(ctx, W, H) {
   ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(W / 2, H * 0.935, W * 0.3, H * 0.025, 0, 0, 7); ctx.fill();
 }
 
-/* ---------- small glyphs for the game effects ---------- */
+/* ---------- effect helpers: soft light and pictures cut from the goddess's own art and clips ---------- */
 function glow(ctx, x, y, r, c0, c1, a) {
   const g = ctx.createRadialGradient(x, y, 0, x, y, r);
   g.addColorStop(0, c0); g.addColorStop(0.35, c1); g.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.globalAlpha = a; ctx.fillStyle = g; ctx.beginPath(); ctx.arc(x, y, r, 0, 7); ctx.fill(); ctx.globalAlpha = 1;
 }
-function scalesGlyph(ctx, x, y, s, a) {   // the emblem of Order: post, beam, two pans
-  ctx.save(); ctx.translate(x, y); ctx.scale(s, s); ctx.globalAlpha = a; ctx.lineCap = 'round';
-  ctx.strokeStyle = '#ffe3a0'; ctx.lineWidth = 2.2; ctx.shadowColor = '#6cc4ff'; ctx.shadowBlur = 10;
-  ctx.beginPath(); ctx.moveTo(0, -14); ctx.lineTo(0, 12); ctx.moveTo(-14, -8); ctx.lineTo(14, -8);
-  ctx.moveTo(-14, -8); ctx.lineTo(-19, 3); ctx.moveTo(-14, -8); ctx.lineTo(-9, 3);
-  ctx.moveTo(14, -8); ctx.lineTo(9, 3); ctx.moveTo(14, -8); ctx.lineTo(19, 3); ctx.moveTo(-7, 12); ctx.lineTo(7, 12); ctx.stroke();
-  ctx.beginPath(); ctx.arc(-14, 3, 5, 0, Math.PI); ctx.arc(14, 3, 5, 0, Math.PI); ctx.stroke(); ctx.restore();
-}
-function shieldPath(ctx, x, y, s) {
-  ctx.beginPath(); ctx.moveTo(x, y - 11 * s); ctx.quadraticCurveTo(x + 10 * s, y - 9 * s, x + 10 * s, y - 2 * s);
-  ctx.quadraticCurveTo(x + 9 * s, y + 8 * s, x, y + 13 * s); ctx.quadraticCurveTo(x - 9 * s, y + 8 * s, x - 10 * s, y - 2 * s);
-  ctx.quadraticCurveTo(x - 10 * s, y - 9 * s, x, y - 11 * s); ctx.closePath();
-}
-function maskSeal(ctx, x, y, r, a, rot, pulse) {   // the seal of Plague: a ring of runes with the three slits of her mask
-  ctx.save(); ctx.translate(x, y); ctx.globalAlpha = a; ctx.globalCompositeOperation = 'lighter';
-  ctx.rotate(rot); ctx.strokeStyle = 'rgba(150,255,80,.85)'; ctx.lineWidth = 1.6; ctx.shadowColor = '#7dff2a'; ctx.shadowBlur = 8 + 10 * pulse;
-  ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.stroke();
-  ctx.beginPath(); ctx.arc(0, 0, r * 0.78, 0, 7); ctx.stroke();
-  for (let k = 0; k < 12; k++) { const q = k / 12 * Math.PI * 2; ctx.beginPath(); ctx.moveTo(Math.cos(q) * r * 0.8, Math.sin(q) * r * 0.8); ctx.lineTo(Math.cos(q + 0.12) * r * 0.97, Math.sin(q + 0.12) * r * 0.97); ctx.stroke(); }
-  ctx.rotate(-rot); ctx.fillStyle = `rgba(190,255,120,${0.55 + 0.45 * pulse})`;
-  for (let k = -1; k <= 1; k++) { ctx.beginPath(); ctx.ellipse(k * r * 0.26, 0, r * 0.07, r * 0.36, 0, 0, 7); ctx.fill(); }
-  ctx.restore();
+function sprite(ctx, src, x, y, h, rot, a, add) {   // a picture centred on x, y, h px tall
+  const i = img(src); if (!(i.complete && i.naturalWidth) || a <= 0.01) return;
+  const w = h * i.naturalWidth / i.naturalHeight;
+  ctx.save(); ctx.globalCompositeOperation = add ? 'lighter' : 'source-over'; ctx.globalAlpha = clamp(a, 0, 1);
+  ctx.translate(x, y); if (rot) ctx.rotate(rot); ctx.drawImage(i, -w / 2, -h / 2, w, h); ctx.restore();
 }
 function number(ctx, x, y, txt, col, t) {   // a damage number that rises and fades
   if (t < 0 || t > 1) return;
@@ -75,107 +61,93 @@ function number(ctx, x, y, txt, col, t) {   // a damage number that rises and fa
 }
 function bez(a, c, b, t) { const u = 1 - t; return { x: u * u * a.x + 2 * u * t * c.x + t * t * b.x, y: u * u * a.y + 2 * u * t * c.y + t * t * b.y }; }
 
-/* ---------- the game effects, by goddess. t = seconds since the release frame ---------- */
+/* ---------- the game effects, by goddess. t = seconds since the release frame; F.end = when the goddess leaves ---------- */
 const FX = {};
-FX.order = { // «Закон защиты»: two lances of light from the spear tip to two enemies; shields from the shield to every ally
-  dur: 4.2,
-  hits(F) { return [1, 3].map((e, k) => ({ who: 'e', i: e, at: 0.04 + k * 0.09 + 0.3, n: '-2 480', c: '#bfe3ff' })); },
+FX.order = { // «Закон защиты»: the light of the spear leaves the top of the clip and goes on as two lances to two enemies; her own shield flies to every ally
+  dur: 2.2,
+  pics: ['assets/hg/new/order-shield.webp'],
+  hits(F) { return [1, 3].map((e, k) => ({ who: 'e', i: e, at: F.lag2 + 0.04 + k * 0.09 + 0.3, n: '-2 480', c: '#bfe3ff' })); },
   draw(ctx, F, t) {
-    const tip = F.wf, sh = F.wf2;
+    const tip = F.wf, sh = F.wf2, SH = this.pics[0];
     [1, 3].forEach((e, k) => {   // lances
-      const T = F.enemies[e], t0 = 0.04 + k * 0.09, fl = 0.3, u = (t - t0) / fl, c = { x: (tip.x + T.x) / 2 + (k ? 30 : -30), y: Math.min(tip.y, T.y) - 20 };
+      const T = F.enemies[e], t0 = F.lag2 + 0.04 + k * 0.09, fl = 0.3, u = (t - t0) / fl, c = { x: (tip.x + T.x) / 2 + (k ? 30 : -30), y: Math.min(tip.y, T.y) - 20 };
       if (u > 0 && u < 1) {
         const p = bez(tip, c, T, ease(u)), q = bez(tip, c, T, ease(Math.max(0, u - 0.22))), ang = Math.atan2(p.y - q.y, p.x - q.x);
-        ctx.save(); ctx.globalCompositeOperation = 'lighter';
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
         const g = ctx.createLinearGradient(q.x, q.y, p.x, p.y); g.addColorStop(0, 'rgba(40,120,255,0)'); g.addColorStop(1, 'rgba(140,210,255,.95)');
-        ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(60,140,255,.28)'; ctx.lineWidth = 18; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+        ctx.strokeStyle = 'rgba(60,140,255,.28)'; ctx.lineWidth = 18; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(p.x, p.y); ctx.stroke();
         ctx.strokeStyle = g; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(p.x, p.y); ctx.stroke();
         ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.beginPath(); ctx.moveTo((q.x + p.x * 2) / 3, (q.y + p.y * 2) / 3); ctx.lineTo(p.x, p.y); ctx.stroke();
         ctx.translate(p.x, p.y); ctx.rotate(ang); ctx.shadowColor = '#6cc4ff'; ctx.shadowBlur = 16; ctx.fillStyle = '#eaf6ff';
         ctx.beginPath(); ctx.moveTo(24, 0); ctx.lineTo(2, -7); ctx.lineTo(-14, 0); ctx.lineTo(2, 7); ctx.closePath(); ctx.fill(); ctx.restore();
-        const R = rnd(31 + k); ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        for (let s = 0; s < 6; s++) { const v = Math.max(0, u - 0.05 - s * 0.035), sp = bez(tip, c, T, ease(v)); glow(ctx, sp.x + (R() - .5) * 8, sp.y + (R() - .5) * 8, 5, 'rgba(220,240,255,.9)', 'rgba(80,160,255,.5)', 0.8 - s * 0.12); }
+      }
+      const h = t - (t0 + fl);   // the lance breaks on the enemy into blue crystal shards
+      if (h > 0 && h < 0.7) {
+        ctx.save(); ctx.globalCompositeOperation = 'lighter';
+        glow(ctx, T.x, T.y, 16 + 16 * ease(h / 0.4), 'rgba(190,230,255,.55)', 'rgba(60,140,255,.3)', clamp(1 - h / 0.45, 0, 1));
+        const R = rnd(53 + k);
+        for (let j = 0; j < 6; j++) {
+          const q = -Math.PI / 2 + (R() - 0.5) * 2.6, v = 40 + R() * 30, x = T.x + Math.cos(q) * v * h, y = T.y + Math.sin(q) * v * h + 70 * h * h, a = clamp(1 - h / 0.7, 0, 1);
+          ctx.save(); ctx.translate(x, y); ctx.rotate(q + h * (4 + j)); ctx.globalAlpha = a; ctx.fillStyle = j % 2 ? '#bfe6ff' : '#6fb6ff';
+          ctx.beginPath(); ctx.moveTo(5, 0); ctx.lineTo(0, -1.8); ctx.lineTo(-4, 0); ctx.lineTo(0, 1.8); ctx.closePath(); ctx.fill(); ctx.restore();
+        }
         ctx.restore();
       }
-      const h = t - (t0 + fl);   // impact on the enemy
-      if (h > 0 && h < 0.9) {
-        ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        glow(ctx, T.x, T.y, 18 + 26 * ease(h / 0.5), 'rgba(200,235,255,.7)', 'rgba(60,140,255,.35)', clamp(1 - h / 0.6, 0, 1));
-        ctx.strokeStyle = `rgba(255,220,150,${clamp(0.8 - h, 0, 1)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(T.x, T.y, 14 + 34 * ease(h / 0.7), 0, 7); ctx.stroke();
-        ctx.restore(); scalesGlyph(ctx, T.x, T.y - 34, 0.7 + 0.3 * ease(h / 0.3), clamp(h < 0.25 ? h / 0.25 : 1 - (h - 0.25) / 0.6, 0, 1));
-      }
     });
-    F.allies.forEach((A, i) => {   // shields fly from the shield to every ally, then stay on them as a dome
+    F.allies.forEach((A, i) => {   // her own shield flies to every ally and stays on him as a film of light
       const t0 = 0.08 + i * 0.05, fl = 0.42, u = (t - t0) / fl, c = { x: (sh.x + A.x) / 2 + (A.x - sh.x) * 0.25, y: Math.max(sh.y, A.y) + 26 };
       ctx.save(); ctx.globalCompositeOperation = 'lighter';
       if (u > 0 && u < 1) {
         const p = bez(sh, c, A, ease(u));
-        for (let s = 1; s < 6; s++) { const q = bez(sh, c, A, ease(Math.max(0, u - s * 0.05))); glow(ctx, q.x, q.y, 7, 'rgba(160,210,255,.6)', 'rgba(50,120,255,.3)', 0.5 - s * 0.08); }
+        for (let s = 1; s < 6; s++) { const q = bez(sh, c, A, ease(Math.max(0, u - s * 0.05))); glow(ctx, q.x, q.y, 9, 'rgba(160,210,255,.6)', 'rgba(50,120,255,.3)', 0.5 - s * 0.08); }
         glow(ctx, p.x, p.y, 26, 'rgba(150,205,255,.55)', 'rgba(40,110,255,.3)', 0.9);
-        ctx.globalCompositeOperation = 'source-over'; ctx.shadowColor = '#4aa8ff'; ctx.shadowBlur = 12; shieldPath(ctx, p.x, p.y, 1.5);
-        const g = ctx.createLinearGradient(p.x, p.y - 16, p.x, p.y + 20); g.addColorStop(0, '#8fd0ff'); g.addColorStop(0.55, '#2f7bff'); g.addColorStop(1, '#1b3f9e');
-        ctx.fillStyle = g; ctx.fill(); ctx.shadowBlur = 0; ctx.strokeStyle = '#ffd98a'; ctx.lineWidth = 2; ctx.stroke(); scalesGlyph(ctx, p.x, p.y - 1, 0.36, 0.9); ctx.globalCompositeOperation = 'lighter';
+        sprite(ctx, SH, p.x, p.y, 36 - 6 * u, (A.x - sh.x) * 0.0015 * (1 - u), 1, false);
       }
-      const h = t - (t0 + fl);
-      if (h > 0) {
-        const a = clamp(h / 0.2, 0, 1) * clamp((this.dur - t) / 0.5, 0, 1), r = 31 * (0.8 + 0.2 * ease(h / 0.25)), sh2 = 0.5 + 0.5 * Math.sin(h * 3 + i);
-        const g = ctx.createRadialGradient(A.x, A.y, r * 0.55, A.x, A.y, r);
-        g.addColorStop(0, 'rgba(60,140,255,0)'); g.addColorStop(0.85, `rgba(90,170,255,${0.32 * a})`); g.addColorStop(1, `rgba(170,220,255,${0.55 * a})`);
+      const h = t - (t0 + fl), end = F.end - F.rel;
+      if (h > 0 && t < end) {
+        const a = clamp(h / 0.2, 0, 1) * clamp((end - t) / 0.4, 0, 1), r = 26 * (0.8 + 0.2 * ease(h / 0.25));
+        if (h < 0.45) sprite(ctx, SH, A.x, A.y, 30 * (1 + 0.25 * ease(h / 0.45)), 0, 1 - h / 0.45, false);   // the shield sinks into the film
+        const g = ctx.createRadialGradient(A.x, A.y, r * 0.5, A.x, A.y, r);
+        g.addColorStop(0, 'rgba(60,140,255,0)'); g.addColorStop(0.82, `rgba(90,170,255,${0.3 * a})`); g.addColorStop(1, `rgba(170,220,255,${0.5 * a})`);
         ctx.fillStyle = g; ctx.beginPath(); ctx.arc(A.x, A.y, r, 0, 7); ctx.fill();
-        ctx.strokeStyle = `rgba(255,215,130,${0.55 * a})`; ctx.lineWidth = 1.3; ctx.beginPath(); ctx.arc(A.x, A.y, r, 0, 7); ctx.stroke();
-        ctx.strokeStyle = `rgba(230,245,255,${0.5 * a * sh2})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(A.x, A.y, r - 3, -2.4 + h * 1.6, -1.6 + h * 1.6); ctx.stroke();
-        if (h < 0.5) glow(ctx, A.x, A.y, r + 6, 'rgba(200,235,255,.5)', 'rgba(80,160,255,.25)', 0.6 * (1 - h / 0.5));
-        if (h < 0.9) scalesGlyph(ctx, A.x, A.y - 40 - 8 * ease(h / 0.9), 0.55, clamp(h < 0.2 ? h / 0.2 : 1 - (h - 0.2) / 0.7, 0, 1));
+        ctx.strokeStyle = `rgba(255,215,130,${0.45 * a})`; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(A.x, A.y, r, 0, 7); ctx.stroke();
+        if (h < 0.5) glow(ctx, A.x, A.y, r + 6, 'rgba(200,235,255,.45)', 'rgba(80,160,255,.22)', 0.55 * (1 - h / 0.5));
       }
       ctx.restore();
     });
   },
 };
-FX.plague = { // «Печать чумы»: poison comets from the censer to every enemy; a seal of her mask burns on each for 4 s
-  dur: 5.2,
+FX.plague = { // «Печать чумы»: clots of her green fire fly from the censer to every enemy and burn on each for 4 s
+  dur: 5.3,
+  pics: ['assets/hg/new/plague-fire.webp'],
   hits(F) {
     const out = [];
     F.enemies.forEach((E, i) => { const at = i * 0.06 + 0.6; out.push({ who: 'e', i, at, n: '-1 860', c: '#c8ff9a' }); for (let k = 1; k <= 4; k++) out.push({ who: 'e', i, at: at + k, n: '-310', c: '#9cff4a', small: 1 }); });
     return out;
   },
   draw(ctx, F, t) {
-    const S = F.wf;
+    const S = F.wf, FI = this.pics[0];
     F.enemies.forEach((E, i) => {
       const t0 = i * 0.06, fl = 0.6, u = (t - t0) / fl, c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.25, y: Math.min(S.y, E.y) - 40 };
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      if (u > 0 && u < 1) {
-        const R = rnd(7 + i);
-        for (let s = 22; s >= 0; s--) {   // the tail: one smooth ribbon of fading green light, a dark toxic edge under it
-          const v = Math.max(0, u - s * 0.016), p = bez(S, c, E, ease(v)), w = 15 - s * 0.55;
-          if (s % 3 === 0) { ctx.globalCompositeOperation = 'source-over'; ctx.fillStyle = `rgba(16,48,8,${0.22 * (1 - s / 23)})`; ctx.beginPath(); ctx.arc(p.x, p.y + 2, w + 4, 0, 7); ctx.fill(); ctx.globalCompositeOperation = 'lighter'; }
-          glow(ctx, p.x, p.y, w, 'rgba(215,255,160,.9)', 'rgba(90,220,40,.5)', (1 - s / 23) * 0.6);
+      if (u > 0 && u < 1) {   // the clot: her fire, several layers along the path, the oldest smallest
+        for (let s = 9; s >= 0; s--) {
+          const v = Math.max(0, u - s * 0.035), p = bez(S, c, E, v), q = bez(S, c, E, Math.max(0, v - 0.02));
+          const ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
+          sprite(ctx, FI, p.x, p.y, (46 - s * 3.6) * (0.85 + 0.15 * Math.sin(t * 20 + s + i)), ang + s * 0.35, (1 - s / 10) * 0.45 * (1 - Math.pow(u, 6)), true);
         }
-        for (let b = 0; b < 5; b++) {   // bubbles that leave the tail and rise
-          const v = Math.max(0, u - 0.1 - b * 0.07), p = bez(S, c, E, ease(v)), age = (u - v) * fl;
-          ctx.strokeStyle = `rgba(170,255,110,${clamp(0.7 - age * 1.6, 0, 1)})`; ctx.lineWidth = 1.2;
-          ctx.beginPath(); ctx.arc(p.x + (R() - .5) * 18, p.y - age * 46, 3 + R() * 3.5, 0, 7); ctx.stroke();
-        }
-        const p = bez(S, c, E, ease(u));
-        glow(ctx, p.x, p.y, 34, 'rgba(200,255,130,.7)', 'rgba(80,200,30,.35)', 0.9);
-        glow(ctx, p.x, p.y, 15, 'rgba(250,255,215,1)', 'rgba(150,245,60,.8)', 1);
-        ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = 'rgba(30,80,10,.7)'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(p.x, p.y, 9, 0, 7); ctx.stroke();
+        const p = bez(S, c, E, u);
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 14, 'rgba(200,255,150,.6)', 'rgba(110,220,40,.35)', 0.6); ctx.restore();
       }
-      ctx.globalCompositeOperation = 'lighter';
       const h = t - (t0 + fl);
       if (h > 0 && h < 4.6) {
-        if (h < 0.6) {   // splash
-          ctx.strokeStyle = `rgba(160,255,90,${0.8 * (1 - h / 0.6)})`; ctx.lineWidth = 3 * (1 - h / 0.6) + 0.5;
-          ctx.beginPath(); ctx.arc(E.x, E.y, 10 + 30 * ease(h / 0.6), 0, 7); ctx.stroke();
-          glow(ctx, E.x, E.y, 30, 'rgba(210,255,160,.6)', 'rgba(80,200,30,.3)', 0.7 * (1 - h / 0.6));
-          const R = rnd(91 + i);
-          for (let b = 0; b < 8; b++) { const q = R() * 6.28, d = 8 + 34 * ease(h / 0.6) * (0.6 + R() * 0.4); ctx.fillStyle = `rgba(190,255,120,${0.8 * (1 - h / 0.6)})`; ctx.beginPath(); ctx.arc(E.x + Math.cos(q) * d, E.y + Math.sin(q) * d - 10 * h, 2, 0, 7); ctx.fill(); }
+        if (h < 0.45) sprite(ctx, FI, E.x, E.y - 2, 34 + 34 * ease(h / 0.45), h * 2, 0.5 * (1 - h / 0.45), true);   // the clot bursts on him (soft, no flash)
+        const k = h % 1, pulse = h > 0.95 ? Math.max(0, 1 - k / 0.25) : 0, a = clamp(h / 0.25, 0, 1) * clamp((4.5 - h) / 0.4, 0, 1);
+        for (let j = 0; j < 3; j++) {   // her fire keeps burning on him, licking upward, flaring at every tick
+          const ph = (h * 1.6 + j / 3) % 1, hh = (32 + 14 * pulse) * (0.7 + 0.5 * ph), y = E.y + 4 - 26 * ph - 4 * pulse;
+          sprite(ctx, FI, E.x + (j - 1) * 7 + Math.sin(h * 6 + j) * 2, y, hh, j * 2.1 + h * 1.5, a * (0.6 + 0.3 * pulse) * Math.sin(Math.PI * ph), true);
         }
-        const k = h % 1, pulse = h > 0.95 ? Math.max(0, 1 - Math.abs(k - 0.0) / 0.18, 1 - Math.abs(k - 1) / 0.18) : 0;
-        const a = clamp(h / 0.25, 0, 1) * clamp((4.5 - h) / 0.4, 0, 1);
-        maskSeal(ctx, E.x, E.y, 27, a * 0.95, h * 0.6, pulse);
-        if (pulse > 0.05) glow(ctx, E.x, E.y - 6, 26, 'rgba(200,255,140,.5)', 'rgba(70,190,30,.25)', pulse * 0.6);
+        if (pulse > 0.05) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, E.x, E.y - 6, 24, 'rgba(200,255,140,.5)', 'rgba(70,190,30,.25)', pulse * 0.55); ctx.restore(); }
       }
-      ctx.restore();
     });
   },
 };
@@ -206,7 +178,7 @@ function arenaBg(ctx) {
 function build(G) {
   const sec = document.createElement('section'); sec.className = 'god'; sec.id = G.id;
   const cellsHtml = [
-    ['live', 'В игре сейчас', G.live ? '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="act" aria-pressed="false">удар</button></div>' : '<div class="sub">В папке игры её листов нет — сравнивать не с чем.</div>'],
+    ['live', 'В игре сейчас', G.live ? '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="atk" aria-pressed="false">удар</button></div>' : '<div class="sub">В папке игры её листов нет — сравнивать не с чем.</div>'],
     ['idle', 'Ожидание', '<div class="sub">первый кадр = последний</div>'],
     ['app', 'Появление', '<div class="sub">первого кадра нет, кончается картинкой</div>'],
     ['atk', 'Умение', '<div class="sub">первый кадр = последний</div>'],
@@ -220,8 +192,9 @@ function build(G) {
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelector('[data-again]').addEventListener('click', () => { st.fightT0 = st.simT; });
   const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, 300, 400) }; });
-  Object.values(G.nu).forEach(s => img(s.src)); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
-  st.liveT = 0;
+  Object.values(G.nu).forEach(s => img(s.src)); (FX[G.fx].pics || []).forEach(img); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
+  st.liveT = 0; st.vis = true;
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[0].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
   return { G, C, st };
 }
 
@@ -237,17 +210,18 @@ function drawCell(ctx, sh, t, mode) {   // mode: loop | once (entrance: holds th
 function drawLive(V, t) {
   const { G, C, st } = V, ctx = C.live.ctx; cellBg(ctx, 300, 400);
   if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, 150, 380, 250); drawFrame(ctx, s, 0, P); } return; }
-  const sh = G.live[st.live], P = place(sh, 150, 380, 250), u = t - st.liveT;
-  drawFrame(ctx, sh, st.live === 'idle' ? frameAt(sh, u % sh.dur) : (u % (sh.dur + 0.8) < sh.dur ? frameAt(sh, u % (sh.dur + 0.8)) : 0), P);
+  const sh = G.live[st.live] || G.live.idle, P = place(sh, 150, 380, 250), u = t - st.liveT;
+  drawFrame(ctx, sh, sh === G.live.idle ? frameAt(sh, u % sh.dur) : (u % (sh.dur + 0.8) < sh.dur ? frameAt(sh, u % (sh.dur + 0.8)) : 0), P);
 }
 
 /* the fight: entrance, short idle, strike with the game effect from the release frame, idle, fade out, again */
 function drawFight(V, t) {
   const { G, C } = V, ctx = C.fight.ctx, L = layout(), N = G.nu, fx = FX[G.fx];
   arenaBg(ctx);
-  const A = N.app.dur, S = A + 0.7, D = N.atk.dur, rel = S + N.atk.rel / N.atk.n * N.atk.dur, end = Math.max(S + D + 1.6, rel + fx.dur), X = A / 1.5, T = end + X + 0.6;
-  const u = t % T, P = place(N.idle, L.ax, L.foot, L.figH);
-  const F = { enemies: L.enemies, allies: L.allies, wf: pt(P, N.atk.wf), wf2: N.atk.wf2 ? pt(P, N.atk.wf2) : null };
+  const I = N.idle.dur, A = N.app.dur, S = A + I, D = N.atk.dur, rel = S + N.atk.rel / N.atk.n * D;
+  const end = S + D + I * Math.max(1, Math.ceil((rel + fx.dur - (S + D)) / I)), X = A / 1.5, T = end + X + 0.6;
+  const u = t % T, P = place(N.idle, L.ax, L.foot, L.figH), PA = place(N.atk, L.ax, L.foot, L.figH);
+  const F = { enemies: L.enemies, allies: L.allies, wf: pt(PA, N.atk.wf), wf2: N.atk.wf2 ? pt(PA, N.atk.wf2) : null, rel, end, lag2: ((N.atk.rel2 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D };
   const hits = fx.hits(F), hp = { e: [1, 1, 1, 1, 1], a: [1, 1, 1, 1, 1] };
   hits.forEach(h => { if (u >= rel + h.at) hp[h.who][h.i] -= h.small ? 0.02 : 0.16; });
   L.enemies.forEach((p, i) => token(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1)));
@@ -255,9 +229,9 @@ function drawFight(V, t) {
   if (u < A) drawFrame(ctx, N.app, frameAt(N.app, u), place(N.app, L.ax, L.foot, L.figH));
   else if (u >= S && u < S + D) drawFrame(ctx, N.atk, frameAt(N.atk, u - S), place(N.atk, L.ax, L.foot, L.figH));
   else if (u >= end && u < end + X) drawFrame(ctx, N.app, N.app.n - 1 - frameAt(N.app, (u - end) * 1.5), place(N.app, L.ax, L.foot, L.figH));
-  else if (u < end) drawFrame(ctx, N.idle, frameAt(N.idle, (u - A) % N.idle.dur), P);
+  else if (u < end) drawFrame(ctx, N.idle, frameAt(N.idle, (u < S ? u - A : u - S - D) % I), P);
   if (u >= rel) fx.draw(ctx, F, u - rel);
-  hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 24, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
+  hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 40, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
 }
 
 const VIEWS = HG.map(build);
@@ -265,12 +239,14 @@ let last = performance.now() / 1000, sim = 0;
 function frame() {
   const now = performance.now() / 1000; if (!window.hgHold) sim += Math.min(0.1, now - last) * SPEED.v; last = now;
   for (const V of VIEWS) {
-    V.st.simT = sim; const N = V.G.nu;
-    drawLive(V, sim);
-    drawCell(V.C.idle.ctx, N.idle, sim, 'loop');
-    drawCell(V.C.app.ctx, N.app, sim, 'once');
-    drawCell(V.C.atk.ctx, N.atk, sim, 'strike');
-    drawFight(V, sim - V.st.fightT0);
+    V.st.simT = sim; if (!V.st.vis) continue; const N = V.G.nu;
+    try {
+      drawLive(V, sim);
+      drawCell(V.C.idle.ctx, N.idle, sim, 'loop');
+      drawCell(V.C.app.ctx, N.app, sim, 'once');
+      drawCell(V.C.atk.ctx, N.atk, sim, 'strike');
+      drawFight(V, sim - V.st.fightT0);
+    } catch (e) { if (!V.err) { V.err = 1; console.error(V.G.id, e); } }
   }
   requestAnimationFrame(frame);
 }

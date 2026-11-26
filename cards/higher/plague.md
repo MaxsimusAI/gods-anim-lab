@@ -3,7 +3,8 @@
 Art: `work/tasks/229-higher-goddess-art-2/out/plague-bt-a-v1.png` (game repo), accepted in round 2. Skill «Печать чумы»: attacks every
 enemy, each enemy takes more damage over 4 s. Live game: no Plague sheets in the game folder (`art/mob/hg` has 12 other goddesses).
 
-clip: plague_bt_idle — status: shot 26.11 (take 1), waits for his look
+clip: plague_bt_idle — status: take 2 (retake 1) shot 26.11, waits for his look
+takes: 1 FAIL (fresh eyes: legs dead) · 2 used (prompt plague_bt_idle_r1.txt: the leg action named)
 idea: weight from leg to leg, the censer swings like a pendulum, the vials and the censer pulse, thin green wisps rise from the censer.
 prompt: pipeline/hg/prompts/plague_bt_idle.txt
 
@@ -17,7 +18,7 @@ type: ranged (every enemy)
 takes: 1 FAIL (the censer grew several times, left the frame for ~1 s, she turned sideways, gray smoke) · 2 FAIL (censer raised above
 the head into the top corner for ~0.5 s) · 3 used: wide stance, swing at the hip, catches the censer at the waist, a large green flame
 bloom out of the censer.
-watch: the bloom covers her chest and mask for ~0.2 s; gray smoke removed by the cut (`KL_DESMOKE=1`).
-game_fx: poison comets from the censer to every enemy; a seal with the three slits of her mask burns on each enemy for 4 s, four ticks
-(FX.plague).
-prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt (retakes 1 and 2: the release line changed, see LOG)
+watch: the bloom covers her chest and mask for ~0.4 s (sheet frames 10-13); gray smoke removed by the cut (`KL_DESMOKE=2`).
+game_fx: clots of her own green fire (cut from her entrance clip) fly from the censer to every enemy and keep burning on each for 4 s,
+flaring at the four ticks (FX.plague). No seal, no bubbles.
+prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_atk_r2.txt (used)
