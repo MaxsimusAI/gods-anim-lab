@@ -22,3 +22,8 @@ watch: the bloom covers her chest and mask for ~0.4 s (sheet frames 10-13); gray
 game_fx: clots of her own green fire (cut from her entrance clip) fly from the censer to every enemy and keep burning on each for 4 s,
 flaring at the four ticks (FX.plague). No seal, no bubbles.
 prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_atk_r2.txt (used)
+
+## v3 (26.11 ~22:30, after Maxim 21:50)
+- idle: v3b (prompt plague_bt_idle_v3.txt) — steps and bends, wide censer pendulum, green streams on the chain and hands.
+- skill: v3b (prompt plague_bt_atk_v3.txt) — a ring of green fire in the swing, a fountain of fire from the censer that spreads into a
+  cloud at the top and rains down. Release 12, clots from the top of the fountain wf [0.5,0.07].

@@ -26,14 +26,17 @@ def pick(slot, N):
 def clean(rgba, slot, n):
     a = rgba[..., 3].astype(np.float32)
     if slot == 'app' and n == 0: a[:] = 0                     # the entrance starts on the empty background
+    if slot == 'app' and n <= 3:                              # gray haze of the first entrance frames (review 2: frame 1)
+        c = rgba[..., :3].astype(np.float32); sat = c.max(2) - c.min(2)
+        a[(a < 90) & (sat < 28)] = 0
     lab, k = ndi.label(a > 20)
     if k:
         area = ndi.sum(np.ones_like(a), lab, index=np.arange(1, k + 1))
         small = np.zeros(k + 1, bool); small[1:] = area < 150   # isolated specks (sparks of 1-3 stored px) blink: drop them
         a[small[lab]] = 0
-    H, W = a.shape; f = 28.0                                   # an effect cut by the video edge fades over 28 video px
+    H, W = a.shape; f = 28.0; ft = 160.0 if slot == 'app' else 90.0   # an effect cut by the video edge fades out; at the top longer
     ys = np.arange(H, dtype=np.float32)[:, None]; xs = np.arange(W, dtype=np.float32)[None, :]
-    ramp = np.minimum(np.minimum(ys / f, (H - 1 - ys) / f), np.minimum(xs / f, (W - 1 - xs) / f)).clip(0, 1)
+    ramp = np.minimum(np.minimum((ys / ft) ** 1.5, (H - 1 - ys) / f), np.minimum(xs / f, (W - 1 - xs) / f)).clip(0, 1)
     out = rgba.copy(); out[..., 3] = np.clip(a * ramp, 0, 255).astype(np.uint8); out[out[..., 3] < 6] = 0
     return out
 mats = {}

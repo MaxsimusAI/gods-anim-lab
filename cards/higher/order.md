@@ -23,3 +23,10 @@ her own shield (cut from her portrait) flies from her shield to every ally and m
 watch: at the slam the blue cape opens as a dome across the whole frame width; the spear light leaves the top edge for ~1 s; the
 shield flare is a bright star for ~0.3 s.
 prompt: pipeline/hg/prompts/order_bt_atk.txt
+
+## v3 (26.11 ~22:30, after Maxim 21:50 «почти нет движения и слишком мало эффектов»)
+- idle: v3b (prompt order_bt_idle_v3.txt, 2 variants shot) — weight shift, spear lift, blue flame on the blade, runes from the shield.
+- skill: two variants on the stand: atk = v3a (wide swing, energy arc, slam, flame on the blade; release 12, lances from the flame
+  top at frame 14 wf [0.30,0.04]; shields from wf2 [0.70,0.6]); atk2 = v3b (energy spirals, wall of light at the slam; release 10,
+  lances at 14 wf [0.30,0.03]; wf2 [0.72,0.55]). Both cut with KL_DESMOKE=1.
+- game_fx: lances = her own blade in blue flame cut from the v3b clip (assets/hg/new/order-lance.webp); shield = her shield.

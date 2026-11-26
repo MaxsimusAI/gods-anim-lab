@@ -311,3 +311,17 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   glow on the spear and the shield); cutter v2 (crop per clip at one scale, entrance frame 0 empty, edge fade, specks dropped, desmoke on
   the entrances, strong desmoke on Plague's skill); game effects rebuilt from real pictures: Order's own shield cut from her portrait,
   Plague's own green fire cut from her entrance clip; no scales, no seal.
+- 26.11 21:50, Maxim on v2 (verbatim): «Не нравится: Ожидание - почти нет движения и слишком мало эффектов. Удар - слишком ало
+  эффектов. Посмотри какие параметры должны быть у картинок под наш проект (вес и разрешение)».
+  He saw → wants: idles of Order and Plague nearly still and plain → idles that visibly move and carry rich effects on the weapon and
+  attributes; both skills too poor in effects → much richer effects inside the clip. CLIP: new takes of both idles and both skills
+  (2 variants each). CHECK: PATTERNS 51, 52. Sizes: measured the live higher-god sheets of the game (mob set) for the answer.
+- 26.11 ~22:00–22:40, after his 21:50 remark: new prompts `*_v3.txt` (idles: a named big weight shift, a spear lift / a wide censer
+  pendulum, rich effects on the weapon and attributes; skills: the same moves with much richer effects), 2 variants each (240 credits).
+  Picked by the frames: Order idle v3b, Plague idle v3b, Plague skill v3b; Order skill: both variants on the stand under «вариант 1 / 2»
+  (v3a: a wide swing with an energy arc; v3b: energy spirals and a wall of light around her at the slam).
+  Fresh-eyes review 2 (on bf4256d) also done: lances were drawn shapes → now her own blade in blue flame cut from the clip; Plague's
+  clots read as a caterpillar → one burning head and a continuous trail; fire covered the health bars → bars drawn over effects;
+  entrance haze in frame 1 and a straight cut on the top of Plague's column → haze cleanup in frames 1–3, longer top fade;
+  `?v=` bumped; newest IntersectionObserver entry; readable load-error text. Remaining, told to Maxim: the light of the spear and the
+  fountain cloud reach the top edge for ~1 s; a short ray glint on the shield in Order v3b.

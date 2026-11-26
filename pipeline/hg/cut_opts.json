@@ -1,2 +1,1 @@
-{"order": {"app": {"KL_DESMOKE": "1"}},
- "plague": {"app": {"KL_DESMOKE": "1"}, "atk": {"KL_DESMOKE": "2"}}}
+{"order": {"app": {"KL_DESMOKE": "1"}, "atk": {"KL_DESMOKE": "1"}}, "plague": {"app": {"KL_DESMOKE": "1"}, "idle": {"KL_DESMOKE": "1"}, "atk": {"KL_DESMOKE": "2"}}}

@@ -76,6 +76,9 @@ his turn comes. In brackets: where and when he saw it.
 49. Does the game effect start lower than the place where the baked effect ends (mist leaving the top → game effect from the top)? (Llorona BT sup, 16.11)
 50. Next to the god's art (and to Athena / Artemis) at phone size, does the sheet look lighter, milkier or grayer than the art - lifted mid tones, gray blacks, a gray rim around white parts? Measure with `b3/tone_check.py` (mean L more than ±2 off the art = yes). (Kitsune BT, 16.11 «слишком высветлена»)
 
+51. Does an idle of a higher goddess look almost still — a small sway that a player does not notice on a phone? (Order and Plague idles, 26.11: «почти нет движения»)
+52. Is a higher goddess's clip poor in effects — a glow on the weapon only, nothing that reads as magic at phone size? (Order and Plague idle and skill, 26.11: «слишком мало эффектов»)
+
 ## Ideas Maxim proposed or praised
 
 | idea | where | his words |

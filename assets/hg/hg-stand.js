@@ -18,7 +18,7 @@ function place(sh, ax, footY, figH) {   // where a sheet frame goes so that its 
 }
 function drawFrame(ctx, sh, i, P, alpha) {
   if (!ready(sh)) {
-    if (img(sh.src).failed) { ctx.save(); ctx.fillStyle = '#e8675f'; ctx.font = '600 13px "Golos Text",system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('лист не загрузился', P.x0 + P.w / 2, P.y0 + P.h / 2); ctx.restore(); }
+    if (img(sh.src).failed) { ctx.save(); ctx.fillStyle = '#e8675f'; ctx.font = '600 22px "Golos Text",system-ui,sans-serif'; ctx.textAlign = 'center'; ctx.fillText('лист не загрузился', P.x0 + P.w / 2, P.y0 + P.h / 2); ctx.restore(); }
     return;
   }
   i = clamp(Math.floor(i), 0, sh.n - 1);
@@ -65,33 +65,28 @@ function bez(a, c, b, t) { const u = 1 - t; return { x: u * u * a.x + 2 * u * t 
 const FX = {};
 FX.order = { // «Закон защиты»: the light of the spear leaves the top of the clip and goes on as two lances to two enemies; her own shield flies to every ally
   dur: 2.2,
-  pics: ['assets/hg/new/order-shield.webp'],
-  hits(F) { return [1, 3].map((e, k) => ({ who: 'e', i: e, at: F.lag2 + 0.04 + k * 0.09 + 0.3, n: '-2 480', c: '#bfe3ff' })); },
+  pics: ['assets/hg/new/order-shield.webp', 'assets/hg/new/order-lance.webp'],
+  hits(F) { return [1, 3].map((e, k) => ({ who: 'e', i: e, at: F.lag2 + 0.04 + k * 0.09 + 0.32, n: '-2 480', c: '#bfe3ff' })); },
   draw(ctx, F, t) {
-    const tip = F.wf, sh = F.wf2, SH = this.pics[0];
-    [1, 3].forEach((e, k) => {   // lances
-      const T = F.enemies[e], t0 = F.lag2 + 0.04 + k * 0.09, fl = 0.3, u = (t - t0) / fl, c = { x: (tip.x + T.x) / 2 + (k ? 30 : -30), y: Math.min(tip.y, T.y) - 20 };
+    const tip = F.wf, sh = F.wf2, SH = this.pics[0], LA = this.pics[1];
+    [1, 3].forEach((e, k) => {   // lances: her own blade in blue flame, cut from the clip, with a trail of the same flame
+      const T = F.enemies[e], t0 = F.lag2 + 0.04 + k * 0.09, fl = 0.32, u = (t - t0) / fl, c = { x: (tip.x + T.x) / 2 + (k ? 26 : -26), y: Math.min(tip.y, T.y) - 18 };
       if (u > 0 && u < 1) {
-        const p = bez(tip, c, T, ease(u)), q = bez(tip, c, T, ease(Math.max(0, u - 0.22))), ang = Math.atan2(p.y - q.y, p.x - q.x);
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.lineCap = 'round';
-        const g = ctx.createLinearGradient(q.x, q.y, p.x, p.y); g.addColorStop(0, 'rgba(40,120,255,0)'); g.addColorStop(1, 'rgba(140,210,255,.95)');
-        ctx.strokeStyle = 'rgba(60,140,255,.28)'; ctx.lineWidth = 18; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-        ctx.strokeStyle = g; ctx.lineWidth = 9; ctx.beginPath(); ctx.moveTo(q.x, q.y); ctx.lineTo(p.x, p.y); ctx.stroke();
-        ctx.lineWidth = 2.5; ctx.strokeStyle = 'rgba(255,255,255,.9)'; ctx.beginPath(); ctx.moveTo((q.x + p.x * 2) / 3, (q.y + p.y * 2) / 3); ctx.lineTo(p.x, p.y); ctx.stroke();
-        ctx.translate(p.x, p.y); ctx.rotate(ang); ctx.shadowColor = '#6cc4ff'; ctx.shadowBlur = 16; ctx.fillStyle = '#eaf6ff';
-        ctx.beginPath(); ctx.moveTo(24, 0); ctx.lineTo(2, -7); ctx.lineTo(-14, 0); ctx.lineTo(2, 7); ctx.closePath(); ctx.fill(); ctx.restore();
-      }
-      const h = t - (t0 + fl);   // the lance breaks on the enemy into blue crystal shards
-      if (h > 0 && h < 0.7) {
-        ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        glow(ctx, T.x, T.y, 16 + 16 * ease(h / 0.4), 'rgba(190,230,255,.55)', 'rgba(60,140,255,.3)', clamp(1 - h / 0.45, 0, 1));
-        const R = rnd(53 + k);
-        for (let j = 0; j < 6; j++) {
-          const q = -Math.PI / 2 + (R() - 0.5) * 2.6, v = 40 + R() * 30, x = T.x + Math.cos(q) * v * h, y = T.y + Math.sin(q) * v * h + 70 * h * h, a = clamp(1 - h / 0.7, 0, 1);
-          ctx.save(); ctx.translate(x, y); ctx.rotate(q + h * (4 + j)); ctx.globalAlpha = a; ctx.fillStyle = j % 2 ? '#bfe6ff' : '#6fb6ff';
-          ctx.beginPath(); ctx.moveTo(5, 0); ctx.lineTo(0, -1.8); ctx.lineTo(-4, 0); ctx.lineTo(0, 1.8); ctx.closePath(); ctx.fill(); ctx.restore();
+        const R = rnd(71 + k), path = v => bez(tip, c, T, v * v * (3 - 2 * v) * 0.35 + v * 0.65);
+        for (let s = 16; s >= 1; s--) {
+          const v = Math.max(0, u - s * 0.012), p = path(v), q = path(Math.max(0, v - 0.01)), ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
+          sprite(ctx, LA, p.x + (R() - 0.5) * 5, p.y + (R() - 0.5) * 5, 40 - s * 1.6, ang + (R() - 0.5) * 0.3, (1 - s / 17) * 0.28, true);
         }
+        const p = path(u), q = path(Math.max(0, u - 0.02)), ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 18, 'rgba(170,215,255,.5)', 'rgba(50,120,255,.25)', 0.7); ctx.restore();
+        sprite(ctx, LA, p.x, p.y, 46, ang, 1, false);
+      }
+      const h = t - (t0 + fl);   // the blade sinks into the enemy and its flame burns out on him
+      if (h > 0 && h < 0.6) {
+        ctx.save(); ctx.globalCompositeOperation = 'lighter';
+        glow(ctx, T.x, T.y, 16 + 14 * ease(h / 0.4), 'rgba(170,215,255,.45)', 'rgba(50,120,255,.25)', clamp(1 - h / 0.45, 0, 1));
         ctx.restore();
+        sprite(ctx, LA, T.x, T.y - 6 - 10 * ease(h / 0.6), 46 * (1 + 0.3 * ease(h / 0.6)), 0, clamp(1 - h / 0.6, 0, 1) * 0.8, true);
       }
     });
     F.allies.forEach((A, i) => {   // her own shield flies to every ally and stays on him as a film of light
@@ -117,7 +112,7 @@ FX.order = { // «Закон защиты»: the light of the spear leaves the t
     });
   },
 };
-FX.plague = { // «Печать чумы»: clots of her green fire fly from the censer to every enemy and burn on each for 4 s
+FX.plague = { // «Печать чумы»: clots of her green fire fly from where her fountain of fire ends to every enemy and burn on each for 4 s
   dur: 5.3,
   pics: ['assets/hg/new/plague-fire.webp'],
   hits(F) {
@@ -129,14 +124,15 @@ FX.plague = { // «Печать чумы»: clots of her green fire fly from the
     const S = F.wf, FI = this.pics[0];
     F.enemies.forEach((E, i) => {
       const t0 = i * 0.06, fl = 0.6, u = (t - t0) / fl, c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.25, y: Math.min(S.y, E.y) - 40 };
-      if (u > 0 && u < 1) {   // the clot: her fire, several layers along the path, the oldest smallest
-        for (let s = 9; s >= 0; s--) {
-          const v = Math.max(0, u - s * 0.035), p = bez(S, c, E, v), q = bez(S, c, E, Math.max(0, v - 0.02));
-          const ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
-          sprite(ctx, FI, p.x, p.y, (46 - s * 3.6) * (0.85 + 0.15 * Math.sin(t * 20 + s + i)), ang + s * 0.35, (1 - s / 10) * 0.45 * (1 - Math.pow(u, 6)), true);
+      if (u > 0 && u < 1) {   // the clot: her fire, a burning head and a continuous trail of the same fire
+        const R = rnd(13 + i);
+        for (let s = 26; s >= 1; s--) {
+          const v = Math.max(0, u - s * 0.011), p = bez(S, c, E, v);
+          sprite(ctx, FI, p.x + (R() - 0.5) * 7, p.y + (R() - 0.5) * 7, 34 - s * 0.9, R() * 6.28 + t * 3, (1 - s / 27) * 0.2, true);
         }
         const p = bez(S, c, E, u);
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 14, 'rgba(200,255,150,.6)', 'rgba(110,220,40,.35)', 0.6); ctx.restore();
+        sprite(ctx, FI, p.x, p.y, 40 * (0.9 + 0.1 * Math.sin(t * 23 + i)), t * 7 + i, 0.75, true);
+        sprite(ctx, FI, p.x, p.y, 30, -t * 9 + i * 2, 0.6, true);
       }
       const h = t - (t0 + fl);
       if (h > 0 && h < 4.6) {
@@ -165,8 +161,11 @@ function token(ctx, p, col, hp) {
   ctx.fillStyle = g; ctx.beginPath(); ctx.arc(p.x, p.y, 21, 0, 7); ctx.fill(); ctx.lineWidth = 2; ctx.strokeStyle = col; ctx.stroke();
   ctx.fillStyle = 'rgba(200,190,220,.35)'; ctx.beginPath(); ctx.arc(p.x, p.y - 6, 6, 0, 7); ctx.fill();
   ctx.beginPath(); ctx.ellipse(p.x, p.y + 10, 11, 7, 0, Math.PI, 0); ctx.fill();
-  ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(p.x - 20, p.y - 32, 40, 5); ctx.fillStyle = col; ctx.fillRect(p.x - 20, p.y - 32, 40 * hp, 5);
   ctx.restore();
+}
+function hpBar(ctx, p, col, hp) {
+  ctx.save(); ctx.globalCompositeOperation = 'source-over'; ctx.globalAlpha = 1;
+  ctx.fillStyle = 'rgba(0,0,0,.6)'; ctx.fillRect(p.x - 20, p.y - 32, 40, 5); ctx.fillStyle = col; ctx.fillRect(p.x - 20, p.y - 32, 40 * hp, 5); ctx.restore();
 }
 function arenaBg(ctx) {
   const g = ctx.createLinearGradient(0, 0, 0, FH); g.addColorStop(0, '#1d1630'); g.addColorStop(0.5, '#2a2142'); g.addColorStop(1, '#151020');
@@ -181,20 +180,21 @@ function build(G) {
     ['live', 'В игре сейчас', G.live ? '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="atk" aria-pressed="false">удар</button></div>' : '<div class="sub">В папке игры её листов нет — сравнивать не с чем.</div>'],
     ['idle', 'Ожидание', '<div class="sub">первый кадр = последний</div>'],
     ['app', 'Появление', '<div class="sub">первого кадра нет, кончается картинкой</div>'],
-    ['atk', 'Умение', '<div class="sub">первый кадр = последний</div>'],
+    ['atk', 'Умение', (G.nu.atk2 ? '<div class="row"><button class="btn" type="button" data-var="atk" aria-pressed="true">вариант 1</button><button class="btn" type="button" data-var="atk2" aria-pressed="false">вариант 2</button></div>' : '') + '<div class="sub">первый кадр = последний</div>'],
   ].map(c => `<div class="cell ${c[0] === 'live' ? 'live' : ''}"><h3>${c[1]}</h3><canvas data-c="${c[0]}" width="300" height="400" aria-label="${G.name}: ${c[1]}"></canvas>${c[2]}</div>`).join('');
   sec.innerHTML = `<div class="ghead"><h2>${G.name}</h2><p><b>${G.skill}.</b> ${G.desc}</p></div>
     <div class="grid"><div><div class="cells">${cellsHtml}</div><div class="notes"><b>Что смотреть</b><ul>${G.notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>
     <div class="fight"><div class="row"><h3>В бою: появление → умение → эффект игры → уход</h3><button class="btn" type="button" data-again>Ещё раз</button></div>
     <canvas data-c="fight" width="360" height="560" aria-label="${G.name}: бой"></canvas><div class="sub" style="font-size:12.5px;color:var(--mute)">${G.fxNote}</div></div></div>`;
   document.getElementById('gods').appendChild(sec);
-  const st = { live: 'idle', t0: performance.now() / 1000, simT: 0, fightT0: 0 };
+  const st = { live: 'idle', atk: 'atk', t0: performance.now() / 1000, simT: 0, fightT0: 0 };
+  sec.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => { st.atk = b.dataset.var; st.fightT0 = st.simT; sec.querySelectorAll('[data-var]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelector('[data-again]').addEventListener('click', () => { st.fightT0 = st.simT; });
   const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, 300, 400) }; });
   Object.values(G.nu).forEach(s => img(s.src)); (FX[G.fx].pics || []).forEach(img); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
   st.liveT = 0; st.vis = true;
-  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[0].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
   return { G, C, st };
 }
 
@@ -216,7 +216,7 @@ function drawLive(V, t) {
 
 /* the fight: entrance, short idle, strike with the game effect from the release frame, idle, fade out, again */
 function drawFight(V, t) {
-  const { G, C } = V, ctx = C.fight.ctx, L = layout(), N = G.nu, fx = FX[G.fx];
+  const { G, C } = V, ctx = C.fight.ctx, L = layout(), N = { ...G.nu, atk: G.nu[V.st.atk] || G.nu.atk }, fx = FX[G.fx];
   arenaBg(ctx);
   const I = N.idle.dur, A = N.app.dur, S = A + I, D = N.atk.dur, rel = S + N.atk.rel / N.atk.n * D;
   const end = S + D + I * Math.max(1, Math.ceil((rel + fx.dur - (S + D)) / I)), X = A / 1.5, T = end + X + 0.6;
@@ -231,6 +231,7 @@ function drawFight(V, t) {
   else if (u >= end && u < end + X) drawFrame(ctx, N.app, N.app.n - 1 - frameAt(N.app, (u - end) * 1.5), place(N.app, L.ax, L.foot, L.figH));
   else if (u < end) drawFrame(ctx, N.idle, frameAt(N.idle, (u < S ? u - A : u - S - D) % I), P);
   if (u >= rel) fx.draw(ctx, F, u - rel);
+  L.enemies.forEach((p, i) => hpBar(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1))); L.allies.forEach(p => hpBar(ctx, p, '#5cc591', 1));
   hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 40, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
 }
 
@@ -244,7 +245,7 @@ function frame() {
       drawLive(V, sim);
       drawCell(V.C.idle.ctx, N.idle, sim, 'loop');
       drawCell(V.C.app.ctx, N.app, sim, 'once');
-      drawCell(V.C.atk.ctx, N.atk, sim, 'strike');
+      drawCell(V.C.atk.ctx, N[V.st.atk] || N.atk, sim, 'strike');
       drawFight(V, sim - V.st.fightT0);
     } catch (e) { if (!V.err) { V.err = 1; console.error(V.G.id, e); } }
   }
