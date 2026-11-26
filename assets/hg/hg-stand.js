@@ -30,7 +30,7 @@ const frameAt = (sh, t) => clamp(Math.floor(t / sh.dur * sh.n), 0, sh.n - 1);
 const pt = (P, p) => ({ x: P.x0 + p[0] * P.w, y: P.y0 + p[1] * P.h });
 
 /* ---------- canvases ---------- */
-const CELL = { w: 330, h: 420, ax: 165, foot: 392, figH: 290 };   // a cell: larger figure; wide enough that no sheet (new or live) spills out
+const CELL = { w: 330, h: 420, ax: 165, foot: 392, figH: 290 };   // a cell: wide enough that no sheet (new or live) spills out; the page layout makes the cells large
 function setup(cv, W, H) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -85,7 +85,7 @@ FX.order = { // «Закон защиты»: the light of the spear leaves the t
       const h = t - (t0 + fl);   // the blade sinks into the enemy and its flame burns out on him
       if (h > 0 && h < 0.6) {
         ctx.save(); ctx.globalCompositeOperation = 'lighter';
-        glow(ctx, T.x, T.y, 16 + 14 * ease(h / 0.4), 'rgba(170,215,255,.45)', 'rgba(50,120,255,.25)', clamp(1 - h / 0.45, 0, 1));
+        glow(ctx, T.x, T.y, 16 + 14 * ease(h / 0.4), 'rgba(170,215,255,.45)', 'rgba(50,120,255,.25)', clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.45, 0, 1));
         ctx.restore();
         sprite(ctx, LA, T.x, T.y - 6 - 10 * ease(h / 0.6), 46 * (1 + 0.3 * ease(h / 0.6)), 0, clamp(1 - h / 0.6, 0, 1) * 0.8, true);
       }
@@ -157,22 +157,27 @@ FX.fate = { // «Неизбежность»: her own golden arrow leaves the cli
   draw(ctx, F, t) {
     const S = F.wf, T = F.enemies[this.target], AR = this.pics[0], TH = this.pics[1], fl = this.fl;
     // the arrow goes on up where the beam left the clip, turns above the row of enemies and falls on its target from above
-    const c = { x: S.x + 5, y: Math.min(S.y, T.y) - 120 }, dirAt = v => { const p = bez(S, c, T, v), q = bez(S, c, T, Math.max(0, v - 0.02)); return Math.atan2(p.y - q.y, p.x - q.x); };
-    const u = t / fl;
-    if (u > 0 && u < 1) {
-      for (let k = 6; k >= 1; k--) {   // the trail: her own golden thread along the path
-        const v = Math.max(0, u - k * 0.05), r = bez(S, c, T, v);
-        sprite(ctx, TH, r.x, r.y, 30, dirAt(Math.max(0.02, v)) + Math.PI / 2, (1 - k / 7) * 0.7, true);
+    const c = { x: S.x - 8, y: Math.min(S.y, T.y) - 120 }, din = Math.atan2(T.y - c.y, T.x - c.x), back = 18;
+    const E0 = { x: T.x - Math.cos(din) * back, y: T.y - Math.sin(din) * back };   // the flight ends where the stuck arrow stays: head in the target
+    const dirAt = v => { const p = bez(S, c, E0, v), q = bez(S, c, E0, Math.max(0, v - 0.02)); return Math.atan2(p.y - q.y, p.x - q.x); };
+    const u = t / fl, fade = clamp(1 - (u - 1) * fl / 0.15, 0, 1);
+    if (u > 0 && fade > 0) {
+      for (let k = 6; k >= 1; k--) {   // the trail: her own golden thread along the path; it fades 0.15 s after the hit
+        const v = u - k * 0.05; if (v <= 0 || v >= 1) continue;
+        const r = bez(S, c, E0, v);
+        sprite(ctx, TH, r.x, r.y, 30, dirAt(Math.max(0.02, v)) + Math.PI / 2, (1 - k / 7) * 0.7 * fade, true);
       }
-      const p = bez(S, c, T, u);
+    }
+    if (u > 0 && u < 1) {
+      const p = bez(S, c, E0, u);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 18, 'rgba(255,240,190,.5)', 'rgba(255,190,70,.25)', 0.7); ctx.restore();
       sprite(ctx, AR, p.x, p.y, 56, dirAt(u) + Math.PI / 2, 1, false);
     }
     const h = t - fl;
     if (h > 0 && h < 0.7) {   // the arrow sinks into him head first, in a soft gold glow that rises and fades
-      const d = dirAt(1), back = 18;
+      const d = dirAt(1);
       ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, T.x, T.y, 18 + 18 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(255,170,50,.3)', clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.6, 0, 1)); ctx.restore();
-      sprite(ctx, AR, T.x - Math.cos(d) * back, T.y - Math.sin(d) * back, 56, d + Math.PI / 2, clamp(1 - h / 0.7, 0, 1), false);
+      sprite(ctx, AR, E0.x, E0.y, 56, d + Math.PI / 2, clamp(1 - h / 0.7, 0, 1), false);
     }
     F.enemies.forEach((E, i) => {   // the thread of fate: it runs from him to every enemy and winds round each one
       const dd = Math.abs(i - this.target), t0 = fl + 0.12 + dd * 0.1, tl = dd ? 0.32 : 0, v = tl ? (t - t0) / tl : -1;
@@ -203,9 +208,10 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
       const R = rnd(31 + i), c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.2, y: Math.min(S.y, E.y) - 34 };
       for (let k = 0; k < 7; k++) {
         const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, a0 = (R() - 0.5) * 6.28, pic = PE[k % 2];
-        if (u > 0 && u < 1) { const p = bez(S, c, E, ease(u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), 13 + 3 * (k % 3), spin * u + k, 0.95, false); }
-        const h = t - (t0 + fl);
-        if (h > 0 && h < 0.6) sprite(ctx, pic, E.x + Math.cos(a0 + k) * 22 * ease(h / 0.6), E.y + Math.sin(a0 + k) * 16 * ease(h / 0.6) + 10 * h, 12, spin * h, 1 - h / 0.6, false);
+        const s0 = 13 + 3 * (k % 3);
+        if (u > 0 && u < 1) { const p = bez(S, c, E, ease(u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), s0, spin * u + k, 0.95, false); }
+        const h = t - (t0 + fl);   // on landing the petal keeps turning and shrinks smoothly while it scatters
+        if (h > 0 && h < 0.6) sprite(ctx, pic, E.x + Math.cos(a0 + k) * 22 * ease(h / 0.6), E.y + Math.sin(a0 + k) * 16 * ease(h / 0.6) + 10 * h, s0 + (12 - s0) * ease(Math.min(1, h / 0.2)), spin * (1 + h) + k, 0.95 * (1 - h / 0.6), false);
       }
       const h = t - (i * 0.05 + 0.5);
       if (h > 0 && h < 0.55) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, E.x, E.y, 16 + 14 * ease(h / 0.4), 'rgba(255,240,170,.5)', 'rgba(210,190,60,.25)', clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.5, 0, 1)); ctx.restore(); }

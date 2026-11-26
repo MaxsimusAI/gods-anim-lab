@@ -353,3 +353,10 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   her art + golden thread from the clip, 6 s ring on every enemy) and FX.life (petals from the clip to enemies, her palm blossom
   from the art to allies with heal numbers). Known faults told to Maxim: Fate's skill has one bright flash frame at the shot and
   the flying hair breaks up in the matting; Life's idle moves little; Life's spear flower sits at the top edge ~1 s.
+- 26.11 ~00:20: two fresh-eyes reviews of the page code. Fixed: Fate's arrow flew through a neighbour enemy and turned tail-first
+  on the hit (now rises over the row and falls head-first, its trail is her thread); Life's petals jumped (random numbers drawn
+  conditionally, jump at landing); Life's heal blossoms started at her hair (palm point moved to the open hand); cells clipped wide
+  sheets (cell canvas 330×420, nothing spills); ground effects touched the allies' bars (allies lower); heal numbers on full bars
+  (Life's allies now come in hurt); hit glows start softly (Fate, Life, Order's lances); notes cover every known fault; layout:
+  the fight goes under the cells up to 1280 px, 2 cells a row up to 980 px, 1 on phones. Not fixed: picture URLs of the effects
+  carry no ?v= (cache after a re-cut).
