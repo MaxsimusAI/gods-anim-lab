@@ -24,3 +24,9 @@ glow at the opening (~0.15 s). b not used: a starburst of rays at the opening (A
 game_fx: from the opened flower a stream of her golden petals (cut from the clip) goes to every enemy; from her palm flower a
 white blossom (cut from her art) drifts to every ally and opens into green healing light (FX.life).
 prompt: pipeline/hg/prompts/life_bt_atk.txt
+
+## v5 (27.11 ~01:00, after Maxim 00:14: entrances static and alike, idle "just a glow", skills kept clear of her, nothing up)
+- prompts: pipeline/hg/prompts/life_bt_{idle,app,atk}_v5.txt, 2 variants each; picks and faults in the notes on the stand.
+- picks: idle v5b (a spiral of pink petals rises over her), entrance v5a (a giant bud opens, she rises from it; the bud is there
+  from frame 1), skill v5b (ring of light and vines, a big golden flower opens at her chest, green healing light pours over her).
+  Release 12 petals from the flower wf [0.44,0.25]; 13 blossoms from the palm wf2 [0.80,0.44].

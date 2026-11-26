@@ -40,3 +40,10 @@ prompt: pipeline/hg/prompts/order_bt_atk.txt
   watch: the wall reaches the side edges of the frame for ~0.5 s (edges fade); the spear flame stays near the top edge ~1 s.
   v4a not shown: a golden starburst over the helmet (A3) and less flame on the body.
 - entrance: unchanged, PROTECTED (26.11 22:39 «Точно оставляем»), the same sheet bytes; exit = the entrance backwards.
+
+## v5 (27.11 ~01:00, after Maxim 00:14: entrances static and alike, idle "just a glow", skills kept clear of her, nothing up)
+- prompts: pipeline/hg/prompts/order_bt_{idle,app,atk}_v5.txt, 2 variants each; picks and faults in the notes on the stand.
+- picks: idle v5b (blue flame ribbons + rune ring over her), entrance v5b (rises from a kneel out of a pool of light while the
+  light fills her; the protected entrance of 26.11 stays as app2 «прежнее»), skill v5a (spear circle of blue fire, a sphere of
+  light with runes closes over her). Release: shields at 14 from wf2 [0.72,0.66]; lances at 16 from wf [0.27,0.10].
+  v5b skill not used: she turns her back on the swing.

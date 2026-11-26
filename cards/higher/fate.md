@@ -25,3 +25,9 @@ watch: hair and cape blow out of the left edge for ~1 s (B5 WATCH); a large gold
 game_fx: from the point where the beam leaves the clip her own golden arrow (cut from her art) flies to the most dangerous enemy;
 golden thread (cut from the clip) runs from him to every enemy and winds round each for 6 s (FX.fate).
 prompt: pipeline/hg/prompts/fate_bt_atk.txt
+
+## v5 (27.11 ~01:00, after Maxim 00:14: entrances static and alike, idle "just a glow", skills kept clear of her, nothing up)
+- prompts: pipeline/hg/prompts/fate_bt_{idle,app,atk}_v5.txt, 2 variants each; picks and faults in the notes on the stand.
+- picks: idle v5b (golden thread spiral like a spinning wheel), entrance v5a (a cocoon of threads builds up and unwinds, she
+  steps out), skill v5a (thread spirals round her body, shot to the right). Release 12 from the bow wf [0.80,0.21].
+  watch: the shot leaves through the right edge; flying hair breaks up in the matting (gray background vs silver hair).

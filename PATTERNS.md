@@ -143,3 +143,15 @@ Full texts: `pipeline/v2/tests/` (they are also the linter's "must pass" set).
 - IDEA (26.11, Fate): the flat gray background is close to silver/white hair; when such hair flies, the matting loses it (Fate's
   skill, sheet frames 11–13: wisps break up). For a goddess with silver or white hair or a gray cloak, consider a background that
   contrasts with them (a darker or coloured flat background) in the input picture — test before using.
+
+- CHECK 54 (Maxim 27.11, entrances): Does the goddess form in place without moving her body (only light filling a still pose)?
+  Is this entrance the same kind as another goddess's entrance (fill, threads, sprout = all "form in place")?
+- CHECK 55 (Maxim 27.11, idles): Is the idle's magic only a glow or rim of light round the outline, instead of a visible
+  magic that moves over and around her?
+- CHECK 56 (Maxim 27.11, skills): Do the effects or the weapon go up and leave through the top edge (a raised weapon at the top
+  edge, a beam or fountain or flower cut by the top)? His words: «Подъем вверх мы не берем… обрезаются экраны».
+- CHECK 57 (Maxim 27.11): Were effects or the weapon kept off the goddess's body on purpose (the cure must not be "keep clear of
+  her")? Covering her with magic is fine: «У нас нет проблем в том, чтобы там перекрыть героев… магией».
+- IDEA (Maxim 27.11): every goddess her own entrance kind, always with body motion: Order — lines of light fill her (liked
+  26.11); others e.g. rising out of a whirl of her element, a bud that opens round her, a cocoon of threads that unwinds while
+  she straightens up.

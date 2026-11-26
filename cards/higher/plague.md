@@ -37,3 +37,8 @@ prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_
   wf [0.5,0.06]. watch: the cloud reaches the top edge ~1 s (fades); the fountain covers chest and mask ~0.6 s (frames 8–13).
   v4b not shown: a lens-flare line across the whole frame from the mask (A3).
 - entrance: unchanged (same sheet bytes); exit = the entrance backwards.
+
+## v5 (27.11 ~01:00, after Maxim 00:14: entrances static and alike, idle "just a glow", skills kept clear of her, nothing up)
+- prompts: pipeline/hg/prompts/plague_bt_{idle,app,atk}_v5.txt, 2 variants each; picks and faults in the notes on the stand.
+- picks: idle v5b (green poison-fire ribbons coil over her), entrance v5b (rises out of a poison whirlpool), skill v5b (censer
+  circle, snaps it forward, a cloud of poison fire engulfs her; KL_DESMOKE=2). Release 14, clots from the censer wf [0.49,0.27].

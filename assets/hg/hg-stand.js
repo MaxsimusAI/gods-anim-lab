@@ -30,17 +30,27 @@ const frameAt = (sh, t) => clamp(Math.floor(t / sh.dur * sh.n), 0, sh.n - 1);
 const pt = (P, p) => ({ x: P.x0 + p[0] * P.w, y: P.y0 + p[1] * P.h });
 
 /* ---------- canvases ---------- */
-const CELL = { w: 330, h: 420, ax: 165, foot: 392, figH: 290 };   // a cell: wide enough that no sheet (new or live) spills out; the page layout makes the cells large
+const CELL = { w: 330, h: 370, m: 6 };   // a cell canvas; the goddess is scaled per goddess to fill it (fitCell)
+function fitCell(G) {   // the largest figure at which every sheet of this goddess (new and live) fits the cell: no empty band above her
+  let L = 0, R = 0, T = 0, B = 0;
+  const all = [...Object.values(G.nu), ...(G.live ? Object.values(G.live) : [])];
+  for (const sh of all) {
+    const f = sh.fig, s1 = 1 / ((f.foot - f.top) * sh.fh), w1 = sh.fw * s1, h1 = sh.fh * s1;
+    L = Math.min(L, -f.ax * w1); R = Math.max(R, (1 - f.ax) * w1); T = Math.min(T, -f.foot * h1); B = Math.max(B, (1 - f.foot) * h1);
+  }
+  const iw = CELL.w - 2 * CELL.m, ih = CELL.h - 2 * CELL.m, figH = Math.min(iw / (R - L), ih / (B - T));
+  return { figH, ax: CELL.m - L * figH + (iw - (R - L) * figH) / 2, foot: CELL.h - CELL.m - B * figH };
+}
 function setup(cv, W, H) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
   const ctx = cv.getContext('2d'); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); return ctx;
 }
-function cellBg(ctx, W, H) {
+function cellBg(ctx, W, H, foot) {
   if (BG.v === 'gray') { ctx.fillStyle = '#7f7f7f'; ctx.fillRect(0, 0, W, H); return; }
   const g = ctx.createRadialGradient(W / 2, H * 0.72, 10, W / 2, H * 0.6, H * 0.8);
   g.addColorStop(0, '#2b2540'); g.addColorStop(1, '#0d0b14'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(W / 2, CELL.foot - 3, W * 0.3, H * 0.025, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(W / 2, foot - 3, W * 0.3, H * 0.025, 0, 0, 7); ctx.fill();
 }
 
 /* ---------- effect helpers: soft light and pictures cut from the goddess's own art and clips ---------- */
@@ -263,28 +273,31 @@ function build(G) {
   const cellsHtml = [
     ['live', 'В игре сейчас', G.live ? '<div class="row"><button class="btn" type="button" data-live="idle" aria-pressed="true">стойка</button><button class="btn" type="button" data-live="atk" aria-pressed="false">удар</button></div>' : '<div class="sub">В папке игры её листов нет — сравнивать не с чем.</div>'],
     ['idle', 'Ожидание', '<div class="sub">первый кадр = последний</div>'],
-    ['app', 'Появление', '<div class="sub">первого кадра нет, кончается картинкой</div>'],
-    ['atk', 'Умение', (G.nu.atk2 ? '<div class="row"><button class="btn" type="button" data-var="atk" aria-pressed="true">вариант 1</button><button class="btn" type="button" data-var="atk2" aria-pressed="false">вариант 2</button></div>' : '') + '<div class="sub">первый кадр = последний</div>'],
+    ['app', 'Появление', (G.nu.app2 ? '<div class="row"><button class="btn" type="button" data-v="app:app" aria-pressed="true">новое</button><button class="btn" type="button" data-v="app:app2" aria-pressed="false">прежнее</button></div>' : '') + '<div class="sub">первого кадра нет, кончается картинкой</div>'],
+    ['atk', 'Умение', (G.nu.atk2 ? '<div class="row"><button class="btn" type="button" data-v="atk:atk" aria-pressed="true">вариант 1</button><button class="btn" type="button" data-v="atk:atk2" aria-pressed="false">вариант 2</button></div>' : '') + '<div class="sub">первый кадр = последний</div>'],
   ].map(c => `<div class="cell ${c[0] === 'live' ? 'live' : ''}"><h3>${c[1]}</h3><canvas data-c="${c[0]}" width="${CELL.w}" height="${CELL.h}" aria-label="${G.name}: ${c[1]}"></canvas>${c[2]}</div>`).join('');
   sec.innerHTML = `<div class="ghead"><h2>${G.name}</h2><p><b>${G.skill}.</b> ${G.desc}</p></div>
     <div class="grid"><div><div class="cells">${cellsHtml}</div><div class="notes"><b>Что смотреть</b><ul>${G.notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>
     <div class="fight"><div class="row"><h3>В бою: появление → умение → эффект игры → уход</h3><button class="btn" type="button" data-again>Ещё раз</button></div>
     <canvas data-c="fight" width="360" height="560" aria-label="${G.name}: бой"></canvas><div class="sub" style="font-size:12.5px;color:var(--mute)">${G.fxNote}</div></div></div>`;
   document.getElementById('gods').appendChild(sec);
-  const st = { live: 'idle', atk: 'atk', t0: performance.now() / 1000, simT: 0, fightT0: 0 };
-  sec.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => { st.atk = b.dataset.var; st.fightT0 = st.simT; sec.querySelectorAll('[data-var]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
+  const st = { live: 'idle', atk: 'atk', app: 'app', t0: performance.now() / 1000, simT: 0, fightT0: 0 };
+  sec.querySelectorAll('[data-v]').forEach(b => b.addEventListener('click', () => {   // a take switch inside one cell: slot:key
+    const [slot, key] = b.dataset.v.split(':'); st[slot] = key; st.fightT0 = st.simT;
+    sec.querySelectorAll(`[data-v^="${slot}:"]`).forEach(x => x.setAttribute('aria-pressed', String(x === b)));
+  }));
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelector('[data-again]').addEventListener('click', () => { st.fightT0 = st.simT; });
   const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, CELL.w, CELL.h) }; });
   Object.values(G.nu).forEach(s => img(s.src)); (FX[G.fx].pics || []).forEach(img); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
   st.liveT = 0; st.vis = true;
   if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
-  return { G, C, st };
+  return { G, C, st, cell: fitCell(G) };
 }
 
-function drawCell(ctx, sh, t, mode) {   // mode: loop | once (entrance: holds the last frame) | strike (holds frame 0 between plays)
-  cellBg(ctx, CELL.w, CELL.h);
-  const P = place(sh, CELL.ax, CELL.foot, CELL.figH);
+function drawCell(ctx, sh, t, mode, cell) {   // mode: loop | once (entrance: holds the last frame) | strike (holds frame 0 between plays)
+  cellBg(ctx, CELL.w, CELL.h, cell.foot);
+  const P = place(sh, cell.ax, cell.foot, cell.figH);
   let i;
   if (mode === 'loop') i = frameAt(sh, t % sh.dur);
   else if (mode === 'once') { const L = sh.dur + 1.2, u = t % L; i = u < sh.dur ? frameAt(sh, u) : sh.n - 1; }
@@ -292,15 +305,15 @@ function drawCell(ctx, sh, t, mode) {   // mode: loop | once (entrance: holds th
   drawFrame(ctx, sh, i, P);
 }
 function drawLive(V, t) {
-  const { G, C, st } = V, ctx = C.live.ctx; cellBg(ctx, CELL.w, CELL.h);
-  if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, CELL.ax, CELL.foot, CELL.figH); drawFrame(ctx, s, 0, P); } return; }
-  const sh = G.live[st.live] || G.live.idle, P = place(sh, CELL.ax, CELL.foot, CELL.figH), u = t - st.liveT;
+  const { G, C, st } = V, ctx = C.live.ctx, K = V.cell; cellBg(ctx, CELL.w, CELL.h, K.foot);
+  if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, K.ax, K.foot, K.figH); drawFrame(ctx, s, 0, P); } return; }
+  const sh = G.live[st.live] || G.live.idle, P = place(sh, K.ax, K.foot, K.figH), u = t - st.liveT;
   drawFrame(ctx, sh, sh === G.live.idle ? frameAt(sh, u % sh.dur) : (u % (sh.dur + 0.8) < sh.dur ? frameAt(sh, u % (sh.dur + 0.8)) : 0), P);
 }
 
 /* the fight: entrance, short idle, strike with the game effect from the release frame, idle, fade out, again */
 function drawFight(V, t) {
-  const { G, C } = V, ctx = C.fight.ctx, L = layout(), N = { ...G.nu, atk: G.nu[V.st.atk] || G.nu.atk }, fx = FX[G.fx];
+  const { G, C } = V, ctx = C.fight.ctx, L = layout(), N = { ...G.nu, atk: G.nu[V.st.atk] || G.nu.atk, app: G.nu[V.st.app] || G.nu.app }, fx = FX[G.fx];
   arenaBg(ctx);
   const I = N.idle.dur, A = N.app.dur, S = A + I, D = N.atk.dur, rel = S + N.atk.rel / N.atk.n * D;
   const end = S + D + I * Math.max(1, Math.ceil((rel + fx.dur - (S + D)) / I)), X = A / 1.5, T = end + X + 0.6;
@@ -327,9 +340,9 @@ function frame() {
     V.st.simT = sim; if (!V.st.vis) continue; const N = V.G.nu;
     try {
       drawLive(V, sim);
-      drawCell(V.C.idle.ctx, N.idle, sim, 'loop');
-      drawCell(V.C.app.ctx, N.app, sim, 'once');
-      drawCell(V.C.atk.ctx, N[V.st.atk] || N.atk, sim, 'strike');
+      drawCell(V.C.idle.ctx, N.idle, sim, 'loop', V.cell);
+      drawCell(V.C.app.ctx, N[V.st.app] || N.app, sim, 'once', V.cell);
+      drawCell(V.C.atk.ctx, N[V.st.atk] || N.atk, sim, 'strike', V.cell);
       drawFight(V, sim - V.st.fightT0);
     } catch (e) { if (!V.err) { V.err = 1; console.error(V.G.id, e); } }
   }

@@ -360,3 +360,26 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   (Life's allies now come in hurt); hit glows start softly (Fate, Life, Order's lances); notes cover every known fault; layout:
   the fight goes under the cells up to 1280 px, 2 cells a row up to 980 px, 1 on phones. Not fixed: picture URLs of the effects
   carry no ?v= (cache after a re-cut).
+- 27.11 00:14, Maxim (verbatim): «Вот мне не нравится следующий момент. Во-первых, почему-то появление героя — это всегда статика
+  какая-то. То есть они всегда однообразно появляются, хотя должно быть разнообразие. И они не статично должны появляться, они
+  тоже должны в движении, они должны вернуться в исходную картинку последним кадром. Но само появление должно быть
+  разнообразным, а не просто вот заполнение, как у порядка. То есть у порядка, например, такое заполнение, у других должно быть
+  как-то по-другому. Далее, мне не нравится ожидание. Я сказал, больше эффектов добавить, и ты просто добавил свечение вокруг
+  героя. У нас нет проблем в том, чтобы там перекрыть героев какой-то анимацией, магией и так далее. Ничего страшного в этом
+  нету. У нас нет задачи просто контур выделить. Вот. Поэтому плавная магия во время ожидания — это хорошо. Просто свечение —
+  это неинтересно и скучно. М, На самих ударах также ты, во-первых, почему-то пытаешься сделать так, чтобы эффекты были, опять
+  же, не перекрывали картинку бога, а где-то в стороне были, и оружие тоже, чтобы не перекрывало. То есть это ограничение тоже
+  не нужно. Подъем вверх мы не берем, потому что у нас там обрезаются экраны, из-за этого это плохо выглядит. Плюс на твоей
+  странице, которую ты сделал для просмотра, вверху куча пустоты, хотя можно было картинки богов больше показать. А, Вот, то
+  есть в ожидании движения, в появлении движения, в умениях движения а, переделай всех 4 богов.»
+  He saw → wants:
+  - entrances: the figure forms in place without moving, all alike (a fill) → each goddess her own kind of entrance, with the
+    body in motion, ending on the picture; Order keeps the fill idea, the others differ.
+  - idles: the "effects" were a glow round the outline → smooth magic that may pass over and cover the goddess.
+  - skills: effects and weapon kept off the figure, to the side → may cover her freely; nothing goes up out of the frame (the
+    top edge cuts it and it looks bad).
+  - review page: empty space above the goddesses in the cells → larger figures.
+  CLIP: all 4 goddesses, idle + entrance + skill again (Order's entrance: the fill kept, with motion; the old take stays under
+  the switch as «прежнее»). CHECK: PATTERNS 54–57. IDEA: entrance kinds per goddess (PATTERNS ideas).
+- 27.11 ~01:00: v5 shot for all four (12 jobs × 2 = 24 clips, 720 credits) and published. Page: each goddess is scaled to fill
+  her cells (no empty band above), cells 330×370; Order's entrance has a «новое / прежнее» switch (the protected take of 26.11).

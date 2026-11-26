@@ -48,5 +48,65 @@
   "gen": "AbVKzxDJBddQZQ4uiDdYSNeAu0tfj0qzdH1JcoYfhg1MUsVWORRcoT2pyPTNZymCpqL94jQM",
   "prompt": "life_bt_atk.txt",
   "n": 2
+ },
+ "order_bt_idle_v5": {
+  "gen": "AYxzmoNzUdJ7b5qeBXwBihQ6Hv6ekK6KSsr6NElYiU-BToh0fa2NxiyZQ63boNqzDYHb-xnT",
+  "prompt": "order_bt_idle_v5.txt",
+  "n": 2
+ },
+ "order_bt_app_v5": {
+  "gen": "AZ_m_KYGg0S2Gzmin8DokCPUB10BwBalle84qjMaGGSHpayhCHuf0HXLiaq2eNdnJIW2aXkd",
+  "prompt": "order_bt_app_v5.txt",
+  "n": 2
+ },
+ "order_bt_atk_v5": {
+  "gen": "AQsk-d_yR2uIZm_Ot4eHkk4DwRl-AYDOvysg7s5eHV5wwK-cUFzkp4qRDZtD6mxT0jBugJio",
+  "prompt": "order_bt_atk_v5.txt",
+  "n": 2
+ },
+ "plague_bt_idle_v5": {
+  "gen": "AZwdoUteO7zrVb5l5PPplyc7Fp1O04UsUS3P74yjU41DHUhbPqmugZsYw643wrixSTJDrdQy",
+  "prompt": "plague_bt_idle_v5.txt",
+  "n": 2
+ },
+ "plague_bt_app_v5": {
+  "gen": "AUFD2OSuNitKT_xfuIFy0Dn3CWlPv7DMB5qXNKJ__X2TKcqvj38B_B_l_H2Vyejm6qYRda29",
+  "prompt": "plague_bt_app_v5.txt",
+  "n": 2
+ },
+ "plague_bt_atk_v5": {
+  "gen": "AX3kJoiV-rSAwCDZA28QdI40Oq5adEI8h6ebOGMoi6-VAAUpEir11P7OkJyyXajm-QS4Phy1",
+  "prompt": "plague_bt_atk_v5.txt",
+  "n": 2
+ },
+ "fate_bt_idle_v5": {
+  "gen": "AUteewWI9w0cIg7WyKNZfoPbd9y3R9cQbDLN9gFhtJ09bK4_O3uzKPSlOOMBd4NZ3KENcHlL",
+  "prompt": "fate_bt_idle_v5.txt",
+  "n": 2
+ },
+ "fate_bt_app_v5": {
+  "gen": "AYVhz3wGsuf-772MEHB155FAYgnvgKIGh3NWWNg6ALFXVvnhUAN2Ah898rc_swBryPVy0cPV",
+  "prompt": "fate_bt_app_v5.txt",
+  "n": 2
+ },
+ "fate_bt_atk_v5": {
+  "gen": "AcZPDC6J1X_wSr7Rc9aepEojAafY8m-vnoHvqp_xP9h2XwvGyilrzSoGxvKRt0KCwNrXo0y4",
+  "prompt": "fate_bt_atk_v5.txt",
+  "n": 2
+ },
+ "life_bt_idle_v5": {
+  "gen": "AcAmoLvSUzO0kQrEBMeZvwLNse1Dgr0-TLjuBylnUK-v46FFpSKmI_FvjoGIcSaynOEZgB_6",
+  "prompt": "life_bt_idle_v5.txt",
+  "n": 2
+ },
+ "life_bt_app_v5": {
+  "gen": "AcqAm5wNfEpViMuTVerYU8bzj0Zh5YwE5vo1g49fWxZqEzQZlBtavHTl-BwmD3ciwv-VOita",
+  "prompt": "life_bt_app_v5.txt",
+  "n": 2
+ },
+ "life_bt_atk_v5": {
+  "gen": "AQp4BPgQ9_RAuRE5yvcFqHjU5IaNBWK7ovz7PAher5Pz10VIMIBON3TNZPsE72_62mH0DSYv",
+  "prompt": "life_bt_atk_v5.txt",
+  "n": 2
  }
 }
