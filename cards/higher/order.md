@@ -47,3 +47,5 @@ prompt: pipeline/hg/prompts/order_bt_atk.txt
   light fills her; the protected entrance of 26.11 stays as app2 «прежнее»), skill v5a (spear circle of blue fire, a sphere of
   light with runes closes over her). Release: shields at 14 from wf2 [0.72,0.66]; lances at 16 from wf [0.27,0.10].
   v5b skill not used: she turns her back on the swing.
+
+- 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.

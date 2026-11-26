@@ -31,3 +31,5 @@ prompt: pipeline/hg/prompts/fate_bt_atk.txt
 - picks: idle v5b (golden thread spiral like a spinning wheel), entrance v5a (a cocoon of threads builds up and unwinds, she
   steps out), skill v5a (thread spirals round her body, shot to the right). Release 12 from the bow wf [0.80,0.21].
   watch: the shot leaves through the right edge; flying hair breaks up in the matting (gray background vs silver hair).
+
+- 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.

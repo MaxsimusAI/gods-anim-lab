@@ -42,3 +42,5 @@ prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_
 - prompts: pipeline/hg/prompts/plague_bt_{idle,app,atk}_v5.txt, 2 variants each; picks and faults in the notes on the stand.
 - picks: idle v5b (green poison-fire ribbons coil over her), entrance v5b (rises out of a poison whirlpool), skill v5b (censer
   circle, snaps it forward, a cloud of poison fire engulfs her; KL_DESMOKE=2). Release 14, clots from the censer wf [0.49,0.27].
+
+- 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.

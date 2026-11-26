@@ -30,3 +30,5 @@ prompt: pipeline/hg/prompts/life_bt_atk.txt
 - picks: idle v5b (a spiral of pink petals rises over her), entrance v5a (a giant bud opens, she rises from it; the bud is there
   from frame 1), skill v5b (ring of light and vines, a big golden flower opens at her chest, green healing light pours over her).
   Release 12 petals from the flower wf [0.44,0.25]; 13 blossoms from the palm wf2 [0.80,0.44].
+
+- 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.

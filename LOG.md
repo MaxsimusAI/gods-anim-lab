@@ -388,3 +388,7 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   clots and Life's petals started off the censer / flower (release points; all clots leave within the release frame; petal
   streams start at the flower's edge), Fate's arrow and Order's second lance passed through other enemies (arc chosen on the
   drawn path with the most room), take switch restarts its cell, enemies higher and damage numbers kept inside the fight.
+- 27.11 01:29, Maxim (verbatim): «Так, все круто получилось, ты молодец. М, Давай теперь делай всех богов, пока только для битвы
+  титанов. Другой проект никакой не трогай.»
+  ACCEPTED → PROTECTED: Order, Plague, Fate, Life — idle, entrance, skill of v5 (and Order's entrance of 26.11 «прежнее»), with
+  their game effects. Next: every other higher goddess with accepted art, BT style only; Titan Idols untouched.
