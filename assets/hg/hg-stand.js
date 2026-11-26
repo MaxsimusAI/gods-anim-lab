@@ -30,7 +30,7 @@ const frameAt = (sh, t) => clamp(Math.floor(t / sh.dur * sh.n), 0, sh.n - 1);
 const pt = (P, p) => ({ x: P.x0 + p[0] * P.w, y: P.y0 + p[1] * P.h });
 
 /* ---------- canvases ---------- */
-const CELL = { w: 300, h: 400, ax: 150, foot: 388, figH: 292 };   // a cell: the figure (helmet to feet) is 73 % of the height
+const CELL = { w: 330, h: 420, ax: 165, foot: 392, figH: 290 };   // a cell: larger figure; wide enough that no sheet (new or live) spills out
 function setup(cv, W, H) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -152,28 +152,32 @@ FX.plague = { // «Печать чумы»: clots of her green fire fly from whe
 FX.fate = { // «Неизбежность»: her own golden arrow leaves the clip where the shot of light does and strikes the most dangerous enemy; golden threads of fate run from him to every enemy and bind each one for 6 s
   dur: 6.9,
   pics: ['assets/hg/new/fate-arrow.webp', 'assets/hg/new/fate-thread.webp'],
-  target: 2, fl: 0.3,
+  target: 2, fl: 0.36,
   hits(F) { return [{ who: 'e', i: this.target, at: this.fl, n: '-7 900', c: '#ffe2a0' }]; },
   draw(ctx, F, t) {
     const S = F.wf, T = F.enemies[this.target], AR = this.pics[0], TH = this.pics[1], fl = this.fl;
-    const c = { x: (S.x + T.x) / 2 + 24, y: Math.min(S.y, T.y) - 26 }, u = t / fl;
-    if (u > 0 && u < 1) {   // the arrow: fast, on a slight arc, a trail of soft gold light behind it
-      const p = bez(S, c, T, u), q = bez(S, c, T, Math.max(0, u - 0.04)), ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
-      ctx.save(); ctx.globalCompositeOperation = 'lighter';
-      for (let k = 1; k < 10; k++) { const r = bez(S, c, T, Math.max(0, u - k * 0.035)); glow(ctx, r.x, r.y, 11 - k * 0.7, 'rgba(255,232,170,.6)', 'rgba(255,180,60,.25)', 0.55 - k * 0.05); }
-      glow(ctx, p.x, p.y, 20, 'rgba(255,240,190,.55)', 'rgba(255,190,70,.3)', 0.8); ctx.restore();
-      sprite(ctx, AR, p.x, p.y, 56, ang, 1, false);
+    // the arrow goes on up where the beam left the clip, turns above the row of enemies and falls on its target from above
+    const c = { x: S.x + 5, y: Math.min(S.y, T.y) - 120 }, dirAt = v => { const p = bez(S, c, T, v), q = bez(S, c, T, Math.max(0, v - 0.02)); return Math.atan2(p.y - q.y, p.x - q.x); };
+    const u = t / fl;
+    if (u > 0 && u < 1) {
+      for (let k = 6; k >= 1; k--) {   // the trail: her own golden thread along the path
+        const v = Math.max(0, u - k * 0.05), r = bez(S, c, T, v);
+        sprite(ctx, TH, r.x, r.y, 30, dirAt(Math.max(0.02, v)) + Math.PI / 2, (1 - k / 7) * 0.7, true);
+      }
+      const p = bez(S, c, T, u);
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 18, 'rgba(255,240,190,.5)', 'rgba(255,190,70,.25)', 0.7); ctx.restore();
+      sprite(ctx, AR, p.x, p.y, 56, dirAt(u) + Math.PI / 2, 1, false);
     }
     const h = t - fl;
-    if (h > 0 && h < 0.7) {   // the arrow sinks into him in a soft gold glow
-      ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, T.x, T.y, 18 + 18 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(255,170,50,.3)', clamp(1 - h / 0.6, 0, 1)); ctx.restore();
-      sprite(ctx, AR, T.x + 6, T.y - 18 + 8 * ease(Math.min(1, h / 0.15)), 56, 0.32, clamp(1 - h / 0.7, 0, 1), false);
+    if (h > 0 && h < 0.7) {   // the arrow sinks into him head first, in a soft gold glow that rises and fades
+      const d = dirAt(1), back = 18;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, T.x, T.y, 18 + 18 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(255,170,50,.3)', clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.6, 0, 1)); ctx.restore();
+      sprite(ctx, AR, T.x - Math.cos(d) * back, T.y - Math.sin(d) * back, 56, d + Math.PI / 2, clamp(1 - h / 0.7, 0, 1), false);
     }
     F.enemies.forEach((E, i) => {   // the thread of fate: it runs from him to every enemy and winds round each one
-      const d = Math.abs(i - this.target), t0 = fl + 0.12 + d * 0.1, tl = d ? 0.32 : 0, v = tl ? (t - t0) / tl : -1;
+      const dd = Math.abs(i - this.target), t0 = fl + 0.12 + dd * 0.1, tl = dd ? 0.32 : 0, v = tl ? (t - t0) / tl : -1;
       if (v > 0 && v < 1) {
         const w = ease(v), p = { x: T.x + (E.x - T.x) * w, y: T.y + (E.y - T.y) * w - 16 * Math.sin(Math.PI * v) };
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 10, 'rgba(255,235,170,.6)', 'rgba(255,180,60,.3)', 0.8); ctx.restore();
         sprite(ctx, TH, p.x, p.y, 38, Math.atan2(E.y - T.y, E.x - T.x) + Math.PI / 2, 0.9, true);
       }
       const k = t - (t0 + tl), life = 6.0;
@@ -185,12 +189,12 @@ FX.fate = { // «Неизбежность»: her own golden arrow leaves the cli
   },
 };
 FX.life = { // «Дар жизни»: golden petals pour from the opened flower of her spear onto every enemy; the white flower of her palm sends a blossom of healing to every ally
-  dur: 2.8,
+  dur: 2.8, allyHp0: 0.62,
   pics: ['assets/hg/new/life-petal.webp', 'assets/hg/new/life-petal2.webp', 'assets/hg/new/life-bloom.webp'],
   hits(F) {
     const out = [];
     F.enemies.forEach((E, i) => out.push({ who: 'e', i, at: 0.55 + i * 0.05, n: '-2 100', c: '#ffe9a0' }));
-    F.allies.forEach((A, i) => out.push({ who: 'a', i, at: F.lag2 + 0.6 + i * 0.05, n: '+3 400', c: '#b9ff9a', heal: 1 }));
+    F.allies.forEach((A, i) => out.push({ who: 'a', i, at: F.lag2 + 0.6 + i * 0.05, n: '+3 400', c: '#b9ff9a', heal: 0.38 }));
     return out;
   },
   draw(ctx, F, t) {
@@ -198,13 +202,13 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
     F.enemies.forEach((E, i) => {   // a stream of her petals to each enemy
       const R = rnd(31 + i), c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.2, y: Math.min(S.y, E.y) - 34 };
       for (let k = 0; k < 7; k++) {
-        const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, pic = PE[k % 2];
+        const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, a0 = (R() - 0.5) * 6.28, pic = PE[k % 2];
         if (u > 0 && u < 1) { const p = bez(S, c, E, ease(u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), 13 + 3 * (k % 3), spin * u + k, 0.95, false); }
         const h = t - (t0 + fl);
-        if (h > 0 && h < 0.6) { const a = (R() - 0.5) * 6.28; sprite(ctx, pic, E.x + Math.cos(a + k) * 22 * ease(h / 0.6), E.y + Math.sin(a + k) * 16 * ease(h / 0.6) + 10 * h, 12, spin * h, 1 - h / 0.6, false); }
+        if (h > 0 && h < 0.6) sprite(ctx, pic, E.x + Math.cos(a0 + k) * 22 * ease(h / 0.6), E.y + Math.sin(a0 + k) * 16 * ease(h / 0.6) + 10 * h, 12, spin * h, 1 - h / 0.6, false);
       }
       const h = t - (i * 0.05 + 0.5);
-      if (h > 0 && h < 0.55) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, E.x, E.y, 16 + 14 * ease(h / 0.4), 'rgba(255,240,170,.5)', 'rgba(210,190,60,.25)', clamp(1 - h / 0.5, 0, 1)); ctx.restore(); }
+      if (h > 0 && h < 0.55) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, E.x, E.y, 16 + 14 * ease(h / 0.4), 'rgba(255,240,170,.5)', 'rgba(210,190,60,.25)', clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.5, 0, 1)); ctx.restore(); }
     });
     F.allies.forEach((A, i) => {   // a blossom of her palm flower drifts down to each ally and opens into green healing light
       const t0 = F.lag2 + i * 0.05, fl = 0.6, u = (t - t0) / fl, c = { x: (P2.x + A.x) / 2, y: Math.max(P2.y, A.y) - 10 };
@@ -216,7 +220,7 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
       const h = t - (t0 + fl);
       if (h > 0 && h < 0.9) {
         sprite(ctx, BL, A.x, A.y - 4 - 10 * ease(h / 0.9), 20 * (1 + 0.5 * ease(h / 0.9)), 0, clamp(1 - h / 0.9, 0, 1), false);
-        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, A.x, A.y, 18 + 12 * ease(h / 0.6), 'rgba(210,255,180,.5)', 'rgba(90,200,70,.28)', clamp(1 - h / 0.8, 0, 1)); ctx.restore();
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, A.x, A.y, 18 + 12 * ease(h / 0.6), 'rgba(210,255,180,.5)', 'rgba(90,200,70,.28)', clamp(h / 0.1, 0, 1) * clamp(1 - h / 0.8, 0, 1)); ctx.restore();
       }
     });
   },
@@ -226,8 +230,8 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
 const FW = 360, FH = 560;
 function layout() {
   const enemies = [], allies = [];
-  for (let i = 0; i < 5; i++) { enemies.push({ x: 44 + i * 68, y: 92 }); allies.push({ x: 44 + i * 68, y: 500 }); }
-  return { enemies, allies, ax: 180, foot: 452, figH: 282 };
+  for (let i = 0; i < 5; i++) { enemies.push({ x: 44 + i * 68, y: 92 }); allies.push({ x: 44 + i * 68, y: 508 }); }
+  return { enemies, allies, ax: 180, foot: 446, figH: 282 };   // the lowest frame edge (Order's entrance) stays above the allies' bars
 }
 function token(ctx, p, col, hp) {
   ctx.save();
@@ -255,7 +259,7 @@ function build(G) {
     ['idle', 'Ожидание', '<div class="sub">первый кадр = последний</div>'],
     ['app', 'Появление', '<div class="sub">первого кадра нет, кончается картинкой</div>'],
     ['atk', 'Умение', (G.nu.atk2 ? '<div class="row"><button class="btn" type="button" data-var="atk" aria-pressed="true">вариант 1</button><button class="btn" type="button" data-var="atk2" aria-pressed="false">вариант 2</button></div>' : '') + '<div class="sub">первый кадр = последний</div>'],
-  ].map(c => `<div class="cell ${c[0] === 'live' ? 'live' : ''}"><h3>${c[1]}</h3><canvas data-c="${c[0]}" width="300" height="400" aria-label="${G.name}: ${c[1]}"></canvas>${c[2]}</div>`).join('');
+  ].map(c => `<div class="cell ${c[0] === 'live' ? 'live' : ''}"><h3>${c[1]}</h3><canvas data-c="${c[0]}" width="${CELL.w}" height="${CELL.h}" aria-label="${G.name}: ${c[1]}"></canvas>${c[2]}</div>`).join('');
   sec.innerHTML = `<div class="ghead"><h2>${G.name}</h2><p><b>${G.skill}.</b> ${G.desc}</p></div>
     <div class="grid"><div><div class="cells">${cellsHtml}</div><div class="notes"><b>Что смотреть</b><ul>${G.notes.map(n => `<li>${n}</li>`).join('')}</ul></div></div>
     <div class="fight"><div class="row"><h3>В бою: появление → умение → эффект игры → уход</h3><button class="btn" type="button" data-again>Ещё раз</button></div>
@@ -296,16 +300,16 @@ function drawFight(V, t) {
   const end = S + D + I * Math.max(1, Math.ceil((rel + fx.dur - (S + D)) / I)), X = A / 1.5, T = end + X + 0.6;
   const u = t % T, P = place(N.idle, L.ax, L.foot, L.figH), PA = place(N.atk, L.ax, L.foot, L.figH);
   const F = { enemies: L.enemies, allies: L.allies, wf: pt(PA, N.atk.wf), wf2: N.atk.wf2 ? pt(PA, N.atk.wf2) : null, rel, end, lag2: ((N.atk.rel2 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D };
-  const hits = fx.hits(F), hp = { e: [1, 1, 1, 1, 1], a: [1, 1, 1, 1, 1] };
-  hits.forEach(h => { if (u >= rel + h.at && !h.heal) hp[h.who][h.i] -= h.small ? 0.02 : 0.16; });
+  const hits = fx.hits(F), hp = { e: [1, 1, 1, 1, 1], a: Array(5).fill(fx.allyHp0 || 1) };   // a healer's allies come in hurt, so the heal shows on their bars
+  hits.forEach(h => { if (u >= rel + h.at) hp[h.who][h.i] += h.heal ? h.heal : -(h.small ? 0.02 : 0.16); });
   L.enemies.forEach((p, i) => token(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1)));
-  L.allies.forEach((p, i) => token(ctx, p, '#5cc591', 1));
+  L.allies.forEach((p, i) => token(ctx, p, '#5cc591', clamp(hp.a[i], 0, 1)));
   if (u < A) drawFrame(ctx, N.app, frameAt(N.app, u), place(N.app, L.ax, L.foot, L.figH));
   else if (u >= S && u < S + D) drawFrame(ctx, N.atk, frameAt(N.atk, u - S), place(N.atk, L.ax, L.foot, L.figH));
   else if (u >= end && u < end + X) drawFrame(ctx, N.app, N.app.n - 1 - frameAt(N.app, (u - end) * 1.5), place(N.app, L.ax, L.foot, L.figH));
   else if (u < end) drawFrame(ctx, N.idle, frameAt(N.idle, (u < S ? u - A : u - S - D) % I), P);
   if (u >= rel) fx.draw(ctx, F, u - rel);
-  L.enemies.forEach((p, i) => hpBar(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1))); L.allies.forEach(p => hpBar(ctx, p, '#5cc591', 1));
+  L.enemies.forEach((p, i) => hpBar(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1))); L.allies.forEach((p, i) => hpBar(ctx, p, '#5cc591', clamp(hp.a[i], 0, 1)));
   hits.forEach(h => { const p = (h.who === 'e' ? L.enemies : L.allies)[h.i]; number(ctx, p.x, p.y - 40, h.n, h.c, (u - rel - h.at) / (h.small ? 0.7 : 0.9)); });
 }
 
