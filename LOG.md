@@ -342,3 +342,14 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   skill v4a; Order's skill switch «вариант 1 / 2» removed (one skill take now). Entrances untouched (protected). Rejected variants:
   Order skill v4a (starburst over the helmet), Plague skill v4b (lens-flare line). Open for Maxim: the wall of light in Order's skill
   touches the side edges ~0.5 s.
+- 26.11 22:59, Maxim (verbatim): «Сделай чтобы на сайте боги показывались больше. И сделай еще двух для тестов, пока вроде правильно движемся».
+  He saw → wants: the goddesses are small on the review page → larger in the cells and in the small fight; the approach so far is
+  right → two more goddesses as a test. CLIP: none. CHECK: none (a page remark). Done: cells draw the figure at 292 of 400 px
+  (was 250), the fight at 282 (was 236), the page is 1640 px wide (was 1240). Next two: Fate (bow, «Неизбежность», single target
+  + vulnerability on all enemies) and Life (bud spear, «Дар жизни», hits all enemies + heals all allies) — chosen by the executor
+  for a different skill type than Order and Plague; accepted art of round 2 (fate-bt-b-v2, life-bt-a-v1).
+- 26.11 ~23:45: Fate and Life shot (6 jobs × 2 variants = 12 clips, 360 credits; Life idle refused twice by moderation, reworded)
+  and published: Fate idle b / entrance a / skill a; Life idle b / entrance b / skill a. New game effects FX.fate (her arrow from
+  her art + golden thread from the clip, 6 s ring on every enemy) and FX.life (petals from the clip to enemies, her palm blossom
+  from the art to allies with heal numbers). Known faults told to Maxim: Fate's skill has one bright flash frame at the shot and
+  the flying hair breaks up in the matting; Life's idle moves little; Life's spear flower sits at the top edge ~1 s.

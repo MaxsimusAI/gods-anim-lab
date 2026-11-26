@@ -17,5 +17,36 @@
  "order_bt_idle_v4 (x2)": "ATpY_NQQWg6ZTFuB4MlBwqnR-7TkeSDtS-2zU8QH5-wrxAA41ygEDWFkvU3-36NljKihBhb9",
  "order_bt_atk_v4 (x2)": "AY3Yd-8RFh420ywEmZLXiUMkUAdLpERI7FB26PDaWoGbxKEAZFNAf8ynTLnYI2mh7GuJREJU",
  "plague_bt_idle_v4 (x2)": "AS0AYj714AAy2h4wxDf1OMzO8GprJKgy0ERryzERZD--xo5hwn4qHT1lGmcVcrmU_yL1XnGd",
- "plague_bt_atk_v4 (x2)": "AQvKl3tKxq0e453BQ2jd0yv2fjrf1HxmX1rU_Zeo7UjOIGP1NAl4uJqyc74Up7k9ZmPDAj2E"
+ "plague_bt_atk_v4 (x2)": "AQvKl3tKxq0e453BQ2jd0yv2fjrf1HxmX1rU_Zeo7UjOIGP1NAl4uJqyc74Up7k9ZmPDAj2E",
+ "fate_bt_idle": {
+  "gen": "AV3n62hu8QyI61MwjDGPejBdRI5KSGx8IT3ygAkWpo6AGlQOx0t4KAKUAlJWbbxGOJYg477H",
+  "prompt": "fate_bt_idle.txt",
+  "n": 2
+ },
+ "fate_bt_app": {
+  "gen": "AbiepurV7TwMJGDoeqquZsdHEZZGKFkPoqhEP7Iy83MfHHhr1Wcj9X9992_SKFBHWTh0is7X",
+  "prompt": "fate_bt_app.txt",
+  "n": 2
+ },
+ "fate_bt_atk": {
+  "gen": "AQN9BJ_GFuf3f0aN_hnkceDQWtR0RkrmFEihMIqzr5wycHbhWpB2t-_62EYNrK35T5A7KAb-",
+  "prompt": "fate_bt_atk.txt",
+  "n": 2
+ },
+ "life_bt_idle": {
+  "gen": "AfdbXHMGtToBFGrfq0Lt_l2F702eE1UKvtXoSwl8toK8RMyYMQiAc98d4KR4Ifix77Zi93em",
+  "prompt": "life_bt_idle.txt",
+  "n": 2,
+  "note": "two earlier requests refused by moderation (wording: breathes deeply, sway of her hips, bare feet); reworded neutrally"
+ },
+ "life_bt_app": {
+  "gen": "AWiZvm0PogJtxX4Mn2oT1rh6-FJvJfiYk64QimO9LfeOGdWbThphSnTvt5bj8qogoiWlWyUG",
+  "prompt": "life_bt_app.txt",
+  "n": 2
+ },
+ "life_bt_atk": {
+  "gen": "AbVKzxDJBddQZQ4uiDdYSNeAu0tfj0qzdH1JcoYfhg1MUsVWORRcoT2pyPTNZymCpqL94jQM",
+  "prompt": "life_bt_atk.txt",
+  "n": 2
+ }
 }

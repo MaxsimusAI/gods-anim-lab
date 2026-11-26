@@ -30,6 +30,7 @@ const frameAt = (sh, t) => clamp(Math.floor(t / sh.dur * sh.n), 0, sh.n - 1);
 const pt = (P, p) => ({ x: P.x0 + p[0] * P.w, y: P.y0 + p[1] * P.h });
 
 /* ---------- canvases ---------- */
+const CELL = { w: 300, h: 400, ax: 150, foot: 388, figH: 292 };   // a cell: the figure (helmet to feet) is 73 % of the height
 function setup(cv, W, H) {
   const dpr = Math.min(2, window.devicePixelRatio || 1);
   cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr);
@@ -39,7 +40,7 @@ function cellBg(ctx, W, H) {
   if (BG.v === 'gray') { ctx.fillStyle = '#7f7f7f'; ctx.fillRect(0, 0, W, H); return; }
   const g = ctx.createRadialGradient(W / 2, H * 0.72, 10, W / 2, H * 0.6, H * 0.8);
   g.addColorStop(0, '#2b2540'); g.addColorStop(1, '#0d0b14'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
-  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(W / 2, H * 0.935, W * 0.3, H * 0.025, 0, 0, 7); ctx.fill();
+  ctx.fillStyle = 'rgba(0,0,0,.35)'; ctx.beginPath(); ctx.ellipse(W / 2, CELL.foot - 3, W * 0.3, H * 0.025, 0, 0, 7); ctx.fill();
 }
 
 /* ---------- effect helpers: soft light and pictures cut from the goddess's own art and clips ---------- */
@@ -148,12 +149,85 @@ FX.plague = { // «Печать чумы»: clots of her green fire fly from whe
   },
 };
 
+FX.fate = { // «Неизбежность»: her own golden arrow leaves the clip where the shot of light does and strikes the most dangerous enemy; golden threads of fate run from him to every enemy and bind each one for 6 s
+  dur: 6.9,
+  pics: ['assets/hg/new/fate-arrow.webp', 'assets/hg/new/fate-thread.webp'],
+  target: 2, fl: 0.3,
+  hits(F) { return [{ who: 'e', i: this.target, at: this.fl, n: '-7 900', c: '#ffe2a0' }]; },
+  draw(ctx, F, t) {
+    const S = F.wf, T = F.enemies[this.target], AR = this.pics[0], TH = this.pics[1], fl = this.fl;
+    const c = { x: (S.x + T.x) / 2 + 24, y: Math.min(S.y, T.y) - 26 }, u = t / fl;
+    if (u > 0 && u < 1) {   // the arrow: fast, on a slight arc, a trail of soft gold light behind it
+      const p = bez(S, c, T, u), q = bez(S, c, T, Math.max(0, u - 0.04)), ang = Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2;
+      ctx.save(); ctx.globalCompositeOperation = 'lighter';
+      for (let k = 1; k < 10; k++) { const r = bez(S, c, T, Math.max(0, u - k * 0.035)); glow(ctx, r.x, r.y, 11 - k * 0.7, 'rgba(255,232,170,.6)', 'rgba(255,180,60,.25)', 0.55 - k * 0.05); }
+      glow(ctx, p.x, p.y, 20, 'rgba(255,240,190,.55)', 'rgba(255,190,70,.3)', 0.8); ctx.restore();
+      sprite(ctx, AR, p.x, p.y, 56, ang, 1, false);
+    }
+    const h = t - fl;
+    if (h > 0 && h < 0.7) {   // the arrow sinks into him in a soft gold glow
+      ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, T.x, T.y, 18 + 18 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(255,170,50,.3)', clamp(1 - h / 0.6, 0, 1)); ctx.restore();
+      sprite(ctx, AR, T.x + 6, T.y - 18 + 8 * ease(Math.min(1, h / 0.15)), 56, 0.32, clamp(1 - h / 0.7, 0, 1), false);
+    }
+    F.enemies.forEach((E, i) => {   // the thread of fate: it runs from him to every enemy and winds round each one
+      const d = Math.abs(i - this.target), t0 = fl + 0.12 + d * 0.1, tl = d ? 0.32 : 0, v = tl ? (t - t0) / tl : -1;
+      if (v > 0 && v < 1) {
+        const w = ease(v), p = { x: T.x + (E.x - T.x) * w, y: T.y + (E.y - T.y) * w - 16 * Math.sin(Math.PI * v) };
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 10, 'rgba(255,235,170,.6)', 'rgba(255,180,60,.3)', 0.8); ctx.restore();
+        sprite(ctx, TH, p.x, p.y, 38, Math.atan2(E.y - T.y, E.x - T.x) + Math.PI / 2, 0.9, true);
+      }
+      const k = t - (t0 + tl), life = 6.0;
+      if (k > 0 && k < life) {
+        const a = clamp(k / 0.25, 0, 1) * clamp((life - k) / 0.5, 0, 1), R = 23, th = k * 1.3;
+        for (let j = 0; j < 2; j++) { const q = th + j * Math.PI; sprite(ctx, TH, E.x + Math.cos(q) * R, E.y + Math.sin(q) * R, 40, q, a * 0.85, true); }
+      }
+    });
+  },
+};
+FX.life = { // «Дар жизни»: golden petals pour from the opened flower of her spear onto every enemy; the white flower of her palm sends a blossom of healing to every ally
+  dur: 2.8,
+  pics: ['assets/hg/new/life-petal.webp', 'assets/hg/new/life-petal2.webp', 'assets/hg/new/life-bloom.webp'],
+  hits(F) {
+    const out = [];
+    F.enemies.forEach((E, i) => out.push({ who: 'e', i, at: 0.55 + i * 0.05, n: '-2 100', c: '#ffe9a0' }));
+    F.allies.forEach((A, i) => out.push({ who: 'a', i, at: F.lag2 + 0.6 + i * 0.05, n: '+3 400', c: '#b9ff9a', heal: 1 }));
+    return out;
+  },
+  draw(ctx, F, t) {
+    const S = F.wf, P2 = F.wf2 || F.wf, PE = [this.pics[0], this.pics[1]], BL = this.pics[2];
+    F.enemies.forEach((E, i) => {   // a stream of her petals to each enemy
+      const R = rnd(31 + i), c = { x: (S.x + E.x) / 2 + (E.x - S.x) * 0.2, y: Math.min(S.y, E.y) - 34 };
+      for (let k = 0; k < 7; k++) {
+        const t0 = i * 0.05 + k * 0.035, fl = 0.5, u = (t - t0) / fl, ox = (R() - 0.5) * 18, oy = (R() - 0.5) * 14, spin = (R() - 0.5) * 12, pic = PE[k % 2];
+        if (u > 0 && u < 1) { const p = bez(S, c, E, ease(u)); sprite(ctx, pic, p.x + ox * Math.sin(Math.PI * u), p.y + oy * Math.sin(Math.PI * u), 13 + 3 * (k % 3), spin * u + k, 0.95, false); }
+        const h = t - (t0 + fl);
+        if (h > 0 && h < 0.6) { const a = (R() - 0.5) * 6.28; sprite(ctx, pic, E.x + Math.cos(a + k) * 22 * ease(h / 0.6), E.y + Math.sin(a + k) * 16 * ease(h / 0.6) + 10 * h, 12, spin * h, 1 - h / 0.6, false); }
+      }
+      const h = t - (i * 0.05 + 0.5);
+      if (h > 0 && h < 0.55) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, E.x, E.y, 16 + 14 * ease(h / 0.4), 'rgba(255,240,170,.5)', 'rgba(210,190,60,.25)', clamp(1 - h / 0.5, 0, 1)); ctx.restore(); }
+    });
+    F.allies.forEach((A, i) => {   // a blossom of her palm flower drifts down to each ally and opens into green healing light
+      const t0 = F.lag2 + i * 0.05, fl = 0.6, u = (t - t0) / fl, c = { x: (P2.x + A.x) / 2, y: Math.max(P2.y, A.y) - 10 };
+      if (u > 0 && u < 1) {
+        const p = bez(P2, c, A, ease(u));
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, p.x, p.y, 14, 'rgba(220,255,190,.5)', 'rgba(110,210,80,.25)', 0.7); ctx.restore();
+        sprite(ctx, BL, p.x, p.y, 16 + 4 * u, Math.sin(u * 6 + i) * 0.3, 1, false);
+      }
+      const h = t - (t0 + fl);
+      if (h > 0 && h < 0.9) {
+        sprite(ctx, BL, A.x, A.y - 4 - 10 * ease(h / 0.9), 20 * (1 + 0.5 * ease(h / 0.9)), 0, clamp(1 - h / 0.9, 0, 1), false);
+        ctx.save(); ctx.globalCompositeOperation = 'lighter'; glow(ctx, A.x, A.y, 18 + 12 * ease(h / 0.6), 'rgba(210,255,180,.5)', 'rgba(90,200,70,.28)', clamp(1 - h / 0.8, 0, 1)); ctx.restore();
+      }
+    });
+  },
+};
+
 /* ---------- fight layout ---------- */
 const FW = 360, FH = 560;
 function layout() {
   const enemies = [], allies = [];
   for (let i = 0; i < 5; i++) { enemies.push({ x: 44 + i * 68, y: 92 }); allies.push({ x: 44 + i * 68, y: 500 }); }
-  return { enemies, allies, ax: 180, foot: 440, figH: 236 };
+  return { enemies, allies, ax: 180, foot: 452, figH: 282 };
 }
 function token(ctx, p, col, hp) {
   ctx.save();
@@ -191,7 +265,7 @@ function build(G) {
   sec.querySelectorAll('[data-var]').forEach(b => b.addEventListener('click', () => { st.atk = b.dataset.var; st.fightT0 = st.simT; sec.querySelectorAll('[data-var]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelector('[data-again]').addEventListener('click', () => { st.fightT0 = st.simT; });
-  const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, 300, 400) }; });
+  const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, CELL.w, CELL.h) }; });
   Object.values(G.nu).forEach(s => img(s.src)); (FX[G.fx].pics || []).forEach(img); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
   st.liveT = 0; st.vis = true;
   if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
@@ -199,8 +273,8 @@ function build(G) {
 }
 
 function drawCell(ctx, sh, t, mode) {   // mode: loop | once (entrance: holds the last frame) | strike (holds frame 0 between plays)
-  cellBg(ctx, 300, 400);
-  const P = place(sh, 150, 380, 250);
+  cellBg(ctx, CELL.w, CELL.h);
+  const P = place(sh, CELL.ax, CELL.foot, CELL.figH);
   let i;
   if (mode === 'loop') i = frameAt(sh, t % sh.dur);
   else if (mode === 'once') { const L = sh.dur + 1.2, u = t % L; i = u < sh.dur ? frameAt(sh, u) : sh.n - 1; }
@@ -208,9 +282,9 @@ function drawCell(ctx, sh, t, mode) {   // mode: loop | once (entrance: holds th
   drawFrame(ctx, sh, i, P);
 }
 function drawLive(V, t) {
-  const { G, C, st } = V, ctx = C.live.ctx; cellBg(ctx, 300, 400);
-  if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, 150, 380, 250); drawFrame(ctx, s, 0, P); } return; }
-  const sh = G.live[st.live] || G.live.idle, P = place(sh, 150, 380, 250), u = t - st.liveT;
+  const { G, C, st } = V, ctx = C.live.ctx; cellBg(ctx, CELL.w, CELL.h);
+  if (!G.live) { if (G.still && ready(G.still)) { const s = G.still, P = place(s, CELL.ax, CELL.foot, CELL.figH); drawFrame(ctx, s, 0, P); } return; }
+  const sh = G.live[st.live] || G.live.idle, P = place(sh, CELL.ax, CELL.foot, CELL.figH), u = t - st.liveT;
   drawFrame(ctx, sh, sh === G.live.idle ? frameAt(sh, u % sh.dur) : (u % (sh.dur + 0.8) < sh.dur ? frameAt(sh, u % (sh.dur + 0.8)) : 0), P);
 }
 
@@ -223,7 +297,7 @@ function drawFight(V, t) {
   const u = t % T, P = place(N.idle, L.ax, L.foot, L.figH), PA = place(N.atk, L.ax, L.foot, L.figH);
   const F = { enemies: L.enemies, allies: L.allies, wf: pt(PA, N.atk.wf), wf2: N.atk.wf2 ? pt(PA, N.atk.wf2) : null, rel, end, lag2: ((N.atk.rel2 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D };
   const hits = fx.hits(F), hp = { e: [1, 1, 1, 1, 1], a: [1, 1, 1, 1, 1] };
-  hits.forEach(h => { if (u >= rel + h.at) hp[h.who][h.i] -= h.small ? 0.02 : 0.16; });
+  hits.forEach(h => { if (u >= rel + h.at && !h.heal) hp[h.who][h.i] -= h.small ? 0.02 : 0.16; });
   L.enemies.forEach((p, i) => token(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1)));
   L.allies.forEach((p, i) => token(ctx, p, '#5cc591', 1));
   if (u < A) drawFrame(ctx, N.app, frameAt(N.app, u), place(N.app, L.ax, L.foot, L.figH));

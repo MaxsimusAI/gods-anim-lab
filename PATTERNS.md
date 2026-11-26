@@ -139,3 +139,7 @@ Full texts: `pipeline/v2/tests/` (they are also the linter's "must pass" set).
   At 214 px in a 220 px frame about 3 % above the head is stored, so a move that needs the room above the head does not fit:
   the move changes. On 13.11 raised arms and hops were forbidden in the prompts instead — that gave the static clips (R3
   above). Storing strikes a little smaller is proposal 1 of the skill (section 10): not in force, not tested.
+
+- IDEA (26.11, Fate): the flat gray background is close to silver/white hair; when such hair flies, the matting loses it (Fate's
+  skill, sheet frames 11–13: wisps break up). For a goddess with silver or white hair or a gray cloak, consider a background that
+  contrasts with them (a darker or coloured flat background) in the input picture — test before using.
