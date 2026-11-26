@@ -328,3 +328,7 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
 - 26.11 22:27, Maxim on the size question (verbatim): «Для высших можно больше». Decision: higher goddesses may exceed the 14 MB
   phone limit per god (now ~20–21 MB for idle + entrance + skill, ~1.3–1.7 MB of files); files are still compressed as far as the
   look allows. Not a rule for ordinary gods.
+- 26.11 22:36, Maxim: «Сделай это на отдельном сайте через свои сайты, чтобы можно было открыть на разных устройствах». The review
+  page is also published as a Claude artifact «Высшие богини · анимации Kling» (slug 7afc1d12-07f5-456d-9a8e-4343880cfb2c, private to
+  him, opens on any device signed in to claude.ai). Built from higher.html + assets/hg without the `?v=` queries; republish it after
+  every change of the page (same files, same paths).
