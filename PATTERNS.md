@@ -78,6 +78,7 @@ his turn comes. In brackets: where and when he saw it.
 
 51. Does an idle of a higher goddess look almost still — a small sway that a player does not notice on a phone? (Order and Plague idles, 26.11: «почти нет движения»)
 52. Is a higher goddess's clip poor in effects — a glow on the weapon only, nothing that reads as magic at phone size? (Order and Plague idle and skill, 26.11: «слишком мало эффектов»)
+53. Are the effects of a higher goddess's clip only on the weapon, with nothing on her body (armor, skin, mask, hair)? (Order and Plague, 26.11 22:39: «эффекты только на оружии»)
 
 ## Ideas Maxim proposed or praised
 

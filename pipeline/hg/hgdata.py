@@ -8,12 +8,13 @@ GODS = [
  {'id': 'order', 'name': 'Порядок', 'skill': 'Закон защиты', 'desc': 'Атакует двух врагов. Даёт каждому союзнику щит на 8 сек.', 'fx': 'order',
   'live': json.load(open('live_order.json')),
   'fxNote': 'После удара копьём о землю пламя копья поднимается вверх, и из его верхушки два её клинка в синем пламени летят в двух врагов и сгорают на них. Со щита к каждому союзнику летит её щит и растворяется на нём в плёнку света.',
-  'sheets': {'idle': ('sheets/order.json', 'idle'), 'app': ('sheets/order.json', 'app'), 'atk': ('v3a/order.json', 'atk'), 'atk2': ('sheets/order.json', 'atk')},
-  'files': {'atk': 'v3a/order-bt-atk.webp'}},
+  'sheets': {'idle': ('v4/order.json', 'idle'), 'app': ('v4/order.json', 'app'), 'atk': ('v4/order.json', 'atk')},
+  'files': {'idle': 'v4/order-bt-idle.webp', 'app': 'v4/order-bt-app.webp', 'atk': 'v4/order-bt-atk.webp'}},
  {'id': 'plague', 'name': 'Чума', 'skill': 'Печать чумы', 'desc': 'Атакует каждого врага. Каждый враг получает ещё урон за 4 сек.', 'fx': 'plague',
   'live': None,
   'fxNote': 'Из кадила бьёт фонтан зелёного огня; из его верхушки сгустки огня летят ко всем врагам и 4 секунды горят на каждом, вспыхивая на каждом ударе яда (четыре вспышки, четыре числа).',
-  'sheets': {'idle': ('sheets/plague.json', 'idle'), 'app': ('sheets/plague.json', 'app'), 'atk': ('sheets/plague.json', 'atk')}, 'files': {}},
+  'sheets': {'idle': ('v4/plague.json', 'idle'), 'app': ('v4/plague.json', 'app'), 'atk': ('v4/plague.json', 'atk')},
+  'files': {'idle': 'v4/plague-bt-idle.webp', 'app': 'v4/plague-bt-app.webp', 'atk': 'v4/plague-bt-atk.webp'}},
 ]
 out = []
 os.makedirs(f'{REPO}/assets/hg/new', exist_ok=True)

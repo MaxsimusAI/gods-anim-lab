@@ -30,3 +30,13 @@ prompt: pipeline/hg/prompts/order_bt_atk.txt
   top at frame 14 wf [0.30,0.04]; shields from wf2 [0.70,0.6]); atk2 = v3b (energy spirals, wall of light at the slam; release 10,
   lances at 14 wf [0.30,0.03]; wf2 [0.72,0.55]). Both cut with KL_DESMOKE=1.
 - game_fx: lances = her own blade in blue flame cut from the v3b clip (assets/hg/new/order-lance.webp); shield = her shield.
+
+## v4 (26.11 ~22:50, after Maxim 22:39 «эффекты только на оружии… эффекты и на самом боге»)
+- idle: v4b (prompt order_bt_idle_v4.txt, 2 variants) — glowing blue rune patterns on the armor and legs, a blue rim of light on the
+  silhouette, blue flame on the spear and the shield, weight shift. v4a: the same idea, weaker body glow. Sheet 176×299, 582 KB.
+- skill: v4b (prompt order_bt_atk_v4.txt) — energy ribbons around her, a ring of light on the ground, the spear slam, a wall of blue
+  light with golden crown tips (sheet frames 11–14), then the whole figure burns in blue flame and fades. Sheet 266×317, 751 KB.
+  Release: shields at 11 from wf2 [0.71,0.62] (the wall rises); lances at 14 from wf [0.32,0.08] (the spear flame top).
+  watch: the wall reaches the side edges of the frame for ~0.5 s (edges fade); the spear flame stays near the top edge ~1 s.
+  v4a not shown: a golden starburst over the helmet (A3) and less flame on the body.
+- entrance: unchanged, PROTECTED (26.11 22:39 «Точно оставляем»), the same sheet bytes; exit = the entrance backwards.

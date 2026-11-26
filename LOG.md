@@ -332,3 +332,13 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   page is also published as a Claude artifact «Высшие богини · анимации Kling» (slug 7afc1d12-07f5-456d-9a8e-4343880cfb2c, private to
   him, opens on any device signed in to claude.ai). Built from higher.html + assets/hg without the `?v=` queries; republish it after
   every change of the page (same files, same paths).
+- 26.11 22:39, Maxim (verbatim): «Ты сделал эффекты только на оружии. А можно сделать эффекты и на самом боге. И в ожидании и в ударе.
+  У порядка - классная задумка с появлением и уходо. Точно оставляем».
+  He saw → wants: effects only on the weapons → effects on the goddess herself too (body, armor, mask, hair), in idle and skill.
+  PROTECTED: order_bt_app (take of 26.11) and the exit = the entrance played backwards. CLIP: idles and skills of both again with
+  effects on the body (v4, 2 variants each). CHECK: PATTERNS 53. IDEA: PATTERNS ideas — entrance drawn as a glowing outline from
+  the feet up, exit = the same clip backwards (Order 26.11, «классная задумка»).
+- 26.11 ~22:55: v4 shot (4 jobs × 2 variants, 240 credits) and published on the stand: Order idle v4b + skill v4b, Plague idle v4a +
+  skill v4a; Order's skill switch «вариант 1 / 2» removed (one skill take now). Entrances untouched (protected). Rejected variants:
+  Order skill v4a (starburst over the helmet), Plague skill v4b (lens-flare line). Open for Maxim: the wall of light in Order's skill
+  touches the side edges ~0.5 s.

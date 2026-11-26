@@ -27,3 +27,13 @@ prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_
 - idle: v3b (prompt plague_bt_idle_v3.txt) — steps and bends, wide censer pendulum, green streams on the chain and hands.
 - skill: v3b (prompt plague_bt_atk_v3.txt) — a ring of green fire in the swing, a fountain of fire from the censer that spreads into a
   cloud at the top and rains down. Release 12, clots from the top of the fountain wf [0.5,0.07].
+
+## v4 (26.11 ~22:50, after Maxim 22:39 «эффекты только на оружии… эффекты и на самом боге»)
+- idle: v4a (prompt plague_bt_idle_v4.txt, 2 variants) — green veins glow under the skin of the arms and thighs, she sways and steps,
+  the cloak swings, green fire drips from the censer to the feet, green fire at the fingers. v4b: veins too, less body motion.
+  Sheet 229×263, 429 KB.
+- skill: v4a (prompt plague_bt_atk_v4.txt) — a censer swing with a trail of green fire, a fountain from the censer, a cloud at the top
+  and rain; the whole figure burns in green fire, the leg veins glow. Sheet 266×309, 527 KB. Release 11, clots from the fountain top
+  wf [0.5,0.06]. watch: the cloud reaches the top edge ~1 s (fades); the fountain covers chest and mask ~0.6 s (frames 8–13).
+  v4b not shown: a lens-flare line across the whole frame from the mask (A3).
+- entrance: unchanged (same sheet bytes); exit = the entrance backwards.
