@@ -392,3 +392,28 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   титанов. Другой проект никакой не трогай.»
   ACCEPTED → PROTECTED: Order, Plague, Fate, Life — idle, entrance, skill of v5 (and Order's entrance of 26.11 «прежнее»), with
   their game effects. Next: every other higher goddess with accepted art, BT style only; Titan Idols untouched.
+- 27.11 (after 01:29): the other 16 higher goddesses with accepted art — Creation, Oblivion, Pride, Sun, Terra, Flame, War,
+  Famine, Eternity, Retribution, Void, Chaos, Mercy, Death, Destruction, Wrath — BT only. 48 prompts (v5 grammar, lint
+  passed), 2 variants each, plus 3 retakes (Pride skill, Void skill, Sun entrance): 51 jobs × 60 = 3 060 credits; ids in
+  `pipeline/hg/kling_tasks_2611.json`, picks in `pipeline/hg/picks_v5b.json`. Skipped, no accepted art: Umbra (Тьма), Ocean
+  (Вода), Time (Время), Pogibel (Погибель), Fear (Страх). Each goddess has a new game effect on the stand built from her own
+  clip or art (release points `pipeline/hg/rel.json`; pictures `assets/hg/new/<id>-<thing>.webp`, clip cuts with the oval
+  mask). Skill sheets of Wrath, Terra, War, Famine re-cut with KL_DESMOKE=1 (gray/teal haze). Cards: `cards/higher/<id>.md`;
+  faults per clip in the notes on the stand («Что не так»). Weakest, for his look: Pride's skill (Kling keeps the mirror
+  shards large) and Void's skill (darkness fills much of the frame). Titan Idols untouched.
+- 27.11, fresh-eyes review of the stand code and effects (round 1), fixed: Chaos's slash pictures carried pieces of her legs
+  (re-cut by colour from a clean frame, `pipeline/hg/arckey.py`; black and white slashes recoloured from the pink one), Wrath's
+  fire carried a piece of her skirt (re-cut by colour); release points moved onto the object of the release frame (Death — the
+  skull of the flail, Creation — the staff and palm orbs at frame 22, Terra — the crystals in her hands at frame 20 and slabs
+  from her pillar, Pride — the shards at frame 19, War — the two crescents at frame 10), so the clip no longer holds the object
+  after it flies; Death flies the black-gold fire of the skull (no second skull), no symbols over enemies (Retribution's scales,
+  Death's skull, Sun's rayed star — a soft film now), Destruction's hammer picture replaced by stones breaking on the enemy,
+  Mercy's petals larger; captions say «до её ухода (в игре — 8 секунд)» where the stand is shorter; the live cell of Creation,
+  Oblivion, Terra shows the invoke sheet the game plays in the strike slot; hgdata skips a goddess without a release point;
+  version stamp on effect pictures and live sheets (v12); pictures of a goddess two screens away are let go (phone memory).
+- 27.11, fresh-eyes review round 2 (the fixes), fixed: Pride's shards flew back after the hit (shaped flights now end at the
+  target), Death's fire leaves the flail skull at frame 18 when the golden comet of the clip burns out (the comet cut from the
+  clip with its black smoke), Chaos's black and white slashes start on the slashes (frames 14, 17), the sun disc is a soft sun
+  without the rayed emblem, islands and hard ends removed from the slash and fire pictures, War's crescent without the straight
+  strip, a goddess coming back on screen keeps her last picture until her sheets are decoded again, captions (Eternity, Sun,
+  Death, Chaos). Two review rounds done (the skill's limit).

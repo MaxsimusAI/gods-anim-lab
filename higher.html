@@ -55,6 +55,10 @@ a{color:var(--gold)}
 @media(pointer:coarse){.cell .row .btn{min-height:40px}}
 @media(max-width:600px){.cells,.cells.three{grid-template-columns:minmax(0,1fr)}.cell .row .btn{min-height:40px}h2{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.btn{transition:none}}
+.toc{display:flex;flex-wrap:wrap;gap:6px 8px;margin:4px 0 18px}
+.toc a{font:600 13.5px/1 "Golos Text",system-ui,sans-serif;color:var(--ink,#eee);text-decoration:none;padding:8px 11px;border-radius:999px;border:1px solid rgba(216,177,96,.35);background:rgba(255,255,255,.03)}
+.toc a:hover,.toc a:focus-visible{border-color:rgba(216,177,96,.85);background:rgba(216,177,96,.12)}
+.toc a.ok::after{content:" ✓";color:#7fd6a0}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Forum&family=Golos+Text:wght@400;600&display=swap" rel="stylesheet">
@@ -76,10 +80,11 @@ a{color:var(--gold)}
       <button class="btn" type="button" data-bg="gray" aria-pressed="false">серый</button>
     </div>
   </div>
+  <nav class="toc" id="toc" aria-label="Богини"></nav>
   <div id="gods"></div>
   <p class="foot"><a href="index.html">← Анимации обычных богов</a> · только стиль «Битвы титанов»: аниме-версии высших богинь ещё не нарисованы.</p>
 </main>
-<script src="assets/hg/hg-data.js?v=10"></script>
-<script src="assets/hg/hg-stand.js?v=10"></script>
+<script src="assets/hg/hg-data.js?v=12"></script>
+<script src="assets/hg/hg-stand.js?v=12"></script>
 </body>
 </html>

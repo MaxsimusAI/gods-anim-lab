@@ -1,0 +1,5 @@
+recut: wrath atk KL_DESMOKE=1 (gray patch under the arc)
+recut: oblivion atk — veil cut by the side/bottom edges as a box (B5); nothing to do in the cut, note only
+recut: terra atk KL_DESMOKE=1 (gray dust box at the bottom at the release)
+recut: war atk KL_DESMOKE=1 (dark teal smudge at the bottom, frames 12-13)
+recut: famine atk KL_DESMOKE=1 (gray box of haze at the bottom at the release)

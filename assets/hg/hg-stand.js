@@ -6,9 +6,12 @@
 const SPEED = { v: 1 }, BG = { v: 'dark' };
 const IMG = {};
 function img(src) { if (!IMG[src]) { const i = new Image(); i.decoding = 'async'; i.onerror = () => { i.failed = true; }; i.src = src; IMG[src] = i; } return IMG[src]; }
+const herPics = G => [...Object.values(G.nu).map(s => s.src), ...(FX[G.fx].pics || []), ...(G.live ? Object.values(G.live).map(s => s.src) : [])];
+function dropImg(src) { const i = IMG[src]; if (i) { i.onerror = null; i.removeAttribute('src'); delete IMG[src]; } }   // frees the decoded picture (a phone keeps ~20 goddesses × 3–5 sheets otherwise)
 function ready(sh) { const i = img(sh.src); return i.complete && i.naturalWidth > 0; }
 const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
 const ease = t => 1 - Math.pow(1 - clamp(t, 0, 1), 3);
+const inFlight = (u, f) => u <= 0 || u >= 1 ? -1 : f(u);   // a shaped flight that ends at the target (shot() draws nothing outside 0..1)
 function rnd(seed) { let s = seed >>> 0 || 1; return () => ((s = Math.imul(s ^ (s >>> 15), 2246822507) ^ Math.imul(s ^ (s >>> 13), 3266489909)) >>> 0) / 4294967296; }
 
 /* ---------- sprites ---------- */
@@ -80,6 +83,35 @@ function clearArc(S, T, others, dxs, lift) {   // the control point (offsets fro
   return best.c;
 }
 function bez(a, c, b, t) { const u = 1 - t; return { x: u * u * a.x + 2 * u * t * c.x + t * t * b.x, y: u * u * a.y + 2 * u * t * c.y + t * t * b.y }; }
+/* shared pieces of the 27.11 goddesses: every flying thing is a picture of her own (art or clip), with a trail of the same picture */
+function add(ctx, f) { ctx.save(); ctx.globalCompositeOperation = 'lighter'; f(); ctx.restore(); }
+function shot(ctx, pic, S, c, T, u, h, o = {}) {   // a picture on the arc S→c→T at u (0..1); o.dir: turn along the path; o.spin: radians over the flight; o.trail: copies behind
+  if (u <= 0 || u >= 1) return;
+  const at = v => bez(S, c, T, v), dir = v => { const p = at(v), q = at(Math.max(0, v - 0.02)); return Math.atan2(p.y - q.y, p.x - q.x) + Math.PI / 2; };
+  const n = o.trail ?? 8, R = rnd(o.seed || 7), turn = v => o.dir ? dir(v) : (o.rot || 0) + (o.spin || 0) * v;   // head and trail turn alike; spin = radians over the whole flight
+  for (let s = n; s >= 1; s--) {
+    const v = u - s * (o.gap || 0.03); if (v <= 0) continue;
+    const p = at(v); sprite(ctx, pic, p.x + (R() - 0.5) * 4, p.y + (R() - 0.5) * 4, h * (1 - s / (n + 3)), turn(v), (1 - s / (n + 1)) * (o.ta ?? 0.35), true);
+  }
+  const p = at(u);
+  if (o.c0) add(ctx, () => glow(ctx, p.x, p.y, h * 0.55, o.c0, o.c1, 0.7));
+  sprite(ctx, pic, p.x, p.y, h, turn(u), 1, !!o.addHead);
+}
+function impact(ctx, T, h, c0, c1, r0 = 16) {   // the soft light where something lands: it ramps in (no flash), grows and fades
+  if (h <= 0 || h >= 0.6) return;
+  add(ctx, () => glow(ctx, T.x, T.y, r0 + 16 * ease(h / 0.45), c0, c1, clamp(h / 0.09, 0, 1) * clamp(1 - h / 0.55, 0, 1)));
+}
+function film(ctx, A, a, r, rgb, ring) {   // a lasting film of light round a unit: a shield, a buff, a curse; rgb = 'r,g,b'
+  if (a <= 0.01) return;
+  const g = ctx.createRadialGradient(A.x, A.y, r * 0.5, A.x, A.y, r);
+  g.addColorStop(0, `rgba(${rgb},0)`); g.addColorStop(0.82, `rgba(${rgb},${0.3 * a})`); g.addColorStop(1, `rgba(${rgb},${0.5 * a})`);
+  ctx.save(); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(A.x, A.y, r, 0, 7); ctx.fill();
+  if (ring) { ctx.strokeStyle = `rgba(${ring},${0.5 * a})`; ctx.lineWidth = 1.2; ctx.beginPath(); ctx.arc(A.x, A.y, r, 0, 7); ctx.stroke(); }
+  ctx.restore();
+}
+const life = (k, len, fin = 0.25, fout = 0.4) => k <= 0 || k >= len ? 0 : clamp(k / fin, 0, 1) * clamp((len - k) / fout, 0, 1);
+const arcUp = (S, T, lift, dx = 0) => ({ x: (S.x + T.x) / 2 + dx, y: Math.min(S.y, T.y) - lift });
+const arcLow = (S, T, drop, k = 0.25) => ({ x: (S.x + T.x) / 2 + (T.x - S.x) * k, y: Math.max(S.y, T.y) + drop });
 
 /* ---------- the game effects, by goddess. t = seconds since the release frame; F.end = when the goddess leaves ---------- */
 const FX = {};
@@ -266,6 +298,282 @@ FX.life = { // «Дар жизни»: golden petals pour from the opened flower 
   },
 };
 
+/* ---------- 27.11: the other higher goddesses. Pictures: assets/hg/new/<god>-*.webp, cut from her art or her clip ---------- */
+const NEW = n => `assets/hg/new/${n}.webp?v=${typeof HG_V === 'undefined' ? 0 : HG_V}`;   // stamped: a re-cut under the same name reaches the viewers
+const dmg = (i, at, n, c, extra) => ({ who: 'e', i, at, n, c, ...extra });
+FX.creation = { // «Возведение»: plates of her golden wall fly to every ally and stay on him 8 s; the two orbs of her staff and palm fly at two enemies
+  dur: 2.6, pics: [NEW('creation-sphere'), NEW('creation-hex')], tg: [1, 3], fl: 0.42,
+  hits(F) { return this.tg.map((e, k) => dmg(e, F.lag2 + k * 0.08 + this.fl, '-2 600', '#ffe7a8')); },
+  draw(ctx, F, t) {
+    const [SP, HX] = this.pics, W = F.wf, end = F.end - F.rel;
+    this.tg.forEach((e, k) => {   // the armillary orbs: one from the staff, one from the open palm
+      const S = (k ? F.wf3 : F.wf2) || F.wf, T = F.enemies[e], t0 = F.lag2 + k * 0.08, u = (t - t0) / this.fl, c = clearArc(S, T, F.enemies.filter((x, j) => j !== e), [k ? 40 : -40, 0, k ? 90 : -90], 60);
+      shot(ctx, SP, S, c, T, ease(u) * 0.7 + u * 0.3, 34, { spin: 9, trail: 7, c0: 'rgba(255,235,170,.55)', c1: 'rgba(255,180,60,.25)', seed: 3 + k });
+      const h = t - t0 - this.fl; impact(ctx, T, h, 'rgba(255,236,170,.55)', 'rgba(255,170,40,.28)');
+      if (h > 0 && h < 0.5) sprite(ctx, SP, T.x, T.y - 8 * ease(h / 0.5), 34 * (1 + 0.4 * ease(h / 0.5)), h * 4, 1 - h / 0.5, true);
+    });
+    F.allies.forEach((A, i) => {   // a plate of her wall to every ally
+      const t0 = 0.05 + i * 0.05, fl = 0.45, u = (t - t0) / fl;
+      shot(ctx, HX, W, arcLow(W, A, 24), A, ease(u), 30, { trail: 5, rot: (A.x - W.x) * 0.002, c0: 'rgba(255,232,160,.5)', c1: 'rgba(255,190,70,.22)' });
+      const h = t - t0 - fl, a = life(h, end - t0 - fl);
+      if (h > 0 && h < 0.45) sprite(ctx, HX, A.x, A.y, 30 * (1 + 0.3 * ease(h / 0.45)), 0, 1 - h / 0.45, false);
+      film(ctx, A, a, 25, '255,205,90', '255,240,190');
+    });
+  },
+};
+FX.oblivion = { // «Безмолвие»: the silver moon of her staff flies to every enemy; small moons circle over each one while he is stunned 3 s
+  dur: 4.2, pics: [NEW('oblivion-moon')], fl: 0.5,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-1 950', '#e3c9ff')); },
+  draw(ctx, F, t) {
+    const MO = this.pics[0], S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, MO, S, arcUp(S, E, 50, (E.x - S.x) * 0.2), E, ease(u), 40, { spin: 4, trail: 8, c0: 'rgba(225,200,255,.5)', c1: 'rgba(150,90,255,.25)', seed: 11 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(225,200,255,.55)', 'rgba(140,80,255,.3)');
+      const a = life(h, 3.0);
+      if (a > 0) {   // stunned: her moons circle over his head, the violet film of silence holds him
+        film(ctx, E, a * 0.8, 24, '170,120,255', '230,210,255');
+        for (let j = 0; j < 3; j++) { const q = h * 2.4 + j * 2.09; sprite(ctx, MO, E.x + Math.cos(q) * 19, E.y - 24 + Math.sin(q) * 5, 19, 0, a * 0.95, false); }
+      }
+    });
+  },
+};
+FX.pride = { // «Непреклонность»: two mirror shards of her scepter strike two enemies; her mirror rises over every ally and leaves him in a golden light until the first ally falls
+  dur: 2.6, pics: [NEW('pride-shard'), NEW('pride-mirror')], tg: [0, 4], fl: 0.4,
+  hits(F) { return this.tg.map((e, k) => dmg(e, k * 0.07 + this.fl, '-2 900', '#ffe2a0')); },
+  draw(ctx, F, t) {
+    const [SH, MI] = this.pics, end = F.end - F.rel;
+    this.tg.forEach((e, k) => {
+      const S = k ? (F.wf2 || F.wf) : F.wf, T = F.enemies[e], t0 = k * 0.07, u = (t - t0) / this.fl, c = clearArc(S, T, F.enemies.filter((x, j) => j !== e), [k ? 50 : -50, 0], 40);
+      shot(ctx, SH, S, c, T, inFlight(u, v => v * v * (3 - 2 * v)), 50, { dir: 1, trail: 9, ta: 0.3, c0: 'rgba(255,240,190,.5)', c1: 'rgba(255,190,70,.25)', seed: 5 + k });
+      impact(ctx, T, t - t0 - this.fl, 'rgba(255,238,180,.55)', 'rgba(255,180,50,.28)');
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = F.lag2 + 0.1 + i * 0.05, h = t - t0, a = life(h, end - t0);
+      if (h > 0 && h < 0.8) sprite(ctx, MI, A.x, A.y - 30 - 10 * ease(h / 0.8), 30, 0, Math.sin(Math.PI * h / 0.8), false);   // her mirror over him
+      if (h > 0.3) film(ctx, A, a * clamp((h - 0.3) / 0.3, 0, 1), 24, '255,200,80', '255,235,170');
+    });
+  },
+};
+FX.sun = { // «Зенит»: little suns of her spear fall on every enemy; a soft film of her sunlight blinds each one
+  dur: 4.4, pics: [NEW('sun-disc')], fl: 0.45,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + i * 0.04, '-2 050', '#fff0b0')); },
+  draw(ctx, F, t) {
+    const [DI] = this.pics, S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = i * 0.04, u = (t - t0) / this.fl;
+      shot(ctx, DI, S, arcUp(S, E, 70, (E.x - S.x) * 0.15), E, ease(u), 38, { trail: 7, c0: 'rgba(255,245,200,.5)', c1: 'rgba(255,200,80,.25)', seed: 21 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(255,246,200,.55)', 'rgba(255,200,70,.28)');
+      const a = life(h - 0.1, 3.4);
+      if (a > 0) film(ctx, E, a * 0.85, 22, '255,200,90', '255,240,190');   // blinded: a soft film of her sunlight, no rays (check A3)
+    });
+  },
+};
+FX.terra = { // «Твердь»: the two amber crystals of her pillar fall on the two nearest enemies and pin them; a slab of her stone flies to every ally as a shield
+  dur: 3.0, pics: [NEW('terra-crystal2'), NEW('terra-slab')], tg: [2, 1], fl: 0.4,
+  hits(F) { return this.tg.map((e, k) => dmg(e, k * 0.1 + this.fl, '-2 400', '#ffd27a')); },
+  draw(ctx, F, t) {
+    const [CR, SL] = this.pics, end = F.end - F.rel;
+    this.tg.forEach((e, k) => {
+      const S = k ? (F.wf2 || F.wf) : F.wf, T = F.enemies[e], t0 = k * 0.1, u = (t - t0) / this.fl;
+      shot(ctx, CR, S, arcUp(S, T, 30, k ? -30 : 30), T, inFlight(u, v => v * v), 44, { dir: 1, trail: 6, c0: 'rgba(255,215,130,.5)', c1: 'rgba(255,150,30,.25)', seed: 31 + k });
+      const h = t - t0 - this.fl; impact(ctx, T, h, 'rgba(255,220,140,.55)', 'rgba(255,150,30,.3)');
+      const a = life(h, 2.2, 0.08);   // pinned: the crystal stands in him while he is stunned
+      if (a > 0) sprite(ctx, CR, T.x, T.y - 12, 36, 0, a, false);
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = 0.15 + i * 0.05, fl = 0.45, S = F.wf3 || F.wf, u = (t - t0) / fl;   // a slab of her stone pillar
+      shot(ctx, SL, S, arcLow(S, A, 20), A, ease(u), 40, { trail: 4, rot: 0.2, c0: 'rgba(255,200,120,.4)', c1: 'rgba(200,120,30,.2)' });
+      const h = t - t0 - fl, a = life(h, end - t0 - fl);
+      if (h > 0 && h < 0.4) sprite(ctx, SL, A.x, A.y, 40 * (1 + 0.3 * ease(h / 0.4)), 0.2, 1 - h / 0.4, false);
+      film(ctx, A, a, 25, '220,160,70', '160,210,110');
+    });
+  },
+};
+FX.flame = { // «Пожар»: fire of her halberd's arc flies to every enemy and keeps burning on each, flaring on every tick
+  dur: 4.0, pics: [NEW('flame-fire')], fl: 0.45,
+  hits(F) { const out = []; F.enemies.forEach((E, i) => { const at = this.fl + i * 0.03; out.push(dmg(i, at, '-1 900', '#ffc07a')); for (let k = 1; k <= 3; k++) out.push(dmg(i, at + k, '-280', '#ff9a4a', { small: 1 })); }); return out; },
+  draw(ctx, F, t) {
+    const FI = this.pics[0], S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = i * 0.03, u = (t - t0) / this.fl;
+      shot(ctx, FI, S, arcUp(S, E, 40, (E.x - S.x) * 0.25), E, u, 46, { spin: 6, trail: 14, gap: 0.02, ta: 0.3, seed: 41 + i });
+      const h = t - t0 - this.fl;
+      if (h > 0 && h < 0.4) sprite(ctx, FI, E.x, E.y - 2, 30 + 30 * ease(h / 0.4), h * 3, 0.55 * (1 - h / 0.4), true);
+      if (h > 0 && h < 3.4) {   // the burn: her fire licks up on him and flares at every tick
+        const k = h % 1, pulse = h > 0.95 ? Math.max(0, 1 - k / 0.25) : 0, a = life(h, 3.4, 0.25, 0.4);
+        for (let j = 0; j < 3; j++) { const ph = (h * 1.7 + j / 3) % 1; sprite(ctx, FI, E.x + (j - 1) * 8, E.y + 6 - 26 * ph - 4 * pulse, (44 + 14 * pulse) * (0.7 + 0.5 * ph), j * 2 + h, a * (0.6 + 0.3 * pulse) * Math.sin(Math.PI * ph), true); }
+      }
+    });
+  },
+};
+FX.war = { // «Зов войны»: three red arcs of her greatsword fly at three enemies; the red light of her blade rises on every ally for 8 s
+  dur: 2.4, pics: [NEW('war-arc'), NEW('war-blade')], tg: [0, 2, 4], fl: 0.38,
+  hits(F) { return this.tg.map((e, k) => dmg(e, k * 0.06 + this.fl, '-2 300', '#ffb0a0')); },
+  draw(ctx, F, t) {
+    const [AR, BL] = this.pics, end = F.end - F.rel;
+    this.tg.forEach((e, k) => {
+      const S = k ? F.wf : (F.wf2 || F.wf), T = F.enemies[e], t0 = k * 0.06, u = (t - t0) / this.fl;   // the two crescents of the clip: the near one goes first
+      shot(ctx, AR, S, arcUp(S, T, 20, (T.x - S.x) * 0.3), T, u, 44, { dir: 1, trail: 6, ta: 0.3, c0: 'rgba(255,170,150,.45)', c1: 'rgba(220,30,20,.25)', seed: 51 + k });
+      impact(ctx, T, t - t0 - this.fl, 'rgba(255,180,160,.55)', 'rgba(220,30,20,.3)');
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = F.lag2 + 0.2 + i * 0.04, h = t - t0, a = life(h, end - t0);
+      if (h > 0 && h < 0.9) sprite(ctx, BL, A.x, A.y + 10 - 30 * ease(h / 0.9), 34, 0, Math.sin(Math.PI * h / 0.9), true);   // her blade's light rises through him
+      film(ctx, A, a * clamp(h / 0.5, 0, 1), 24, '230,50,40', '255,170,140');
+    });
+  },
+};
+FX.famine = { // «Истощение»: the pale whirl of her shield flies at every enemy; its withered chaff keeps circling round each one, slowing him 6 s
+  dur: 6.9, pics: [NEW('famine-swirl'), NEW('famine-chaff')], fl: 0.55,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + i * 0.04, '-1 800', '#efe0b0')); },
+  draw(ctx, F, t) {
+    const [SW, CH] = this.pics, S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = i * 0.04, u = (t - t0) / this.fl;
+      shot(ctx, SW, S, arcUp(S, E, 30, (E.x - S.x) * 0.3), E, ease(u), 34, { spin: -6, trail: 6, ta: 0.25, seed: 61 + i });
+      const h = t - t0 - this.fl, a = life(h, 6.0);
+      if (h > 0 && h < 0.5) sprite(ctx, SW, E.x, E.y, 34 * (1 + 0.5 * ease(h / 0.5)), -h * 6, 0.8 * (1 - h / 0.5), true);
+      if (a > 0) for (let j = 0; j < 3; j++) { const q = -h * 1.3 + j * 2.09; sprite(ctx, CH, E.x + Math.cos(q) * 22, E.y + Math.sin(q) * 10 + 6, 18, q, a * 0.85, true); }   // slowed: her chaff whirls round him
+    });
+  },
+};
+FX.eternity = { // «За гранью смерти»: blue star shards of her orb strike every enemy; her orb flies to every ally and closes him in a shell of starlight for 3 s
+  dur: 3.8, pics: [NEW('eternity-star'), NEW('eternity-orb')], fl: 0.42,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.04, '-2 000', '#b9d3ff')); },
+  draw(ctx, F, t) {
+    const [STR, ORB] = this.pics, S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.04, u = (t - t0) / this.fl;
+      shot(ctx, STR, S, arcUp(S, E, 40, (E.x - S.x) * 0.2), E, ease(u), 38, { spin: 8, trail: 8, c0: 'rgba(190,215,255,.5)', c1: 'rgba(60,110,255,.25)', seed: 71 + i });
+      impact(ctx, E, t - t0 - this.fl, 'rgba(200,220,255,.55)', 'rgba(60,110,255,.3)');
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = 0.1 + i * 0.05, fl = 0.4, u = (t - t0) / fl, S2 = F.wf2 || F.wf;
+      shot(ctx, ORB, S2, arcLow(S2, A, 20), A, ease(u), 30, { trail: 5, c0: 'rgba(170,200,255,.5)', c1: 'rgba(50,90,255,.25)' });
+      const h = t - t0 - fl, a = life(h, 3.0);
+      if (a > 0) { film(ctx, A, a, 26, '90,140,255', '220,230,255'); for (let j = 0; j < 2; j++) { const q = h * 2 + j * Math.PI; sprite(ctx, STR, A.x + Math.cos(q) * 24, A.y + Math.sin(q) * 24, 15, q, a * 0.9, true); } }
+    });
+  },
+};
+FX.retribution = { // «Воздаяние»: the arc of red runes from her blade flies at the enemy who hurt the guards most (her scales stay on her chest in the clip; no symbol over the fight, checks 35/45)
+  dur: 2.2, pics: [NEW('retribution-arc')], target: 3, fl: 0.36,
+  hits() { return [dmg(this.target, this.fl, '-8 400', '#ffb4a8')]; },
+  draw(ctx, F, t) {
+    const [AR] = this.pics, S = F.wf, T = F.enemies[this.target], u = t / this.fl;
+    shot(ctx, AR, S, clearArc(S, T, F.enemies.filter((x, j) => j !== this.target), [40, 0, 90, -40], 30), T, inFlight(u, v => v * v), 72, { dir: 1, trail: 7, ta: 0.3, c0: 'rgba(255,170,160,.5)', c1: 'rgba(220,20,30,.28)' });
+    const h = t - this.fl; impact(ctx, T, h, 'rgba(255,180,170,.6)', 'rgba(220,20,30,.32)', 24);
+    if (h > 0 && h < 0.5) sprite(ctx, AR, T.x, T.y - 4, 60 * (1 + 0.4 * ease(h / 0.5)), 0.6, 0.8 * (1 - h / 0.5), true);   // the rune arc breaks on him
+  },
+};
+FX.void = { // «Поглощение»: black spheres of her palm sink into every enemy and keep sucking their strength 8 s; a ribbon of starlight guards the most hurt ally from one blow
+  dur: 2.6, pics: [NEW('void-sphere'), NEW('void-ribbon')], fl: 0.5, ward: 3, allyHp0: [1, 1, 1, 0.55, 1],
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + i * 0.04, '-1 900', '#d7b8ff')); },
+  draw(ctx, F, t) {
+    const [SP, RB] = this.pics, S = F.wf, end = F.end - F.rel;
+    F.enemies.forEach((E, i) => {
+      const t0 = i * 0.04, u = (t - t0) / this.fl;
+      shot(ctx, SP, S, arcUp(S, E, 40, (E.x - S.x) * 0.2), E, ease(u), 28, { trail: 6, ta: 0.25, c0: 'rgba(200,150,255,.45)', c1: 'rgba(110,40,200,.25)', seed: 81 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(210,170,255,.5)', 'rgba(110,40,200,.3)');
+      const a = life(h, end - t0 - this.fl);
+      if (a > 0) { film(ctx, E, a * 0.7, 23, '120,50,210', '200,160,255'); sprite(ctx, SP, E.x + 16, E.y - 16, 12 + Math.sin(h * 4 + i), 0, a, false); }
+    });
+    const A = F.allies[this.ward], S2 = F.wf2 || F.wf, fl2 = 0.45, u2 = (t - F.lag2) / fl2;
+    shot(ctx, RB, S2, arcLow(S2, A, 24), A, ease(u2), 40, { trail: 5, ta: 0.3, c0: 'rgba(200,160,255,.4)', c1: 'rgba(110,40,200,.2)', seed: 89 });
+    const t0 = F.lag2 + fl2, h = t - t0, a = life(h, end - t0);
+    if (a > 0) { film(ctx, A, a, 26, '150,90,255', '220,200,255'); sprite(ctx, RB, A.x, A.y, 46, h * 1.5, a * 0.9, true); }
+  },
+};
+FX.chaos = { // «Разлад»: her three slashes (pink, black, white) leave the clip where each one is cut and fly at three random enemies; then her harlequin diamonds fall over every enemy and throw their attacks back
+  dur: 3.4, pics: [NEW('chaos-arc1'), NEW('chaos-arc2'), NEW('chaos-arc3'), NEW('chaos-diamond')], tg: [3, 0, 2], fl: 0.32,
+  t0(F, k) { return [0, F.lag2, F.lag3][k]; },
+  hits(F) { return this.tg.map((e, k) => dmg(e, this.t0(F, k) + this.fl, '-1 700', ['#ffb6e0', '#e6e6e6', '#ffffff'][k])); },
+  draw(ctx, F, t) {
+    const DI = this.pics[3];
+    this.tg.forEach((e, k) => {
+      const S = [F.wf, F.wf2 || F.wf, F.wf3 || F.wf][k], T = F.enemies[e], t0 = this.t0(F, k), u = (t - t0) / this.fl;
+      shot(ctx, this.pics[k], S, arcUp(S, T, 30, k === 1 ? -60 : 60), T, u, 50, { dir: 1, trail: 6, gap: 0.025, ta: 0.22, seed: 91 + k });
+      impact(ctx, T, t - t0 - this.fl, ['rgba(255,170,220,.55)', 'rgba(220,220,220,.4)', 'rgba(255,255,255,.5)'][k], 'rgba(200,40,140,.25)');
+    });
+    F.enemies.forEach((E, i) => {   // the diamonds fall over each enemy and spin out
+      const h = t - F.lag3 - 0.45 - i * 0.04;
+      if (h > 0 && h < 1.0) for (let j = 0; j < 3; j++) sprite(ctx, DI, E.x + (j - 1) * 14, E.y - 30 + 34 * ease(h) + j * 3, 18, h * 5 + j, Math.sin(Math.PI * h), false);
+    });
+  },
+};
+FX.mercy = { // «Милосердие»: her rose petals fly to every enemy; the heart of her staff flies to every ally, heals him and stays on him as a rose-pink shield
+  dur: 2.8, pics: [NEW('mercy-petal'), NEW('mercy-heart')], fl: 0.5, allyHp0: 0.62,
+  hits(F) {
+    const out = F.enemies.map((E, i) => dmg(i, this.fl + i * 0.05, '-1 600', '#ffc0d8'));
+    F.allies.forEach((A, i) => out.push({ who: 'a', i, at: F.lag2 + 0.55 + i * 0.05, n: '+3 100', c: '#b9ff9a', heal: 0.36 }));
+    return out;
+  },
+  draw(ctx, F, t) {
+    const [PE, HE] = this.pics, S = F.wf, end = F.end - F.rel;
+    F.enemies.forEach((E, i) => {
+      const R = rnd(101 + i), c = arcUp(S, E, 20, (E.x - S.x) * 0.3);
+      for (let k = 0; k < 6; k++) {
+        const t0 = i * 0.05 + k * 0.035, u = (t - t0) / this.fl, ox = (R() - 0.5) * 18, sp = (R() - 0.5) * 10;
+        if (u > 0 && u < 1) { const p = bez(S, c, E, u * u * (3 - 2 * u)); sprite(ctx, PE, p.x + ox * Math.sin(Math.PI * u), p.y, 20 + 4 * (k % 3), sp * u + k, 0.95, false); }
+      }
+      impact(ctx, E, t - i * 0.05 - this.fl, 'rgba(255,200,225,.5)', 'rgba(230,80,150,.25)');
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = F.lag2 + i * 0.05, fl = 0.55, u = (t - t0) / fl, P2 = F.wf2 || F.wf;
+      shot(ctx, HE, P2, arcLow(P2, A, 10), A, ease(u), 24, { trail: 5, c0: 'rgba(255,200,225,.5)', c1: 'rgba(240,90,160,.25)' });
+      const h = t - t0 - fl, a = life(h, end - t0 - fl);
+      if (h > 0 && h < 0.7) { sprite(ctx, HE, A.x, A.y - 6 - 12 * ease(h / 0.7), 24 * (1 + 0.4 * ease(h / 0.7)), 0, 1 - h / 0.7, false); add(ctx, () => glow(ctx, A.x, A.y, 18 + 12 * ease(h / 0.6), 'rgba(210,255,180,.5)', 'rgba(90,200,70,.28)', clamp(h / 0.1, 0, 1) * clamp(1 - h / 0.7, 0, 1))); }
+      film(ctx, A, a, 25, '255,120,180', '255,210,230');
+    });
+  },
+};
+FX.death = { // «Последняя жатва»: the black-and-gold fire of her flail's skull leaves it and flies at the most wounded enemy (the skull stays on the chain in the clip)
+  dur: 2.2, pics: [NEW('death-flame')], target: 3, fl: 0.45, enemyHp0: [1, 1, 1, 0.42, 1],
+  hits() { return [dmg(this.target, this.fl, '-9 800', '#f4e0a0')]; },
+  draw(ctx, F, t) {
+    const [FL] = this.pics, S = F.wf, T = F.enemies[this.target], u = t / this.fl, c = clearArc(S, T, F.enemies.filter((x, j) => j !== this.target), [60, 0, -60, 110], 40);
+    shot(ctx, FL, S, c, T, ease(u), 62, { dir: 1, trail: 6, gap: 0.03, ta: 0.3, seed: 111, c0: 'rgba(255,225,150,.5)', c1: 'rgba(200,140,30,.25)' });   // the golden comet of the clip, black smoke behind
+    const h = t - this.fl; impact(ctx, T, h, 'rgba(250,235,190,.6)', 'rgba(150,110,30,.32)', 28);
+    if (h > 0 && h < 0.7) sprite(ctx, FL, T.x, T.y - 10 - 12 * ease(h / 0.7), 50, -Math.PI / 2, 0.75 * (1 - h / 0.7), true);   // the black-gold fire licks up off him; no skull over the fight (check 45)
+  },
+};
+FX.destruction = { // «Раскол»: the blow of her hammer first breaks every enemy's shield, then the burning stones of the blast hit every enemy
+  dur: 2.4, pics: [NEW('destruction-rock')], fl: 0.45,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + 0.12 + i * 0.03, '-2 200', '#ffc690')); },
+  pre(ctx, F, t) {   // the enemies come with shields; each one cracks and falls apart when the blow of the hammer lands
+    F.enemies.forEach((E, i) => {
+      const k = t - (0.08 + i * 0.03);
+      if (k < 0) film(ctx, E, 0.9, 24, '120,190,255', '200,230,255');
+      else if (k < 0.35) { ctx.save(); ctx.translate(E.x, E.y); for (let j = 0; j < 6; j++) { const q = j * 1.047 + 0.3, d = 6 + 26 * ease(k / 0.35); ctx.strokeStyle = `rgba(200,230,255,${0.6 * (1 - k / 0.35)})`; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(Math.cos(q) * d * 0.4, Math.sin(q) * d * 0.4, 24, q - 0.45, q + 0.45); ctx.stroke(); } ctx.restore(); }
+    });
+  },
+  draw(ctx, F, t) {
+    const [RK] = this.pics, S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const R = rnd(121 + i);
+      for (let k = 0; k < 4; k++) {   // burning stones of the blast, each with the orange glow of the cracks
+        const t0 = 0.12 + i * 0.03 + k * 0.03, u = (t - t0) / this.fl, c = arcUp(S, E, 20 + R() * 40, (R() - 0.5) * 60), sz = 14 + R() * 10;
+        shot(ctx, RK, S, c, E, u, sz, { spin: 5 + k, trail: 4, ta: 0.25, c0: 'rgba(255,190,110,.55)', c1: 'rgba(255,90,10,.3)', seed: 130 + i * 4 + k });
+      }
+      const h = t - 0.12 - i * 0.03 - this.fl; impact(ctx, E, h, 'rgba(255,200,140,.55)', 'rgba(255,110,20,.3)');
+      if (h > 0 && h < 0.5) for (let k = 0; k < 3; k++) { const q = -Math.PI / 2 + (k - 1) * 0.9, d = 26 * ease(h / 0.5); sprite(ctx, RK, E.x + Math.cos(q) * d, E.y + 4 + Math.sin(q) * d * 0.6 + 30 * h * h, 12, h * 8 + k, 1 - h / 0.5, false); }   // the stones break on him and fall apart
+    });
+  },
+};
+FX.wrath = { // «Кара пламени»: crescents of her axe's fire sweep at every enemy and burst into flame on each
+  dur: 2.4, pics: [NEW('wrath-fire')], fl: 0.4,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 400', '#ffb070')); },
+  draw(ctx, F, t) {
+    const FI = this.pics[0], S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, FI, S, arcUp(S, E, 20, (E.x - S.x) * 0.35), E, u, 44, { dir: 1, trail: 7, gap: 0.025, ta: 0.22, c0: 'rgba(255,190,120,.4)', c1: 'rgba(255,70,20,.2)', seed: 141 + i });
+      const h = t - t0 - this.fl;
+      if (h > 0 && h < 0.6) { sprite(ctx, FI, E.x, E.y - 6 - 10 * ease(h / 0.6), 34 * (1 + 0.4 * ease(h / 0.6)), 0, 0.7 * (1 - h / 0.6), true); impact(ctx, E, h, 'rgba(255,200,140,.55)', 'rgba(255,80,20,.3)'); }
+    });
+  },
+};
+
 /* ---------- fight layout ---------- */
 const FW = 360, FH = 560;
 function layout() {
@@ -314,9 +622,10 @@ function build(G) {
   sec.querySelectorAll('[data-live]').forEach(b => b.addEventListener('click', () => { st.live = b.dataset.live; st.liveT = st.simT; sec.querySelectorAll('[data-live]').forEach(x => x.setAttribute('aria-pressed', String(x === b))); }));
   sec.querySelector('[data-again]').addEventListener('click', () => { st.fightT0 = st.simT; });
   const C = {}; sec.querySelectorAll('canvas').forEach(cv => { C[cv.dataset.c] = { cv, ctx: cv.dataset.c === 'fight' ? setup(cv, FW, FH) : setup(cv, CELL.w, CELL.h) }; });
-  Object.values(G.nu).forEach(s => img(s.src)); (FX[G.fx].pics || []).forEach(img); if (G.live) Object.values(G.live).forEach(s => img(s.src)); if (G.still) img(G.still.src);
-  st.liveT = 0; st.vis = true;
-  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; }, { rootMargin: '200px' }).observe(sec);
+  st.liveT = 0; st.vis = false; st.loaded = false;   // her sheets load when she first comes into view (20 goddesses on one page)
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.vis = es[es.length - 1].isIntersecting; }, { rootMargin: '300px' }).observe(sec); else st.vis = true;
+  st.near = true;   // far from the screen (two screens away) her pictures are let go and load again when she comes back
+  if ('IntersectionObserver' in window) new IntersectionObserver(es => { st.near = es[es.length - 1].isIntersecting; }, { rootMargin: '2000px 0px' }).observe(sec);
   return { G, C, st, cell: fitCell(G) };
 }
 
@@ -343,11 +652,13 @@ function drawFight(V, t) {
   const I = N.idle.dur, A = N.app.dur, S = A + I, D = N.atk.dur, rel = S + N.atk.rel / N.atk.n * D;
   const end = S + D + I * Math.max(1, Math.ceil((rel + fx.dur - (S + D)) / I)), X = A / 1.5, T = end + X + 0.6;
   const u = t % T, P = place(N.idle, L.ax, L.foot, L.figH), PA = place(N.atk, L.ax, L.foot, L.figH);
-  const F = { enemies: L.enemies, allies: L.allies, wf: pt(PA, N.atk.wf), wf2: N.atk.wf2 ? pt(PA, N.atk.wf2) : null, rel, end, lag2: ((N.atk.rel2 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D };
-  const hits = fx.hits(F), hp = { e: [1, 1, 1, 1, 1], a: Array(5).fill(fx.allyHp0 || 1) };   // a healer's allies come in hurt, so the heal shows on their bars
+  const F = { enemies: L.enemies, allies: L.allies, wf: pt(PA, N.atk.wf), wf2: N.atk.wf2 ? pt(PA, N.atk.wf2) : null, wf3: N.atk.wf3 ? pt(PA, N.atk.wf3) : null, rel, end, lag2: ((N.atk.rel2 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D, lag3: ((N.atk.rel3 ?? N.atk.rel) - N.atk.rel) / N.atk.n * D };
+  const hits = fx.hits(F), hp0 = (v, d) => Array.isArray(v) ? [...v] : Array(5).fill(v || d);
+  const hp = { e: hp0(fx.enemyHp0, 1), a: hp0(fx.allyHp0, 1) };   // a healer's allies come in hurt, so the heal shows on their bars; Death's target comes in wounded
   hits.forEach(h => { if (u >= rel + h.at) hp[h.who][h.i] += h.heal ? h.heal : -(h.small ? 0.02 : 0.16); });
   L.enemies.forEach((p, i) => token(ctx, p, '#e8675f', clamp(hp.e[i], 0, 1)));
   L.allies.forEach((p, i) => token(ctx, p, '#5cc591', clamp(hp.a[i], 0, 1)));
+  if (fx.pre) fx.pre(ctx, F, u - rel);   // what the enemies carry before the blow (Destruction: their shields)
   if (u < A) drawFrame(ctx, N.app, frameAt(N.app, u), place(N.app, L.ax, L.foot, L.figH));
   else if (u >= S && u < S + D) drawFrame(ctx, N.atk, frameAt(N.atk, u - S), place(N.atk, L.ax, L.foot, L.figH));
   else if (u >= end && u < end + X) drawFrame(ctx, N.app, N.app.n - 1 - frameAt(N.app, (u - end) * 1.5), place(N.app, L.ax, L.foot, L.figH));
@@ -358,12 +669,21 @@ function drawFight(V, t) {
 }
 
 const VIEWS = HG.map(build);
+{ const toc = document.getElementById('toc'); if (toc) toc.innerHTML = HG.map(G => `<a href="#${G.id}"${G.accepted ? ' class="ok" title="принята"' : ''}>${G.name}</a>`).join(''); }
 let last = performance.now() / 1000, sim = 0;
 function frame() {
   const now = performance.now() / 1000; if (!window.hgHold) sim += Math.min(0.1, now - last) * SPEED.v; last = now;
   for (const V of VIEWS) {
-    V.st.simT = sim; if (!V.st.vis) continue; const N = V.G.nu;
+    V.st.simT = sim;
     try {
+      if (V.st.loaded && !V.st.near) { herPics(V.G).forEach(dropImg); V.st.loaded = false; V.st.back = true; }
+      if (!V.st.vis) continue;
+      if (!V.st.loaded) { V.st.loaded = true; herPics(V.G).forEach(img); }
+      if (V.st.back) {   // coming back after her pictures were let go: keep the last drawn picture until they are decoded again
+        if (!herPics(V.G).every(src => { const i = img(src); return i.failed || (i.complete && i.naturalWidth > 0); })) continue;
+        V.st.back = false;
+      }
+      const N = V.G.nu;
       drawLive(V, sim);
       drawCell(V.C.idle.ctx, N.idle, sim, 'loop', V.cell);
       drawCell(V.C.app.ctx, N[V.st.app] || N.app, sim - V.st.cellT0.app, 'once', V.cell);

@@ -155,3 +155,13 @@ Full texts: `pipeline/v2/tests/` (they are also the linter's "must pass" set).
 - IDEA (Maxim 27.11): every goddess her own entrance kind, always with body motion: Order — lines of light fill her (liked
   26.11); others e.g. rising out of a whirl of her element, a bud that opens round her, a cocoon of threads that unwinds while
   she straightens up.
+
+- CHECK 58 (27.11, own find while wiring 16 goddesses): Does an effect picture cut from the clip or the art fly as a box —
+  a rectangle of cloth, skin, haze or background round the fire / skull / scales? Cut it with the soft oval mask
+  (`fxpic.py … ell`) or take a cleaner frame; a dark metal attribute (Retribution's scales on the art) reads as a dark blot
+  at fight size — take the glowing version from the clip.
+- CHECK 59 (27.11): Does a gray or teal haze box stay round the figure in a sheet (matting kept the smoke)? Re-cut that slot
+  with KL_DESMOKE=1 (`pipeline/hg/cut_opts.json`).
+- IDEA (27.11): the projectile is the clip's own effect cut from the release frame — Chaos's arcs, Destruction's rocks,
+  Death's green flame, Mercy's petals, Terra's crystal; flight pictures cut from the art (orbs, skulls, mirrors) only where the
+  clip has none.

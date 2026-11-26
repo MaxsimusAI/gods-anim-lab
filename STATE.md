@@ -4,6 +4,16 @@ Site: https://maxsimusai.github.io/gods-anim-lab/ (v119+, 15.11.2026). Rules: sk
 Statuses (skill, section 4): `new | shot | published | protected | re-cut needed | re-shoot (Maxim named it) | re-shoot (a gate fails) | waits for his look`.
 Clip and game effect are tracked separately. "12.11 take" = the sheet under `assets/sheets/v20/` («вчера» on the stand).
 
+
+## Higher goddesses (page higher.html), 27.11
+
+- PROTECTED (Maxim 27.11 01:29): Order, Plague, Fate, Life — v5 idle, entrance, skill and their game effects; Order's entrance
+  of 26.11 («прежнее»).
+- Published 27.11, wait for his look: Creation, Oblivion, Pride, Sun, Terra, Flame, War, Famine, Eternity, Retribution, Void,
+  Chaos, Mercy, Death, Destruction, Wrath (BT only; cards in `cards/higher/`).
+- No accepted art, not made: Umbra, Ocean, Time, Pogibel, Fear.
+- Next: his look at the 16; Titan Idols style only on his command.
+
 ## Done 13.11 evening (site v27-v28, no credits)
 
 The 12.11 source videos of gods 1-5 were found (Maxim's computer: `…\scratch\kling\kitsune\v2\`, `…\scratch\kling\athena\`,

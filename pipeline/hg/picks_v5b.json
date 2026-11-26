@@ -1,0 +1,82 @@
+{
+ "creation": {
+  "idle": "a",
+  "app": "a",
+  "atk": "b"
+ },
+ "oblivion": {
+  "idle": "a",
+  "app": "a",
+  "atk": "b"
+ },
+ "pride": {
+  "idle": "b",
+  "app": "b",
+  "atk": "rb"
+ },
+ "sun": {
+  "idle": "b",
+  "app": "ra",
+  "atk": "a"
+ },
+ "terra": {
+  "idle": "b",
+  "app": "a",
+  "atk": "b"
+ },
+ "flame": {
+  "idle": "b",
+  "app": "a",
+  "atk": "b"
+ },
+ "war": {
+  "idle": "b",
+  "app": "a",
+  "atk": "b"
+ },
+ "famine": {
+  "idle": "a",
+  "app": "b",
+  "atk": "b"
+ },
+ "eternity": {
+  "idle": "b",
+  "app": "a",
+  "atk": "a"
+ },
+ "retribution": {
+  "idle": "a",
+  "app": "a",
+  "atk": "a"
+ },
+ "void": {
+  "idle": "b",
+  "app": "a",
+  "atk": "rb"
+ },
+ "chaos": {
+  "idle": "a",
+  "app": "a",
+  "atk": "b"
+ },
+ "mercy": {
+  "idle": "a",
+  "app": "b",
+  "atk": "a"
+ },
+ "death": {
+  "idle": "a",
+  "app": "b",
+  "atk": "b"
+ },
+ "destruction": {
+  "idle": "b",
+  "app": "b",
+  "atk": "a"
+ },
+ "wrath": {
+  "idle": "b",
+  "app": "a",
+  "atk": "a"
+ }
+}

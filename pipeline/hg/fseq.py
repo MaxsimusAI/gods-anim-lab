@@ -11,6 +11,7 @@ async def main():
         errs = []; pg.on('pageerror', lambda e: errs.append(str(e))); pg.on('console', lambda m: m.type == 'error' and errs.append(m.text))
         await pg.goto('http://localhost:8765/higher.html'); await pg.wait_for_timeout(2500)
         el = await pg.query_selector(f'#{god} canvas[data-c=fight]')
+        await el.scroll_into_view_if_needed(); await pg.wait_for_timeout(1800)   # her sheets load when she comes into view
         shots = []
         for t in ts:
             await pg.evaluate(f'window.hgSeek({t})'); await pg.wait_for_timeout(250)
