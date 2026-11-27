@@ -11,7 +11,11 @@ Clip and game effect are tracked separately. "12.11 take" = the sheet under `ass
   of 26.11 («прежнее»).
 - Published 27.11, wait for his look: Creation, Oblivion, Pride, Sun, Terra, Flame, War, Famine, Eternity, Retribution, Void,
   Chaos, Mercy, Death, Destruction, Wrath (BT only; cards in `cards/higher/`).
-- No accepted art, not made: Umbra, Ocean, Time, Pogibel, Fear.
+- Made 27.11 evening (stand v15), wait for his look: Time, Pogibel, Fear, Umbra, Ocean (art of task 238; Fear's drawing
+  assumed — he named no variant). Weak spots told to him: Umbra (black trail of the cut to two corners, in all 4 variants),
+  Pogibel (sunset dome reaches the side edges ~1 s), Fear (cleaver at the top edge ~0.25 s on the wind-up; thorns to the
+  sides), Ocean (entrance water along the whole bottom; skill water hides her below the chest ~1 s), Time (staff above the
+  head near the top edge; sand runs out of the bottom at the start).
 - 27.11 after his remarks of 04:08 (stand v14): all 20 re-cut with matte v3 (protected four: re-cut only, same moments);
   re-shot War skill, Famine skill, Eternity idle, Retribution idle and skill, Void skill, Chaos skill, Mercy skill,
   Destruction entrance and skill, Terra skill, Wrath entrance and skill, Flame entrance and skill — each waits for his look.

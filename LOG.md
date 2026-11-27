@@ -477,3 +477,17 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   (the new cut made her face translucent in frame 16). Weight against the sheets before 27.11: files 97 %, memory 100 %;
   above +10 %: Order skill 806→919 KB, Sun entrance, Life idle/entrance, Pride skill, Creation entrance (+10–14 %).
 
+- 27.11 22:39, Maxim (verbatim): «Чат GPT нарисовал всех высших богов. Вот, принимай и делай анимации. Посмотри все условия и
+  правила, про которые мы делали высших богов, 20 штук новых. Вот, и сделай все так же для вот, 5 дорисованных. И покажи это
+  все итогово также на том интерактивном сайте всех высших богов.» Picks of the drawings (task 238 of the game repo): «у тьмы
+  берем третий вариант, а, у воды берем второй вариант, у времени берем первый вариант, у погибели берем а, третий вариант.»
+  Fear: no variant named — the latest drawing (fear-full-v4, amethyst cleaver) was taken; told him.
+- 27.11 ~22:45–00:10: the five made like the twenty (cards `cards/higher/{time,pogibel,fear,umbra,ocean}.md`):
+  - Kling 4.0, 3 s, 720p, 2 variants per job; 15 jobs + 4 retakes of the skill (one change each: Umbra — no smoke/trail
+    (Kling kept the trail), Fear — low sweep instead of the chop (cleaver was half out of the top), Time — still facing the
+    viewer (both variants spun and showed her back), Pogibel — the cape stays down (it flew up and was cut by the top)).
+    19 jobs = 1 140 credits; 20 528 left. Ids `pipeline/hg/kling_tasks_2711b.json`.
+  - Sheets: matte v3 (`hgcut3.py`), one scale per goddess; effect pictures cut from matted clip frames (`fxframe.py`, `fxpic.py`).
+  - Game effects FX.time / pogibel / fear / umbra / ocean in `assets/hg/hg-stand.js`; shots from the clip's own effect
+    (sand ring and hourglass, sunset dome, thorns at her feet, the black sun at her chest, the wave crest and the water sphere)
+    and swing round her head, not through it. Stand v15 (`pipeline/hg/add5.py` appends the five; hgdata.py needs the old workspace).
