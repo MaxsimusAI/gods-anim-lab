@@ -6,6 +6,7 @@ s = open(f'{REPO}/assets/hg/hg-data.js').read(); i = s.index('const HG = ') + le
 arr, _ = json.JSONDecoder().raw_decode(s[i:]); st = open(f'{REPO}/assets/hg/hg-stand.js').read()
 used = {sh['src'].split('?')[0] for G in arr for grp in ('nu', 'live') for sh in (G.get(grp) or {}).values()}
 used |= {f'assets/hg/new/{n}.webp' for n in re.findall(r"NEW\('([^']+)'\)", st)}
+used |= set(re.findall(r'assets/hg/new/[\w-]+\.webp', st))   # the effect pictures of Order, Plague, Fate, Life are written out in full
 for u in sorted(used): os.makedirs(os.path.dirname(f'{out}/{u}'), exist_ok=True); shutil.copy(f'{REPO}/{u}', f'{out}/{u}')
 open(f'{out}/assets/hg/hg-data.js', 'w').write(re.sub(r'\.webp\?v=\d+', '.webp', s))
 st2 = st.replace("`assets/hg/new/${n}.webp?v=${typeof HG_V === 'undefined' ? 0 : HG_V}`", "`assets/hg/new/${n}.webp`")
