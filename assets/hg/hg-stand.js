@@ -575,6 +575,131 @@ FX.wrath = { // «Кара пламени»: tongues of fire leave the ring her 
   },
 };
 
+FX.umbra = { // «Затмение»: small eclipses leave the black sun at her chest and sink over every enemy: a black disc with a silver rim hangs over each one - no super strike, no ult; the Darkness gods of her team (on the stand the 1st and 4th ally) light up with black-violet light
+  dur: 3.4, pics: [NEW('umbra-eclipse')], fl: 0.45, dark: [0, 3],
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 000', '#d9d2ff')); },
+  draw(ctx, F, t) {
+    const [EC] = this.pics, S = F.wf, end = F.end - F.rel;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, EC, S, arcUp(S, E, 40, (E.x - S.x) * 0.2 + Math.sign(E.x - S.x || 1) * 90), E, ease(u), 34 * (1 - 0.3 * clamp(u, 0, 1)), { trail: 6, ta: 0.25, c0: 'rgba(235,235,255,.35)', c1: 'rgba(90,60,160,.25)', seed: 151 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(230,230,255,.45)', 'rgba(80,50,150,.3)');
+      const a = life(h, end - t0 - this.fl);
+      if (a > 0) {   // sealed: a dark film round him, her small eclipse over his head
+        film(ctx, E, a * 0.8, 23, '40,25,70', '225,225,255');
+        sprite(ctx, EC, E.x, E.y - 32 + Math.sin(h * 2.2 + i) * 2, 22, 0, a, false);
+      }
+    });
+    this.dark.forEach((k, j) => {   // her Darkness gods: black-violet light rises through them
+      const A = F.allies[k], h = t - 0.2 - j * 0.08, a = life(h, end - 0.2);
+      if (a > 0) { film(ctx, A, a * 0.9, 25, '110,60,200', '210,200,255'); add(ctx, () => glow(ctx, A.x, A.y - 4 - 6 * Math.sin(h * 3), 12, 'rgba(200,180,255,.4)', 'rgba(90,40,180,.2)', a * 0.7)); }
+    });
+  },
+};
+FX.ocean = { // «Прилив»: the shields of the enemies wash off first; curls of the wave she raised strike every enemy; the water sphere of her palm sends a sphere to every ally and heals him - her Water gods (on the stand the 2nd and 4th ally) twice as much
+  dur: 2.9, pics: [NEW('ocean-wave'), NEW('ocean-sphere')], fl: 0.45, water: [1, 3], allyHp0: [0.6, 0.5, 0.62, 0.5, 0.58],
+  hits(F) {
+    const out = F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 100', '#a8f2ff'));
+    F.allies.forEach((A, i) => { const w = this.water.includes(i); out.push({ who: 'a', i, at: F.lag2 + 0.5 + i * 0.05, n: w ? '+6 200' : '+3 100', c: '#b9ff9a', heal: w ? 0.44 : 0.22 }); });
+    return out;
+  },
+  pre(ctx, F, t) {   // the enemies come with shields; as the wave rises the shields run off them as water, before the blow lands
+    const [, SP] = this.pics;
+    F.enemies.forEach((E, i) => {
+      const k = t - 0.04 - Math.abs(i - 2) * 0.03;
+      if (k < 0) film(ctx, E, 0.9, 24, '120,190,255', '200,230,255');
+      else if (k < 0.38) {
+        const q = k / 0.38;
+        film(ctx, { x: E.x, y: E.y + 12 * ease(q) }, 0.9 * (1 - q), 24 * (1 - 0.25 * q), '90,200,255', '200,240,255');
+        for (let j = 0; j < 3; j++) sprite(ctx, SP, E.x + (j - 1) * 14, E.y + 8 + 26 * q * q + j * 2, 7, 0, 1 - q, true);
+      }
+    });
+  },
+  draw(ctx, F, t) {
+    const [WV, SP] = this.pics, S = F.wf, end = F.end - F.rel;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, WV, S, arcUp(S, E, 30, (E.x - S.x) * 0.25 + (i === 2 ? 80 : 0)), E, ease(u), 40, { dir: 1, trail: 6, gap: 0.03, ta: 0.25, c0: 'rgba(170,245,255,.45)', c1: 'rgba(20,160,200,.25)', seed: 161 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(180,245,255,.55)', 'rgba(20,170,210,.3)');
+      if (h > 0 && h < 0.55) sprite(ctx, WV, E.x, E.y - 4 - 8 * ease(h / 0.55), 36 * (1 + 0.4 * ease(h / 0.55)), -Math.PI / 2, 0.8 * (1 - h / 0.55), true);   // the curl breaks over him
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = F.lag2 + i * 0.05, fl = 0.5, u = (t - t0) / fl, P2 = F.wf2 || F.wf, w = this.water.includes(i);
+      shot(ctx, SP, P2, arcLow(P2, A, 16), A, ease(u), w ? 30 : 24, { trail: 5, c0: 'rgba(170,250,255,.5)', c1: 'rgba(30,170,210,.25)', seed: 171 + i });
+      const h = t - t0 - fl;
+      if (h > 0 && h < 0.8) {   // the sphere bursts into the green-blue light of healing; twice as strong on her Water gods
+        const q = h / 0.8, r = (w ? 26 : 18) + (w ? 16 : 10) * ease(q);
+        add(ctx, () => glow(ctx, A.x, A.y, r, 'rgba(200,255,210,.55)', 'rgba(40,190,170,.3)', clamp(h / 0.1, 0, 1) * (1 - q)));
+        if (w) film(ctx, A, (1 - q) * 0.9, 26, '60,210,230', '210,255,250');
+      }
+    });
+  },
+};
+FX.fear = { // «Оцепенение»: a violet thorn of the ring her blow raised (left and right of her feet) flies at every enemy; a ring of her thorns rises round each one - stunned 3 s; a cold gray-violet film stays on him longer - weaker blows (6 s in the game)
+  dur: 3.8, pics: [NEW('fear-thorn')], fl: 0.42,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-1 900', '#e2c6ff')); },
+  draw(ctx, F, t) {
+    const [TH] = this.pics, end = F.end - F.rel;
+    F.enemies.forEach((E, i) => {
+      const S = i < 2 ? (F.wf2 || F.wf) : F.wf, t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;   // from the thorns at her left foot to the left enemies, at her right foot to the others: round her, not through her
+      shot(ctx, TH, S, arcUp(S, E, 30, (E.x - S.x) * 0.2 + (i < 2 ? -90 : 90)), E, ease(u), 34, { dir: 1, trail: 6, ta: 0.25, c0: 'rgba(225,190,255,.45)', c1: 'rgba(130,40,220,.25)', seed: 181 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(225,195,255,.5)', 'rgba(130,40,220,.3)');
+      const st = life(h, 3.0), wk = life(h, Math.min(6.0, end - t0 - this.fl));
+      if (wk > 0) film(ctx, E, (st > 0 ? 0.35 : 0.65) * wk, 22, '120,110,150', '205,195,235');   // weaker: the cold gray-violet film outlasts the stun
+      if (st > 0) {   // stunned: a ring of her thorns rises round him, the back ones first
+        film(ctx, E, st * 0.7, 24, '150,70,230', '225,200,255');
+        const rise = ease(clamp(h / 0.25, 0, 1));
+        for (const j of [4, 3, 5, 2, 0, 1]) { const q = j * Math.PI / 3 + Math.PI / 6; sprite(ctx, TH, E.x + Math.cos(q) * 20, E.y + 10 + Math.sin(q) * 7 - 8 * rise, 20 * rise, Math.cos(q) * 0.35, st, false); }
+      }
+    });
+  },
+};
+FX.time = { // «Поворот времён»: streams of her amber sand leave the ring that closed round her shoulders (the middle one her hourglass) and strike every enemy; her hourglass flies to every ally and turns over on him - he is ready to strike at once; her sand keeps circling each ally - faster blows (6 s in the game)
+  dur: 3.4, pics: [NEW('time-sand'), NEW('time-glass')], fl: 0.42,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-1 900', '#ffd98a')); },
+  draw(ctx, F, t) {
+    const [SA, GL] = this.pics, end = F.end - F.rel, G3 = F.wf3 || F.wf;
+    F.enemies.forEach((E, i) => {
+      const S = i < 2 ? F.wf : i > 2 ? (F.wf2 || F.wf) : G3, t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, SA, S, arcUp(S, E, 30, (E.x - S.x) * 0.25), E, ease(u), 38, { dir: 1, trail: 8, gap: 0.025, ta: 0.3, c0: 'rgba(255,225,150,.45)', c1: 'rgba(240,150,30,.25)', seed: 191 + i });
+      const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(255,230,160,.55)', 'rgba(240,150,30,.3)');
+      if (h > 0 && h < 0.6) for (let j = 0; j < 3; j++) sprite(ctx, SA, E.x + Math.cos(h * 6 + j * 2.1) * 16, E.y + Math.sin(h * 6 + j * 2.1) * 6, 16, h * 6 + j * 2.1, 0.8 * (1 - h / 0.6), true);   // the sand winds round him and falls away
+    });
+    F.allies.forEach((A, i) => {
+      const t0 = 0.12 + i * 0.05, fl = 0.45, u = (t - t0) / fl;
+      shot(ctx, GL, G3, { x: (G3.x + A.x) / 2 + (A.x - G3.x) * 0.3, y: G3.y + 40 }, A, ease(u), 26, { trail: 5, ta: 0.25, c0: 'rgba(255,225,150,.45)', c1: 'rgba(240,150,30,.2)', seed: 197 + i });
+      const h = t - t0 - fl, a = life(h - 0.45, Math.min(6.0, end - t0 - fl) - 0.45);
+      if (h > 0 && h < 0.6) {   // the hourglass turns over on him: ready at once
+        sprite(ctx, GL, A.x, A.y - 30, 24, Math.PI * ease(h / 0.4), clamp((0.6 - h) / 0.2, 0, 1), false);
+        add(ctx, () => glow(ctx, A.x, A.y, 18 + 14 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(240,160,40,.28)', clamp(h / 0.1, 0, 1) * (1 - h / 0.6)));
+      }
+      if (a > 0) {   // faster: her sand circles him
+        film(ctx, A, a * 0.7, 24, '240,170,60', '255,230,170');
+        for (let j = 0; j < 2; j++) { const q = h * 4 + j * Math.PI + i; sprite(ctx, SA, A.x + Math.cos(q) * 22, A.y + Math.sin(q) * 8, 14, q + Math.PI / 2, a * 0.9, true); }
+      }
+    });
+  },
+};
+FX.pogibel = { // «Багровый закат»: from the crest of the sunset dome her blow raised, a crimson sun like the head of her morning star flies at every enemy; over each one a small crimson sunset rises and the sun sinks into it
+  dur: 2.8, pics: [NEW('pogibel-sun')], fl: 0.45,
+  hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 300', '#ffb08a')); },
+  draw(ctx, F, t) {
+    const [SU] = this.pics, S = F.wf;
+    F.enemies.forEach((E, i) => {
+      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, SU, S, arcUp(S, E, 50, (E.x - S.x) * 0.2 + Math.sign(E.x - S.x || 1) * 90), E, ease(u), 30, { spin: 3, trail: 7, ta: 0.3, c0: 'rgba(255,190,130,.5)', c1: 'rgba(220,40,20,.3)', seed: 201 + i });
+      const h = t - t0 - this.fl;
+      if (h > 0 && h < 0.9) {   // a small sunset over him: a crimson half-dome of light grows from the ground line and the sun sinks into it
+        const q = h / 0.9, a = clamp(h / 0.12, 0, 1) * (1 - q * q), r = 14 + 18 * ease(h / 0.5);
+        ctx.save(); ctx.beginPath(); ctx.rect(E.x - 40, E.y - 60, 80, 70); ctx.clip();
+        add(ctx, () => { const g = ctx.createRadialGradient(E.x, E.y + 10, 2, E.x, E.y + 10, r); g.addColorStop(0, `rgba(255,220,150,${0.8 * a})`); g.addColorStop(0.55, `rgba(240,90,40,${0.55 * a})`); g.addColorStop(1, 'rgba(160,20,30,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(E.x, E.y + 10, r, Math.PI, 0); ctx.fill(); });
+        sprite(ctx, SU, E.x, E.y - 4 + 14 * ease(q), 22 * (1 - 0.4 * q), h * 2, a, false);
+        ctx.restore();
+      }
+      impact(ctx, E, h, 'rgba(255,200,150,.5)', 'rgba(220,50,20,.3)');
+    });
+  },
+};
 
 /* ---------- fight layout ---------- */
 const FW = 360, FH = 560;
