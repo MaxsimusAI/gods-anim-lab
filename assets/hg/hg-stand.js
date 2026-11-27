@@ -575,19 +575,19 @@ FX.wrath = { // «Кара пламени»: tongues of fire leave the ring her 
   },
 };
 
-FX.umbra = { // «Затмение»: small eclipses leave the black sun at her chest and sink over every enemy: a black disc with a silver rim hangs over each one - no super strike, no ult; the Darkness gods of her team (on the stand the 1st and 4th ally) light up with black-violet light
+FX.umbra = { // «Затмение»: small eclipses leave the black sun at her chest up and to the right (round her head), then sink over every enemy: a black disc with a silver rim hangs over each one - no super strike, no ult; the Darkness gods of her team (on the stand the 1st and 4th ally) light up with black-violet light
   dur: 3.4, pics: [NEW('umbra-eclipse')], fl: 0.45, dark: [0, 3],
   hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 000', '#d9d2ff')); },
   draw(ctx, F, t) {
     const [EC] = this.pics, S = F.wf, end = F.end - F.rel;
     F.enemies.forEach((E, i) => {
       const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
-      shot(ctx, EC, S, arcUp(S, E, 40, (E.x - S.x) * 0.2 + Math.sign(E.x - S.x || 1) * 90), E, ease(u), 34 * (1 - 0.3 * clamp(u, 0, 1)), { trail: 6, ta: 0.25, c0: 'rgba(235,235,255,.35)', c1: 'rgba(90,60,160,.25)', seed: 151 + i });
+      shot(ctx, EC, S, { x: S.x + 60, y: Math.min(S.y, E.y) - 40 }, E, ease(u), 34 * (1 - 0.3 * clamp(u, 0, 1)), { trail: 3, gap: 0.04, ta: 0.15, c0: 'rgba(235,235,255,.35)', c1: 'rgba(90,60,160,.25)', seed: 151 + i });
       const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(230,230,255,.45)', 'rgba(80,50,150,.3)');
       const a = life(h, end - t0 - this.fl);
       if (a > 0) {   // sealed: a dark film round him, her small eclipse over his head
         film(ctx, E, a * 0.8, 23, '40,25,70', '225,225,255');
-        sprite(ctx, EC, E.x, E.y - 32 + Math.sin(h * 2.2 + i) * 2, 22, 0, a, false);
+        sprite(ctx, EC, E.x, E.y - 48 + Math.sin(h * 2.2 + i) * 2, 22, 0, a, false);   // above his health bar
       }
     });
     this.dark.forEach((k, j) => {   // her Darkness gods: black-violet light rises through them
@@ -604,14 +604,14 @@ FX.ocean = { // «Прилив»: the shields of the enemies wash off first; cur
     return out;
   },
   pre(ctx, F, t) {   // the enemies come with shields; as the wave rises the shields run off them as water, before the blow lands
-    const [, SP] = this.pics;
+    const [WV] = this.pics;
     F.enemies.forEach((E, i) => {
       const k = t - 0.04 - Math.abs(i - 2) * 0.03;
       if (k < 0) film(ctx, E, 0.9, 24, '120,190,255', '200,230,255');
       else if (k < 0.38) {
         const q = k / 0.38;
         film(ctx, { x: E.x, y: E.y + 12 * ease(q) }, 0.9 * (1 - q), 24 * (1 - 0.25 * q), '90,200,255', '200,240,255');
-        for (let j = 0; j < 3; j++) sprite(ctx, SP, E.x + (j - 1) * 14, E.y + 8 + 26 * q * q + j * 2, 7, 0, 1 - q, true);
+        for (let j = 0; j < 3; j++) sprite(ctx, WV, E.x + (j - 1) * 15, E.y + 10 + 24 * q * q + j * 2, 16, Math.PI / 2 + (j - 1) * 0.5, 0.9 * (1 - q), true);
       }
     });
   },
@@ -645,7 +645,7 @@ FX.fear = { // «Оцепенение»: a violet thorn of the ring her blow rai
       shot(ctx, TH, S, arcUp(S, E, 30, (E.x - S.x) * 0.2 + (i < 2 ? -90 : 90)), E, ease(u), 34, { dir: 1, trail: 6, ta: 0.25, c0: 'rgba(225,190,255,.45)', c1: 'rgba(130,40,220,.25)', seed: 181 + i });
       const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(225,195,255,.5)', 'rgba(130,40,220,.3)');
       const st = life(h, 3.0), wk = life(h, Math.min(6.0, end - t0 - this.fl));
-      if (wk > 0) film(ctx, E, (st > 0 ? 0.35 : 0.65) * wk, 22, '120,110,150', '205,195,235');   // weaker: the cold gray-violet film outlasts the stun
+      if (wk > 0) film(ctx, E, (0.35 + 0.35 * (1 - st)) * wk, 22, '150,120,200', '215,200,245');   // weaker: the cold gray-violet film outlasts the stun
       if (st > 0) {   // stunned: a ring of her thorns rises round him, the back ones first
         film(ctx, E, st * 0.7, 24, '150,70,230', '225,200,255');
         const rise = ease(clamp(h / 0.25, 0, 1));
@@ -654,7 +654,7 @@ FX.fear = { // «Оцепенение»: a violet thorn of the ring her blow rai
     });
   },
 };
-FX.time = { // «Поворот времён»: streams of her amber sand leave the ring that closed round her shoulders (the middle one her hourglass) and strike every enemy; her hourglass flies to every ally and turns over on him - he is ready to strike at once; her sand keeps circling each ally - faster blows (6 s in the game)
+FX.time = { // «Поворот времён»: streams of her amber sand leave the ring that closed round her shoulders (the middle one her hourglass) and strike every enemy; her hourglass flies out to her side, past her, to every ally and turns over on him - he is ready to strike at once; her sand keeps circling each ally - faster blows (6 s in the game)
   dur: 3.4, pics: [NEW('time-sand'), NEW('time-glass')], fl: 0.42,
   hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-1 900', '#ffd98a')); },
   draw(ctx, F, t) {
@@ -667,10 +667,11 @@ FX.time = { // «Поворот времён»: streams of her amber sand leave 
     });
     F.allies.forEach((A, i) => {
       const t0 = 0.12 + i * 0.05, fl = 0.45, u = (t - t0) / fl;
-      shot(ctx, GL, G3, { x: (G3.x + A.x) / 2 + (A.x - G3.x) * 0.3, y: G3.y + 40 }, A, ease(u), 26, { trail: 5, ta: 0.25, c0: 'rgba(255,225,150,.45)', c1: 'rgba(240,150,30,.2)', seed: 197 + i });
+      const side = i < 2 ? -1 : 1, AT = { x: A.x, y: A.y - 46 };   // it turns over above his health bar
+      shot(ctx, GL, G3, { x: G3.x + side * 170, y: G3.y - 20 }, AT, ease(u), 26, { trail: 5, ta: 0.25, c0: 'rgba(255,225,150,.45)', c1: 'rgba(240,150,30,.2)', seed: 197 + i });
       const h = t - t0 - fl, a = life(h - 0.45, Math.min(6.0, end - t0 - fl) - 0.45);
       if (h > 0 && h < 0.6) {   // the hourglass turns over on him: ready at once
-        sprite(ctx, GL, A.x, A.y - 30, 24, Math.PI * ease(h / 0.4), clamp((0.6 - h) / 0.2, 0, 1), false);
+        sprite(ctx, GL, AT.x, AT.y, 24, Math.PI * ease(h / 0.4), clamp((0.6 - h) / 0.2, 0, 1), false);
         add(ctx, () => glow(ctx, A.x, A.y, 18 + 14 * ease(h / 0.5), 'rgba(255,235,170,.55)', 'rgba(240,160,40,.28)', clamp(h / 0.1, 0, 1) * (1 - h / 0.6)));
       }
       if (a > 0) {   // faster: her sand circles him
@@ -680,21 +681,19 @@ FX.time = { // «Поворот времён»: streams of her amber sand leave 
     });
   },
 };
-FX.pogibel = { // «Багровый закат»: from the crest of the sunset dome her blow raised, a crimson sun like the head of her morning star flies at every enemy; over each one a small crimson sunset rises and the sun sinks into it
+FX.pogibel = { // «Багровый закат»: when the sunset dome her blow raised stands full, crimson suns like the head of her morning star fly at every enemy - to the left ones from the head of the morning star on the ground, to the others from the right side of the dome, round her, never across her; over each enemy the sun sinks into a small crimson sunset
   dur: 2.8, pics: [NEW('pogibel-sun')], fl: 0.45,
   hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 300', '#ffb08a')); },
   draw(ctx, F, t) {
-    const [SU] = this.pics, S = F.wf;
+    const [SU] = this.pics;
     F.enemies.forEach((E, i) => {
-      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
-      shot(ctx, SU, S, arcUp(S, E, 50, (E.x - S.x) * 0.2 + Math.sign(E.x - S.x || 1) * 90), E, ease(u), 30, { spin: 3, trail: 7, ta: 0.3, c0: 'rgba(255,190,130,.5)', c1: 'rgba(220,40,20,.3)', seed: 201 + i });
+      const S = i < 2 ? F.wf : (F.wf2 || F.wf), t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, SU, S, arcUp(S, E, 50, (E.x - S.x) * 0.2 + (i < 2 ? -90 : 90)), E, ease(u), 30, { spin: 3, trail: 7, ta: 0.3, c0: 'rgba(255,190,130,.5)', c1: 'rgba(220,40,20,.3)', seed: 201 + i });
       const h = t - t0 - this.fl;
-      if (h > 0 && h < 0.9) {   // a small sunset over him: a crimson half-dome of light grows from the ground line and the sun sinks into it
-        const q = h / 0.9, a = clamp(h / 0.12, 0, 1) * (1 - q * q), r = 14 + 18 * ease(h / 0.5);
-        ctx.save(); ctx.beginPath(); ctx.rect(E.x - 40, E.y - 60, 80, 70); ctx.clip();
-        add(ctx, () => { const g = ctx.createRadialGradient(E.x, E.y + 10, 2, E.x, E.y + 10, r); g.addColorStop(0, `rgba(255,220,150,${0.8 * a})`); g.addColorStop(0.55, `rgba(240,90,40,${0.55 * a})`); g.addColorStop(1, 'rgba(160,20,30,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(E.x, E.y + 10, r, Math.PI, 0); ctx.fill(); });
-        sprite(ctx, SU, E.x, E.y - 4 + 14 * ease(q), 22 * (1 - 0.4 * q), h * 2, a, false);
-        ctx.restore();
+      if (h > 0 && h < 0.9) {   // a small sunset over him: a soft crimson glow, flattened like the sky at the horizon; the sun sinks into it and goes out
+        const q = h / 0.9, a = clamp(h / 0.12, 0, 1) * (1 - q * q), r = 16 + 18 * ease(h / 0.5);
+        add(ctx, () => { ctx.save(); ctx.translate(E.x, E.y + 6); ctx.scale(1, 0.6); const g = ctx.createRadialGradient(0, 0, 2, 0, 0, r); g.addColorStop(0, `rgba(255,220,150,${0.75 * a})`); g.addColorStop(0.5, `rgba(240,90,40,${0.5 * a})`); g.addColorStop(1, 'rgba(160,20,30,0)'); ctx.fillStyle = g; ctx.beginPath(); ctx.arc(0, 0, r, 0, 7); ctx.fill(); ctx.restore(); });
+        sprite(ctx, SU, E.x, E.y - 6 + 12 * ease(q), 22 * (1 - 0.4 * q), h * 2, a * (1 - q), false);
       }
       impact(ctx, E, h, 'rgba(255,200,150,.5)', 'rgba(220,50,20,.3)');
     });

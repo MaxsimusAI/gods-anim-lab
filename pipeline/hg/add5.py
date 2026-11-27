@@ -2,10 +2,11 @@
 # hgdata.py cannot be re-run here (it needs the whole cutting workspace of 26-27.11), so this script appends the five entries
 # to assets/hg/hg-data.js (replacing them if present) and bumps the version stamp of every sheet, the data and the stand.
 # Sheets: /home/claude/hgk/sheets3/<god>.json + <god>-bt-<slot>.webp (hgcut3.py, matte v3); release points: rel.json; notes and game-effect lines: notes5.json.
-import json, os, re, shutil
+import json, os, re, shutil, sys
 REPO = '/home/claude/gods-anim-lab'; HG = os.path.dirname(os.path.abspath(__file__)); WS = '/home/claude/hgk'
 REL = json.load(open(f'{HG}/rel.json')); NOTES = json.load(open(f'{HG}/notes5.json')); V = json.load(open(f'{HG}/ver.json'))
-V['v'] += 1; v = V['v']
+if '--same' not in sys.argv: V['v'] += 1   # --same: called by hgdata.py, which already stamped this version
+v = V['v']
 FIVE = [   # skill names and texts from idolrpg src/sim/modes/convergence.js
  ('time', 'Время', 'Поворот времён', 'Атакует каждого врага. Союзники сразу готовы атаковать. Союзники 6 сек атакуют на 15% быстрее.'),
  ('pogibel', 'Погибель', 'Багровый закат', 'Атакует каждого врага.'),
@@ -25,7 +26,8 @@ for gid, name, skill, desc in FIVE:
                     'fig': {k: float(x) for k, x in m[slot]['fig'].items()}, 'kb': m[slot]['kb']}
         nu[slot].update(REL[gid].get(slot, {}))
     N = NOTES[gid]
-    arr.append({'id': gid, 'name': name, 'skill': skill, 'desc': desc, 'fx': gid, 'live': None,
+    lj = f'{WS}/live_{gid}.json'   # the game's own sheets where it has them (livecut.py): Umbra, Ocean
+    arr.append({'id': gid, 'name': name, 'skill': skill, 'desc': desc, 'fx': gid, 'live': json.load(open(lj)) if os.path.exists(lj) else None,
                 'fxNote': N['fx'], 'nu': nu, 'notes': N['notes'], 'accepted': False})
 for G in arr:   # one stamp for every picture: a re-cut under the same name reaches the viewers
     for grp in ('nu', 'live'):

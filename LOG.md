@@ -491,3 +491,11 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   - Game effects FX.time / pogibel / fear / umbra / ocean in `assets/hg/hg-stand.js`; shots from the clip's own effect
     (sand ring and hourglass, sunset dome, thorns at her feet, the black sun at her chest, the wave crest and the water sphere)
     and swing round her head, not through it. Stand v15 (`pipeline/hg/add5.py` appends the five; hgdata.py needs the old workspace).
+- 28.11 ~00:20, fresh-eyes review of the five (14 findings, checked one by one; 13 fixed): shots no longer cross the face
+  (Time — the hourglasses go out to her side first and turn over above the ally's bar; Umbra — the eclipses leave up and to
+  the right, the seal hangs above the health bar; Pogibel — suns from the morning star on the ground and from the right side
+  of the full dome, released at frame 15); Pogibel's sunset over the enemies without the flat clip line; Ocean's shield runs
+  off as little curls of water, not dots; Fear's weak film brightens smoothly; Umbra and Ocean get the «В игре сейчас» cell
+  (game sheets via livecut.py); notes now say the side cuts (Pogibel dome, Ocean naginata, Fear arc), the sword in Umbra's
+  oval, the legs-only start of Fear's entrance; hgdata.py calls add5.py so the five do not drop off. Not fixed (older, not of
+  this change): the effect pictures of Order, Plague, Fate, Life are requested without the ?v= stamp.
