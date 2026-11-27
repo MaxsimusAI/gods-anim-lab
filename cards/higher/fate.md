@@ -33,3 +33,25 @@ prompt: pipeline/hg/prompts/fate_bt_atk.txt
   watch: the shot leaves through the right edge; flying hair breaks up in the matting (gray background vs silver hair).
 
 - 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.
+
+## 27.11 — after Maxim 04:08
+
+This section is current; where the text above differs (takes, release points, game_fx), it describes the work before
+his remarks of 04:08.
+
+All three sheets re-cut with matte v3 (`pipeline/hg/matte3.py`, `hgcut3.py`; anything that runs out of a side of the
+video dissolves over 6 % of the width). Protected take (accepted 01:29): re-cut only, the same 25 moments.
+
+- idle: take `fate_bt_idle_v5b`; sheet 213×262, 557 KB, 5.32 MB
+- entrance: take `fate_bt_app_v5a`; sheet 234×287, 458 KB, 6.4 MB
+- skill: take `fate_bt_atk_v5a`; sheet 246×289, 635 KB, 6.78 MB
+- release: frame 12 wf [0.8, 0.21]
+
+Notes on the stand now (Russian):
+- Ожидание — новый дубль: вокруг неё спиралью вьются золотые нити, как на прялке, и проходят прямо по фигуре; звёзды на плаще мерцают; стоит спокойно, вес с ноги на ногу.
+- Появление — новое: на земле нарастает кокон из золотых нитей, нити раскручиваются, она выходит, отбрасывает волосы, разводит руки; плащ и стрела появляются последними.
+- Умение: широкая стойка, натягивает лук, вокруг тела спиралью бегут золотые нити, выстрел — золотой луч уходит вправо, нити окутывают её.
+- Что не так: выстрел уходит в правый край кадра (в бою стрела вылетает из лука и летит вверх к врагам); волосы и плащ в появлении и после выстрела сильно развеваются влево; верх лука на миг касается верхнего края; около 0,3 с луч ролика ещё уходит вправо, когда игровая стрела уже взлетает из лука, — читается как два выстрела; в появлении и в умении слева прямой срез по краю ролика.
+- Вторые варианты не показываю: в ожидании она поднимает лук и целится; в появлении кокон стоит с первого кадра; в умении поперёк кадра блик-линия.
+- Эффект игры: из лука вылетает её золотая стрела (из её картинки) и падает на самого опасного врага; от него ко всем врагам бежит золотая нить из её ролика и 6 секунд обвивает каждого.
+- Уход — появление задом наперёд.

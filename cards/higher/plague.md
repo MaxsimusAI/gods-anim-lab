@@ -44,3 +44,25 @@ prompts: pipeline/hg/prompts/plague_bt_atk.txt, plague_bt_atk_r1.txt, plague_bt_
   circle, snaps it forward, a cloud of poison fire engulfs her; KL_DESMOKE=2). Release 14, clots from the censer wf [0.49,0.27].
 
 - 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.
+
+## 27.11 — after Maxim 04:08
+
+This section is current; where the text above differs (takes, release points, game_fx), it describes the work before
+his remarks of 04:08.
+
+All three sheets re-cut with matte v3 (`pipeline/hg/matte3.py`, `hgcut3.py`; anything that runs out of a side of the
+video dissolves over 6 % of the width). Protected take (accepted 01:29): re-cut only, the same 25 moments.
+
+- idle: take `plague_bt_idle_v5b`; sheet 249×273, 454 KB, 6.48 MB
+- entrance: take `plague_bt_app_v5b`; sheet 265×318, 535 KB, 8.04 MB
+- skill: take `plague_bt_atk_v5b`; sheet 265×309, 486 KB, 7.81 MB; options {'gs': 2}
+- release: frame 14 wf [0.45, 0.47]
+
+Notes on the stand now (Russian):
+- Ожидание — новый дубль: из кадила текут ленты ядовитого зелёного огня и обвивают её ноги, пояс и руки, проходя прямо по фигуре; под ногами зелёные огоньки, кадило качается.
+- Появление — новое: на земле открывается ядовитый водоворот, она поднимается из него, зелёный вихрь закручивается вверх по телу и становится её платьем, она взмахивает кадилом, и оно ловит последний свет.
+- Умение: раскручивает кадило по кругу у пояса с кольцом зелёного огня, выбрасывает его вперёд — облако ядовитого огня окутывает её целиком, светятся вены и склянки на корсете.
+- Что не так: в появлении волосы на полсекунды взлетают к верхнему краю и кадило на взмахе проходит над головой; в умении кадило на взмахе ненадолго над головой; после облака в ролике был серый дым — вырезал, может остаться лёгкая дымка.
+- Второй вариант умения не показываю: в нём пламя почти секунду поднимается до верха кадра.
+- Эффект игры: сгустки её зелёного огня летят из кадила, когда она выбрасывает его вперёд, и 4 секунды горят на каждом враге.
+- Уход — появление задом наперёд.

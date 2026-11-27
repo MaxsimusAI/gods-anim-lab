@@ -32,3 +32,25 @@ prompt: pipeline/hg/prompts/life_bt_atk.txt
   Release 12 petals from the flower wf [0.44,0.25]; 13 blossoms from the palm wf2 [0.80,0.44].
 
 - 27.11 01:29 ACCEPTED by Maxim («все круто получилось»): the v5 idle, entrance and skill are protected takes.
+
+## 27.11 — after Maxim 04:08
+
+This section is current; where the text above differs (takes, release points, game_fx), it describes the work before
+his remarks of 04:08.
+
+All three sheets re-cut with matte v3 (`pipeline/hg/matte3.py`, `hgcut3.py`; anything that runs out of a side of the
+video dissolves over 6 % of the width). Protected take (accepted 01:29): re-cut only, the same 25 moments.
+
+- idle: take `life_bt_idle_v5b`; sheet 242×276, 621 KB, 6.37 MB
+- entrance: take `life_bt_app_v5a`; sheet 254×292, 547 KB, 7.07 MB
+- skill: take `life_bt_atk_v5b`; sheet 253×305, 717 KB, 7.36 MB
+- release: frame 12 wf [0.53, 0.33]; frame 13 wf2 [0.8, 0.44]
+
+Notes on the stand now (Russian):
+- Ожидание — новый дубль: вокруг неё поднимается спираль из розовых лепестков и проходит прямо по фигуре; по копью распускаются цветы.
+- Появление — новое: огромный розовый бутон раскрывается, она поднимается из него и разводит руки, лепестки разлетаются и становятся её платьем, копьё и цветок на ладони появляются последними.
+- Умение: проводит копьём круг света с лозами и цветами вокруг себя, у её груди раскрывается большой золотой цветок, на неё льётся зелёный свет лечения, по платью распускаются цветы.
+- Что не так: бутон в появлении возникает сразу целиком; копьё в появлении и в конце умения на полсекунды поднимается к верхнему краю.
+- Вторые варианты не показываю: в умении от цветка лучи во все стороны и зелёный столб уходит вверх; в появлении из-под бутона торчат ноги; в ожидании бабочки улетают за верх кадра.
+- Эффект игры: из большого цветка у её груди к каждому врагу летит поток её золотых лепестков; с цветка на ладони к каждому союзнику плывёт её белый цветок и раскрывается зелёным светом лечения.
+- Уход — появление задом наперёд.

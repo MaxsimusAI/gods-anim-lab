@@ -417,3 +417,63 @@ First two: Order (Порядок) and Plague (Чума), as proposed in chat at 
   without the rayed emblem, islands and hard ends removed from the slash and fire pictures, War's crescent without the straight
   strip, a goddess coming back on screen keeps her last picture until her sheets are decoded again, captions (Eternity, Sun,
   Death, Chaos). Two review rounds done (the skill's limit).
+- 27.11 04:08, Maxim (verbatim): «Так, косяки. У порядка круг плохо вырезан, там есть какое-то мерцание, там слева вот особенно.
+  Это не нравится, это надо переделать. У света появление, по-моему, тоже плохо вырезано. Где круг светящийся, по-моему, очень
+  криво. И в целом, по-моему, много косяков в анимации с вырезами. У Земли появление прям и умение прям... Там много косяков.
+  Камень то исчезает, то появляется. Ноги, короче, там на каждом кадре много косяков. Нарезка у огня плохая. У войны проблема в
+  том, что она мечом в бок бьет, и он обрезается, это плохо. У голода тоже проблема с обрезкой умения. Вечность в ожидании
+  странно двигается, это надо переделать, потому что ногу загибает. Возмездие тоже странно двигается, ногу скрещивает. Тоже
+  очень плохо. Удар тоже плохо, что она бьет наотмашь и обрезается меч у нее. У пустоты, по-моему, слишком много эффектов вокруг
+  умений, и как будто из-за этого будут потом проблемы. Видно будет, что обрезано. И в ожидании, по-моему, плохо кадры обрезаны.
+  Там есть места с непрозрачностью. Умение у хаоса, по-моему, тоже перебор. Слишком часто за границей оно выходит, будет криво
+  выглядеть, некрасиво. У милости и в умении не нравится, что круг расходится, он тоже за границей уходит и обрежется. В
+  разрушении тоже, по-моему, есть очень много плохо обрезанных кадров. У гнева, по-моему, тоже очень много проблем с обрезками у
+  всех анимаций. Вот, исправь это все.»
+  He saw → wants:
+  - matting: flicker at the edges of glowing rings (Order, left side), a crooked glowing circle (Sun entrance), the stone and the
+    feet blinking frame to frame (Terra entrance and skill), bad cut (Flame, Destruction, Wrath — all slots), opaque patches
+    (Void idle) → clean, stable cut in every frame.
+  - edges: a sword swung to the side and cut by the frame (War skill, Retribution skill — a backhand), Famine's skill cut by the
+    edge, effects that keep leaving the frame (Chaos skill, Mercy's spreading circle, Void's effects round the skill) → actions
+    and effects that stay inside the frame.
+  - motion: Eternity's idle bends a leg, Retribution crosses her legs → natural idle stance.
+  CLIP: re-cut Order (protected take — re-cut only, same moments), Sun entrance, Terra, Flame, Void idle, Destruction, Wrath;
+  re-shoot War skill, Famine skill, Eternity idle, Retribution idle and skill, Void skill, Chaos skill, Mercy skill.
+- 27.11 ~04:15–06:00, after his remarks of 04:08:
+  - New matte v3 (`pipeline/hg/matte3.py`, cutter `pipeline/hg/hgcut3.py`): every effect is cut by its difference to the flat
+    gray background, the same in every frame; the mask model only decides the solid body; rough stone joined to the body is body;
+    a body pixel lost in one frame is restored from its neighbours. Per clip `g2` for halos and domes (Order all, Sun all, Void
+    idle, Eternity skill). All 20 goddesses re-cut with it (protected takes of Order, Plague, Fate, Life: re-cut only, same
+    moments).
+  - Re-shot (Kling 4.0, 3 s, 720p, 2 variants per job; ids `pipeline/hg/kling_tasks_2711.json`, 22 jobs = 1 320 credits):
+    War skill (v6a: straight cut down, three blades of light at the chest), Famine skill (v6a: whirl no wider than her shoulders),
+    Eternity idle (v6a) and Retribution idle (v6b): feet planted, legs never cross; Retribution skill (v7a: low sweep before
+    the knees, a band of runes; 3rd try), Void skill (v6b: the calmest of 5 tries, Kling keeps adding rays), Chaos skill (v7b:
+    new idea, three diamonds from the sword tip meet at her chest), Mercy skill (v8b: a huge rose on the shield, staff upright; 3rd try),
+    Destruction entrance (v6a: a small pile at her feet) and skill (v6b), Terra skill (v6a: plates close to her feet), Wrath
+    entrance (v6a: a small fire ring) and skill (v7a: low sweep; 3rd try), Flame entrance (v6a: small lava pool) and skill (v6a).
+  - Game effects rebuilt to the new takes (release frame and `wf` re-marked on the new sheets): projectiles cut from the new
+    clips — Chaos (the pink, black and white diamonds, from her chest one after another), Mercy (petals of the rose on her
+    shield; the glowing heart of the staff to the allies), Retribution (a strip of the rune band), War (her three blades of
+    light), Wrath (tongues of fire from the ends and the middle of the ring her low sweep draws); the earlier pictures kept, only
+    the start moved to the new clip — Void (spheres from the sphere at her chest), Terra (crystals where the two at her shoulders
+    go out), Flame (fire from her arc), Destruction (stones from the hammer's impact), Famine (her whirl).
+  - Anything that runs out of a side of the video now dissolves over 6 % of the width (was a 28-px fade that read as a cut:
+    Oblivion's veil, Destruction's ring); all 20 re-cut once more with it. Stand v13 (v14 after the review below).
+- 27.11, fresh-eyes review of the rework (22 findings; checked one by one):
+  - The gray patches flickering on Order's ring, Void's idle loop and Life's idle were made by the cutter itself: a body pixel
+    lost in one frame was restored from its neighbours also where light or smoke had moved. Now it is restored only where the
+    frame looks like both neighbours there. Kling's smooth gray smoke that the mask swallowed (Flame, Wrath, Destruction
+    entrances; Void's idle loop) is neither body nor light (option `gs`); Terra's statue pieces apart from the pillar stay stone
+    (option `kp`); a smooth patch of background gray closed in by a ring or a ribbon stays background. All 20 re-cut (v14).
+  - Effects: War flies her blades of light (was a crescent of the old take), Wrath — tongues of fire from the ends and the
+    middle of the ring (were starting from her middle); the middle shots of War, Wrath and Void swing past the head (round 2
+    of the review: they flew through the face), Terra — released after the clip's crystals go out, paths no longer
+    cross, Chaos — diamonds larger, released before the final slash. Notes corrected where they did not match the clips
+    (Chaos, Mercy, Void, War, Terra, Eternity and Retribution idles).
+- 27.11, second review round (fixes): the outermost body pixel is half background in the video — now half its alpha with
+  the gray taken out (no light rim round dark figures: Plague, War, Flame, Retribution); a lost body pixel is restored again
+  for slightly moving cloth (Eternity's cloak, Famine's hood no longer blink); Life's skill keeps the accepted cut of 26.11
+  (the new cut made her face translucent in frame 16). Weight against the sheets before 27.11: files 97 %, memory 100 %;
+  above +10 %: Order skill 806→919 KB, Sun entrance, Life idle/entrance, Pride skill, Creation entrance (+10–14 %).
+

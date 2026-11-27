@@ -165,3 +165,25 @@ Full texts: `pipeline/v2/tests/` (they are also the linter's "must pass" set).
 - IDEA (27.11): the projectile is the clip's own effect cut from the release frame — Chaos's arcs, Destruction's rocks,
   Death's green flame, Mercy's petals, Terra's crystal; flight pictures cut from the art (orbs, skulls, mirrors) only where the
   clip has none.
+
+- CHECK 60 (Maxim 27.11 04:08 «камень то исчезает, то появляется», «мерцание»): Does any part of the cut blink from frame to
+  frame — a stone, a leg, a ring of light present in one frame and missing or thinner in the next? Look at the sheet frame by
+  frame on the dark background, not only at the stand speed.
+- CHECK 61 (Maxim 27.11 «места с непрозрачностью», «круг светящийся очень криво»): Is a glow, a halo, smoke or a piece of the
+  gray background left as an opaque gray or beige patch or disc?
+- CHECK 62 (Maxim 27.11, War, Retribution, Chaos, Mercy, Void, Famine): Does the weapon swing out to the side or above the head
+  so that the frame cuts it, or does an effect (ring, vortex, rays, a curtain of light, hair or gown flung wide) spread to the
+  frame edges? A held staff counts too (Mercy held it straight out across the frame).
+- CHECK 63 (Maxim 27.11, Eternity, Retribution idles): In an idle, does a leg bend inward, lift, or cross the other one?
+- IDEA (27.11): matte v3 (`pipeline/hg/matte3.py`): the background of the Kling clips is one flat gray (125±2, no grain), so
+  effects are cut by their difference to that gray the same way in every frame and unmixed to their own colour; the mask model
+  only decides the solid body, and only where the pixel has texture or colour; rough dull pixels joined to the body (a stone
+  pillar) count as body; a body pixel lost in one frame but present before and after is restored. Per clip: `g2` (smooth halos
+  and rims are light, not body — Order, Sun, Void idle, Eternity skill), `ds` (gray smoke out).
+- CHECK 64 (27.11, after re-shooting with Maxim's remarks of 04:08): After a re-shoot, does the game effect still start where
+  the OLD take released (an empty corner, the edge of the frame) or fly a picture cut from the old take or from the art that the
+  new clip no longer shows (Mercy's carved rose, Retribution's rune arc, Chaos's three slashes)? Re-mark `wf` on the new sheet and
+  re-cut the projectile from the new clip.
+- IDEA (27.11): anything that runs out of a SIDE of the video — a sword, a veil, a ring of fire on the ground — dissolves over
+  6 % of the width (`hgcut3.py`, `clean`) instead of ending in a straight line; the 28-px fade it replaced read as a cut
+  (Oblivion's veil, Destruction's ring).

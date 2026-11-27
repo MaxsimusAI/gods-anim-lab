@@ -12,7 +12,15 @@ Clip and game effect are tracked separately. "12.11 take" = the sheet under `ass
 - Published 27.11, wait for his look: Creation, Oblivion, Pride, Sun, Terra, Flame, War, Famine, Eternity, Retribution, Void,
   Chaos, Mercy, Death, Destruction, Wrath (BT only; cards in `cards/higher/`).
 - No accepted art, not made: Umbra, Ocean, Time, Pogibel, Fear.
-- Next: his look at the 16; Titan Idols style only on his command.
+- 27.11 after his remarks of 04:08 (stand v14): all 20 re-cut with matte v3 (protected four: re-cut only, same moments);
+  re-shot War skill, Famine skill, Eternity idle, Retribution idle and skill, Void skill, Chaos skill, Mercy skill,
+  Destruction entrance and skill, Terra skill, Wrath entrance and skill, Flame entrance and skill — each waits for his look.
+  Weak spots told to him: Void (Kling kept adding rays; ribbons, gown and hair reach the edges for ~0.7 s), Retribution (the
+  sword reaches the left edge for ~0.5 s on the sweep), Wrath and Flame (the fire ring / arc touches the side edges briefly;
+  Wrath's entrance fire is cut by the top for ~0.5 s), Destruction (the ring of fire on the ground reaches the sides, dissolves
+  there), Mercy (a star flare on the staff heart for ~2 s, petals to all edges — A3/C3), Eternity and Retribution idles (legs
+  fixed, but they barely move — D5), Sun (brown halo round the sun in the entrance, skirt to the edges on the strike).
+- Next: his look at the re-done clips; Titan Idols style only on his command.
 
 ## Done 13.11 evening (site v27-v28, no credits)
 

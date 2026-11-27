@@ -369,14 +369,14 @@ FX.sun = { // «Зенит»: little suns of her spear fall on every enemy; a so
     });
   },
 };
-FX.terra = { // «Твердь»: the two amber crystals of her pillar fall on the two nearest enemies and pin them; a slab of her stone flies to every ally as a shield
-  dur: 3.0, pics: [NEW('terra-crystal2'), NEW('terra-slab')], tg: [2, 1], fl: 0.4,
+FX.terra = { // «Твердь»: where the two amber crystals at her shoulders go out in the clip, two crystals fly at the two nearest enemies and pin them; a slab of her stone flies to every ally as a shield
+  dur: 3.0, pics: [NEW('terra-crystal2'), NEW('terra-slab')], tg: [1, 2], fl: 0.4,
   hits(F) { return this.tg.map((e, k) => dmg(e, k * 0.1 + this.fl, '-2 400', '#ffd27a')); },
   draw(ctx, F, t) {
     const [CR, SL] = this.pics, end = F.end - F.rel;
     this.tg.forEach((e, k) => {
       const S = k ? (F.wf2 || F.wf) : F.wf, T = F.enemies[e], t0 = k * 0.1, u = (t - t0) / this.fl;
-      shot(ctx, CR, S, arcUp(S, T, 30, k ? -30 : 30), T, inFlight(u, v => v * v), 44, { dir: 1, trail: 6, c0: 'rgba(255,215,130,.5)', c1: 'rgba(255,150,30,.25)', seed: 31 + k });
+      shot(ctx, CR, S, arcUp(S, T, 30, k ? -30 : 30), T, inFlight(u, v => v * v), 54, { dir: 1, trail: 6, c0: 'rgba(255,215,130,.5)', c1: 'rgba(255,150,30,.25)', seed: 31 + k });
       const h = t - t0 - this.fl; impact(ctx, T, h, 'rgba(255,220,140,.55)', 'rgba(255,150,30,.3)');
       const a = life(h, 2.2, 0.08);   // pinned: the crystal stands in him while he is stunned
       if (a > 0) sprite(ctx, CR, T.x, T.y - 12, 36, 0, a, false);
@@ -407,14 +407,14 @@ FX.flame = { // «Пожар»: fire of her halberd's arc flies to every enemy a
     });
   },
 };
-FX.war = { // «Зов войны»: three red arcs of her greatsword fly at three enemies; the red light of her blade rises on every ally for 8 s
-  dur: 2.4, pics: [NEW('war-arc'), NEW('war-blade')], tg: [0, 2, 4], fl: 0.38,
+FX.war = { // «Зов войны»: the three red blades of light that hang before her chest in the clip fly at three enemies; the red light of her blade rises on every ally for 8 s
+  dur: 2.4, pics: [NEW('war-lightblade'), NEW('war-blade')], tg: [0, 2, 4], fl: 0.38,
   hits(F) { return this.tg.map((e, k) => dmg(e, k * 0.06 + this.fl, '-2 300', '#ffb0a0')); },
   draw(ctx, F, t) {
     const [AR, BL] = this.pics, end = F.end - F.rel;
     this.tg.forEach((e, k) => {
-      const S = k ? F.wf : (F.wf2 || F.wf), T = F.enemies[e], t0 = k * 0.06, u = (t - t0) / this.fl;   // the two crescents of the clip: the near one goes first
-      shot(ctx, AR, S, arcUp(S, T, 20, (T.x - S.x) * 0.3), T, u, 44, { dir: 1, trail: 6, ta: 0.3, c0: 'rgba(255,170,150,.45)', c1: 'rgba(220,30,20,.25)', seed: 51 + k });
+      const S = [F.wf, F.wf2 || F.wf, F.wf3 || F.wf][k], T = F.enemies[e], t0 = k * 0.06, u = (t - t0) / this.fl;   // the three blades of light of the clip, each to its enemy
+      shot(ctx, AR, S, arcUp(S, T, 20, (T.x - S.x) * 0.3 + (k === 1 ? 110 : 0)), T, u, 58, { dir: 1, trail: 6, ta: 0.3, c0: 'rgba(255,170,150,.45)', c1: 'rgba(220,30,20,.25)', seed: 51 + k });
       impact(ctx, T, t - t0 - this.fl, 'rgba(255,180,160,.55)', 'rgba(220,30,20,.3)');
     });
     F.allies.forEach((A, i) => {
@@ -456,24 +456,25 @@ FX.eternity = { // «За гранью смерти»: blue star shards of her o
     });
   },
 };
-FX.retribution = { // «Воздаяние»: the arc of red runes from her blade flies at the enemy who hurt the guards most (her scales stay on her chest in the clip; no symbol over the fight, checks 35/45)
-  dur: 2.2, pics: [NEW('retribution-arc')], target: 3, fl: 0.36,
+FX.retribution = { // «Воздаяние»: a strip of red runes tears off the band she cuts before her knees and flies at the enemy who hurt the guards most (her scales stay on her chest in the clip; no symbol over the fight, checks 35/45)
+  dur: 2.2, pics: [NEW('retribution-runes')], target: 3, fl: 0.36,
   hits() { return [dmg(this.target, this.fl, '-8 400', '#ffb4a8')]; },
   draw(ctx, F, t) {
-    const [AR] = this.pics, S = F.wf, T = F.enemies[this.target], u = t / this.fl;
-    shot(ctx, AR, S, clearArc(S, T, F.enemies.filter((x, j) => j !== this.target), [40, 0, 90, -40], 30), T, inFlight(u, v => v * v), 72, { dir: 1, trail: 7, ta: 0.3, c0: 'rgba(255,170,160,.5)', c1: 'rgba(220,20,30,.28)' });
+    const [RU] = this.pics, S = F.wf, T = F.enemies[this.target], u = t / this.fl;
+    shot(ctx, RU, S, clearArc(S, T, F.enemies.filter((x, j) => j !== this.target), [40, 0, 90, -40], 30), T, inFlight(u, v => v * v), 36, { dir: 1, trail: 7, ta: 0.3, addHead: true, c0: 'rgba(255,170,160,.5)', c1: 'rgba(220,20,30,.28)' });
     const h = t - this.fl; impact(ctx, T, h, 'rgba(255,180,170,.6)', 'rgba(220,20,30,.32)', 24);
-    if (h > 0 && h < 0.5) sprite(ctx, AR, T.x, T.y - 4, 60 * (1 + 0.4 * ease(h / 0.5)), 0.6, 0.8 * (1 - h / 0.5), true);   // the rune arc breaks on him
+    if (h > 0 && h < 0.5) sprite(ctx, RU, T.x, T.y - 4, 30 * (1 + 0.5 * ease(h / 0.5)), 0, 0.8 * (1 - h / 0.5), true);   // the runes break on him
   },
 };
-FX.void = { // «Поглощение»: black spheres of her palm sink into every enemy and keep sucking their strength 8 s; a ribbon of starlight guards the most hurt ally from one blow
+
+FX.void = { // «Поглощение»: black spheres leave the sphere she brought to her chest, sink into every enemy and keep sucking their strength 8 s; a ribbon of starlight guards the most hurt ally from one blow
   dur: 2.6, pics: [NEW('void-sphere'), NEW('void-ribbon')], fl: 0.5, ward: 3, allyHp0: [1, 1, 1, 0.55, 1],
   hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + i * 0.04, '-1 900', '#d7b8ff')); },
   draw(ctx, F, t) {
     const [SP, RB] = this.pics, S = F.wf, end = F.end - F.rel;
     F.enemies.forEach((E, i) => {
       const t0 = i * 0.04, u = (t - t0) / this.fl;
-      shot(ctx, SP, S, arcUp(S, E, 40, (E.x - S.x) * 0.2), E, ease(u), 28, { trail: 6, ta: 0.25, c0: 'rgba(200,150,255,.45)', c1: 'rgba(110,40,200,.25)', seed: 81 + i });
+      shot(ctx, SP, S, arcUp(S, E, 40, (E.x - S.x) * 0.2 + Math.sign(E.x - S.x || 1) * 90), E, ease(u), 28, { trail: 6, ta: 0.25, c0: 'rgba(200,150,255,.45)', c1: 'rgba(110,40,200,.25)', seed: 81 + i });
       const h = t - t0 - this.fl; impact(ctx, E, h, 'rgba(210,170,255,.5)', 'rgba(110,40,200,.3)');
       const a = life(h, end - t0 - this.fl);
       if (a > 0) { film(ctx, E, a * 0.7, 23, '120,50,210', '200,160,255'); sprite(ctx, SP, E.x + 16, E.y - 16, 12 + Math.sin(h * 4 + i), 0, a, false); }
@@ -484,24 +485,24 @@ FX.void = { // «Поглощение»: black spheres of her palm sink into eve
     if (a > 0) { film(ctx, A, a, 26, '150,90,255', '220,200,255'); sprite(ctx, RB, A.x, A.y, 46, h * 1.5, a * 0.9, true); }
   },
 };
-FX.chaos = { // «Разлад»: her three slashes (pink, black, white) leave the clip where each one is cut and fly at three random enemies; then her harlequin diamonds fall over every enemy and throw their attacks back
-  dur: 3.4, pics: [NEW('chaos-arc1'), NEW('chaos-arc2'), NEW('chaos-arc3'), NEW('chaos-diamond')], tg: [3, 0, 2], fl: 0.32,
-  t0(F, k) { return [0, F.lag2, F.lag3][k]; },
-  hits(F) { return this.tg.map((e, k) => dmg(e, this.t0(F, k) + this.fl, '-1 700', ['#ffb6e0', '#e6e6e6', '#ffffff'][k])); },
+FX.chaos = { // «Разлад»: the three diamonds of light (pink, black, white) that met at her chest in the clip fly from there at three random enemies, one after another; then small diamonds fall over every enemy and throw their attacks back
+  dur: 3.2, pics: [NEW('chaos-dia-pink'), NEW('chaos-dia-black'), NEW('chaos-dia-white')], tg: [3, 0, 2], fl: 0.4, gap: 0.14,
+  hits(F) { return this.tg.map((e, k) => dmg(e, k * this.gap + this.fl, '-1 700', ['#ffb6e0', '#e6e6e6', '#ffffff'][k])); },
   draw(ctx, F, t) {
-    const DI = this.pics[3];
+    const S = F.wf;
     this.tg.forEach((e, k) => {
-      const S = [F.wf, F.wf2 || F.wf, F.wf3 || F.wf][k], T = F.enemies[e], t0 = this.t0(F, k), u = (t - t0) / this.fl;
-      shot(ctx, this.pics[k], S, arcUp(S, T, 30, k === 1 ? -60 : 60), T, u, 50, { dir: 1, trail: 6, gap: 0.025, ta: 0.22, seed: 91 + k });
-      impact(ctx, T, t - t0 - this.fl, ['rgba(255,170,220,.55)', 'rgba(220,220,220,.4)', 'rgba(255,255,255,.5)'][k], 'rgba(200,40,140,.25)');
+      const T = F.enemies[e], t0 = k * this.gap, u = (t - t0) / this.fl;
+      shot(ctx, this.pics[k], S, arcUp(S, T, 30, (k - 1) * 50), T, ease(u), 42, { spin: 6, trail: 5, ta: 0.25, c0: ['rgba(255,140,220,.5)', 'rgba(200,150,230,.35)', 'rgba(255,255,255,.5)'][k], c1: 'rgba(200,40,140,.22)', seed: 91 + k });
+      impact(ctx, T, t - t0 - this.fl, ['rgba(255,170,220,.55)', 'rgba(220,200,240,.4)', 'rgba(255,255,255,.5)'][k], 'rgba(200,40,140,.25)');
     });
-    F.enemies.forEach((E, i) => {   // the diamonds fall over each enemy and spin out
-      const h = t - F.lag3 - 0.45 - i * 0.04;
-      if (h > 0 && h < 1.0) for (let j = 0; j < 3; j++) sprite(ctx, DI, E.x + (j - 1) * 14, E.y - 30 + 34 * ease(h) + j * 3, 18, h * 5 + j, Math.sin(Math.PI * h), false);
+    F.enemies.forEach((E, i) => {   // the diamonds fall over each enemy and spin out: its attack is thrown back
+      const h = t - 2 * this.gap - this.fl - 0.25 - i * 0.04;
+      if (h > 0 && h < 1.0) for (let j = 0; j < 3; j++) sprite(ctx, this.pics[j], E.x + (j - 1) * 14, E.y - 30 + 34 * ease(h) + j * 3, 15, h * 5 + j, Math.sin(Math.PI * h), false);
     });
   },
 };
-FX.mercy = { // «Милосердие»: her rose petals fly to every enemy; the heart of her staff flies to every ally, heals him and stays on him as a rose-pink shield
+
+FX.mercy = { // «Милосердие»: petals tear off the rose that opened on her shield and fly to every enemy; the heart of her staff flies to every ally, heals him and stays on him as a rose-pink shield
   dur: 2.8, pics: [NEW('mercy-petal'), NEW('mercy-heart')], fl: 0.5, allyHp0: 0.62,
   hits(F) {
     const out = F.enemies.map((E, i) => dmg(i, this.fl + i * 0.05, '-1 600', '#ffc0d8'));
@@ -514,13 +515,13 @@ FX.mercy = { // «Милосердие»: her rose petals fly to every enemy; th
       const R = rnd(101 + i), c = arcUp(S, E, 20, (E.x - S.x) * 0.3);
       for (let k = 0; k < 6; k++) {
         const t0 = i * 0.05 + k * 0.035, u = (t - t0) / this.fl, ox = (R() - 0.5) * 18, sp = (R() - 0.5) * 10;
-        if (u > 0 && u < 1) { const p = bez(S, c, E, u * u * (3 - 2 * u)); sprite(ctx, PE, p.x + ox * Math.sin(Math.PI * u), p.y, 20 + 4 * (k % 3), sp * u + k, 0.95, false); }
+        if (u > 0 && u < 1) { const p = bez(S, c, E, u * u * (3 - 2 * u)); sprite(ctx, PE, p.x + ox * Math.sin(Math.PI * u), p.y, 13 + 3 * (k % 3), sp * u + k, 0.95, false); }
       }
       impact(ctx, E, t - i * 0.05 - this.fl, 'rgba(255,200,225,.5)', 'rgba(230,80,150,.25)');
     });
     F.allies.forEach((A, i) => {
       const t0 = F.lag2 + i * 0.05, fl = 0.55, u = (t - t0) / fl, P2 = F.wf2 || F.wf;
-      shot(ctx, HE, P2, arcLow(P2, A, 10), A, ease(u), 24, { trail: 5, c0: 'rgba(255,200,225,.5)', c1: 'rgba(240,90,160,.25)' });
+      shot(ctx, HE, P2, arcLow(P2, A, 10), A, ease(u), 30, { trail: 5, c0: 'rgba(255,200,225,.5)', c1: 'rgba(240,90,160,.25)' });
       const h = t - t0 - fl, a = life(h, end - t0 - fl);
       if (h > 0 && h < 0.7) { sprite(ctx, HE, A.x, A.y - 6 - 12 * ease(h / 0.7), 24 * (1 + 0.4 * ease(h / 0.7)), 0, 1 - h / 0.7, false); add(ctx, () => glow(ctx, A.x, A.y, 18 + 12 * ease(h / 0.6), 'rgba(210,255,180,.5)', 'rgba(90,200,70,.28)', clamp(h / 0.1, 0, 1) * clamp(1 - h / 0.7, 0, 1))); }
       film(ctx, A, a, 25, '255,120,180', '255,210,230');
@@ -560,19 +561,20 @@ FX.destruction = { // «Раскол»: the blow of her hammer first breaks ever
     });
   },
 };
-FX.wrath = { // «Кара пламени»: crescents of her axe's fire sweep at every enemy and burst into flame on each
-  dur: 2.4, pics: [NEW('wrath-fire')], fl: 0.4,
+FX.wrath = { // «Кара пламени»: tongues of fire leave the ring her low axe sweep draws - from its left end, its middle and its right end - and sweep at every enemy
+  dur: 2.4, pics: [NEW('wrath-crescent'), NEW('wrath-fire')], fl: 0.4,
   hits(F) { return F.enemies.map((E, i) => dmg(i, this.fl + Math.abs(i - 2) * 0.05, '-2 400', '#ffb070')); },
   draw(ctx, F, t) {
-    const FI = this.pics[0], S = F.wf;
+    const [CR, FI] = this.pics;
     F.enemies.forEach((E, i) => {
-      const t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
-      shot(ctx, FI, S, arcUp(S, E, 20, (E.x - S.x) * 0.35), E, u, 44, { dir: 1, trail: 7, gap: 0.025, ta: 0.22, c0: 'rgba(255,190,120,.4)', c1: 'rgba(255,70,20,.2)', seed: 141 + i });
+      const S = i < 2 ? F.wf : i > 2 ? (F.wf3 || F.wf) : (F.wf2 || F.wf), t0 = Math.abs(i - 2) * 0.05, u = (t - t0) / this.fl;
+      shot(ctx, CR, S, arcUp(S, E, 20, (E.x - S.x) * 0.2 + (i === 2 ? 110 : 0)), E, u, 46, { dir: 1, trail: 6, gap: 0.025, ta: 0.22, c0: 'rgba(255,190,120,.4)', c1: 'rgba(255,70,20,.2)', seed: 141 + i });
       const h = t - t0 - this.fl;
-      if (h > 0 && h < 0.6) { sprite(ctx, FI, E.x, E.y - 6 - 10 * ease(h / 0.6), 34 * (1 + 0.4 * ease(h / 0.6)), 0, 0.7 * (1 - h / 0.6), true); impact(ctx, E, h, 'rgba(255,200,140,.55)', 'rgba(255,80,20,.3)'); }
+      if (h > 0 && h < 0.6) { sprite(ctx, FI, E.x, E.y - 6 - 10 * ease(h / 0.6), 30 * (1 + 0.4 * ease(h / 0.6)), 0, 0.6 * (1 - h / 0.6), true); impact(ctx, E, h, 'rgba(255,200,140,.55)', 'rgba(255,80,20,.3)'); }
     });
   },
 };
+
 
 /* ---------- fight layout ---------- */
 const FW = 360, FH = 560;
